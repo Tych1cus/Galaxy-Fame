@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Star Fame</title>
+<title>Galaxy Fame</title>
 <style>
 :root{color-scheme:dark;--bg:#050714;--pn:#0d1230cc;--ln:#2a3370;--tx:#eaeeff;--mu:#8c97c9;--gd:#ffd36a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
@@ -323,7 +322,7 @@ function closeInsp(){G.insp=null;draw()}
 function inspHtml(){if(G.insp===undefined||G.insp===null||G.mode!='idle'||!G.cells[G.insp])return'';var c=G.cells[G.insp],v=G.vals[G.insp],cr=G.cv[G.insp];return'<div class="ov" onclick="if(event.target===this)closeInsp()"><div class="box" style="max-width:380px">'+'<h3 style="color:'+(CC[c.k]||'var(--gd)')+'">'+nm(c.k)+'</h3><div style="display:flex;justify-content:center;margin:6px 0 10px">'+orb(c)+'</div>'+plist(c)+(v!==undefined?'<div style="margin-top:10px;font-size:15px"><b>Scored this spin: '+txt(v,cr)+'</b></div>':'')+(G.ab&&G.ab[G.insp]?'<div style="color:var(--mu);font-size:13px">Aura bonus: +'+fm1(G.ab[G.insp])+' ⭐</div>':'')+'<div style="margin-top:14px"><button class="sm" onclick="closeInsp()">Close</button></div></div></div>'}
 function ovHtml(){var m=G.mode;if(G.insp!==undefined&&G.insp!==null&&m=='idle')return inspHtml();if(m=='idle'||m=='iceplace'){G.peek=false;return''}if(G.peek)return'<button class="sm peekb" onclick="peek(0)">↩ Show choices</button>';return'<div class="pickov"><div class="pinner">'+panelInner()+'<div><button class="sm" onclick="peek(1)">👁 Peek at board</button></div></div></div>'}
 function auraColor(c){if(!c||!G.auraHot)return'';if(c.k=='sys'&&G.auraHot[c.dom])return CC[c.dom];if(c.k=='gal'){var x=(c.subs||[]).filter(function(y){return G.auraHot[y.dom]})[0];if(x)return CC[x.dom]}return''}
-var TIPS={intro:{t:'Welcome to Star Fame!',x:function(){return'Build a galaxy full of planets, gaining fame to meet the demands of the people. Gather '+need('sys')+' planets to form a Solar System!'},a:function(){return['g','r','p','c'].map(function(k,i){return orb({k:k,s:i+2,life:3,st:0,perm:0},1)}).join('')},b:"Let's go!"},
+var TIPS={intro:{t:'Welcome to Galaxy Fame!',x:function(){return'Build a galaxy full of planets, gaining fame to meet the demands of the people. Gather '+need('sys')+' planets to form a Solar System!'},a:function(){return['g','r','p','c'].map(function(k,i){return orb({k:k,s:i+2,life:3,st:0,perm:0},1)}).join('')},b:"Let's go!"},
 bh:{t:'Black Hole unlocked!',x:function(){return'It steals 1/7th of the score of ALL adjacent pieces each spin, and keeps what it steals permanently.'},a:function(){return orb({k:'k',s:1,life:3,st:0,perm:0},1)},b:'Got it!'},
 gal:{t:'Shoot for a Galaxy!',x:function(){return'Gather '+need('gal')+' Solar Systems to form a Galaxy. It keeps all their aura and fame, and produces 30% more!'},a:function(){return orb({k:'gal',comp:['g','r','b','p','c','h','a','v'],dom:'g',aura:0,subs:[]},1)},b:'Got it!'}};
 function showTip(id){if(M.seen&&M.seen[id])return;G.tip=id}
@@ -353,13 +352,13 @@ try{SP=parseFloat(localStorage.getItem('startithe_sp'))||1;var sv=localStorage.g
 function save(){try{localStorage.setItem('startithe_meta',JSON.stringify(M));localStorage.setItem('startithe_sp',String(SP))}catch(e){}}
 function uL(id){return(M.up&&M.up[id])||0}
 function RT(t){return Math.max(1,Math.round(RENT[t]*(1-.04*uL('goal'))))}
-var UP=[{id:'start',n:'Starting Fleet',d:'Begin each run with +1 random planet per level.',max:3,base:15},{id:'cash',n:'Seed Capital',d:'Begin each run with +2 💰 per level.',max:5,base:8},
-{id:'goal',n:'Goal Haggling',d:'All fame goals are 4% lower per level.',max:5,base:14},{id:'scout',n:'Scout Network',d:'+1 choice on every pick screen.',max:2,base:30},
-{id:'eyes',n:'Keen Eyes',d:'Rare finds appear 25% more often per level.',max:4,base:12},{id:'fame',n:'Fame Mastery',d:'+1 ⭐ at the end of every spin per level.',max:5,base:12},
-{id:'tink',n:'Relic Tinkering',d:'Relics cost 1 💰 less per level.',max:3,base:15},{id:'bazaar',n:'Grand Bazaar',d:'+1 relic offered in each shop per level.',max:2,base:25},
-{id:'form',n:'Swift Formation',d:'Solar Systems and Galaxies need 1 fewer piece per level.',max:2,base:30}];
-function rank(){var th=[0,30,80,160,300,500,800],nz=['Stargazer','Navigator','Pathfinder','Cartographer','Astronomer','Constellation Keeper','Galactic Sage'],i=0;th.forEach(function(t,j){if(M.total>=t)i=j});return{n:nz[i],next:th[i+1]}}
-function finish(r){G.over=r;if(G.earned==null){var s=G.t*6+Math.floor(G.tot/40)+(r=='win'?30:0);G.earned=s;M.shards+=s;M.total+=s;save()}}
+var UP=[{id:'start',n:'Starting Fleet',d:'Begin each run with +1 random planet per level.',max:3,base:45},{id:'cash',n:'Seed Capital',d:'Begin each run with +2 💰 per level.',max:5,base:24},
+{id:'goal',n:'Goal Haggling',d:'All fame goals are 4% lower per level.',max:5,base:42},{id:'scout',n:'Scout Network',d:'+1 choice on every pick screen.',max:2,base:90},
+{id:'eyes',n:'Keen Eyes',d:'Rare finds appear 25% more often per level.',max:4,base:36},{id:'fame',n:'Fame Mastery',d:'+1 ⭐ at the end of every spin per level.',max:5,base:36},
+{id:'tink',n:'Relic Tinkering',d:'Relics cost 1 💰 less per level.',max:3,base:45},{id:'bazaar',n:'Grand Bazaar',d:'+1 relic offered in each shop per level.',max:2,base:75},
+{id:'form',n:'Swift Formation',d:'Solar Systems and Galaxies need 1 fewer piece per level.',max:2,base:90}];
+function rank(){var th=[0,60,160,320,600,1000,1600],nz=['Stargazer','Navigator','Pathfinder','Cartographer','Astronomer','Constellation Keeper','Galactic Sage'],i=0;th.forEach(function(t,j){if(M.total>=t)i=j});return{n:nz[i],next:th[i+1]}}
+function finish(r){G.over=r;if(G.earned==null){var s=G.t*2+Math.floor(G.tot/300)+(r=='win'?10:0);G.earned=s;M.shards+=s;M.total+=s;save()}}
 function quitRun(){if(G.busy||G.over)return;finish('quit');draw()}
 function setSpeed(v){SP=v;save();draw()}
 function spdCtl(menu){return'<div class="seg">Speed '+[1,1.2,1.5,2].map(function(v){return'<button class="'+(SP==v?'on':'')+'" onclick="setSpeed('+v+')">'+v+'x</button>'}).join('')+(menu?'':(G&&!G.busy&&!G.over?'<button onclick="quitRun()">End run</button>':''))+(menu?'':'<button onclick="helpTip()">? Help</button>')+'</div>'}
@@ -373,7 +372,7 @@ function menuHtml(){var rk=rank();return'<div class="menu"><h1 class="big">✦ S
 +'<div class="box" style="max-width:540px;margin:18px auto;text-align:left;font-size:13px;color:var(--mu)">Every spin scatters your bag over the star chart and neighbors interact. Pick new worlds after each spin, reach the fame goal every 5 spins, and spend credits on relics. Collect 8 planets to form a Solar System, 7 Solar Systems to form a Galaxy. Runs earn Star Shards for permanent upgrades.</div></div>'}
 function metaHtml(){var rk=rank(),h='<div class="hd"><h1>🔭 OBSERVATORY</h1><button class="sm" style="margin:0" onclick="showMenu()">← Back</button></div><div class="stats" style="grid-template-columns:1fr 1fr"><div class="pill"><span>Explorer rank</span><b>'+rk.n+'</b><span>'+(rk.next?M.total+' / '+rk.next+' lifetime shards':'Max rank')+'</span></div><div class="pill"><span>Star Shards</span><b>✨ '+M.shards+'</b></div></div>';
 UP.forEach(function(u){var l=uL(u.id),c=u.base*(l+1),p='';for(var i=0;i<u.max;i++)p+='<i class="'+(i<l?'f':'')+'"></i>';h+='<div class="up"><div><b>'+u.n+'</b><div class="pips">'+p+'</div><small style="color:var(--mu)">'+u.d+'</small></div>'+(l>=u.max?'<span style="color:var(--gd)">MAX</span>':'<button class="buy" '+(M.shards<c?'disabled':'')+' onclick="buyU(\''+u.id+'\')">'+c+' ✨</button>')+'</div>'});
-return h+'<p style="color:var(--mu);font-size:13px">Earn shards each run: 6 per fame goal reached, 1 per 40 fame, and 30 for a win.</p>'}
+return h+'<p style="color:var(--mu);font-size:13px">Earn shards each run: 2 per fame goal reached, 1 per 300 fame, and 10 for a win. It takes several runs to fill the tree.</p>'}
 function draw(){var a=document.getElementById('app');a.style.setProperty('--sp',SP);if(SCR=='menu')a.innerHTML=menuHtml();else if(SCR=='meta')a.innerHTML=metaHtml();else drawGame()}
 var AUR={g:'+1 ⭐ every roll for every 4 Verdants you have collected (bag and inside Solar Systems)',r:'+2 ⭐ every roll',b:'+2 💰 every roll',p:'Nebulas give +1 ⭐ more',k:'Black Holes feed 3% more',c:'Cradles grow +0.1 more each roll',h:'Chorus counting starts 1 higher',a:'Destroyers shoot 1 cell farther (up to range 4) and Asteroids appear more often',v:'Black Holes score 5% more ⭐ (each tier adds another 5%)',i:'Corner Ice Planets give +2 ⭐ and +1 💰'};
 function auraBox(){var AU=auras(),ks=Object.keys(AU);if(!ks.length)return'';return'<div class="box"><h3>Auras</h3>'+ks.map(function(k){var a=AU[k],z=tsz(k),t=tierF(AU,k);return'<div class="cs'+(G.auraHot&&G.auraHot[k]?' aflash':'')+'"><span style="color:'+CC[k]+'">✦ '+K[k].n+' Aura · tier '+t+'</span><b>'+(a%z)+' / '+z+'</b></div><div class="bar"><i style="width:'+(a%z)/z*100+'%;background:'+CC[k]+'"></i></div><small style="color:var(--mu)">'+aurTot(k,t)+'</small>'}).join('')+'<small style="color:var(--mu);display:block;margin-top:8px">Each Solar System gives 4 aura, plus 1 every spin it lands. Systems also boost their own kind on the board.</small></div>'}
