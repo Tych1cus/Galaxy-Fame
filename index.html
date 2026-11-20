@@ -372,7 +372,7 @@ function skip(){G.mode='idle';draw()}
 function toRemove(){G.back='idle';G.mode='remove';draw()}
 function rem(i){var p=G.bag[i];if(p&&p===G.icePiece){G.icePiece=null}G.bag.splice(i,1);G.mode='idle';draw()}
 function cancel(){G.mode='idle';draw()}
-function buyR(i){sfx('buy');var r=G.shop[i];if(!r||G.credits<rprice(r))return;G.credits-=rprice(r);G.rel.push(r.id);G.bag.push(mk('ast'));G.shop.splice(i,1);G.msg='A relic goes into orbit — one Asteroid joins your bag in its place.';draw()}
+function buyR(i){sfx('buy');var r=G.shop[i];if(!r||G.credits<rprice(r))return;G.credits-=rprice(r);G.rel.push(r.id);G.shop.splice(i,1);draw()}
 function reroll(){var fr=has('lucky');if(!fr&&G.credits<1)return;if(!fr)G.credits--;mkShop();if(fr)G.freeRoll=0;draw()}
 function leave(){G.boostLeft=boostPicks();G.mode='boost';G.msg='Pick a world to find more often.';draw()}
 function startForm(t){G.formT=t;G.sel=[];G.mode='form';draw()}
