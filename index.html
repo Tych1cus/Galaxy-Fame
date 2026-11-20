@@ -209,7 +209,7 @@ if(!K[p.k])return'<div class="art" style="--gl:#8fd0ff55"><span style="font-size
 return'<div class="art" style="--gl:'+K[p.k].c+'55"><img alt="" src="'+art(p.k,p.s||1)+'">'+(mini?'':pip)+'</div>'}
 function mkHy(k){return mk(k)}
 function nm(k){return DP[k]?DP[k].n:IT[k]?IT[k].n:SG[k]?SG[k].n:K[k].n}function ds(k){return DP[k]?DP[k].d:IT[k]?IT[k].d:SG[k]?SG[k].d:K[k].d}
-function tsz(k){return 20}
+function tsz(k){return 20+(PV().aura||0)}
 function tierF(A,k){var a=A[k]||0;return a>0?1+Math.floor(a/tsz(k)):0}
 function aurPay(k,t){var f=0,c=0,AU=auras(),ow=owned('g'),ov=owned('v'),bh=(G.lastBH||0);
 if(k=='g'){f=t*Math.floor(ow/4)}
@@ -265,15 +265,13 @@ function boostPicks(){return Math.max(1,tierF(auras(),'p'))}
 function boostPick(k){sfx('click');G.boost=G.boost||{};G.boost[k]=(G.boost[k]||0)+1;G.boostLeft=Math.max(0,(G.boostLeft||1)-1);if(G.boostLeft>0){G.msg=nm(k)+' boosted. '+G.boostLeft+' more pick'+(G.boostLeft>1?'s':'')+' to spend.';draw();return}G.mode='idle';G.msg=nm(k)+' is now '+(BOOST_STEP*100).toFixed(0)+'% more common.';draw()}
 function boostSkip2(){sfx('click');G.boost=G.boost||{};G.boost[k]=(G.boost[k]||0)+1;G.mode='idle';G.msg=nm(k)+' is now '+BOOST_STEP*100+'% more common.';draw()}
 function boostSkip(){G.mode='idle';G.msg='Spin when ready.';draw()}
-function need(t){var b=t=='gal'?7:8;if(has('dust'))b-=t=='gal'?1:2;return Math.max(4,b-uL('form')+PV().goal)}
+function need(t){var b=t=='gal'?7:8;if(has('dust'))b-=t=='gal'?1:2;b+=t=='gal'?(PV().galNeed||0):(PV().sysNeed||0);return Math.max(4,b-uL('form'))}
 function cntK(f){return G.bag.filter(f).length}
 function bagMerge(){var moved=1;while(moved){moved=0;var ks={};G.bag.forEach(function(p,i){if(DP[p.k]&&DP[p.k].next)(ks[p.k]=ks[p.k]||[]).push(i)});for(var k in ks){var L=ks[k];if(L.length>=2){var a=L[0],b=L[1];G.bag[a]=mkHy(DP[k].next);G.bag.splice(b,1);moved=1;break}}}}
 function kinds(c){var o={};(c||[]).forEach(function(k){o[k]=1});return Object.keys(o).length}
-function prestigeCtl(){var h='<div class="box" style="max-width:340px;margin:14px auto;text-align:left"><h3>🔥 Prestige</h3><div class="seg">';
-for(var i=0;i<=M.prestige;i++)h+='<button class="'+(PLV()==i?'on':'')+'" onclick="setPrestige('+i+')">'+(i?'P'+i:'Normal')+'</button>';
-h+='</div><small style="color:var(--mu)">'+(PLV()?'<b>'+PV().n+'</b> — '+PV().d+'<br>'+['+'+PV().fame+'% fame needed','+'+PV().relic+' gold per relic','goals need '+PV().goal+' more planets',PV().start?PV().start+' starting planets':null,PV().choices?PV().choices+' choice on each pick':null].filter(Boolean).join(' · '):'Normal rules. Beat the game to unlock Prestige I.')+'</small></div>';return h}
+function prestigeCtl(){var h='<div class="box" style="max-width:340px;margin:14px auto;text-align:left"><h3>🔥 Prestige</h3><div class="seg">';for(var i=0;i<=M.prestige;i++)h+='<button class="'+(PLV()==i?'on':'')+'" onclick="setPrestige('+i+')">'+(i?'P'+i:'Normal')+'</button>';h+='</div><small style="color:var(--mu);display:block;line-height:1.5">';if(!PLV())h+='Normal rules. Beat the game to unlock Prestige I.';else{for(var i=1;i<=PLV();i++)h+='<div style="margin:4px 0"><b style="color:var(--gd)">P'+i+'</b> '+PRESTIGE[i-1].d+'</div>';}h+='</small></div>';return h}
 function setPrestige(v){M.plvl=Math.min(M.prestige,Math.max(0,v));save();draw()}
-function newGame(){G={rel:[]};var b0=[];for(var u=0;u<Math.max(0,uL('start')+PV().start);u++)b0.push(mk('grbp'.charAt(R(4))));G={fame:0,credits:2*uL('cash'),tot:0,run:'',earned:null,tmp:0,tmpc:0,t:0,n:0,systemsMade:0,icePiece:null,bag:b0,rel:[],cells:new Array(20).fill(null),vals:[],cv:[],hot:-1,fresh:-1,fx:{},pops:{},pull:{},sel:[],formT:'sys',banner:'',mode:'idle',back:'idle',busy:false,fast:false,msg:'Spin to scatter your bag across the star chart.',offer:[],shop:[],over:null,tip:null,startLeft:2};G.mode='start';G.offer=startOffer();G.msg='Pick your starting planets, then spin.';SCR='game';if(!(M.seen&&M.seen.intro))G.tip='intro';draw()}
+function newGame(){G={rel:[]};var b0=[];for(var u=0;u<Math.max(0,uL('start'));u++)b0.push(mk('grbp'.charAt(R(4))));G={fame:0,credits:2*uL('cash'),tot:0,run:'',earned:null,tmp:0,tmpc:0,t:0,n:0,systemsMade:0,icePiece:null,bag:b0,rel:[],cells:new Array(20).fill(null),vals:[],cv:[],hot:-1,fresh:-1,fx:{},pops:{},pull:{},sel:[],formT:'sys',banner:'',mode:'idle',back:'idle',busy:false,fast:false,msg:'Spin to scatter your bag across the star chart.',offer:[],shop:[],over:null,tip:null,startLeft:PV().startPlanets?PV().startPlanets:2};G.mode='start';G.offer=startOffer();G.msg='Pick your starting planets, then spin.';SCR='game';if(!(M.seen&&M.seen.intro))G.tip='intro';draw()}
 function startOffer(){return wpick(ppool().filter(function(x){return x[0]!='i'&&x[0]!='k'&&!DP[x[0]]}),3+uL('scout'))}
 function startC(i){G.bag.push(mk(G.offer[i]));G.startLeft--;if(G.startLeft>0)G.offer=startOffer();else{G.mode='idle';G.msg='Spin to scatter your bag across the star chart.'}draw()}
 function nb(i,R2){R2=R2||1;var r=Math.floor(i/5),c=i%5,o=[];for(var a=-R2;a<=R2;a++)for(var b=-R2;b<=R2;b++){if(!a&&!b)continue;var y=r+a,x=c+b;if(y>=0&&y<4&&x>=0&&x<5)o.push(y*5+x)}return o}
@@ -312,7 +310,7 @@ if(has('halo'))cs.forEach(function(c,i){if(c&&c.k=='p'){var n1=nb(i);nb(i,2).for
 cs.forEach(function(c,i){if(c&&c.k=='i'&&has('glacier'))nb(i).forEach(function(j){if(cs[j]&&cs[j].k!='k')f[j]+=2})});
 cs.forEach(function(c,i){if(c&&c.k=='rad'){var m=0;nb(i).forEach(function(j){if(cs[j]&&f[j]>m)m=f[j]});f[i]=m}});
 cs.forEach(function(c,i){if(!c||c.k=='k')return;if(has('corner')&&[0,4,15,19].indexOf(i)>-1)f[i]+=2;if(has('stage')&&[7,8,11,12].indexOf(i)>-1)f[i]+=2});
-var q=(has('hor')?1/5:1/7)+.03*T('k');
+var q=(PV().swallow?1/PV().swallow:(has('hor')?1/5:1/7))+.03*T('k');
 cs.forEach(function(c,i){if(c&&c.k=='k'){var L=[],g=0;nb(i).forEach(function(j){if(cs[j]&&cs[j].k!='k'&&f[j]>0){var t=f[j]*q*(cs[j].k=='v'&&has('obsidian')?.5:1);f[j]-=t;if(cs[j].k=='v')cs[j].volcano=Math.max(0,(cs[j].volcano===undefined?4:cs[j].volcano)-t);var tt=t*(has('gravity')?1.5:1);c.st+=tt;g+=tt;L.push({j:j,t:t})}});if(L.length)d.push({i:i,list:L,g:g})}});
 cs.forEach(function(c,i){if(c&&c.k=='k')f[i]=c.st});
 var vtier=Math.max(0,T('v')-1);if(vtier>0)cs.forEach(function(c,i){if(c&&c.k=='k'){var add=Math.round((c.st||0)*.05*vtier*10)/10;f[i]+=add}});
@@ -355,10 +353,10 @@ dbg('goal check');if(G.n==PER){var rent=RT(G.t);if(G.fame<rent){finish('lose');G
 if(G.t>=RENT.length)finish('win');else{mkShop();G.mode='shop'}}}
 else {dbg('offer');offer()}
 dbg('end');G.busy=false;saveRun();draw()}
-function pickN(){return Math.max(2,3+(has('lens')?1:0)+(has('scout')?1:0)+uL('scout')+PV().choices)}
+function pickN(){return Math.max(2,3+(has('lens')?1:0)+(has('scout')?1:0)+uL('scout')+(PV().choices||0))}
 function offer(){var n=pickN(),pl=pool(),o=[];while(o.length<n&&pl.length){o=o.concat(wpick(pl,1))}G.offer=shuf(o);G.mode='pick'}
-function rprice(r){return Math.max(1,r.b-(has('haggler')?2:0)-uL('tink')+Math.floor(G.rel.length/2)+PV().relic)}
-function mkShop(){G.shop=shuf(RELICS.filter(function(r){return !has(r.id)&&relUsable(r.id)})).slice(0,3+uL('bazaar')).map(function(r){return{id:r.id,n:r.n,d:r.d,b:r.c}})}
+function rprice(r){return Math.max(1,r.b-(has('haggler')?2:0)-uL('tink')+Math.floor(G.rel.length/2)+(PV().relic||0))}
+function mkShop(){G.shop=shuf(RELICS.filter(function(r){return !has(r.id)&&relUsable(r.id)})).slice(0,Math.max(2,3+uL('bazaar')+(PV().shop||0))).map(function(r){return{id:r.id,n:r.n,d:r.d,b:r.c}})}
 function relUsable(id){var hasK=function(k){return G.bag.some(function(p){if(p.k==k)return true;if(p.k=='sys')return(p.comp||[]).indexOf(k)>-1;if(p.k=='gal')return(p.subs||[]).some(function(x){return(x.comp||[]).indexOf(k)>-1});return false})};
 if(id=='permafrost'||id=='glacier')return hasK('i');
 if(id=='magma'||id=='obsidian')return hasK('v');
@@ -465,13 +463,31 @@ if(G.tip)h+=tipHtml();if(G.over)h+='<div class="ov"><div class="box" style="text
 document.getElementById('app').innerHTML=h}
 var SP=1,SCR='menu',M={shards:0,total:0,up:{},seen:{},prestige:0,plvl:0};
 var PRESTIGE=[
- {n:'Prestige I',d:'The stars are stingy.',fame:15,relic:2,goal:0,start:0,choices:0},
- {n:'Prestige II',d:'Relics cost more and fame comes slower.',fame:30,relic:4,goal:1,start:0,choices:0},
- {n:'Prestige III',d:'Goals climb, and your fleet starts smaller.',fame:45,relic:6,goal:2,start:-1,choices:0},
- {n:'Prestige IV',d:'Fewer choices, dearer relics, hungrier goals.',fame:60,relic:8,goal:3,start:-1,choices:-1},
- {n:'Prestige V',d:'The void knows your name.',fame:80,relic:10,goal:4,start:-2,choices:-1}];
+ {n:'Prestige I',d:'Every fame goal asks for 15% more.'},
+ {n:'Prestige II',d:'Relics cost 2 more gold.'},
+ {n:'Prestige III',d:'You start with 1 planet instead of 2.'},
+ {n:'Prestige IV',d:'Black Holes swallow 1/8 of a neighbour instead of 1/7.'},
+ {n:'Prestige V',d:'Solar Systems need 1 more planet.'},
+ {n:'Prestige VI',d:'Your relic shop only shows 2 relics at a time.'},
+ {n:'Prestige VII',d:'Galaxies need 1 more Solar System.'},
+ {n:'Prestige VIII',d:'You only get 2 choices on each pick.'},
+ {n:'Prestige IX',d:'Auras need 5 more points to reach their next tier.'},
+ {n:'Prestige X',d:'Fame goals ask for another 20% more.'}
+];
+var PEFF=[
+ {fame:15},
+ {fame:15,relic:2},
+ {fame:15,relic:2,startPlanets:1},
+ {fame:15,relic:2,startPlanets:1,swallow:8},
+ {fame:15,relic:2,startPlanets:1,swallow:8,sysNeed:1},
+ {fame:15,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1},
+ {fame:15,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1},
+ {fame:15,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1},
+ {fame:15,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1,aura:5},
+ {fame:35,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1,aura:5}
+];
 function PLV(){return M.plvl||0}
-function PV(){return PRESTIGE[Math.min(PRESTIGE.length,Math.max(1,PLV()))-1]||{fame:0,relic:0,goal:0,start:0,choices:0,n:'None',d:''}}
+function PV(){return PEFF[Math.min(PEFF.length,Math.max(1,PLV()))-1]||{}}
 try{SP=parseFloat(localStorage.getItem('startithe_sp'))||1;var sv=localStorage.getItem('startithe_meta');if(sv){var o=JSON.parse(sv);M.shards=o.shards||0;M.total=o.total||0;M.up=o.up||{};M.seen=o.seen||{};M.prestige=o.prestige||0;M.plvl=Math.min(o.prestige||0,o.plvl||0)}}catch(e){}
 function save(){try{localStorage.setItem('startithe_meta',JSON.stringify(M));localStorage.setItem('startithe_sp',String(SP))}catch(e){}}
 function uL(id){return(M.up&&M.up[id])||0}
