@@ -313,7 +313,7 @@ dbg('goal check');if(G.n==PER){var rent=RT(G.t);if(G.fame<rent){finish('lose');G
 if(G.t>=RENT.length)finish('win');else{mkShop();G.mode='shop'}}}
 else {dbg('offer');offer()}
 dbg('end');G.busy=false;saveRun();draw()}
-function offer(){var n=3+(has('lens')?1:0)+(has('scout')?1:0)+uL('scout'),pp=ppool(),ip=ipool(),o=[wpick(pp,1)[0],wpick(ip,1)[0]];while(o.length<n&&(pp.length||ip.length)){var src=Math.random()<.5?pp:ip;if(!src.length)src=pp.length?pp:ip;o.push(wpick(src,1)[0])}G.offer=shuf(o);G.mode='pick'}
+function offer(){var n=3+(has('lens')?1:0)+(has('scout')?1:0)+uL('scout'),pl=pool(),o=[];while(o.length<n&&pl.length){o=o.concat(wpick(pl,1))}G.offer=shuf(o);G.mode='pick'}
 function rprice(r){return Math.max(1,r.b-(has('haggler')?2:0)-uL('tink')+Math.floor(G.rel.length/2))}
 function mkShop(){G.shop=shuf(RELICS.filter(function(r){return !has(r.id)&&relUsable(r.id)})).slice(0,3+uL('bazaar')).map(function(r){return{id:r.id,n:r.n,d:r.d,b:r.c}})}
 function relUsable(id){var hasK=function(k){return G.bag.some(function(p){if(p.k==k)return true;if(p.k=='sys')return(p.comp||[]).indexOf(k)>-1;if(p.k=='gal')return(p.subs||[]).some(function(x){return(x.comp||[]).indexOf(k)>-1});return false})};
