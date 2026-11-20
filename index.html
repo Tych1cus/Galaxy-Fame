@@ -259,7 +259,7 @@ function everyOffers(seen){return seen>0?pickN()*100/seen:0}
 function boostPct(k){return Math.round(boostOf(k)*25)}
 function chancePct(k){var pl=pool(),tot=0,hit=0;pl.forEach(function(x){tot+=x[1];if(x[0]==k)hit+=x[1]});if(!tot||!hit)return null;return Math.round(hit/tot*1000)/10}
 function boostBox(){var N=pickN(),rows=oddsRows().map(function(r){var up=r.seen-r.seenBase;
-return'<div class="od" title="'+r.n+'"><div class="odh"><span class="odn"><i class="mic">'+artSafe({k:r.k,life:3,st:0,s:2,perm:0})+'</i><span style="color:'+(CC[r.k]||'#fff')+'">'+r.n+'</span></span><b>'+r.seen.toFixed(1)+'%</b>'+(r.seen>0?'<s style="font-size:10px;color:var(--mu);margin-left:5px">1 in '+(100/r.seen).toFixed(1)+'</s>':'')+'</div></div>'}).join('');
+return'<div class="od" title="'+r.n+'"><div class="odh"><span class="odn"><i class="mic">'+artSafe({k:r.k,life:3,st:0,s:2,perm:0})+'</i><span style="color:'+(CC[r.k]||'#fff')+'">'+r.n+'</span></span><b>'+r.seen.toFixed(1)+'%</b></div></div>'}).join('');
 var sp=poolSplit();
 rows+='<div class="od tot"><div class="odh"><span style="color:#ffb26b">All items</span><b>'+sp.item.toFixed(1)+'%</b></div></div>';
 return'<h3 style="margin-top:12px">Find odds</h3>'+rows}
