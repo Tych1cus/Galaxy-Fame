@@ -220,11 +220,12 @@ else if(k=='i'){var nc=0;[0,4,15,19].forEach(function(q){if(G.lastCs&&G.lastCs[q
 return{f:f,c:c}}
 function aurTot(k,t){if(k=='g'){var ow=owned('g'),p4=Math.floor(ow/4),pay=aurPay(k,t);return'Every 4 Verdants you own pay +1 ⭐ on every spin, once. '+ow+' Verdants = +'+p4+' ⭐ base. Tier '+t+' multiplies that: +'+p4+' × '+t+' = +'+pay.f+' ⭐ per spin. (A tier-2 Verdant is still one Verdant — it does not count twice.)'}var pay2=aurPay(k,t),bits=[];
 if(t<1)return AUR[k]+' — needs tier 1 (10 aura).';
-var base={r:'+2 ⭐ per spin',b:'+2 💰 per spin',v:'+5% of the ⭐ your Black Holes hold',i:'+2 ⭐ and +1 💰 per corner Ice Planet',p:'+1 ⭐ per neighbour',k:'+3% of the ⭐ a Black Hole eats',c:'+0.1 growth per spin',h:'+1 ⭐ per Chorus'}[k];
+var base={r:'fame each spin',b:'+2 💰 per spin',v:'+5% of the ⭐ your Black Holes hold',i:'+2 ⭐ and +1 💰 per corner Ice Planet',p:'+1 ⭐ per neighbour',k:'+3% of the ⭐ a Black Hole eats',c:'+0.1 growth per spin',h:'+1 ⭐ per Chorus'}[k];
 if(k=='h'){var ord1=owned('h');bits.push('Each Chorus counts as if it were '+t+' higher: your first reads as #'+(1+t)+', your second as #'+(2+t)+' — so every Chorus you hold pays +'+t+' ⭐');if(ord1)bits.push('with '+ord1+' Chorus'+(ord1>1?'es':'')+' that is +'+(ord1*t)+' ⭐ per spin')}
+else if(k=='r'){bits.push('Tier '+t+': +'+pay2.f+' fame each spin')}
 else bits.push('Tier '+t+' = '+t+' × '+base);
-if(pay2.f)bits.push('= +'+Math.round(pay2.f*10)/10+' ⭐ per spin');
-if(pay2.c)bits.push('= +'+Math.round(pay2.c*10)/10+' 💰 per spin');
+if(pay2.f&&k!='r')bits.push('= +'+Math.round(pay2.f*10)/10+' ⭐ per spin');
+if(pay2.c&&k!='r')bits.push('= +'+Math.round(pay2.c*10)/10+' 💰 per spin');
 return bits.join(', ')}
 function owned(k){var n=0;G.bag.forEach(function(p){if(p.k==k)n++;else if((p.k=='sys'||p.k=='gal')&&p.comp)p.comp.forEach(function(x){if(x==k)n++})});return n}
 function shotHtml(i){var o='';(G.shots||[]).forEach(function(x){if(x.i==i)o+='<span class="wisp bolt" style="--dx:'+x.dx+'%;--dy:'+x.dy+'%"></span>'});return o}
