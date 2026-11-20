@@ -42,7 +42,8 @@ h1{margin:0;font-size:20px;letter-spacing:4px;background:linear-gradient(90deg,#
 .box{background:var(--pn);border:1px solid var(--ln);border-radius:16px;padding:12px}
 h3{margin:0 0 8px;font-size:12px;color:var(--mu);text-transform:uppercase;letter-spacing:1px}
 .bg{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px}
-.bi{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--mu)}.bi .art{width:44px;flex:none}.bi .itm{width:100%}.bi b{color:var(--tx);font-size:14px;display:block}
+.bi{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--mu)}.bi .art{width:44px;height:44px;flex:none}
+.bi .astr{width:44px;height:44px;flex:none}.bi .itm{width:100%}.bi b{color:var(--tx);font-size:14px;display:block}
 .boom{position:fixed;inset:0;z-index:20;pointer-events:none;display:flex;align-items:center;justify-content:center;animation:boomfade 1.5s ease-out forwards}
 .boom span{font-size:120px;animation:boomburst .9s cubic-bezier(.2,1.4,.4,1) forwards;filter:drop-shadow(0 0 30px #ffb34a)}
 .boom b{position:absolute;top:62%;font-size:clamp(18px,4vw,34px);letter-spacing:3px;color:#fff;text-shadow:0 0 22px #ff9d3a,0 2px 6px #000;animation:boomtext 1.4s ease-out forwards}
@@ -131,7 +132,7 @@ DP.j.next='cl';DP.cl.next='ps';DP.ps.next='gs';DP.gs.next='sg';DP.sg.next=null;
 var SG={sys:{n:'Solar System',d:'Worth 14 ⭐ + 3 for each kind of planet inside.'},gal:{n:'Galaxy',d:'Worth 120 ⭐ + 16 for each kind of planet inside.'}};
 var PP={g:2,r:2,b:2,p:3,k:5},IP=[2,3,4,6,9],W={g:3,r:3,b:3,p:3,c:3,h:3,v:3,i:3,q:3,j:3},RENT=[30,75,160,330,650,1050,1450,2100,3150,4550],PER=5;
 var RELICS=[{id:'lens',n:'Wide Lens',d:'See 4 choices after each spin.',c:5},{id:'thumb',n:'Green Thumb',d:'Verdants worth +1 ⭐.',c:4},{id:'forge',n:'Forest Crown',d:'Forests worth +1 ⭐.',c:4},{id:'dil',n:'Time Dilation',d:'New Supernovas last 5 spins.',c:3},
-{id:'hor',n:'Event Horizon',d:'Black Holes take 1/5, not 1/7.',c:5},{id:'pulsar',n:'Pulsar',d:'+3 ⭐ every spin.',c:6},{id:'miner',n:'Heavy Munitions',d:'Destroyers gain +2 ⭐ per Asteroid instead of +1.',c:5},{id:'scrap',n:'Scrap Collector',d:'Asteroids worth +2 ⭐ more.',c:4},
+{id:'hor',n:'Event Horizon',d:'Black Holes swallow 20% more.',c:5},{id:'pulsar',n:'Pulsar',d:'+3 ⭐ every spin.',c:6},{id:'miner',n:'Heavy Munitions',d:'Destroyers gain +2 ⭐ per Asteroid instead of +1.',c:5},{id:'scrap',n:'Scrap Collector',d:'Asteroids worth +2 ⭐ more.',c:4},
 {id:'bank',n:'Piggy Bank',d:'+1 💰 every spin.',c:3},{id:'dust',n:'Cosmic Dust',d:'Solar Systems need only 6 planets, Galaxies only 6 Solar Systems.',c:6},{id:'nursery',n:'Stellar Nursery',d:'Solar Systems and Galaxies score 25% more.',c:7},
 {id:'vgrove',n:'Verdant Grove',d:'Verdant set bonus starts at 4 Verdants.',c:5},{id:'cinder',n:'Canopy Crown',d:'Forests count double when stacking.',c:5},{id:'icecap',n:'Frozen Core',d:'Supernovas worth +2 ⭐.',c:4},
 {id:'prism',n:'Prism Lens',d:'Nebulas give +3 ⭐ instead of +2.',c:5},{id:'gravity',n:'Gravity Well',d:'Black Holes keep 50% more of what they eat.',c:6},{id:'quarry',n:'Salvage Rights',d:'+1 💰 for each piece your Destroyers and Harvesters consume.',c:4},
@@ -310,7 +311,7 @@ if(has('halo'))cs.forEach(function(c,i){if(c&&c.k=='p'){var n1=nb(i);nb(i,2).for
 cs.forEach(function(c,i){if(c&&c.k=='i'&&has('glacier'))nb(i).forEach(function(j){if(cs[j]&&cs[j].k!='k')f[j]+=2})});
 cs.forEach(function(c,i){if(c&&c.k=='rad'){var m=0;nb(i).forEach(function(j){if(cs[j]&&f[j]>m)m=f[j]});f[i]=m}});
 cs.forEach(function(c,i){if(!c||c.k=='k')return;if(has('corner')&&[0,4,15,19].indexOf(i)>-1)f[i]+=2;if(has('stage')&&[7,8,11,12].indexOf(i)>-1)f[i]+=2});
-var q=(PV().swallow?1/PV().swallow:(has('hor')?1/5:1/7))+.03*T('k');
+var q=(PV().swallow?1/PV().swallow:1/7)*(has('hor')?1.2:1)+.03*T('k');
 cs.forEach(function(c,i){if(c&&c.k=='k'){var L=[],g=0;nb(i).forEach(function(j){if(cs[j]&&cs[j].k!='k'&&f[j]>0){var t=f[j]*q*(cs[j].k=='v'&&has('obsidian')?.5:1);f[j]-=t;if(cs[j].k=='v')cs[j].volcano=Math.max(0,(cs[j].volcano===undefined?4:cs[j].volcano)-t);var tt=t*(has('gravity')?1.5:1);c.st+=tt;g+=tt;L.push({j:j,t:t})}});if(L.length)d.push({i:i,list:L,g:g})}});
 cs.forEach(function(c,i){if(c&&c.k=='k')f[i]=c.st});
 var vtier=Math.max(0,T('v')-1);if(vtier>0)cs.forEach(function(c,i){if(c&&c.k=='k'){var add=Math.round((c.st||0)*.05*vtier*10)/10;f[i]+=add}});
