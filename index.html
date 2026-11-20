@@ -250,7 +250,7 @@ var H=cm.filter(function(k){return k=='h'}).length;cm.forEach(function(k){var x=
 if(has('encore'))v+=last;v+=(s.cg||0);v+=np*Math.max(0,cm.length-1)*((has('prism')?3:2)+T('p'))/2;v+=15;if(has('nursery'))v=Math.floor(v*1.25);return v}
 function galVal(g){var t=0;(g.subs||[]).forEach(function(s){t+=sysVal(s)});return Math.floor(t*1.3)}
 function merges(cs){var by={},out=[],used={};cs.forEach(function(c,i){if(c&&DP[c.k]&&DP[c.k].next&&!c.mrg&&!used[i])(by[c.k]=by[c.k]||[]).push(i)});
-Object.keys(by).forEach(function(k){var L=by[k].slice();while(L.length>=2){var a=L.shift(),b=-1;for(var t=0;t<L.length;t++){if(nb(a).indexOf(L[t])>-1){b=L[t];break}}if(b<0){L.push(a);continue}L.splice(L.indexOf(b),1);used[a]=1;used[b]=1;out.push({k:k,pair:[a,b],p:mkHy(DP[k].next)})}});return out}
+Object.keys(by).forEach(function(k){var L=by[k];for(var x=0;x<L.length;x++){var a=L[x];if(used[a])continue;var b=-1;for(var t=x+1;t<L.length;t++){if(!used[L[t]]&&nb(a).indexOf(L[t])>-1){b=L[t];break}}if(b<0)continue;used[a]=1;used[b]=1;out.push({k:k,pair:[a,b],p:mkHy(DP[k].next)})}});return out}
 function chorusHeld(){var h=0;G.bag.forEach(function(p){if(p.k=='sys')(p.comp||[]).forEach(function(k){if(k=='h')h++});if(p.k=='gal')(p.subs||[]).forEach(function(x){(x.comp||[]).forEach(function(k){if(k=='h')h++})})});return h}
 function score(cs){var AU=auras(),T=function(k){return tierF(AU,k)},hc=chorusHeld(),lastH=-1,ab=[],n={g:0,r:0},f=[],cr=[],d=[],PL={g:1,r:1,b:1,p:1,k:1,c:1,h:1,a:1};cs.forEach(function(c){if(c&&(c.k=='g'||c.k=='r'))n[c.k]++});
 cs.forEach(function(c,i){f[i]=0;cr[i]=0;if(!c)return;var k=c.k,N=nb(i).filter(function(j){return cs[j]}),v=0;
