@@ -261,7 +261,7 @@ return'<div class="od" title="'+r.n+'"><div class="odh"><span class="odn"><i cla
 var sp=poolSplit();
 rows+='<div class="od tot"><div class="odh"><span style="color:#ffb26b">All items</span><b>'+sp.item.toFixed(1)+'%</b></div></div>';
 return'<h3 style="margin-top:12px">Find odds</h3>'+rows}
-function boostPicks(){return 1+tierF(auras(),'p')}
+function boostPicks(){return Math.max(1,tierF(auras(),'p'))}
 function boostPick(k){sfx('click');G.boost=G.boost||{};G.boost[k]=(G.boost[k]||0)+1;G.boostLeft=Math.max(0,(G.boostLeft||1)-1);if(G.boostLeft>0){G.msg=nm(k)+' boosted. '+G.boostLeft+' more pick'+(G.boostLeft>1?'s':'')+' to spend.';draw();return}G.mode='idle';G.msg=nm(k)+' is now '+(BOOST_STEP*100).toFixed(0)+'% more common.';draw()}
 function boostSkip2(){sfx('click');G.boost=G.boost||{};G.boost[k]=(G.boost[k]||0)+1;G.mode='idle';G.msg=nm(k)+' is now '+BOOST_STEP*100+'% more common.';draw()}
 function boostSkip(){G.mode='idle';G.msg='Spin when ready.';draw()}
