@@ -141,7 +141,7 @@ var RELICS=[{id:'lens',n:'Wide Lens',d:'See 4 choices after each spin.',c:4},{id
 {id:'scout',n:'Scout Fleet',d:'+1 choice on every pick screen.',c:6},{id:'spot',n:'Spotlight',d:'Your highest-scoring piece each spin scores 30% more.',c:8},{id:'prospect',n:'Prospector’s Charter',d:'Big Asteroids appear in your picks, and a Destroyer that shoots one gains +3 ⭐ permanently and it splits into 2 Asteroids.',c:5},{id:'halo',n:'Nebula Halo',d:'Nebulas also give +1 ⭐ to pieces 2 cells away.',c:4},{id:'fertile',n:'Fertile Soil',d:'Cradles grow +0.1 ⭐ more every spin.',c:5},{id:'heirloom',n:'Heirloom Seeds',d:'Cradles start worth 2 ⭐ instead of 1.',c:4},
 {id:'baton',n:'Conductor’s Baton',d:'Every Chorus counts 1 higher.',c:5},{id:'encore',n:'Encore',d:'The last Chorus to score each spin scores double.',c:5},{id:'rubble',n:'Rubble Rights',d:'Quarries get +4 ⭐ per adjacent Asteroid instead of +2.',c:4},
 {id:'magma',n:'Magma Core',d:'Volcanic worlds worth +3 ⭐.',c:5},{id:'obsidian',n:'Obsidian Shield',d:'Black Holes take a quarter as much from Volcanic worlds.',c:5},{id:'permafrost',n:'Permafrost',d:'The Ice Planet scores 1 ⭐ for every piece next to it.',c:5},{id:'glacier',n:'Glacial Lens',d:'The Ice Planet gives every piece next to it +2 ⭐.',c:5},
-{id:'debris',n:'Debris Field',d:'One Asteroid joins your bag the moment you buy this.',c:3},{id:'founder',n:'Founder’s Charter',d:'Forming a Solar System or Galaxy gives triple fame.',c:5}];
+{id:'debris',n:'Debris Field',d:'Every relic you buy after this one also puts an Asteroid in your bag.',c:3},{id:'founder',n:'Founder’s Charter',d:'Forming a Solar System or Galaxy gives triple fame.',c:5}];
 
 var G,IM={};function R(n){return Math.floor(Math.random()*n)}function has(id){return G.rel.indexOf(id)>-1}
 function sleep(ms){return new Promise(function(r){setTimeout(r,(G&&G.fast?ms/6:ms)/SP)})}
@@ -372,7 +372,7 @@ function skip(){G.mode='idle';draw()}
 function toRemove(){G.back='idle';G.mode='remove';draw()}
 function rem(i){var p=G.bag[i];if(p&&p===G.icePiece){G.icePiece=null}G.bag.splice(i,1);G.mode='idle';draw()}
 function cancel(){G.mode='idle';draw()}
-function buyR(i){sfx('buy');var r=G.shop[i];if(!r||G.credits<rprice(r))return;G.credits-=rprice(r);G.rel.push(r.id);if(r.id=='debris'){G.bag.push(mk('ast'));G.msg='Debris Field: an Asteroid drifts into your bag.'}G.shop.splice(i,1);draw()}
+function buyR(i){sfx('buy');var r=G.shop[i];if(!r||G.credits<rprice(r))return;G.credits-=rprice(r);G.rel.push(r.id);if(r.id=='debris'){G.debrisField=1;G.msg='Debris Field is in orbit: each relic you buy from now on brings an Asteroid.'}else if(G.debrisField){G.bag.push(mk('ast'));G.msg='Debris Field: an Asteroid drifts into your bag.'}G.shop.splice(i,1);draw()}
 function reroll(){var fr=has('lucky');if(!fr&&G.credits<1)return;if(!fr)G.credits--;mkShop();if(fr)G.freeRoll=0;draw()}
 function leave(){G.boostLeft=boostPicks();G.mode='boost';G.msg='Pick a world to find more often.';draw()}
 function startForm(t){G.formT=t;G.sel=[];G.mode='form';draw()}
@@ -502,8 +502,8 @@ var UP=[{id:'start',n:'Starting Fleet',d:'Begin each run with +1 random planet p
 function rank(){var th=[0,90,240,480,900,1500,2400],nz=['Stargazer','Navigator','Pathfinder','Cartographer','Astronomer','Constellation Keeper','Galactic Sage'],i=0;th.forEach(function(t,j){if(M.total>=t)i=j});return{n:nz[i],next:th[i+1]}}
 function finish(r){if(r=='lose')sfx('lose');G.over=r;G.prestigeUp=false;
 if(r=='win'&&M.prestige<PRESTIGE.length){M.prestige++;M.plvl=M.prestige;G.prestigeUp=M.prestige;save()}try{localStorage.removeItem('gf_run')}catch(e){}if(G.earned==null){var s=Math.max(4,G.t*9+Math.floor(G.tot/120)+(r=='win'?20:0));G.earned=s;M.shards+=s;M.total+=s;save()}}
-function saveRun(){try{if(!G||G.over||SCR!='game'){localStorage.removeItem('gf_run');return}localStorage.setItem('gf_run',JSON.stringify({t:G.t,n:G.n,fame:G.fame,credits:G.credits,tot:G.tot,bag:G.bag,rel:G.rel,icePiece:G.icePiece,systemsMade:G.systemsMade,boost:G.boost}))}catch(e){}}
-function resumeRun(){try{var r=JSON.parse(localStorage.getItem('gf_run')||'null');if(!r||!r.bag||!r.bag.length)return false;newGame();G.t=r.t;G.n=r.n;G.fame=r.fame;G.credits=r.credits;G.tot=r.tot;G.bag=r.bag;G.rel=r.rel||[];G.icePiece=r.icePiece;G.systemsMade=r.systemsMade||0;G.boost=r.boost||{};G.mode='idle';G.msg='Welcome back. Your run is where you left it.';return true}catch(e){return false}}
+function saveRun(){try{if(!G||G.over||SCR!='game'){localStorage.removeItem('gf_run');return}localStorage.setItem('gf_run',JSON.stringify({t:G.t,n:G.n,fame:G.fame,credits:G.credits,tot:G.tot,bag:G.bag,rel:G.rel,icePiece:G.icePiece,systemsMade:G.systemsMade,boost:G.boost,debrisField:G.debrisField?1:0}))}catch(e){}}
+function resumeRun(){try{var r=JSON.parse(localStorage.getItem('gf_run')||'null');if(!r||!r.bag||!r.bag.length)return false;newGame();G.t=r.t;G.n=r.n;G.fame=r.fame;G.credits=r.credits;G.tot=r.tot;G.bag=r.bag;G.rel=r.rel||[];G.icePiece=r.icePiece;G.systemsMade=r.systemsMade||0;G.boost=r.boost||{};G.debrisField=r.debrisField?1:0;if(has('debris'))G.debrisField=1;G.mode='idle';G.msg='Welcome back. Your run is where you left it.';return true}catch(e){return false}}
 function quitRun(){if(G.busy||G.over)return;finish('quit');draw()}
 function setSpeed(v){SP=v;save();draw()}
 function spdCtl(menu){return'<div class="seg">Speed '+[1,1.2,1.5,2,3].map(function(v){return'<button class="'+(SP==v?'on':'')+'" onclick="setSpeed('+v+')">'+v+'x</button>'}).join('')+(menu?'':(G&&!G.busy&&!G.over?'<button onclick="quitRun()">End run</button>':''))+(menu?'':'<button onclick="helpTip()">? Help</button>')+'</div>'}
