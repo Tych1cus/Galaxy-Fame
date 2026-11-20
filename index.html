@@ -55,7 +55,7 @@ h3{margin:0 0 8px;font-size:12px;color:var(--mu);text-transform:uppercase;letter
 .prowlist{display:flex;flex-direction:column;gap:6px;margin:6px 0}
 .prow{display:grid;grid-template-columns:1fr auto;gap:0 10px;font-size:13px;background:#141a3f;border:1px solid var(--ln);border-radius:10px;padding:7px 9px}
 .prow b{color:var(--gd)}.prow i{grid-column:1/2;font-style:normal;color:var(--mu);font-size:12px}.prow small{grid-column:1/3;color:var(--mu);font-size:11px;margin-top:2px}
-.cs.bst{display:grid;grid-template-columns:1fr auto;gap:1px 8px;margin:3px 0;padding:3px 6px;border-radius:8px;background:#101636}.cs.bst b{font-variant-numeric:tabular-nums;color:var(--tx)}.cs.bst em{font-style:normal}
+.od{margin:4px 0;padding:5px 7px;border-radius:9px;background:#101636}.odh{display:flex;justify-content:space-between;font-size:12.5px}.odh b{color:var(--gd);font-variant-numeric:tabular-nums}.odb{height:4px;border-radius:3px;background:#1d2550;overflow:hidden;margin:3px 0}.odb i{display:block;height:100%}.odf{font-size:10.5px;color:var(--mu);line-height:1.25}
 #boostList{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .sumline{display:flex;justify-content:space-between;font-size:13px;padding:3px 2px;color:var(--mu)}.sumline b{color:var(--tx)}.sumline.big{font-size:15px;color:var(--tx);border-top:1px solid var(--ln);margin-top:4px;padding-top:6px}.sumline.big b{color:var(--gd)}
 .plist{display:grid;grid-template-columns:1fr auto;gap:2px 10px;font-size:14px;margin:4px 0}.plrow{display:contents}
@@ -216,15 +216,24 @@ function pn(p){if(p.k=='sys'||p.k=='gal')return K[p.dom].n+(p.k=='sys'?' System'
 function pd(p){if(p.k=='sys'){var d=K[p.dom];return'Aura: every '+d.n+' on the board gets +2 ⭐. Aura '+(p.aura||0)+'. Produces '+fm1(sysVal(p))+' ⭐: the value of its planets, plus 15.'}if(p.k=='gal'){var d2=K[p.dom];return'Holds '+(p.subs||[]).length+' Solar Systems and keeps all their aura and fame, producing 30% more: '+fm1(galVal(p))+' ⭐ (its systems’ total × 1.3). Each system still boosts its own kind by +2.6 ⭐.'}return ds(p.k)}
 function auras(){var a={};G.bag.forEach(function(p){if(p.k=='sys'&&p.dom)a[p.dom]=(a[p.dom]||0)+(p.aura||0);if(p.k=='gal')(p.subs||[]).forEach(function(x){a[x.dom]=(a[x.dom]||0)+(x.aura||0)})});return a}
 function dominant(c){var o={},m=0,best=[];c.forEach(function(k){o[k]=(o[k]||0)+1;if(o[k]>m)m=o[k]});for(var k in o)if(o[k]==m)best.push(k);return best[R(best.length)]}
-function ppool(){var o=[];Object.keys(W).forEach(function(k){if(DP[k]){o.push([k,W[k]*(1+.15*boostOf(k))]);return}o.push([k,W[k]*(1+.15*boostOf(k))])});return o}
-function ipool(){var o=[],q=1+.5*tierF(auras(),'a');Object.keys(IT).forEach(function(k){var w=RW[IT[k].r]*(IT[k].r>=2?1+.25*uL('eyes'):1);if(k=='ast'||k=='bas')w*=1+.15*tierF(auras(),'a');w*=1+.15*boostOf(k);o.push([k,w])});return o}
+function ppool(){var o=[];Object.keys(W).forEach(function(k){o.push([k,W[k]*multOf(k)])});return o}
+function ipool(){var o=[],q=1+.5*tierF(auras(),'a');Object.keys(IT).forEach(function(k){var w=RW[IT[k].r]*multOf(k);o.push([k,w])});return o}
 function pool(){return ppool().concat(ipool())}
 function wpick(pl,n){var o=[];while(o.length<n&&pl.length){var tot=0;pl.forEach(function(p){tot+=p[1]});var t=Math.random()*tot,j=0;while(j<pl.length-1&&t>pl[j][1]){t-=pl[j][1];j++}o.push(pl[j][0]);pl.splice(j,1)}return o}
 var FND=[['g','Verdant'],['r','Forest'],['b','Supernova'],['p','Nebula'],['c','Cradle'],['h','Chorus'],['v','Volcanic'],['i','Ice Planet'],['a','Asteroid'],['j','Cosmic Dust']];
 function boostOf(k){return(G.boost&&G.boost[k])||0}
+function rockMul(k){return(k=='ast'||k=='bas')?1+.15*tierF(auras(),'a'):1}
+function eyeMul(k){return(IT[k]&&IT[k].r>=2)?1+.25*uL('eyes'):1}
+function multOf(k){return(1+.15*boostOf(k))*rockMul(k)*eyeMul(k)}
+// what one pick actually shows: this piece's share of the whole choice pool
+function sharePct(k){var pl=pool(),tot=0,hit=0;pl.forEach(function(x){tot+=x[1];if(x[0]==k)hit+=x[1]});return tot?hit/tot*100:0}
+function oddsRows(){return FND.map(function(f){var k=f[0],base=sharePct(k),mul=multOf(k),now=base*mul,
+  why=[];if(boostOf(k))why.push('+'+Math.round(boostOf(k)*15)+'% boosted');if(rockMul(k)>1)why.push('+'+Math.round((rockMul(k)-1)*100)+'% Quarry aura');if(eyeMul(k)>1)why.push('+'+Math.round((eyeMul(k)-1)*100)+'% Keen Eyes');
+  return{k:k,n:f[1],base:base,now:now,mul:mul,why:why.join(' · ')}})}
 function boostPct(k){return Math.round(boostOf(k)*25)}
 function chancePct(k){var pl=pool(),tot=0,hit=0;pl.forEach(function(x){tot+=x[1];if(x[0]==k)hit+=x[1]});if(!tot||!hit)return null;return Math.round(hit/tot*1000)/10}
-function boostBox(){var rows=FND.map(function(f){var ch=chancePct(f[0]),b=boostPct(f[0]);if(ch===null)return'';return'<div class="cs bst"><span style="color:'+(CC[f[0]]||'#fff')+'">'+f[1]+'</span><b>'+(ch+b)+'%'+(b?' <em style="color:var(--gd);font-style:normal">+'+b+'</em>':'')+'</b></div>'}).join('');
+function boostBox(){var rows=oddsRows().map(function(r){var seen=100*Math.pow(1-r.now/100,3);var pct=r.now<1?r.now.toFixed(2):r.now.toFixed(1);
+return'<div class="od" title="'+r.n+'"><div class="odh"><span style="color:'+(CC[r.k]||'#fff')+'">'+r.n+'</span><b>'+pct+'%</b></div><div class="odb"><i style="width:'+Math.min(100,r.now*4)+'%;background:'+(CC[r.k]||'#8fd0ff')+'"></i></div><div class="odf">'+(r.mul>1?r.why:'base')+' · seen in '+seen.toFixed(0)+'% of offers</div></div>'}).join('');
 return'<h3 style="margin-top:12px">Find odds</h3>'+rows}
 function boostPick(k){sfx('click');G.boost=G.boost||{};G.boost[k]=(G.boost[k]||0)+1;G.mode='idle';G.msg=nm(k)+' now appears 15% more often.';draw()}
 function boostSkip(){G.mode='idle';G.msg='Spin when ready.';draw()}
@@ -345,7 +354,7 @@ if(m=='pick')h='<h3>New worlds discovered. Add one to your bag</h3><div class="c
 if(m=='iceplace')h='<h3>❄️ Anchor your Ice Planet</h3><p>Choose one square on the grid. The Ice Planet will stay in that position for the rest of this run.</p>';
 if(m=='remove')h='<h3>Remove which one from your bag?</h3><div class="cards dense">'+G.bag.map(function(p,i){return'<button class="card" onclick="rem('+i+')">'+orb(p,1)+'<b>'+pn(p)+'</b></button>'}).join('')+'</div><button class="sm" onclick="cancel()">Cancel</button>';
 if(m=='shop')h='<h3>🔮 Relic Bazaar · you have '+G.credits+' 💰</h3><div style="color:var(--mu);font-size:12px;margin:-6px 0 10px">Each 2 relics you own makes relics cost +1 💰 (now +'+Math.floor(G.rel.length/2)+')</div>'+(G.shop.length?'<div class="cards">'+G.shop.map(function(r,i){return'<button class="card" '+(G.credits<rprice(r)?'disabled':'')+' onclick="buyR('+i+')">'+relicArt(r,112)+'<em>Relic</em><b>'+r.n+'</b><small>'+r.d+'</small><em style="color:var(--gd)">'+rprice(r)+' 💰</em></button>'}).join('')+'</div>':'<p style="color:var(--mu)">You own every relic!</p>')+'<button class="sm" onclick="reroll()" '+(G.credits<1&&!has('lucky')?'disabled':'')+'>Reroll · '+(has('lucky')?'free':'1 💰')+'</button><button class="sm" onclick="leave()">Continue ➜</button>';
-if(m=='boost'){h='<h3>🔍 Find more of…</h3><div style="color:var(--mu);font-size:12px;margin:-6px 0 10px">Fame goal reached — choose one world to appear 15% more often for the rest of this run.</div><div class="cards">'+FND.map(function(f){var ch=chancePct(f[0]),b=boostPct(f[0]);if(ch===null)return'';return'<button class="card" onclick="boostPick(\''+f[0]+'\')"><b style="color:'+(CC[f[0]]||'#fff')+'">'+f[1]+'</b><small>'+(ch+b)+'% of finds'+(b?' · already +'+b+'%':'')+'</small><em style="color:var(--gd)">+15%</em></button>'}).join('')+'</div><button class="sm" onclick="boostSkip()">Skip</button>'}
+if(m=='boost'){h='<h3>🔍 Find more of…</h3><div style="color:var(--mu);font-size:12px;margin:-6px 0 10px">Fame goal reached — one world appears 15% more often for the rest of this run. The % is its share of every pick.</div><div class="cards">'+oddsRows().map(function(r){return'<button class="card" onclick="boostPick(\''+r.k+'\')"><b style="color:'+(CC[r.k]||'#fff')+'">'+r.n+'</b><small>'+r.now.toFixed(1)+'% of picks · seen in '+(100*Math.pow(1-r.now/100,3)).toFixed(0)+'% of offers'+(boostOf(r.k)?' · already +'+Math.round(boostOf(r.k)*15)+'%':'')+'</small><em style="color:var(--gd)">+15%</em></button>'}).join('')+'</div><button class="sm" onclick="boostSkip()">Skip</button>'}
 if(m=='form'){var N=need(G.formT),sy=G.formT=='sys',el=[];G.bag.forEach(function(p,i){if(sy?(K[p.k]&&p.k!='k'):p.k=='sys')el.push([p,i])});
 h='<h3>'+(sy?'Form a Solar System: choose '+N+' planets':'Form a Galaxy: choose '+N+' Solar Systems')+' ('+G.sel.length+'/'+N+')</h3><div class="cards dense">'+el.map(function(x){return'<button class="card'+(G.sel.indexOf(x[1])>-1?' on':'')+'" onclick="tog('+x[1]+')">'+orb(x[0],1)+'<b>'+pn(x[0])+'</b></button>'}).join('')+'</div><button class="sm" onclick="confirmForm()" '+(G.sel.length!=N?'disabled':'')+'>Confirm</button><button class="sm" onclick="cancel()">Cancel</button>'}
 return h}
