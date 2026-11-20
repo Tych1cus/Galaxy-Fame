@@ -211,7 +211,20 @@ function mkHy(k){return mk(k)}
 function nm(k){return DP[k]?DP[k].n:IT[k]?IT[k].n:SG[k]?SG[k].n:K[k].n}function ds(k){return DP[k]?DP[k].d:IT[k]?IT[k].d:SG[k]?SG[k].d:K[k].d}
 function tsz(k){return 20}
 function tierF(A,k){var a=A[k]||0;return a>0?1+Math.floor(a/tsz(k)):0}
-function aurTot(k,t){if(k=='g'){var p4=Math.floor(owned('g')/4),b4=Math.floor(owned('g')/8),a=[];if(p4>0)a.push('+'+p4+' ⭐ every roll for every 4 Verdants you have collected (bag and inside Solar Systems)');if(t>=2&&b4>0)a.push('+'+b4+' ⭐ more every roll (tier 2 counts each Verdant twice)');return a.join(' · ')||AUR[k]}if(t<1)return AUR[k];return AUR[k].replace(/\+(\d+(?:\.\d+)?)/g,function(m,n){return'+'+Math.round(parseFloat(n)*t*100)/100})}
+function aurPay(k,t){var f=0,c=0,AU=auras(),ow=owned('g'),ov=owned('v'),bh=(G.lastBH||0);
+if(k=='g'){f=t*Math.floor(ow/4)}
+else if(k=='r'){f=2*t}
+else if(k=='b'){c=2*t}
+else if(k=='v'){f=Math.round(.05*t*bh*10)/10}
+else if(k=='i'){var nc=0;[0,4,15,19].forEach(function(q){if(G.lastCs&&G.lastCs[q]&&G.lastCs[q].k=='i')nc++});f=2*t*nc;c=t*nc}
+return{f:f,c:c}}
+function aurTot(k,t){if(k=='g'){var ow=owned('g'),p4=Math.floor(ow/4),pay=aurPay(k,t);return'Every 4 Verdants you own pay +1 ⭐ on every spin, once. '+ow+' Verdants = +'+p4+' ⭐ base. Tier '+t+' multiplies that: +'+p4+' × '+t+' = +'+pay.f+' ⭐ per spin. (A tier-2 Verdant is still one Verdant — it does not count twice.)'}var pay2=aurPay(k,t),bits=[];
+if(t<1)return AUR[k]+' — needs tier 1 (10 aura).';
+var base={r:'+2 ⭐ per spin',b:'+2 💰 per spin',v:'+5% of the ⭐ your Black Holes hold',i:'+2 ⭐ and +1 💰 per corner Ice Planet',p:'+1 ⭐ per neighbour',k:'+3% of the ⭐ a Black Hole eats',c:'+0.1 growth per spin',h:'+1 ⭐ per Chorus'}[k];
+bits.push('Tier '+t+' = '+t+' × '+base);
+if(pay2.f)bits.push('= +'+Math.round(pay2.f*10)/10+' ⭐ per spin');
+if(pay2.c)bits.push('= +'+Math.round(pay2.c*10)/10+' 💰 per spin');
+return bits.join(', ')}
 function owned(k){var n=0;G.bag.forEach(function(p){if(p.k==k)n++;else if((p.k=='sys'||p.k=='gal')&&p.comp)p.comp.forEach(function(x){if(x==k)n++})});return n}
 function shotHtml(i){var o='';(G.shots||[]).forEach(function(x){if(x.i==i)o+='<span class="wisp bolt" style="--dx:'+x.dx+'%;--dy:'+x.dy+'%"></span>'});return o}
 function pn(p){if(p.k=='sys'||p.k=='gal')return K[p.dom].n+(p.k=='sys'?' System':' Galaxy');return nm(p.k)}
