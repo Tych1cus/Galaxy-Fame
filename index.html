@@ -265,11 +265,15 @@ function boostPicks(){return Math.max(1,tierF(auras(),'p'))}
 function boostPick(k){sfx('click');G.boost=G.boost||{};G.boost[k]=(G.boost[k]||0)+1;G.boostLeft=Math.max(0,(G.boostLeft||1)-1);if(G.boostLeft>0){G.msg=nm(k)+' boosted. '+G.boostLeft+' more pick'+(G.boostLeft>1?'s':'')+' to spend.';draw();return}G.mode='idle';G.msg=nm(k)+' is now '+(BOOST_STEP*100).toFixed(0)+'% more common.';draw()}
 function boostSkip2(){sfx('click');G.boost=G.boost||{};G.boost[k]=(G.boost[k]||0)+1;G.mode='idle';G.msg=nm(k)+' is now '+BOOST_STEP*100+'% more common.';draw()}
 function boostSkip(){G.mode='idle';G.msg='Spin when ready.';draw()}
-function need(t){var b=t=='gal'?7:8;if(has('dust'))b-=t=='gal'?1:2;return Math.max(4,b-uL('form'))}
+function need(t){var b=t=='gal'?7:8;if(has('dust'))b-=t=='gal'?1:2;return Math.max(4,b-uL('form')+PV().goal)}
 function cntK(f){return G.bag.filter(f).length}
 function bagMerge(){var moved=1;while(moved){moved=0;var ks={};G.bag.forEach(function(p,i){if(DP[p.k]&&DP[p.k].next)(ks[p.k]=ks[p.k]||[]).push(i)});for(var k in ks){var L=ks[k];if(L.length>=2){var a=L[0],b=L[1];G.bag[a]=mkHy(DP[k].next);G.bag.splice(b,1);moved=1;break}}}}
 function kinds(c){var o={};(c||[]).forEach(function(k){o[k]=1});return Object.keys(o).length}
-function newGame(){G={rel:[]};var b0=[];for(var u=0;u<uL('start');u++)b0.push(mk('grbp'.charAt(R(4))));G={fame:0,credits:2*uL('cash'),tot:0,run:'',earned:null,tmp:0,tmpc:0,t:0,n:0,systemsMade:0,icePiece:null,bag:b0,rel:[],cells:new Array(20).fill(null),vals:[],cv:[],hot:-1,fresh:-1,fx:{},pops:{},pull:{},sel:[],formT:'sys',banner:'',mode:'idle',back:'idle',busy:false,fast:false,msg:'Spin to scatter your bag across the star chart.',offer:[],shop:[],over:null,tip:null,startLeft:2};G.mode='start';G.offer=startOffer();G.msg='Pick your starting planets, then spin.';SCR='game';if(!(M.seen&&M.seen.intro))G.tip='intro';draw()}
+function prestigeCtl(){var h='<div class="box" style="max-width:340px;margin:14px auto;text-align:left"><h3>🔥 Prestige</h3><div class="seg">';
+for(var i=0;i<=M.prestige;i++)h+='<button class="'+(PLV()==i?'on':'')+'" onclick="setPrestige('+i+')">'+(i?'P'+i:'Normal')+'</button>';
+h+='</div><small style="color:var(--mu)">'+(PLV()?'<b>'+PV().n+'</b> — '+PV().d+'<br>'+['+'+PV().fame+'% fame needed','+'+PV().relic+' gold per relic','goals need '+PV().goal+' more planets',PV().start?PV().start+' starting planets':null,PV().choices?PV().choices+' choice on each pick':null].filter(Boolean).join(' · '):'Normal rules. Beat the game to unlock Prestige I.')+'</small></div>';return h}
+function setPrestige(v){M.plvl=Math.min(M.prestige,Math.max(0,v));save();draw()}
+function newGame(){G={rel:[]};var b0=[];for(var u=0;u<Math.max(0,uL('start')+PV().start);u++)b0.push(mk('grbp'.charAt(R(4))));G={fame:0,credits:2*uL('cash'),tot:0,run:'',earned:null,tmp:0,tmpc:0,t:0,n:0,systemsMade:0,icePiece:null,bag:b0,rel:[],cells:new Array(20).fill(null),vals:[],cv:[],hot:-1,fresh:-1,fx:{},pops:{},pull:{},sel:[],formT:'sys',banner:'',mode:'idle',back:'idle',busy:false,fast:false,msg:'Spin to scatter your bag across the star chart.',offer:[],shop:[],over:null,tip:null,startLeft:2};G.mode='start';G.offer=startOffer();G.msg='Pick your starting planets, then spin.';SCR='game';if(!(M.seen&&M.seen.intro))G.tip='intro';draw()}
 function startOffer(){return wpick(ppool().filter(function(x){return x[0]!='i'&&x[0]!='k'&&!DP[x[0]]}),3+uL('scout'))}
 function startC(i){G.bag.push(mk(G.offer[i]));G.startLeft--;if(G.startLeft>0)G.offer=startOffer();else{G.mode='idle';G.msg='Spin to scatter your bag across the star chart.'}draw()}
 function nb(i,R2){R2=R2||1;var r=Math.floor(i/5),c=i%5,o=[];for(var a=-R2;a<=R2;a++)for(var b=-R2;b<=R2;b++){if(!a&&!b)continue;var y=r+a,x=c+b;if(y>=0&&y<4&&x>=0&&x<5)o.push(y*5+x)}return o}
@@ -351,9 +355,9 @@ dbg('goal check');if(G.n==PER){var rent=RT(G.t);if(G.fame<rent){finish('lose');G
 if(G.t>=RENT.length)finish('win');else{mkShop();G.mode='shop'}}}
 else {dbg('offer');offer()}
 dbg('end');G.busy=false;saveRun();draw()}
-function pickN(){return 3+(has('lens')?1:0)+(has('scout')?1:0)+uL('scout')}
+function pickN(){return Math.max(2,3+(has('lens')?1:0)+(has('scout')?1:0)+uL('scout')+PV().choices)}
 function offer(){var n=pickN(),pl=pool(),o=[];while(o.length<n&&pl.length){o=o.concat(wpick(pl,1))}G.offer=shuf(o);G.mode='pick'}
-function rprice(r){return Math.max(1,r.b-(has('haggler')?2:0)-uL('tink')+Math.floor(G.rel.length/2))}
+function rprice(r){return Math.max(1,r.b-(has('haggler')?2:0)-uL('tink')+Math.floor(G.rel.length/2)+PV().relic)}
 function mkShop(){G.shop=shuf(RELICS.filter(function(r){return !has(r.id)&&relUsable(r.id)})).slice(0,3+uL('bazaar')).map(function(r){return{id:r.id,n:r.n,d:r.d,b:r.c}})}
 function relUsable(id){var hasK=function(k){return G.bag.some(function(p){if(p.k==k)return true;if(p.k=='sys')return(p.comp||[]).indexOf(k)>-1;if(p.k=='gal')return(p.subs||[]).some(function(x){return(x.comp||[]).indexOf(k)>-1});return false})};
 if(id=='permafrost'||id=='glacier')return hasK('i');
@@ -457,20 +461,29 @@ h+='</div>'+(G.run?'<div class="run">'+G.run+'</div>':'')+(G.auraChip?'<div clas
 var cnt={},rp={};G.bag.forEach(function(p){var kk=(p.k=='sys'||p.k=='gal')?p.k+p.dom:p.k;cnt[kk]=(cnt[kk]||0)+1;rp[kk]=p});
 Object.keys(cnt).forEach(function(k){h+='<div class="bi">'+orb(rp[k],1)+'<div><b>'+pn(rp[k])+' ×'+cnt[k]+'</b>'+pd(rp[k])+'</div></div>'});
 h+='</div></div></div></div>';
-if(G.tip)h+=tipHtml();if(G.over)h+='<div class="ov"><div class="box" style="text-align:center"><h1>'+(G.over=='win'?'🏆 GALACTIC LEGEND':(G.over=='quit'?'🚪 RUN ENDED':'💀 FAME FELL SHORT'))+'</h1><p>'+(G.over=='win'?'All '+RENT.length+' fame goals reached. The stars know your name.':(G.over=='quit'?'You ended the run at fame goal '+(G.t+1)+'.':'You had '+G.fame+' ⭐ but needed '+G.res+' ⭐.'))+'</p><p style="color:var(--gd)">✨ +'+G.earned+' Star Shards earned</p><button class="sm" onclick="newGame()">New run</button><button class="sm" onclick="showMeta()">Observatory</button></div></div>';
+if(G.tip)h+=tipHtml();if(G.over)h+='<div class="ov"><div class="box" style="text-align:center"><h1>'+(G.over=='win'?'🏆 GALACTIC LEGEND':(G.over=='quit'?'🚪 RUN ENDED':'💀 FAME FELL SHORT'))+'</h1><p>'+(G.over=='win'?'All '+RENT.length+' fame goals reached. The stars know your name.':(G.over=='quit'?'You ended the run at fame goal '+(G.t+1)+'.':'You had '+G.fame+' ⭐ but needed '+G.res+' ⭐.'))+'</p><p style="color:var(--gd)">✨ +'+G.earned+' Star Shards earned</p>'+(G.prestigeUp?'<div class="box" style="border:1px solid var(--gd);margin:12px 0"><h3 style="margin:0">🔥 Prestige mode unlocked</h3><small>You cleared the game at '+(G.prestigeUp>1?'Prestige '+(G.prestigeUp-1):'Normal')+'. <b>'+PRESTIGE[G.prestigeUp-1].n+'</b> is now open — pick it on the menu for a harder run.</small></div>':'')+'<button class="sm" onclick="newGame()">New run</button><button class="sm" onclick="showMeta()">Observatory</button></div></div>';
 document.getElementById('app').innerHTML=h}
-var SP=1,SCR='menu',M={shards:0,total:0,up:{},seen:{}};
-try{SP=parseFloat(localStorage.getItem('startithe_sp'))||1;var sv=localStorage.getItem('startithe_meta');if(sv){var o=JSON.parse(sv);M.shards=o.shards||0;M.total=o.total||0;M.up=o.up||{};M.seen=o.seen||{}}}catch(e){}
+var SP=1,SCR='menu',M={shards:0,total:0,up:{},seen:{},prestige:0,plvl:0};
+var PRESTIGE=[
+ {n:'Prestige I',d:'The stars are stingy.',fame:15,relic:2,goal:0,start:0,choices:0},
+ {n:'Prestige II',d:'Relics cost more and fame comes slower.',fame:30,relic:4,goal:1,start:0,choices:0},
+ {n:'Prestige III',d:'Goals climb, and your fleet starts smaller.',fame:45,relic:6,goal:2,start:-1,choices:0},
+ {n:'Prestige IV',d:'Fewer choices, dearer relics, hungrier goals.',fame:60,relic:8,goal:3,start:-1,choices:-1},
+ {n:'Prestige V',d:'The void knows your name.',fame:80,relic:10,goal:4,start:-2,choices:-1}];
+function PLV(){return M.plvl||0}
+function PV(){return PRESTIGE[Math.min(PRESTIGE.length,Math.max(1,PLV()))-1]||{fame:0,relic:0,goal:0,start:0,choices:0,n:'None',d:''}}
+try{SP=parseFloat(localStorage.getItem('startithe_sp'))||1;var sv=localStorage.getItem('startithe_meta');if(sv){var o=JSON.parse(sv);M.shards=o.shards||0;M.total=o.total||0;M.up=o.up||{};M.seen=o.seen||{};M.prestige=o.prestige||0;M.plvl=Math.min(o.prestige||0,o.plvl||0)}}catch(e){}
 function save(){try{localStorage.setItem('startithe_meta',JSON.stringify(M));localStorage.setItem('startithe_sp',String(SP))}catch(e){}}
 function uL(id){return(M.up&&M.up[id])||0}
-function RT(t){return Math.max(1,Math.round(RENT[t]*(1-.04*uL('goal'))))}
+function RT(t){return Math.max(1,Math.round(RENT[t]*(1-.04*uL('goal'))*(1+PV().fame/100)))}
 var UP=[{id:'start',n:'Starting Fleet',d:'Begin each run with +1 random planet per level.',max:3,base:45},{id:'cash',n:'Seed Capital',d:'Begin each run with +2 💰 per level.',max:5,base:24},
 {id:'goal',n:'Goal Haggling',d:'All fame goals are 4% lower per level.',max:5,base:42},{id:'scout',n:'Scout Network',d:'+1 choice on every pick screen.',max:2,base:90},
 {id:'eyes',n:'Keen Eyes',d:'Rare finds appear 25% more often per level.',max:4,base:36},{id:'fame',n:'Fame Mastery',d:'+1 ⭐ at the end of every spin per level.',max:5,base:36},
 {id:'tink',n:'Relic Tinkering',d:'Relics cost 1 💰 less per level.',max:3,base:45},{id:'bazaar',n:'Grand Bazaar',d:'+1 relic offered in each shop per level.',max:2,base:75},
 {id:'form',n:'Swift Formation',d:'Solar Systems and Galaxies need 1 fewer piece per level.',max:2,base:90}];
 function rank(){var th=[0,90,240,480,900,1500,2400],nz=['Stargazer','Navigator','Pathfinder','Cartographer','Astronomer','Constellation Keeper','Galactic Sage'],i=0;th.forEach(function(t,j){if(M.total>=t)i=j});return{n:nz[i],next:th[i+1]}}
-function finish(r){if(r=='lose')sfx('lose');G.over=r;try{localStorage.removeItem('gf_run')}catch(e){}if(G.earned==null){var s=Math.max(4,G.t*9+Math.floor(G.tot/120)+(r=='win'?20:0));G.earned=s;M.shards+=s;M.total+=s;save()}}
+function finish(r){if(r=='lose')sfx('lose');G.over=r;G.prestigeUp=false;
+if(r=='win'&&M.prestige<PRESTIGE.length){M.prestige++;M.plvl=M.prestige;G.prestigeUp=M.prestige;save()}try{localStorage.removeItem('gf_run')}catch(e){}if(G.earned==null){var s=Math.max(4,G.t*9+Math.floor(G.tot/120)+(r=='win'?20:0));G.earned=s;M.shards+=s;M.total+=s;save()}}
 function saveRun(){try{if(!G||G.over||SCR!='game'){localStorage.removeItem('gf_run');return}localStorage.setItem('gf_run',JSON.stringify({t:G.t,n:G.n,fame:G.fame,credits:G.credits,tot:G.tot,bag:G.bag,rel:G.rel,icePiece:G.icePiece,systemsMade:G.systemsMade,boost:G.boost}))}catch(e){}}
 function resumeRun(){try{var r=JSON.parse(localStorage.getItem('gf_run')||'null');if(!r||!r.bag||!r.bag.length)return false;newGame();G.t=r.t;G.n=r.n;G.fame=r.fame;G.credits=r.credits;G.tot=r.tot;G.bag=r.bag;G.rel=r.rel||[];G.icePiece=r.icePiece;G.systemsMade=r.systemsMade||0;G.boost=r.boost||{};G.mode='idle';G.msg='Welcome back. Your run is where you left it.';return true}catch(e){return false}}
 function quitRun(){if(G.busy||G.over)return;finish('quit');draw()}
@@ -482,7 +495,7 @@ function askReset(){RST=true;draw()}function noReset(){RST=false;draw()}function
 function showMenu(){SCR='menu';draw()}function showMeta(){SCR='meta';draw()}
 function buyU(id){var u=UP.filter(function(x){return x.id==id})[0],l=uL(id),c=u.base*(l+1);if(l>=u.max||M.shards<c)return;M.shards-=c;M.up[id]=l+1;save();draw()}
 function menuHtml(){var rk=rank();return'<div class="menu"><h1 class="big">✦ GALAXY FAME</h1><p style="color:var(--mu)">Fill your bag with worlds. Spin the star chart. Chase the fame.</p><div class="hero">'+['g','r','b','p','k','c','h','q','v','i'].map(function(k,i){return orb({k:k,s:i+2,life:3,st:0,perm:0},1)}).join('')+'</div>'
-+'<p>Explorer rank: <b style="color:var(--gd)">'+rk.n+'</b> · ✨ '+M.shards+' Star Shards</p><button class="spin" style="max-width:320px;width:100%" onclick="newGame()">NEW RUN</button>'+(function(){try{return localStorage.getItem('gf_run')?'<br><button class="sm" style="margin-top:10px" onclick="resumeRun()">▶ CONTINUE RUN</button>':''}catch(e){return''}})()+'<br><button class="sm" style="margin-top:14px" onclick="showMeta()">🔭 Observatory · permanent upgrades</button>'+(SFX.on?'':'')+'<div style="margin-top:10px">'+sfxCtl(1)+'</div>'+resetUi()+'<div style="display:flex;justify-content:center;margin-top:10px">'+spdCtl(true)+'</div>'
++'<p>Explorer rank: <b style="color:var(--gd)">'+rk.n+'</b> · ✨ '+M.shards+' Star Shards</p><button class="spin" style="max-width:320px;width:100%" onclick="newGame()">NEW RUN</button>'+(M.prestige?prestigeCtl():'')+(function(){try{return localStorage.getItem('gf_run')?'<br><button class="sm" style="margin-top:10px" onclick="resumeRun()">▶ CONTINUE RUN</button>':''}catch(e){return''}})()+'<br><button class="sm" style="margin-top:14px" onclick="showMeta()">🔭 Observatory · permanent upgrades</button>'+(SFX.on?'':'')+'<div style="margin-top:10px">'+sfxCtl(1)+'</div>'+resetUi()+'<div style="display:flex;justify-content:center;margin-top:10px">'+spdCtl(true)+'</div>'
 +'<div class="box" style="max-width:540px;margin:18px auto;text-align:left;font-size:13px;color:var(--mu)">Every spin scatters your bag over the star chart and neighbors interact. Pick new worlds after each spin, reach the fame goal every 5 spins, and spend credits on relics. Collect 8 planets to form a Solar System, 7 Solar Systems to form a Galaxy. Runs earn Star Shards for permanent upgrades.</div></div>'}
 function metaHtml(){var rk=rank(),h='<div class="hd"><h1>🔭 OBSERVATORY</h1><button class="sm" style="margin:0" onclick="showMenu()">← Back</button></div><div class="stats" style="grid-template-columns:1fr 1fr"><div class="pill"><span>Explorer rank</span><b>'+rk.n+'</b><span>'+(rk.next?M.total+' / '+rk.next+' lifetime shards':'Max rank')+'</span></div><div class="pill"><span>Star Shards</span><b>✨ '+M.shards+'</b></div></div>';
 UP.forEach(function(u){var l=uL(u.id),c=u.base*(l+1),p='';for(var i=0;i<u.max;i++)p+='<i class="'+(i<l?'f':'')+'"></i>';h+='<div class="up"><div><b>'+u.n+'</b><div class="pips">'+p+'</div><small style="color:var(--mu)">'+u.d+'</small></div>'+(l>=u.max?'<span style="color:var(--gd)">MAX</span>':'<button class="buy" '+(M.shards<c?'disabled':'')+' onclick="buyU(\''+u.id+'\')">'+c+' ✨</button>')+'</div>'});
