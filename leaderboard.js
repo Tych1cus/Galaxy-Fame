@@ -145,14 +145,9 @@
     var i = h.indexOf('<button class="spin"');
     return i > -1 ? h.slice(0, i) + extra + h.slice(i) : h + extra;
   });
-  // game screen: Total fame box; end-of-run popup: final score + personal best
+  // end-of-run popup: final score + personal best
   wrap('gameHtml', function (h) {
     var g = G_(); if (!g) return h;
-    var tot = Math.round((g.tot || 0) + (g.tmp || 0)),
-      pill = '<div class="pill gflb-tot"><span>Total fame · score</span><b id="gflbTot">⭐ ' + fmt(tot) + '</b></div>';
-    var bag = h.match(/<div class="pill"><span>Bag<\/span><b>[^<]*<\/b><\/div>/);
-    if (bag) h = h.replace(bag[0], bag[0] + pill);
-    else { var st = h.indexOf('<div class="stats">'); if (st > -1) h = h.slice(0, st + 19) + pill + h.slice(st + 19); }
     if (g.over) {
       var fs = '<p class="gflb-final">Final score: ' + fmt(g.tot) + ' ⭐</p>';
       var ov = h.lastIndexOf('<div class="ov">');
@@ -169,21 +164,9 @@
     }
     return h;
   });
-  // keep the Total fame box counting up during the end-of-spin animation
-  if (typeof window.paintBar == 'function') {
-    var paint0 = window.paintBar;
-    window.paintBar = function (tf, tc) {
-      var out = paint0.apply(this, arguments);
-      try { var el = document.getElementById('gflbTot'), g = G_(); if (el && g) el.textContent = '⭐ ' + fmt((g.tot || 0) + (tf || 0)); } catch (e) {}
-      return out;
-    };
-  }
-
   try {
     var css = document.createElement('style');
     css.textContent =
-      '.stats{grid-template-columns:2fr 1fr 1fr 1fr 1.6fr}.gflb-tot b{color:var(--gd)}' +
-      '@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}.gflb-tot{grid-column:1/-1}}' +
       '.gflb-l{color:var(--mu);font-size:13px;margin:6px 0 0}.gflb-s{font-size:12px;margin:4px 0 10px}' +
       '.gflb-b{margin:0 0 0 6px!important;padding:2px 8px!important;font-size:11px!important}' +
       '.gflb-final{font-size:22px;font-weight:800;color:var(--gd);margin:6px 0}.gflb-best{color:#7dffb0;font-weight:700}';
