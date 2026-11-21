@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Galaxy Fame — daily board</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--bg:#070a14;--pn:#0e1424;--ln:#1e2740;--tx:#e8eefc;--mu:#93a1c4;--gd:#ffd36a}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 700px at 70% -10%,#18234a 0%,#070a14 60%);
+color:var(--tx);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+header{padding:26px 20px 6px;max-width:720px;margin:0 auto}
+h1{margin:0;font-size:24px}
+.sub{color:var(--mu);font-size:13px;margin-top:5px}
+main{max-width:720px;margin:0 auto;padding:8px 20px 70px}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:14px 16px;margin-top:14px}
+label{display:block;color:var(--mu);font-size:12px;text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px}
+input{width:100%;background:#0a1020;border:1px solid var(--ln);color:var(--tx);
+border-radius:10px;padding:10px 12px;font-size:15px;font-family:inherit}
+input:focus{outline:none;border-color:var(--gd)}
+button{background:linear-gradient(180deg,#ffd36a,#ff9f4a);color:#20160a;border:0;border-radius:10px;
+padding:10px 18px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:10px}
+button.ghost{background:#141c30;color:var(--tx);border:1px solid var(--ln);font-weight:600}
+button:disabled{opacity:.55;cursor:default}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:9px 6px;border-bottom:1px solid var(--ln)}
+th{color:var(--mu);font-size:11px;text-transform:uppercase;letter-spacing:.7px;font-weight:600}
+td.pos{color:var(--mu);width:34px}
+td.fame{text-align:right;font-weight:700;color:var(--gd);white-space:nowrap}
+td.title{color:var(--mu);font-size:12.5px}
+.me{background:#132038}
+.msg{font-size:13px;margin-top:10px;color:var(--mu)}
+.msg.err{color:#ff8f8f}
+.foot{color:var(--mu);font-size:12px;margin-top:24px;border-top:1px solid var(--ln);padding-top:12px}
+a{color:var(--gd)}
+</style></head><body>
+<header>
+<h1>✦ Daily board</h1>
+<div class="sub" id="sub">Today's best runs</div>
+</header>
+<main>
+
+<div class="card">
+  <label>Your name</label>
+  <input id="nm" maxlength="16" placeholder="e.g. Kevin" autocomplete="off">
+  <div class="msg" id="msg"></div>
+</div>
+
+<div class="card">
+  <table id="tbl"><tbody id="rows"><tr><td colspan="4" class="msg">Loading…</td></tr></tbody></table>
+</div>
+
+<div class="foot">
+  <a href="index.html">← Back to the game</a> · Scores are kept for today only, then the board starts fresh.
+</div>
+</main>
+<script>
+var API='/api';
+var ME='';
+function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+function paint(rows){
+  var b=document.getElementById('rows');
+  if(!rows||!rows.length){b.innerHTML='<tr><td colspan="4" class="msg">Nobody has finished a run today yet. Be first.</td></tr>';return}
+  b.innerHTML=rows.map(function(r,i){
+    return '<tr class="'+(r.name===ME?'me':'')+'"><td class="pos">'+(i+1)+'</td>'+
+      '<td>'+esc(r.name)+'<div class="title">'+esc(r.title||'')+'</div></td>'+
+      '<td class="fame">'+Number(r.fame).toLocaleString()+' ⭐</td>'+
+      '<td class="title" style="text-align:right">'+(r.goals||0)+' goals</td></tr>'
+  }).join('');
+  document.getElementById('sub').textContent='Top runs for '+today()+' ('+rows.length+' player'+(rows.length==1?'':'s')+')';
+}
+
+async function load(){
+  try{
+    var r=await fetch(API+'/board?day='+today(),{cache:'no-store'});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    paint((await r.json()).rows);
+  }catch(e){
+    document.getElementById('rows').innerHTML='<tr><td colspan="4" class="msg err">Could not reach the board. '+esc(e.message)+'</td></tr>';
+  }
+}
+
+async function saveName(){
+  var v=document.getElementById('nm').value.trim();
+  if(v.length<2){document.getElementById('msg').className='msg err';document.getElementById('msg').textContent='Pick a name with at least 2 letters.';return}
+  ME=v;try{localStorage.setItem('gf_name',v)}catch(e){}
+  var m=document.getElementById('msg');m.className='msg';m.textContent='Saved. Your runs will show as "'+v+'".';
+}
+
+(function(){
+  try{ME=localStorage.getItem('gf_name')||''}catch(e){}
+  document.getElementById('nm').value=ME;
+  document.getElementById('nm').addEventListener('change',saveName);
+  load();
+  setInterval(load,30000);
+})();
+</script></body></html>
