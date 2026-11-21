@@ -63,5 +63,20 @@
   "name": "Text: choosing the Ice Planet's square (panel)",
   "find": "The Ice Planet will stay in that position for the rest of this run.",
   "replace": "The Ice Planet always lands there until it joins a Solar System."
+ },
+ {
+  "name": "Cradles only grow +0.1 per spin; they no longer keep the extra fame they scored",
+  "find": "p.perm=Math.max((p.perm||0),Math.round(((((oi>=0?S.f[oi]:0)-ownNow(p)))*10)/10));",
+  "replace": "p.perm=0;"
+ },
+ {
+  "name": "Cradles ignore old wrongly-kept bonuses (cleans runs saved before the fix)",
+  "find": "else if(k=='c')v=(has('heirloom')?2:1)+(c.grow||0);",
+  "replace": "else if(k=='c'){v=(has('heirloom')?2:1)+(c.grow||0);c.perm=0}"
+ },
+ {
+  "name": "Solar System panel shows what each Chorus really scores there",
+  "find": "else if(k=='h'){sc=cm.slice(0,ci+1).filter(function(x){return x=='h'}).length}",
+  "replace": "else if(k=='h'){var _H=cm.filter(function(x){return x=='h'}).length,_t=tierF(auras(),'h'),_l=has('encore')&&cm.lastIndexOf('h')==ci;sc=(_H+_t+(has('baton')?1:0))*(_l?2:1);note=_H+' Chorus'+(_H==1?'':'es')+' here'+(_t?' + aura '+_t:'')+(has('baton')?' + Baton':'')+(_l?' ×2 Encore':'')}"
  }
 ]
