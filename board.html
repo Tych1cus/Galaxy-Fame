@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><title>Galaxy Fame — daily board</title>
+<html lang="en"><head><meta charset="utf-8"><title>Galaxy Fame — leaderboard</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 :root{--bg:#070a14;--pn:#0e1424;--ln:#1e2740;--tx:#e8eefc;--mu:#93a1c4;--gd:#ffd36a}
@@ -30,10 +30,13 @@ td.title{color:var(--mu);font-size:12.5px}
 .msg.err{color:#ff8f8f}
 .foot{color:var(--mu);font-size:12px;margin-top:24px;border-top:1px solid var(--ln);padding-top:12px}
 a{color:var(--gd)}
+.tabs{display:flex;gap:8px;margin-top:14px}
+.tabs button{margin:0}
+td.win{color:var(--gd)}
 </style></head><body>
 <header>
-<h1>✦ Daily board</h1>
-<div class="sub" id="sub">Today's best runs</div>
+<h1>✦ Galaxy Fame leaderboard</h1>
+<div class="sub" id="sub">Best runs</div>
 </header>
 <main>
 
@@ -43,52 +46,65 @@ a{color:var(--gd)}
   <div class="msg" id="msg"></div>
 </div>
 
+<div class="tabs">
+  <button id="tToday" onclick="tab('today')">Today</button>
+  <button id="tAll" class="ghost" onclick="tab('all')">All time</button>
+</div>
+
 <div class="card">
   <table id="tbl"><tbody id="rows"><tr><td colspan="4" class="msg">Loading…</td></tr></tbody></table>
 </div>
 
 <div class="foot">
-  <a href="index.html">← Back to the game</a> · Scores are kept for today only, then the board starts fresh.
+  <a href="index.html">← Back to the game</a> · Ranked by fame goals reached, then total fame in the run. Each player's best run counts.
 </div>
 </main>
 <script>
-var API='/api';
-var ME='';
+var LB_URL='https://bbawfdqrxqfeqadcfdqj.supabase.co',LB_KEY='sb_publishable_owcLW7JcSGVvUIcfvNYRuQ_G0arZB9Z';
+var LB_BAD=['fuck','shit','bitch','cunt','nigg','fagg','slut','whore','rape','nazi','hitler','dick','cock','pussy','asshole','retard'];
+var ME='',TAB='today';
 function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
-
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function cleanName(s){return String(s||'').replace(/[^A-Za-z0-9 _.\-]/g,'').replace(/\s+/g,' ').trim().slice(0,16)}
+function nameOk(s){var t=s.toLowerCase().replace(/[^a-z]/g,'');return LB_BAD.every(function(w){return t.indexOf(w)<0})}
 
 function paint(rows){
   var b=document.getElementById('rows');
-  if(!rows||!rows.length){b.innerHTML='<tr><td colspan="4" class="msg">Nobody has finished a run today yet. Be first.</td></tr>';return}
+  if(!rows||!rows.length){b.innerHTML='<tr><td colspan="4" class="msg">'+(TAB=='today'?'Nobody has finished a run today yet. Be first.':'No runs yet. Be first.')+'</td></tr>';return}
   b.innerHTML=rows.map(function(r,i){
-    return '<tr class="'+(r.name===ME?'me':'')+'"><td class="pos">'+(i+1)+'</td>'+
-      '<td>'+esc(r.name)+'<div class="title">'+esc(r.title||'')+'</div></td>'+
+    var g=r.goals>=10?'🏆 won':(r.goals||0)+' goal'+(r.goals==1?'':'s');
+    return '<tr class="'+(ME&&r.name.toLowerCase()===ME.toLowerCase()?'me':'')+'"><td class="pos">'+(i+1)+'</td>'+
+      '<td>'+esc(r.name)+'<div class="title">'+esc(r.title||'')+(TAB=='all'?' · '+esc(r.day):'')+'</div></td>'+
       '<td class="fame">'+Number(r.fame).toLocaleString()+' ⭐</td>'+
-      '<td class="title" style="text-align:right">'+(r.goals||0)+' goals</td></tr>'
+      '<td class="title'+(r.goals>=10?' win':'')+'" style="text-align:right">'+g+'</td></tr>'
   }).join('');
-  document.getElementById('sub').textContent='Top runs for '+today()+' ('+rows.length+' player'+(rows.length==1?'':'s')+')';
 }
 
 async function load(){
+  document.getElementById('sub').textContent=TAB=='today'?'Best runs today ('+today()+')':'Best runs of all time';
   try{
-    var r=await fetch(API+'/board?day='+today(),{cache:'no-store'});
+    var q=LB_URL+'/rest/v1/gf_scores?select=name,day,goals,fame,win,title&order=goals.desc,fame.desc&limit='+(TAB=='today'?'100&day=eq.'+today():'500');
+    var r=await fetch(q,{cache:'no-store',headers:{apikey:LB_KEY,Authorization:'Bearer '+LB_KEY}});
     if(!r.ok)throw new Error('HTTP '+r.status);
-    paint((await r.json()).rows);
+    var rows=await r.json(),seen={},out=[];
+    rows.forEach(function(x){var k=x.name.toLowerCase();if(x.name=='Anon'||!seen[k]){seen[k]=1;out.push(x)}});   // one row per player
+    paint(out.slice(0,100));
   }catch(e){
     document.getElementById('rows').innerHTML='<tr><td colspan="4" class="msg err">Could not reach the board. '+esc(e.message)+'</td></tr>';
   }
 }
+function tab(t){TAB=t;document.getElementById('tToday').className=t=='today'?'':'ghost';document.getElementById('tAll').className=t=='all'?'':'ghost';load()}
 
-async function saveName(){
-  var v=document.getElementById('nm').value.trim();
-  if(v.length<2){document.getElementById('msg').className='msg err';document.getElementById('msg').textContent='Pick a name with at least 2 letters.';return}
-  ME=v;try{localStorage.setItem('gf_name',v)}catch(e){}
-  var m=document.getElementById('msg');m.className='msg';m.textContent='Saved. Your runs will show as "'+v+'".';
+function saveName(){
+  var v=cleanName(document.getElementById('nm').value),m=document.getElementById('msg');
+  if(v.length<2){m.className='msg err';m.textContent='Pick a name with at least 2 letters or numbers.';return}
+  if(!nameOk(v)){m.className='msg err';m.textContent='Please pick a different name.';return}
+  ME=v;document.getElementById('nm').value=v;try{localStorage.setItem('gf_name',v)}catch(e){}
+  m.className='msg';m.textContent='Saved. Your next runs will show as "'+v+'".';load();
 }
 
 (function(){
-  try{ME=localStorage.getItem('gf_name')||''}catch(e){}
+  try{ME=cleanName(localStorage.getItem('gf_name')||'')}catch(e){}
   document.getElementById('nm').value=ME;
   document.getElementById('nm').addEventListener('change',saveName);
   load();

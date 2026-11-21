@@ -1,19 +1,14 @@
 # Galaxy-Fame
 Build a galaxy full of planets. Earn fame. Meet the demands of the people.  Star Fame is a space roguelike. Develop a star chart, and watch neighbors trigger each other in chains of fame. Every few spins the people demand more, and the only way to keep up is to build something bigger: a solar system, then a whole galaxy.
 
-## Daily leaderboard
+## Leaderboard
 
-`board.html` is the daily board. Scores are saved by a tiny server in `server/server.js`
-(plain Node 16+, no packages). **GitHub Pages can't run it** - on Pages the game plays fine
-but scores aren't saved. To get a working board, run the server on a host that keeps Node
-alive (Render, Railway, Fly.io, a VPS or a spare PC):
+`board.html` is the global leaderboard (Today and All time). Scores are stored in a Supabase
+database run by **archdevious** - ask them about the board, resetting scores or removing a
+cheater. Nothing to host: it works straight from GitHub Pages.
 
-- Start command: `npm start` (or `node server/server.js`)
-- Port: read from `PORT`, which hosts set for you (default 3000)
-- Storage: `data/scores.json`, created on first run. On hosts that wipe files on redeploy,
-  mount a disk at `data/` to keep scores.
-
-Then play at `http://your-host/` and see the board at `http://your-host/board.html`.
-
-The board ranks each player's best run of the day: most fame goals reached first, then most
-total fame earned in the run. Scores are trusted as posted - it's a board for friends.
+- A finished run is sent once, at the end of the run (Supabase function `gf_submit`).
+- Ranked by fame goals reached, then total fame earned in the run. Each player's best run counts.
+- Players set their board name on the title screen or the board page.
+- Your own best run is also remembered in your browser and shown on the title screen.
+- The key in the code is Supabase's public key: it can only read scores and submit runs.
