@@ -19,8 +19,9 @@
   function ac() {
     if (!AC) {
       try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; }
-      master = AC.createGain(); master.gain.value = .8; master.connect(AC.destination);
-      sfxBus = AC.createGain(); sfxBus.gain.value = .55; sfxBus.connect(master);
+      var comp = AC.createDynamicsCompressor(); comp.threshold.value = -10; comp.knee.value = 6; comp.ratio.value = 4; comp.attack.value = .003; comp.release.value = .2; comp.connect(AC.destination);
+      master = AC.createGain(); master.gain.value = 1.15; master.connect(comp);
+      sfxBus = AC.createGain(); sfxBus.gain.value = 1; sfxBus.connect(master);
       musicBus = AC.createGain(); musicBus.gain.value = 0; musicBus.connect(master);
     }
     if (AC.state == 'suspended') AC.resume();
@@ -70,13 +71,14 @@
       return sfx0.apply(this, arguments);
     };
   }
-  addEventListener('pointerdown', function () { ac(); if (musicOn) startMusic(); }, { once: true });
+  function firstTouch() { ac(); if (musicOn) startMusic(); removeEventListener('pointerdown', firstTouch, true); removeEventListener('keydown', firstTouch, true); }
+  addEventListener('pointerdown', firstTouch, true); addEventListener('keydown', firstTouch, true);
 
   // ===================================================================== music
   // A generated space-disco score that keeps changing: sections (intro, groove, melody,
   // breakdown, lift), several chord progressions, new melodies per section, drum fills,
   // and a key change each time round.
-  var musicOn = ls('gf_dv_music') == '1', mTimer = null, nextT = 0, step = 0, BPM = 112;
+  var musicOn = ls('gf_dv_music') != '0', mTimer = null, nextT = 0, step = 0, BPM = 112;
   var PROGS = [[0, 5, 3, 4], [0, 3, 5, 4], [0, 6, 5, 3], [0, 4, 5, 3], [5, 3, 0, 4], [0, 2, 3, 4]];
   var SCALE = [0, 2, 3, 5, 7, 8, 10];                 // natural minor, root A
   var SECTIONS = ['intro', 'groove', 'melody', 'groove2', 'break', 'lift', 'melody2', 'outro'];
@@ -177,7 +179,7 @@
   }
   function startMusic() {
     if (!ac()) return; if (!song) newSong();
-    musicBus.gain.cancelScheduledValues(AC.currentTime); musicBus.gain.setTargetAtTime(.42, AC.currentTime, .4);
+    musicBus.gain.cancelScheduledValues(AC.currentTime); musicBus.gain.setTargetAtTime(1.4, AC.currentTime, .4);
     if (!mTimer) { nextT = AC.currentTime + .08; mTimer = setInterval(schedule, 30); }
   }
   function stopMusic() { if (AC) musicBus.gain.setTargetAtTime(0, AC.currentTime, .15); clearInterval(mTimer); mTimer = null; }
@@ -375,6 +377,5 @@
     '@media(prefers-reduced-motion:reduce){.board.dv-flash,.board .cell.hot{animation:none}.dv-banner.go{animation-duration:.01s}}'
   ].join('');
   document.head.appendChild(css);
-  if (musicOn) addEventListener('pointerdown', function () { startMusic(); }, { once: true });
   try { DH = ''; draw(); } catch (e) {}
 })();

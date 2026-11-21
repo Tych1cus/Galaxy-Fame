@@ -19,7 +19,7 @@ Thick Dust · Dust Compactor · Volcanic · Obsidian Shield · Giant Star · Cos
 
 ## New in Devious Mode
 - Slot-machine spin: drag the lever down (or swipe down on the board on phones) and the reels spin and land column by column.
-- Sound effects and music that builds with each fame goal, peaks on the last one, and calms down in the shop.
+- Sound effects and music (on by default) that builds with each fame goal, peaks on the last one, and calms down in the shop.
 - Planets light up as they score; big spins shake the screen with explosions and a BIG COMBO / MEGA FAME banner; fireworks on fame goals.
 - Compact stats row on phones.
 - Its own leaderboard, best score, stats and saved run.
