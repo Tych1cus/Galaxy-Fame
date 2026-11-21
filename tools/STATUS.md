@@ -2,7 +2,7 @@
 
 Updated by tools/apply_patches.py after each upload.
 
-- ok: leaderboard line already there
+- FIXED: leaderboard line re-added
 - FIXED: Permafrost Choir holds the Ice Planet's square (not plain Permafrost)
 - FIXED: Choir leaves a real used Ice Planet on its square, not an empty marker
 - FIXED: A used Ice Planet can't join another Solar System (Select all)
