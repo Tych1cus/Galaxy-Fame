@@ -385,7 +385,7 @@ function buyR(i){sfx('buy');var r=G.shop[i];if(!r||G.credits<rprice(r))return;G.
 function openShop(){G.freeRoll=has('lucky')?1:0;mkShop();draw()}
 function reroll(){var fr=has('lucky')&&G.freeRoll;if(!fr&&G.credits<1)return;if(!fr)G.credits--;if(fr)G.freeRoll=0;mkShop();draw()}
 function leave(){G.boostLeft=boostPicks();G.boostThis={};G.mode='boost';G.msg='Pick a world to find more often.';draw()}
-function startForm(t){G.formT=t;G.sel=[];G.mode='form';draw()}
+function startForm(t){G.formT=t;G.sel=[];G.hot=-1;G.ab=null;G.pops={};G.fx={};G.mode='form';draw()}
 function clearSel(){G.sel=[];G.msg='';draw()}
 function togAll(){var N=need(G.formT),sy=G.formT=='sys',el=[];G.bag.forEach(function(p,i){if(sy?((K[p.k]&&p.k!='k')||(p.k=='i'&&has('permafrost'))):p.k=='sys')el.push(i)});
 if(G.sel.length>=N&&G.sel.length>=Math.min(N,el.length)){G.sel=[];draw();return}
