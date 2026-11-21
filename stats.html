@@ -35,7 +35,9 @@ button{background:#141c30;color:var(--tx);border:1px solid var(--ln);border-radi
 <script>
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function f(x){return Number(Math.round(x||0)).toLocaleString()}
-function load(){var s=null;try{s=JSON.parse(localStorage.getItem('gf_stats')||'null')}catch(e){}return s&&s.runs?s:{runs:[]}}
+var DVM=/[?&]mode=devious/.test(location.search),SKEY=DVM?'gf_dv_stats':'gf_stats';
+if(DVM){document.title='Galaxy Fame — Devious Mode stats';document.querySelector('h1').textContent='😈 Your Devious Mode stats';var fl=document.querySelectorAll('.foot a');fl[0].href='devious.html';fl[0].textContent='← Back to Devious Mode';fl[1].href='board.html?mode=devious'}
+function load(){var s=null;try{s=JSON.parse(localStorage.getItem(SKEY)||'null')}catch(e){}return s&&s.runs?s:{runs:[]}}
 function when(t){var d=new Date(t),n=new Date(),same=d.toDateString()==n.toDateString(),y=new Date(n-864e5).toDateString()==d.toDateString();
   var hm=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);return (same?'Today':y?'Yesterday':d.toLocaleDateString())+' '+hm}
 function bars(list,max){return list.map(function(x){return '<div class="row"><span>'+esc(x[0])+'</span><div class="bar"><i style="width:'+(max?Math.max(3,x[1]/max*100):0)+'%'+(x[2]?';background:'+x[2]:'')+'"></i></div><b>'+x[1]+'</b></div>'}).join('')}
@@ -76,6 +78,6 @@ function render(){
 }
 function askReset(){document.getElementById('rs').innerHTML=' Erase all your stats? <button onclick="doReset()">Yes, erase</button> <button onclick="noReset()">Cancel</button>'}
 function noReset(){document.getElementById('rs').innerHTML=' <button onclick="askReset()">Reset stats</button>'}
-function doReset(){try{localStorage.removeItem('gf_stats')}catch(e){}noReset();render()}
+function doReset(){try{localStorage.removeItem(SKEY)}catch(e){}noReset();render()}
 render();
 </script></body></html>

@@ -25,3 +25,11 @@ forced) and listed as NEEDS A LOOK in `tools/STATUS.md`.
 - `stats.html` shows each player's own stats (runs, scores, where runs end, picks, relics). They are
   kept only in that player's browser and are recorded by `leaderboard.js` too.
 - The key in the code is Supabase's public key: it can only read scores and submit runs.
+
+## Devious Mode
+
+`devious.html` is archdevious's version of the game (😈 Devious Mode on the main menu). It is rebuilt
+automatically from `index.html` after every upload (`tools/build_devious.py`): the game's newest code plus
+the fixes in `tools/devious_patches.json` and the effects in `devious.js`. It has its own leaderboard
+(Supabase table `gf_dv_scores`), best score, stats and saved run. Changes are listed in
+`DEVIOUS-PATCH-NOTES.md`.

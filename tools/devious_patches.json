@@ -1,0 +1,149 @@
+[
+ {
+  "name": "Effects: slot-machine reels when the planets are dealt",
+  "find": "for(var i=0;i<20;i++)if(cs[i]){dbg('draw '+i);await sleep(100);G.cells[i]=cs[i];G.fresh=i;draw()}",
+  "replace": "if(window.DV&&DV.deal){await DV.deal(cs)}else for(var i=0;i<20;i++)if(cs[i]){dbg('draw '+i);await sleep(100);G.cells[i]=cs[i];G.fresh=i;draw()}"
+ },
+ {
+  "name": "Effects: each planet as it scores",
+  "find": "tf+=S.f[i];tc+=S.c[i];",
+  "replace": "tf+=S.f[i];tc+=S.c[i];if(window.DV&&DV.cell)DV.cell(i,S.f[i],S.c[i]);"
+ },
+ {
+  "name": "Effects: each Solar System as it scores",
+  "find": "tf+=S.f[sp2];tc+=S.c[sp2];",
+  "replace": "tf+=S.f[sp2];tc+=S.c[sp2];if(window.DV&&DV.cell)DV.cell(sp2,S.f[sp2],S.c[sp2],1);"
+ },
+ {
+  "name": "Effects: big spins",
+  "find": "G.banner=(tf?'+'+tf+' ⭐':'')+(tc?'<small>+'+tc+' 💰</small>':'');",
+  "replace": "if(window.DV&&DV.total)DV.total(tf,RT(Math.min(G.t,RENT.length-1)));G.banner=(tf?'+'+tf+' ⭐':'')+(tc?'<small>+'+tc+' 💰</small>':'');"
+ },
+ {
+  "name": "Effects: fame goal reached",
+  "find": "goBoom();",
+  "replace": "goBoom();if(window.DV&&DV.goal)DV.goal();"
+ },
+ {
+  "name": "Devious Mode keeps its own run in progress",
+  "find": "'gf_run'",
+  "replace": "'gf_dv_run'",
+  "all": true
+ },
+ {
+  "name": "Chorus: counting starts with the Choruses inside Solar Systems",
+  "find": "function galVal(g){",
+  "replace": "function chOff(s){var o=0,done=false;G.bag.forEach(function(p){if(done)return;var L=p.k=='sys'?[p]:p.k=='gal'?(p.subs||[]):[];L.forEach(function(x){if(done)return;if(x===s){done=true;return}(x.comp||[]).forEach(function(k){if(k=='h')o++})})});return done?o:0}\nfunction galVal(g){"
+ },
+ {
+  "name": "Chorus: in a Solar System they score 1, 2, 3... like on the board",
+  "find": "else if(k=='h'){x=H+T('h')+(has('baton')?1:0);last=x}",
+  "replace": "else if(k=='h'){hc++;x=chOff(s)+hc+T('h')+(has('baton')?1:0);last=x}"
+ },
+ {
+  "name": "Chorus: System panel shows each Chorus's number",
+  "find": "sc=(_H+_t+(has('baton')?1:0))*(_l?2:1);note=_H+' Chorus'+(_H==1?'':'es')+' here'",
+  "replace": "var _n=chOff(c)+cm.slice(0,ci+1).filter(function(x){return x=='h'}).length;sc=(_n+_t+(has('baton')?1:0))*(_l?2:1);note='Chorus #'+_n"
+ },
+ {
+  "name": "Fix: Rubble Rights works (Quarries +4 per Asteroid)",
+  "find": "else if(k=='q')v=2+2*N.filter(",
+  "replace": "else if(k=='q')v=2+(has('rubble')?4:2)*N.filter("
+ },
+ {
+  "name": "Fix: Prism Lens gives the Nebula +2 on the board",
+  "find": "if(has('prism')&&!baseOnly)f[i]+=1",
+  "replace": "if(has('prism')&&!baseOnly)f[i]+=2"
+ },
+ {
+  "name": "Fix: Prism Lens gives the Nebula +2 in a Solar System",
+  "find": "else if(k=='p')x=has('prism')?1:0",
+  "replace": "else if(k=='p')x=has('prism')?2:0"
+ },
+ {
+  "name": "Fix: info popup shows Green Thumb's real +2",
+  "find": "(has('thumb')?1:0)",
+  "replace": "(has('thumb')?2:0)",
+  "all": true
+ },
+ {
+  "name": "Fix: info popup shows Forest Crown's real +2 and Canopy Crown",
+  "find": "+(has('forge')?1:0),w:'1 base",
+  "replace": "+(has('forge')?2:0)+(has('cinder')?1:0),w:'1 base"
+ },
+ {
+  "name": "Fix: Super Giant banner says its real value",
+  "find": "<small>Worth 30 ⭐</small>",
+  "replace": "<small>Worth 31 ⭐</small>"
+ },
+ {
+  "name": "Text: Thick Dust",
+  "find": "Every Cosmic Dust is worth 3 ⭐ instead of 1.",
+  "replace": "Every Cosmic Dust is worth 4 ⭐ instead of 2."
+ },
+ {
+  "name": "Text: Dust Compactor",
+  "find": "Solar Systems and Galaxies each need 1 less piece.",
+  "replace": "Solar Systems need 2 fewer pieces and Galaxies 1 fewer."
+ },
+ {
+  "name": "Text: Volcanic",
+  "find": "Worth 4 ⭐. A Black Hole permanently strips away the fame it steals from this world.",
+  "replace": "Worth 4 ⭐. A Black Hole next to it eats some of its fame that spin."
+ },
+ {
+  "name": "Text: Obsidian Shield",
+  "find": "Volcanic worlds no longer permanently lose their fame to Black Holes.",
+  "replace": "Volcanic worlds lose nothing to Black Holes, though Black Holes still feed on them."
+ },
+ {
+  "name": "Text: Giant Star",
+  "find": "Worth 11 ⭐. The last star that can merge: 2 Giant Stars that touch become a Super Giant.",
+  "replace": "Worth 11 ⭐, +1 for each different kind of planet next to it. 2 Giant Stars that touch become a Super Giant."
+ },
+ {
+  "name": "Text: Cosmic Ledger",
+  "find": "Moons and Factories give +1 💰 more.",
+  "replace": "Moons and Factories give +1 💰 more, and Giant Stars +1 ⭐."
+ },
+ {
+  "name": "Text: Event Horizon",
+  "find": "Black Holes swallow 20% more.",
+  "replace": "Black Holes take 20% more from each neighbour."
+ },
+ {
+  "name": "Text: Gravity Well",
+  "find": "Black Holes eat 15% more.",
+  "replace": "Black Holes store 15% more of what they take, without taking more."
+ },
+ {
+  "name": "Text: Prestige VI",
+  "find": "Your relic shop only shows 2 relics at a time.",
+  "replace": "Your relic shop shows 1 fewer relic."
+ },
+ {
+  "name": "Text: Prestige VIII",
+  "find": "You only get 2 choices on each pick.",
+  "replace": "You get 1 fewer choice on each pick."
+ },
+ {
+  "name": "Text: Starting Fleet",
+  "find": "Begin each run with +1 random planet per level.",
+  "replace": "Begin each run with +1 random Verdant, Forest, Supernova or Nebula per level."
+ },
+ {
+  "name": "Fix: ending a run early gives no free Star Shards",
+  "find": "var s=Math.max(4,G.t*9+Math.floor(G.tot/120)+(r=='win'?20:0));",
+  "replace": "var s=Math.max(r=='quit'?0:4,G.t*9+Math.floor(G.tot/120)+(r=='win'?20:0));"
+ },
+ {
+  "name": "Text: Star Shards rules on the Observatory",
+  "find": "(at least 4 even on a bad run)",
+  "replace": "(at least 4 for a run you finish, even a bad one; ending a run early gives only what you earned)"
+ },
+ {
+  "name": "Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)",
+  "find": "dbg('watchdog: still busy, last step '+(G.dbg||'none'));G._wd=(G._wd||0)+1;",
+  "replace": "var _sig=[G.dbg,G.hot,G.msg,G.tmp,G.banner,G.fresh].join('|');if(_sig!==G._wdSig){G._wdSig=_sig;G._wd=0}G._wd=(G._wd||0)+1;"
+ }
+]

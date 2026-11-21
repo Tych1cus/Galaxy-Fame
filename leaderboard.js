@@ -12,7 +12,8 @@
   var LB_URL = 'https://bbawfdqrxqfeqadcfdqj.supabase.co',
     LB_KEY = 'sb_publishable_owcLW7JcSGVvUIcfvNYRuQ_G0arZB9Z',
     LB_BAD = ['fuck', 'shit', 'bitch', 'cunt', 'nigg', 'fagg', 'slut', 'whore', 'rape', 'nazi', 'hitler', 'dick', 'cock', 'pussy', 'asshole', 'retard'],
-    KEY = 'gf_lb';
+    DEV = window.GF_MODE == 'devious',            // Devious Mode keeps its own best, stats and board
+    KEY = DEV ? 'gf_dv_lb' : 'gf_lb';
 
   // ---- our own save (separate from the game's save, so game code can't wipe it) ----
   var S = { best: null, by: {}, dev: '' };          // by[p] = best run played at exactly prestige p
@@ -35,8 +36,8 @@
       if (e0.goals >= 10 && lv0 > 0) { lv0--; e0.p = lv0; }
       if (!by2[lv0] || by2[lv0].fame < e0.fame) by2[lv0] = e0; }
     S.by = by2; S.fix146 = 1;
-    try { var st0 = JSON.parse(localStorage.getItem('gf_stats') || 'null');
-      if (st0 && st0.runs) { st0.runs.forEach(function (r0) { if (r0.end == 'win' && r0.p > 0) r0.p--; }); localStorage.setItem('gf_stats', JSON.stringify(st0)); } } catch (e) {}
+    try { var st0 = JSON.parse(localStorage.getItem(DEV ? 'gf_dv_stats' : 'gf_stats') || 'null');
+      if (st0 && st0.runs && !DEV) { st0.runs.forEach(function (r0) { if (r0.end == 'win' && r0.p > 0) r0.p--; }); localStorage.setItem('gf_stats', JSON.stringify(st0)); } } catch (e) {}
     keep();
   }
 
@@ -77,10 +78,11 @@
     if (fame <= 0 || typeof fetch == 'undefined') return;
     try {
       var body = { p_dev: dev(), p_name: name(), p_day: day(), p_goals: goals, p_fame: fame, p_win: r == 'win', p_title: title, p_p: pl },
-        send = function (b) { return fetch(LB_URL + '/rest/v1/rpc/gf_submit', { method: 'POST',
+        rpc = DEV ? 'gf_submit_dv' : 'gf_submit',
+        send = function (b) { return fetch(LB_URL + '/rest/v1/rpc/' + rpc, { method: 'POST',
           headers: { 'apikey': LB_KEY, 'Authorization': 'Bearer ' + LB_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(b) }); };
       // if the database hasn't got the prestige version yet, send it the old way (prestige is in the title)
-      send(body).then(function (res) { if (!res.ok) { delete body.p_p; return send(body); } }).catch(function () {});
+      send(body).then(function (res) { if (!res.ok && !DEV) { delete body.p_p; return send(body); } }).catch(function () {});   // Devious scores never fall back to the standard board
     } catch (e) {}
   }
   // the game calls postScore(r) when a run ends; take it over, and also hook finish() in case that call ever goes away
@@ -96,7 +98,7 @@
 
 
   // ---- stats tracking (kept in this browser only: gf_stats = finished runs, gf_stats_cur = the run in progress) ----
-  var SK = 'gf_stats', CK = 'gf_stats_cur', MAXRUNS = 500;
+  var SK = DEV ? 'gf_dv_stats' : 'gf_stats', CK = DEV ? 'gf_dv_stats_cur' : 'gf_stats_cur', MAXRUNS = 500;
   function cur0() { return { picks: {}, sys: 0, gal: 0, spins: 0, bestSpin: 0 }; }
   var CUR = cur0();
   try { var cr = JSON.parse(localStorage.getItem(CK) || 'null'); if (cr && cr.picks) CUR = cr; } catch (e) {}
@@ -157,8 +159,11 @@
         (b.goals >= 10 ? '🏆 won' : b.goals + ' goal' + (b.goals == 1 ? '' : 's')) + (b.p != L ? ' · played P' + b.p : '') + ')</span></p>' : '') +
         '<p class="gflb-l gflb-s">Board name: <b style="color:#fff">' + name() + '</b> <button class="sm gflb-b" onclick="gfSetName()">change</button></p>';
     h = h.replace('Daily board →', 'Leaderboard →');
-    if (h.indexOf('board.html') < 0) extra = '<p class="gflb-l"><a href="board.html" style="color:var(--gd)">Leaderboard →</a></p>' + extra;
-    extra += '<p class="gflb-l gflb-s"><a href="stats.html" style="color:var(--gd)">📊 Your stats →</a></p>';
+    if (DEV) h = h.replace(/href="board\.html"/g, 'href="board.html?mode=devious"');
+    if (h.indexOf('board.html') < 0) extra = '<p class="gflb-l"><a href="board.html' + (DEV ? '?mode=devious' : '') + '" style="color:var(--gd)">Leaderboard →</a></p>' + extra;
+    extra += '<p class="gflb-l gflb-s"><a href="stats.html' + (DEV ? '?mode=devious' : '') + '" style="color:var(--gd)">📊 Your stats →</a></p>';
+    extra += DEV ? '<p class="gflb-l"><a class="gflb-mode std" href="index.html">⬅ Standard Mode</a></p>'
+                 : '<p class="gflb-l"><a class="gflb-mode" href="devious.html">😈 Devious Mode</a></p>';
     var i = h.indexOf('<button class="spin"');
     return i > -1 ? h.slice(0, i) + extra + h.slice(i) : h + extra;
   });
@@ -186,6 +191,7 @@
     css.textContent =
       '.gflb-l{color:var(--mu);font-size:13px;margin:6px 0 0}.gflb-s{font-size:12px;margin:4px 0 10px}' +
       '.gflb-b{margin:0 0 0 6px!important;padding:2px 8px!important;font-size:11px!important}' +
+      '.gflb-mode{display:inline-block;margin-top:6px;padding:8px 16px;border-radius:999px;font-weight:800;letter-spacing:.06em;text-decoration:none;color:#1a0016;background:linear-gradient(180deg,#ff7ae6,#d4149a);box-shadow:0 0 16px #ff3fd2aa}.gflb-mode.std{color:#fff;background:#1b1440;box-shadow:0 0 0 1px #4a3c8f}' +
       '.gflb-final{font-size:22px;font-weight:800;color:var(--gd);margin:6px 0}.gflb-best{color:#7dffb0;font-weight:700}';
     document.head.appendChild(css);
   } catch (e) {}

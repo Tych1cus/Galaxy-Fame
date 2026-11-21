@@ -64,7 +64,8 @@ td.win{color:var(--gd)}
 <script>
 var LB_URL='https://bbawfdqrxqfeqadcfdqj.supabase.co',LB_KEY='sb_publishable_owcLW7JcSGVvUIcfvNYRuQ_G0arZB9Z';
 var LB_BAD=['fuck','shit','bitch','cunt','nigg','fagg','slut','whore','rape','nazi','hitler','dick','cock','pussy','asshole','retard'];
-var ME='',TAB='today',PL=0,PMAX=10;
+var ME='',TAB='today',PL=0,PMAX=10,DVM=/[?&]mode=devious/.test(location.search),TBL=DVM?'gf_dv_scores':'gf_scores';
+if(DVM){document.title='Galaxy Fame — Devious Mode leaderboard';document.querySelector('h1').textContent='😈 Devious Mode leaderboard';var bk=document.querySelector('.foot a');bk.href='devious.html';bk.textContent='← Back to Devious Mode'}
 function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function cleanName(s){return String(s||'').replace(/[^A-Za-z0-9 _.\-]/g,'').replace(/\s+/g,' ').trim().slice(0,16)}
@@ -87,7 +88,7 @@ async function load(){
   document.getElementById('sub').textContent=(TAB=='today'?'Best runs today ('+today()+')':'Best runs of all time')+' · '+pn+(PL<PMAX?' (runs at '+pn.replace('Prestige ','P')+' or higher)':'');
   ptabs();
   try{
-    var q=LB_URL+'/rest/v1/gf_scores?select=name,day,goals,fame,win,title,p&order=fame.desc&limit=500'+(TAB=='today'?'&day=eq.'+today():'')+'&p=gte.'+PL;
+    var q=LB_URL+'/rest/v1/'+TBL+'?select=name,day,goals,fame,win,title,p&order=fame.desc&limit=500'+(TAB=='today'?'&day=eq.'+today():'')+'&p=gte.'+PL;
     var r=await fetch(q,{cache:'no-store',headers:{apikey:LB_KEY,Authorization:'Bearer '+LB_KEY}});
     if(!r.ok&&r.status==400){ // database not updated for prestige boards yet
       r=await fetch(q.replace('title,p&','title&').replace('&p=gte.'+PL,''),{cache:'no-store',headers:{apikey:LB_KEY,Authorization:'Bearer '+LB_KEY}});}

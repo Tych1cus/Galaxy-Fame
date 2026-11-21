@@ -5,7 +5,7 @@ name: Keep fixes applied
 on:
   push:
     branches: [main]
-    paths: [index.html, tools/patches.json, tools/apply_patches.py]
+    paths: [index.html, tools/patches.json, tools/apply_patches.py, tools/devious_patches.json, tools/build_devious.py]
   workflow_dispatch:
 permissions:
   contents: write
@@ -19,9 +19,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Re-apply fixes
         run: python3 tools/apply_patches.py
+      - name: Rebuild Devious Mode from the latest game
+        run: python3 tools/build_devious.py
       - name: Commit if anything changed
         run: |
-          git add index.html tools/STATUS.md
+          git add index.html devious.html tools/STATUS.md
           if git diff --cached --quiet; then echo "Nothing to change."; exit 0; fi
           git config user.name "leaderboard-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
