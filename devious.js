@@ -10,6 +10,7 @@
   var reduced = false;
   try { reduced = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
   function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+  try { if (SP > 1 && SP < 2) SP = 1; } catch (e) {}
   function speed() { var s = 1; try { s = SP || 1; } catch (e) {} try { if (G && G.fast) s *= 4; } catch (e) {} return s; }
   function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
   function sfxOn() { try { return SFX.on !== false; } catch (e) { return true; } }
@@ -21,7 +22,7 @@
       try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; }
       var comp = AC.createDynamicsCompressor(); comp.threshold.value = -10; comp.knee.value = 6; comp.ratio.value = 4; comp.attack.value = .003; comp.release.value = .2; comp.connect(AC.destination);
       master = AC.createGain(); master.gain.value = 1.15; master.connect(comp);
-      sfxBus = AC.createGain(); sfxBus.gain.value = 1; sfxBus.connect(master);
+      sfxBus = AC.createGain(); sfxBus.gain.value = (typeof sLv == 'string' && sLv == 'quiet') ? .35 : 1; sfxBus.connect(master);
       musicBus = AC.createGain(); musicBus.gain.value = 0; musicBus.connect(master);
     }
     if (AC.state == 'suspended') AC.resume();
@@ -48,7 +49,7 @@
     clunk: function () { var t = AC.currentTime; tone(150, t, .25, 'triangle', .35, null, 60); nz(t, .12, .35, 'lowpass', 900); },
     whir: function (dur) { var t = AC.currentTime; nz(t, dur, .1, 'bandpass', 2400, 380, 3); tone(220, t, dur, 'sawtooth', .025, null, 90); },
     land: function (c) { var t = AC.currentTime; tone(110 - c * 6, t, .18, 'sine', .45, null, 45); nz(t, .05, .2, 'highpass', 1800); tone(660 + c * 80, t + .02, .12, 'triangle', .07); },
-    ding: function (n, big) { var sc = [0, 2, 4, 7, 9, 12, 14, 16, 19, 21, 24, 26, 28, 31, 33, 36], k = sc[Math.min(n, sc.length - 1)], f = 523.25 * Math.pow(2, k / 12), t = AC.currentTime;
+    ding: function (n, big) { var sc = [0, 2, 4, 5, 7, 9, 11], k = 12 * Math.floor(n / 7) + sc[n % 7], f = 261.63 * Math.pow(2, k / 12), t = AC.currentTime;
       tone(f, t, big ? .5 : .3, 'sine', big ? .2 : .14); tone(f * 2, t, .18, 'triangle', .04); if (big) tone(f * 1.5, t + .04, .4, 'sine', .08); },
     boom: function (big) { var t = AC.currentTime; nz(t, big ? 1.8 : 1.1, big ? .8 : .55, 'lowpass', big ? 2200 : 1500, 60); tone(big ? 70 : 90, t, big ? 1.4 : .9, 'sine', .7, null, 28); nz(t + .05, .3, .25, 'highpass', 2500); },
     fanfare: function () { var t = AC.currentTime; [0, 4, 7, 12, 16, 19, 24].forEach(function (n, i) { var f = 392 * Math.pow(2, n / 12); tone(f, t + i * .07, .45, 'square', .05); tone(f, t + i * .07, .45, 'triangle', .07); }); },
@@ -81,14 +82,34 @@
   // A generated space-disco score that keeps changing: sections (intro, groove, melody,
   // breakdown, lift), several chord progressions, new melodies per section, drum fills,
   // and a key change each time round.
-  var musicOn = ls('gf_dv_music') != '0', mTimer = null, nextT = 0, step = 0, BPM = 112;
+  var mLv = ls('gf_dv_mvol') || (ls('gf_dv_music') == '0' ? 'off' : 'loud'), sLv = ls('gf_dv_svol') || 'loud';
+  var NEXTLV = { loud: 'quiet', quiet: 'off', off: 'loud' };
+  function mGain() { return mLv == 'quiet' ? .5 : 1.4; }
+  function sGain() { return sLv == 'quiet' ? .35 : 1; }
+  function mLabel() { return mLv == 'off' ? '🔕 Music off' : '🎵 Music ' + mLv; }
+  try { SFX.on = sLv != 'off'; } catch (e) {}
+  var musicOn = mLv != 'off', mTimer = null, nextT = 0, step = 0, BPM = 112;
   var PROGS = [[0, 5, 3, 4], [0, 3, 5, 4], [0, 6, 5, 3], [0, 4, 5, 3], [5, 3, 0, 4], [0, 2, 3, 4]];
-  var SCALE = [0, 2, 3, 5, 7, 8, 10];                 // natural minor, root A
+  var SCALE = [0, 2, 3, 5, 7, 8, 10], echoIn = null;                 // natural minor, root A
   var SECTIONS = ['intro', 'groove', 'melody', 'groove2', 'break', 'lift', 'melody2', 'outro'];
   var song = null;
+  // several game songs (each builds with the fame goals) and several calm songs for the menu, shop and between goals
+  var GSTY = ['disco', 'synth', 'chip', 'pulse'], gIdx = -1;
+  var GSCALE = { disco: [0, 2, 3, 5, 7, 8, 10], synth: [0, 2, 3, 5, 7, 9, 10], chip: [0, 2, 4, 5, 7, 9, 11], pulse: [0, 1, 3, 5, 7, 8, 10] };
+  var CALM = {
+    drift:  { bpm: 84, scale: [0, 2, 3, 5, 7, 8, 10], prog: [0, 5, 3, 4, 0, 3, 5, 6] },
+    box:    { bpm: 72, scale: [0, 2, 4, 5, 7, 9, 11], prog: [0, 3, 4, 0, 5, 3, 1, 4] },
+    nebula: { bpm: 60, scale: [0, 2, 4, 6, 7, 9, 11], prog: [0, 1, 0, 4, 0, 1, 5, 4] },
+    lofi:   { bpm: 76, scale: [0, 2, 3, 5, 7, 9, 10], prog: [0, 3, 1, 4, 0, 3, 6, 4] },
+    harp:   { bpm: 92, scale: [0, 2, 4, 5, 7, 9, 10], prog: [0, 6, 3, 0, 4, 6, 3, 4] }
+  };
+  var CNAMES = Object.keys(CALM), cIdx = -1, calmS = null, calmBars = 0, calmMel = null;
+  function pickNext(n, cur) { var i; do { i = Math.floor(Math.random() * n); } while (n > 1 && i === cur); return i; }
+  function newCalm() { cIdx = pickNext(CNAMES.length, cIdx); calmS = CNAMES[cIdx]; calmBars = 0; ilBar = 0; calmMel = motif(); }
   function rnd(a) { return a[Math.floor(Math.random() * a.length)]; }
   function newSong() {
-    song = { key: rnd([45, 47, 48, 50, 43]), sec: 0, bar: 0, prog: rnd(PROGS), mel: motif(), arp: rnd(['up', 'down', 'updown', 'skip']), drums: rnd([0, 1, 2]) };
+    gIdx = pickNext(GSTY.length, gIdx);
+    song = { style: GSTY[gIdx], key: rnd([45, 47, 48, 50, 43]), sec: 0, bar: 0, prog: rnd(PROGS), mel: motif(), arp: rnd(['up', 'down', 'updown', 'skip']), drums: rnd([0, 1, 2]) };
   }
   function motif() {             // 2 bars of 8th notes: scale steps, with rests
     var m = [], last = 4; for (var i = 0; i < 16; i++) { if (Math.random() < .28) { m.push(null); continue; } last = Math.max(0, Math.min(9, last + rnd([-2, -1, -1, 0, 1, 1, 2, 3, -3]))); m.push(last); }
@@ -101,6 +122,13 @@
     var o = AC.createOscillator(), g = AC.createGain(), fl = AC.createBiquadFilter(); o.type = type; o.frequency.value = f;
     fl.type = 'lowpass'; fl.frequency.value = cutoff || 3000; g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + .015);
     g.gain.exponentialRampToValueAtTime(.0001, t + dur); o.connect(fl); fl.connect(g); g.connect(musicBus); o.start(t); o.stop(t + dur + .05);
+    if (arguments[6] && echoIn) { var e = AC.createGain(); e.gain.value = arguments[6]; g.connect(e); e.connect(echoIn); }
+  }
+  // slow-swelling pad voice
+  function pad(f, t, dur, type, vol, cutoff) {
+    var o = AC.createOscillator(), g = AC.createGain(), fl = AC.createBiquadFilter(); o.type = type; o.frequency.value = f; fl.type = 'lowpass'; fl.frequency.value = cutoff;
+    g.gain.setValueAtTime(.0001, t); g.gain.linearRampToValueAtTime(vol, t + dur * .4); g.gain.linearRampToValueAtTime(.0001, t + dur);
+    o.connect(fl); fl.connect(g); g.connect(musicBus); if (echoIn) g.connect(echoIn); o.start(t); o.stop(t + dur + .05);
   }
   function kick(t) { var o = AC.createOscillator(), g = AC.createGain(); o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(42, t + .14);
     g.gain.setValueAtTime(.5, t); g.gain.exponentialRampToValueAtTime(.0001, t + .22); o.connect(g); g.connect(musicBus); o.start(t); o.stop(t + .25); }
@@ -114,10 +142,17 @@
       return { calm: 0, I: I, final: (G.t || 0) >= 9 };
     } catch (e) { return { calm: 1, I: 0 }; }
   }
-  var MD = { calm: 1, I: 0 };
+  var MD = { calm: 1, I: 0 }, wasCalm = false;
   function scheduleStep(t) {
     if (step % 16 == 0) MD = mood();
-    if (MD.calm) return interlude(t);
+    if (step % 16 == 0) {
+      if (MD.calm) { if (!calmS || !wasCalm || calmBars >= 16) newCalm(); calmBars++; SCALE = CALM[calmS].scale; }
+      else SCALE = GSCALE[song.style] || GSCALE.disco;
+      if (AC && musicOn) musicBus.gain.setTargetAtTime(mGain() * (MD.calm ? 1 : (song.style == 'chip' ? 2.4 : 1) * (2.2 - 1.2 * MD.I)), AC.currentTime, .5);
+      wasCalm = MD.calm;
+    }
+    if (MD.calm) return CALMF[calmS](t);
+    if (song.style != 'disco') return GAMEF[song.style](t);
     var s = step % 16, sec = SECTIONS[song.sec], deg = song.prog[song.bar % 4], root = song.key, ch = chordNotes(root + 12, deg), I = MD.I, cut = 1100 + 3200 * I;
     var lastBar = song.bar == 7, fill = lastBar && s >= 12;
     // pad: chord held each bar
@@ -170,23 +205,116 @@
       }
     }
   }
-  function bpm() { return MD.calm ? 84 : 104 + 36 * MD.I; }
-  // calm interlude: soft chords and a slow, sparse arpeggio, no drums
-  var ilBar = 0, IL = [0, 5, 3, 4, 0, 3, 5, 6];
-  function interlude(t) {
-    var s = step % 16, root = (song ? song.key : 45), deg = IL[ilBar % 8], ch = chordNotes(root + 12, deg);
-    if (s == 0) ch.forEach(function (n, i) { mVoice(mtof(n), t + i * .03, 60 / 84 * 4 * 1.1, 'triangle', .03, 900); mVoice(mtof(n) * 1.003, t, 60 / 84 * 4, 'sine', .025, 700); });
-    if (s == 0) mVoice(mtof(root + sdeg(deg) - 12), t, 60 / 84 * 3, 'sine', .07, 300);
-    if (s % 4 == 2) { var n = ch[(s / 4 | 0) % 3] + 24; mVoice(mtof(n), t, .9, 'sine', .02, 2400); }
-    if (s == 15) ilBar++;
-  }
+  function bpm() { return MD.calm ? (calmS ? CALM[calmS].bpm : 84) : 104 + 36 * MD.I; }
+  var ilBar = 0;
+  function cch(deg) { return chordNotes((song ? song.key : 45) + 12, deg); }
+  var CALMF = {
+    // soft chords and a slow, sparse arpeggio
+    drift: function (t) {
+      var s = step % 16, root = (song ? song.key : 45), deg = CALM.drift.prog[ilBar % 8], ch = cch(deg), b = 60 / bpm() * 4;
+      if (s == 0) ch.forEach(function (n, i) { mVoice(mtof(n), t + i * .03, b * 1.1, 'triangle', .03, 900); mVoice(mtof(n) * 1.003, t, b, 'sine', .025, 700); });
+      if (s == 0) mVoice(mtof(root + sdeg(deg) - 12), t, b * .75, 'sine', .07, 300);
+      if (s % 4 == 2) { var n = ch[(s / 4 | 0) % 3] + 24; mVoice(mtof(n), t, .9, 'sine', .02, 2400); }
+      if (s == 15) ilBar++;
+    },
+    // music box: a little major-key tune with echoes
+    box: function (t) {
+      var s = step % 16, root = (song ? song.key : 45) + 3, deg = CALM.box.prog[ilBar % 8], ch = chordNotes(root + 12, deg), b = 60 / bpm() * 4;
+      if (s == 0) ch.forEach(function (n) { pad(mtof(n), t, b * 1.05, 'sine', .022, 1200); });
+      if (s == 0 && ilBar % 2 == 0) mVoice(mtof(root + sdeg(deg) - 12), t, b * 1.6, 'sine', .06, 300);
+      if (s % 2 == 0) { var d = calmMel[((ilBar % 2) * 8 + s / 2)]; if (d != null) { var f = mtof(root + 36 + sdeg(d + deg)); mVoice(f, t, .7, 'sine', .035, 6000, .45); mVoice(f * 2, t, .25, 'sine', .008, 6000); } }
+      if (s == 15) { ilBar++; if (ilBar % 8 == 0) calmMel = Math.random() < .5 ? motif() : calmMel.map(function (x) { return x == null ? x : x + rnd([0, 1, -1]); }); }
+    },
+    // nebula: long swelling pads and the odd distant bell
+    nebula: function (t) {
+      var s = step % 16, root = (song ? song.key : 45), deg = CALM.nebula.prog[ilBar % 8], b = 60 / bpm() * 4;
+      if (s == 0 && ilBar % 2 == 0) [0, 2, 4, 6].forEach(function (k, i) { var f = mtof(root + 12 + sdeg(deg + k)); pad(f, t + i * .2, b * 2.2, i % 2 ? 'triangle' : 'sine', .03, 700 + 300 * i); pad(f * 1.004, t, b * 2.2, 'sine', .015, 900); });
+      if (s == 0 && ilBar % 2 == 0) pad(mtof(root + sdeg(deg) - 12), t, b * 2.2, 'sine', .07, 250);
+      if (s % 4 == 0 && Math.random() < .3) mVoice(mtof(root + 36 + sdeg(rnd([0, 2, 4, 6, 7, 9]))), t, 1.6, 'sine', .025, 5000, .55);
+      if (s == 15) ilBar++;
+    },
+    // lo-fi: warm electric-piano chords, soft kick and brushes
+    lofi: function (t) {
+      var s = step % 16, root = (song ? song.key : 45), deg = CALM.lofi.prog[ilBar % 8], ch = [0, 2, 4, 6].map(function (k) { return root + 12 + sdeg(deg + k); });
+      var sw = s % 2 ? 60 / bpm() / 4 * .12 : 0; t += sw;
+      if (s == 0 || s == 7 || (s == 11 && ilBar % 2)) ch.forEach(function (n, i) { mVoice(mtof(n), t + i * .012, s == 0 ? 1.4 : .5, 'sine', .028, 2200); mVoice(mtof(n) * 2.001, t, .3, 'sine', .006, 3000); });
+      if (s == 0 || s == 8) { mVoice(mtof(root + sdeg(deg) - 12), t, .6, 'sine', .09, 260); }
+      if (s == 0 || s == 10) { var o = AC.createOscillator(), g = AC.createGain(); o.frequency.setValueAtTime(110, t); o.frequency.exponentialRampToValueAtTime(45, t + .12); g.gain.setValueAtTime(.22, t); g.gain.exponentialRampToValueAtTime(.0001, t + .2); o.connect(g); g.connect(musicBus); o.start(t); o.stop(t + .25); }
+      if (s == 4 || s == 12) nz(t, .12, .05, 'bandpass', 2400, 1200, .7, musicBus);
+      if (s % 2 == 0) nz(t, .04, .018, 'highpass', 6000, null, 1, musicBus);
+      if (s % 4 == 2 && Math.random() < .35) mVoice(mtof(root + 24 + sdeg(deg + rnd([2, 4, 6, 7]))), t, .5, 'triangle', .02, 2400, .3);
+      if (s == 15) ilBar++;
+    },
+    // harp: rolling arpeggios over a soft pad
+    harp: function (t) {
+      var s = step % 16, root = (song ? song.key : 45) + 5, deg = CALM.harp.prog[ilBar % 8], b = 60 / bpm() * 4;
+      var tones = [0, 2, 4, 7, 9, 11, 14, 11, 9, 7, 4, 2], d = tones[(s + (ilBar % 2) * 4) % tones.length];
+      mVoice(mtof(root + 12 + sdeg(deg + d)), t, .9, 'triangle', .03, 3200, .2);
+      if (s == 0) { pad(mtof(root + sdeg(deg)), t, b, 'sine', .05, 400); [0, 2, 4].forEach(function (k) { pad(mtof(root + 12 + sdeg(deg + k)), t, b, 'sine', .012, 900); }); }
+      if (s == 15) ilBar++;
+    }
+  };
+  function fillRoll(t, s, lastBar) { if (lastBar && s >= 12) snare(t + .01); }
+  var GAMEF = {
+    // synthwave: pulsing 8th-note bass, big snare, gliding lead with echo
+    synth: function (t) {
+      var s = step % 16, sec = SECTIONS[song.sec], deg = song.prog[song.bar % 4], root = song.key, ch = chordNotes(root + 12, deg), I = MD.I, b = 60 / bpm() * 4, lastBar = song.bar == 7;
+      if (s == 0 && sec != 'outro') ch.forEach(function (n) { pad(mtof(n), t, b, 'sawtooth', .014 + .008 * I, 900 + 2600 * I); pad(mtof(n) * 1.006, t, b, 'sawtooth', .01, 1400 + 2000 * I); });
+      if (sec != 'intro' && s % 2 == 0) { var bn = root + sdeg(deg) - 12 + (s % 4 == 2 && I > .4 ? 12 : 0); mVoice(mtof(bn), t, .18, 'sawtooth', .065, 450 + 900 * I); }
+      if (sec != 'intro' && sec != 'break') {
+        if (s % 8 == 0 || (I > .35 && s % 4 == 0)) kick(t);
+        if (I > .1 && s % 8 == 4) { snare(t); nz(t, .35, .06, 'lowpass', 5000, 800, .5, musicBus); }
+        if (I > .4 && s % 2 == 0) hat(t, .05); if (I > .75 && s % 2 == 1) hat(t, .03);
+        fillRoll(t, s, lastBar);
+      }
+      if ((sec == 'melody' || sec == 'melody2' || sec == 'lift' || I > .5) && sec != 'break' && s % 2 == 0) { var d = song.mel[(song.bar % 2) * 8 + s / 2]; if (d != null) { var f = mtof(root + 24 + sdeg(d + deg) + (sec == 'lift' ? 12 : 0)); mVoice(f, t, .38, 'sawtooth', .022 + .01 * I, 1800 + 2400 * I, .35); mVoice(f * 1.008, t, .38, 'square', .012, 2000 + 2000 * I); } }
+      if (I > .6 && sec != 'break') { var tn = ch.concat([ch[0] + 12])[[0, 1, 2, 3, 2, 1][s % 6]] + 24; mVoice(mtof(tn), t, .09, 'square', .014, 3000 + 2000 * I); }
+      if (MD.final && s % 8 == 0) mVoice(mtof(root + 36 + (song.bar % 2 ? 3 : 0)), t, .45, 'sawtooth', .02, 6000);
+    },
+    // arcade: square-wave tune, triangle bass, noise drums, fast arps
+    chip: function (t) {
+      var s = step % 16, sec = SECTIONS[song.sec], deg = song.prog[song.bar % 4], root = song.key + 2, ch = chordNotes(root + 12, deg), I = MD.I, lastBar = song.bar == 7;
+      if (s % 2 == 0 && sec != 'intro') { var bn = root + sdeg(deg + (s % 4 == 2 ? 4 : 0)) - 12; mVoice(mtof(bn), t, .14, 'triangle', .11, 2000); }
+      if (sec != 'outro' && (sec != 'groove' || I > .3)) { var seq = [0, 1, 2, 1], tn = ch[seq[s % 4]] + 24 + (I > .7 && s % 8 >= 4 ? 12 : 0); if (I > .2 || s % 2 == 0) mVoice(mtof(tn), t, .07, 'square', .014 + .008 * I, 4000); }
+      if ((sec == 'melody' || sec == 'melody2' || sec == 'lift' || I > .45) && sec != 'break') { var step2 = I > .7 ? 1 : 2; if (s % step2 == 0) { var d = song.mel[((song.bar % 2) * 8 + (s / 2 | 0)) % 16]; if (d != null) mVoice(mtof(root + 24 + sdeg(d + deg) + (sec == 'lift' ? 12 : 0)), t, step2 == 1 ? .1 : .17, 'square', .026 + .01 * I, 5000, .15); } }
+      if (sec != 'intro' && sec != 'break') {
+        if (s % 8 == 0 || (I > .5 && s == 10)) { nz(t, .08, .3, 'lowpass', 400, 80, 1, musicBus); mVoice(140, t, .08, 'triangle', .14, 600); }
+        if (I > .1 && s % 8 == 4) nz(t, .1, .14, 'highpass', 1500, null, 1, musicBus);
+        if (I > .3 && s % 2 == 1) nz(t, .02, .05, 'highpass', 8000, null, 1, musicBus);
+        fillRoll(t, s, lastBar);
+      }
+      if (MD.final && s % 4 == 0) mVoice(mtof(root + 36 + (s % 8 ? 7 : 0)), t, .12, 'square', .018, 6000);
+    },
+    // dark pulse: 16th-note bass ostinato, four-on-the-floor, rising filter
+    pulse: function (t) {
+      var s = step % 16, sec = SECTIONS[song.sec], deg = song.prog[(song.bar >> 1) % 4], root = song.key, ch = chordNotes(root + 12, deg), I = MD.I, lastBar = song.bar == 7;
+      var pat = [0, 0, 12, 0, 0, 7, 0, 12, 0, 0, 12, 0, 3, 0, 7, 0], bn = root - 12 + sdeg(deg) + pat[s];
+      if (sec != 'intro' || s % 2 == 0) mVoice(mtof(bn), t, .11, 'sawtooth', .06, 300 + 1700 * I + (sec == 'lift' ? song.bar * 150 : 0));
+      if (sec != 'break' && (sec != 'intro' || I > .3)) {
+        if (s % 4 == 0) kick(t);
+        if (I > .25 && (s == 4 || s == 12)) nz(t, .14, .16, 'bandpass', 1500, 1100, 1.2, musicBus);
+        if (I > .15 && s % 4 == 2) nz(t, .12, .06, 'highpass', 7000, null, 1, musicBus);
+        if (I > .6) hat(t, .025);
+        fillRoll(t, s, lastBar);
+      }
+      if (I > .35 && (s == 6 || s == 14) && sec != 'intro') ch.forEach(function (n) { mVoice(mtof(n + 12), t, .12, 'sawtooth', .018, 1500 + 2500 * I, .4); });
+      if ((sec == 'melody' || sec == 'melody2' || I > .7) && sec != 'break' && s % 4 == 0) { var d = song.mel[(song.bar % 2) * 8 + s / 2]; if (d != null) mVoice(mtof(root + 24 + sdeg(d + deg)), t, .3, 'square', .02 + .01 * I, 2500 + 2000 * I, .5); }
+      if (MD.final && s % 8 == 0) mVoice(mtof(root + 36 + (song.bar % 2 ? 1 : 0)), t, .45, 'sawtooth', .022, 6000);
+    }
+  };
+  DV.mus = { state: function () { return { calm: MD.calm, calmS: calmS, style: song && song.style }; }, calm: function (n) { calmS = n; calmBars = 0; ilBar = 0; calmMel = motif(); }, game: function (n) { if (song) song.style = n; } };
   function startMusic() {
     if (!ac()) return; if (!song) newSong();
-    musicBus.gain.cancelScheduledValues(AC.currentTime); musicBus.gain.setTargetAtTime(1.4, AC.currentTime, .4);
+    if (!echoIn) { echoIn = AC.createGain(); var dl = AC.createDelay(1), fb = AC.createGain(), lp = AC.createBiquadFilter(); dl.delayTime.value = .42; fb.gain.value = .38; lp.type = 'lowpass'; lp.frequency.value = 2600;
+      echoIn.connect(dl); dl.connect(lp); lp.connect(fb); fb.connect(dl); lp.connect(musicBus); }
+    musicBus.gain.cancelScheduledValues(AC.currentTime); musicBus.gain.setTargetAtTime(mGain(), AC.currentTime, .4);
     if (!mTimer) { nextT = AC.currentTime + .08; mTimer = setInterval(schedule, 30); }
   }
   function stopMusic() { if (AC) musicBus.gain.setTargetAtTime(0, AC.currentTime, .15); clearInterval(mTimer); mTimer = null; }
-  window.dvMusic = function () { musicOn = !musicOn; ls('gf_dv_music', musicOn ? '1' : '0'); if (musicOn) startMusic(); else stopMusic(); try { DH = ''; draw(); } catch (e) {} };
+  window.dvMusic = function () { mLv = NEXTLV[mLv]; ls('gf_dv_mvol', mLv); musicOn = mLv != 'off'; if (musicOn) startMusic(); else stopMusic(); try { DH = ''; draw(); } catch (e) {} };
+  // sound effects: loud → quiet → off
+  window.sfxToggle = function () { sLv = NEXTLV[sLv]; ls('gf_dv_svol', sLv); try { SFX.on = sLv != 'off'; } catch (e) {} if (AC) sfxBus.gain.setTargetAtTime(sGain(), AC.currentTime, .05); try { DH = ''; draw(); } catch (e) {} };
+  window.sfxCtl = function () { return '<button class="sm" style="margin:0" onclick="sfxToggle()">' + (sLv == 'off' ? '<span>🔇</span> Sound off' : sLv == 'quiet' ? '<span>🔉</span> Sound quiet' : '<span>🔊</span> Sound loud') + '</button>'; };
 
   // ===================================================================== particles, flashes, banners
   var cv = document.createElement('canvas'), cx = cv.getContext('2d'), P = [], dpr = Math.min(2, devicePixelRatio || 1);
@@ -279,7 +407,7 @@
   DV.cell = function (i, f, c, isSys) {
     var r = cellRect(i); if (!r) return; var x = r.left + r.width / 2, y = r.top + r.height / 2, p = (G.cells || [])[i], col = p ? kindColor(p.k) : '#ffd23f';
     var big = isSys || f >= 10;
-    play('ding', Math.min(15, dingN++), big);
+    play('ding', dingN++, big);
     if (f > 0 || c > 0) { burst(x, y, col, Math.min(60, 6 + Math.round(f * 1.5)), big ? 6 : 3.2); if (big) { ring(x, y, col); shake(6, 250); } }
   };
   DV.total = function (tf, rent) {
@@ -333,14 +461,14 @@
   function wrapHtml(fn, add) { if (typeof window[fn] != 'function') return; var f0 = window[fn]; window[fn] = function () { var h = f0.apply(this, arguments); try { var h2 = add(h); if (typeof h2 == 'string') h = h2; } catch (e) {} return h; }; }
   function leverHtml(cls) { return '<div class="dv-lever ' + cls + '" tabindex="0" role="button" aria-label="Pull the lever to spin"><div class="dv-base"></div><div class="dv-slot"></div><div class="dv-arm"></div><div class="dv-knob"></div></div>'; }
   wrapHtml('gameHtml', function (h) {
-    var mb = '<button class="sm dv-mbtn" style="margin:0 6px" onclick="dvMusic()" title="Music on/off">' + (musicOn ? '🎵 Music on' : '🎵 Music off') + '</button>';
+    var mb = '<button class="sm dv-mbtn" style="margin:0 6px" onclick="dvMusic()" title="Music: loud, quiet or off">' + mLabel() + '</button>';
     h = h.replace('<h1>✦ GALAXY FAME</h1>', '<h1>✦ GALAXY FAME <span class="dv-tag">DEVIOUS</span></h1>' + mb);
     var i = h.indexOf('<div class="bw"');
     if (i > -1) { var j = h.indexOf('>', i) + 1; h = h.slice(0, j) + leverHtml('dv-wide') + h.slice(j); }
     var g = h.indexOf('<div class="go">'); if (g > -1) { g += 16; h = h.slice(0, g) + leverHtml('dv-phone') + h.slice(g); }
     return h;
   });
-  wrapHtml('menuHtml', function (h) { return h.replace('✦ GALAXY FAME</h1>', '✦ GALAXY FAME</h1><div class="dv-tag dv-big">😈 DEVIOUS MODE</div>').replace('<button class="sm" style="margin:0" onclick="sfxToggle()">', '<button class="sm dv-mbtn" style="margin:0 8px 0 0" onclick="dvMusic()" title="Music on/off">' + (musicOn ? '🎵 Music on' : '🎵 Music off') + '</button><button class="sm" style="margin:0" onclick="sfxToggle()">'); });
+  wrapHtml('menuHtml', function (h) { return h.replace('✦ GALAXY FAME</h1>', '✦ GALAXY FAME</h1><div class="dv-tag dv-big">😈 DEVIOUS MODE</div>').replace('<button class="sm" style="margin:0" onclick="sfxToggle()">', '<button class="sm dv-mbtn" style="margin:0 8px 0 0" onclick="dvMusic()" title="Music: loud, quiet or off">' + mLabel() + '</button><button class="sm" style="margin:0" onclick="sfxToggle()">'); });
   if (typeof window.draw == 'function') { var d0 = window.draw; window.draw = function () { var o = d0.apply(this, arguments); try { drawLever(); } catch (e) {} return o; }; }
 
   // ===================================================================== look

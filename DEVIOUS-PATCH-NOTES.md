@@ -19,7 +19,10 @@ Bonuses now say what they add ("+1 ⭐ more", "1 fewer") instead of a fixed tota
 
 ## New in Devious Mode
 - Slot-machine spin: drag the lever down (or swipe down on the board on phones) and the reels spin and land column by column.
-- Sound effects and music (on by default) that builds with each fame goal, peaks on the last one, and calms down in the shop.
+- Music (on by default): 4 game songs that build with each fame goal and peak on the last one, and 5 calm songs for the menu, shop and between goals.
+- Music and Sound buttons cycle loud / quiet / off.
+- Scoring sounds rise in pitch with every piece that scores, with no cap.
+- Speed options 1x, 2x, 3x, 5x.
 - Planets light up as they score; big spins shake the screen with explosions and a BIG COMBO / MEGA FAME banner; fireworks on fame goals.
 - A click sound on every button; a Music button and a moving star field on the main menu.
 - Compact stats row on phones.
