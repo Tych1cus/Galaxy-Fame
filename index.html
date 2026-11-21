@@ -12,7 +12,7 @@ h1{margin:0;font-size:20px;letter-spacing:4px;background:linear-gradient(90deg,#
 .rel{display:flex;gap:6px;flex-wrap:wrap}.chip{font-size:12px;border:1px solid var(--ln);background:var(--pn);border-radius:20px;padding:2px 10px;color:var(--gd)}
 .stats{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin-bottom:10px}
 .pill{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:8px 12px}
-.pill span{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:1px;display:block}.pill b{font-size:20px;white-space:nowrap}
+.pill span{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:1px;display:block}.pill b{font-size:20px}
 .bar{height:8px;background:#1a2150;border-radius:5px;overflow:hidden;margin-top:4px;position:relative}.bar i{display:block;height:100%;background:linear-gradient(90deg,#ffd36a,#ff7f5c);transition:width .25s}
 .bw{position:relative}
 .board{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--ln);border-radius:18px;background:#070b24cc;overflow:hidden;box-shadow:0 0 40px #4a5cff22 inset}
@@ -119,6 +119,10 @@ h3{margin:0 0 8px;font-size:12px;color:var(--mu);text-transform:uppercase;letter
 .atag{position:absolute;left:4%;top:3%;z-index:4;font-size:12px;font-weight:900;background:#000b;border-radius:8px;padding:0 5px;animation:rise .3s ease-out}
 .cs.aflash{background:#ffffff1f;border-radius:6px;animation:aflash .35s ease-out}
 .tipbox{text-align:center;max-width:430px}.tipbox h2{margin:10px 0 6px;color:var(--gd)}.tipbox p{font-size:16px;line-height:1.5;margin:0 0 16px}.tipart{display:flex;justify-content:center;gap:4px}.tipart .art{width:84px}
+
+/* the fame line must stay one row, so this comes last */
+.pill b#fbar{display:inline-flex!important;align-items:center;gap:6px;white-space:nowrap!important;font-size:20px}
+.pill b#fbar span{display:inline!important;font-size:20px;color:inherit!important;letter-spacing:0!important;text-transform:none!important}
 </style></head><body><div id="app"></div>
 <script>
 var K={v:{n:'Volcanic',d:'Worth 4 ⭐. A Black Hole permanently strips away the fame it steals from this world.',c:'#ff6a24'},i:{n:'Ice Planet',d:'+1 ⭐ for each neighbouring piece. Pick a place for it to always land on.',c:'#8feaff'},g:{n:'Verdant',d:'Worth 1 ⭐. While you hold 5 or more Verdants in total, each is worth +3.',c:'#34d6e0'},r:{n:'Forest',d:'Worth 1 ⭐, plus 1 for every 2 other Forests on the board. After 3 spins, plants a new Forest one time.',c:'#39d879'},b:{n:'Supernova',d:'Worth 5 ⭐, then burns out after 3 spins.',c:'#ff4fd8'},p:{n:'Nebula',d:'Every neighboring planet gets +2 ⭐.',c:'#b06cff'},k:{n:'Black Hole',d:'Eats 1/7 of each neighbor’s ⭐ and keeps it. Grows every spin. Can never join a Solar System.',c:'#ff9a3a'},c:{n:'Cradle',d:'Worth 1 ⭐ and grows +0.1 ⭐ permanently every spin.',c:'#ff7ab8'},h:{n:'Chorus',d:'The 1st Chorus to score each spin gives 1 ⭐, the 2nd gives 2, the 3rd gives 3…',c:'#ffd84a'},q:{n:'Quarry',d:'Worth 1 ⭐, +2 for each adjacent Asteroid.',c:'#d9a86c'}};
