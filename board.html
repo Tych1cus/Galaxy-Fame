@@ -56,7 +56,7 @@ td.win{color:var(--gd)}
 </div>
 
 <div class="foot">
-  <a href="index.html">← Back to the game</a> · Ranked by fame goals reached, then total fame in the run. Each player's best run counts.
+  <a href="index.html">← Back to the game</a> · Ranked by total fame earned in a run (your final score). Each player's best run counts.
 </div>
 </main>
 <script>
@@ -83,7 +83,7 @@ function paint(rows){
 async function load(){
   document.getElementById('sub').textContent=TAB=='today'?'Best runs today ('+today()+')':'Best runs of all time';
   try{
-    var q=LB_URL+'/rest/v1/gf_scores?select=name,day,goals,fame,win,title&order=goals.desc,fame.desc&limit='+(TAB=='today'?'100&day=eq.'+today():'500');
+    var q=LB_URL+'/rest/v1/gf_scores?select=name,day,goals,fame,win,title&order=fame.desc&limit='+(TAB=='today'?'100&day=eq.'+today():'500');
     var r=await fetch(q,{cache:'no-store',headers:{apikey:LB_KEY,Authorization:'Bearer '+LB_KEY}});
     if(!r.ok)throw new Error('HTTP '+r.status);
     var rows=await r.json(),seen={},out=[];

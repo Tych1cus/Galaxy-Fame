@@ -8,7 +8,7 @@ database run by **archdevious** - ask them about the board, resetting scores or 
 cheater. Nothing to host: it works straight from GitHub Pages.
 
 - A finished run is sent once, at the end of the run (Supabase function `gf_submit`).
-- Ranked by fame goals reached, then total fame earned in the run. Each player's best run counts.
+- Ranked by total fame earned in the run (the final score). Each player's best run counts.
 - Players set their board name on the title screen or the board page.
 - Your own best run is also remembered in your browser and shown on the title screen.
 - The key in the code is Supabase's public key: it can only read scores and submit runs.
