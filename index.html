@@ -521,7 +521,7 @@ function postScore(r){try{
 if(!location.protocol||location.protocol=='file:')return;
 var nm=localStorage.getItem('gf_name')||'Anon';
 var d=new Date(),day=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
-fetch('/api/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:nm,day:day,fame:Math.round(G.fame),goals:G.t,win:r=='win'?1:0,total:M.total,prestige:M.prestige||0,title:titleFor(M.total,M.prestige).n,file:location.pathname.split('/').pop()||'index.html'})}).catch(function(){})
+fetch('/api/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:nm,day:day,fame:Math.round(G.tot),goals:G.t,win:r=='win'?1:0,total:M.total,prestige:M.prestige||0,title:titleFor(M.total,M.prestige).n,file:location.pathname.split('/').pop()||'index.html'})}).catch(function(){})
 }catch(e){}}
 function saveRun(){try{if(!G||G.over||SCR!='game'){localStorage.removeItem('gf_run');return}localStorage.setItem('gf_run',JSON.stringify({t:G.t,n:G.n,fame:G.fame,credits:G.credits,tot:G.tot,bag:G.bag,rel:G.rel,icePiece:G.icePiece,systemsMade:G.systemsMade,boost:G.boost,debrisField:G.debrisField?1:0}))}catch(e){}}
 function resumeRun(){try{var r=JSON.parse(localStorage.getItem('gf_run')||'null');if(!r||!r.bag||!r.bag.length)return false;newGame();G.t=r.t;G.n=r.n;G.fame=r.fame;G.credits=r.credits;G.tot=r.tot;G.bag=r.bag;G.rel=r.rel||[];G.icePiece=null;G.systemsMade=r.systemsMade||0;G.boost=r.boost||{};G.debrisField=r.debrisField?1:0;if(has('debris'))G.debrisField=1;G.mode='idle';G.msg='Welcome back. Your run is where you left it.';return true}catch(e){return false}}
