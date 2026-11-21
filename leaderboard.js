@@ -16,17 +16,29 @@
 
   // ---- our own save (separate from the game's save, so game code can't wipe it) ----
   var S = { best: null, by: {}, dev: '' };          // by[p] = best run played at exactly prestige p
-  try { var raw = JSON.parse(localStorage.getItem(KEY) || 'null'); if (raw) { S.best = raw.best || null; S.by = raw.by || {}; S.dev = raw.dev || ''; } } catch (e) {}
+  try { var raw = JSON.parse(localStorage.getItem(KEY) || 'null'); if (raw) { S.best = raw.best || null; S.by = raw.by || {}; S.dev = raw.dev || ''; S.fix146 = raw.fix146 || 0; } } catch (e) {}
   if (!S.best || !S.dev) {                        // carry over v138/v140 data kept inside the game save
     try { var old = JSON.parse(localStorage.getItem('startithe_meta') || 'null');
       if (old) { if (!S.best && old.best) S.best = old.best; if (!S.dev && old.dev) S.dev = old.dev; } } catch (e) {}
   }
-  if (S.best) { var bp = S.best.p || 0; if (!S.by[bp] || S.by[bp].fame < S.best.fame) S.by[bp] = S.best; }   // older single best
+  if (S.best && !S.fix146) { var bp = S.best.p || 0; if (!S.by[bp] || S.by[bp].fame < S.best.fame) S.by[bp] = S.best; }   // older single best (merged once)
   function keep() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   keep();
   // best on the board for prestige L = best run played at L or higher (same rule as the leaderboard)
   function bestAt(L) { var b = null; for (var k in S.by) if (+k >= L && S.by[k] && (!b || S.by[k].fame > b.fame)) b = S.by[k]; return b; }
   function curP() { try { return PLV() || 0; } catch (e) { return 0; } }
+  function runP(g) { return g && typeof g._lbP == 'number' ? g._lbP : curP(); }
+  // one-time fix (v146): wins used to be saved one prestige level too high
+  if (!S.fix146) {
+    var by2 = {};
+    for (var k0 in S.by) { var e0 = S.by[k0]; if (!e0) continue; var lv0 = +k0;
+      if (e0.goals >= 10 && lv0 > 0) { lv0--; e0.p = lv0; }
+      if (!by2[lv0] || by2[lv0].fame < e0.fame) by2[lv0] = e0; }
+    S.by = by2; S.fix146 = 1;
+    try { var st0 = JSON.parse(localStorage.getItem('gf_stats') || 'null');
+      if (st0 && st0.runs) { st0.runs.forEach(function (r0) { if (r0.end == 'win' && r0.p > 0) r0.p--; }); localStorage.setItem('gf_stats', JSON.stringify(st0)); } } catch (e) {}
+    keep();
+  }
 
   function day() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
   function dev() {
@@ -56,8 +68,7 @@
   function submit(r) {
     var g = G_(); if (!g || g._lbSent) return; g._lbSent = 1;
     try { recordRun(r); } catch (e) {}
-    var goals = g.t || 0, fame = Math.round(g.tot || 0), pl = 0, title = '';
-    try { pl = PLV(); } catch (e) {}
+    var goals = g.t || 0, fame = Math.round(g.tot || 0), pl = runP(g), title = '';
     try { title = titleFor(M.total, M.prestige).n + (pl ? ' · played P' + pl : ''); } catch (e) {}
     g.newBest = false;
     var prev = bestAt(pl), run = { goals: goals, fame: fame, p: pl, day: day() };
@@ -80,7 +91,7 @@
   }
   if (typeof window.newGame == 'function') {
     var newGame0 = window.newGame;
-    window.newGame = function () { var out = newGame0.apply(this, arguments); var g = G_(); if (g) { g._lbSent = 0; g.newBest = false; } return out; };
+    window.newGame = function () { var out = newGame0.apply(this, arguments); var g = G_(); if (g) { g._lbSent = 0; g.newBest = false; g._lbP = curP(); } return out; };
   }
 
 
@@ -98,7 +109,7 @@
     endSpin();                                     // the run can end inside its last spin
     if (!CUR.spins && !(g.tot > 0)) { CUR = cur0(); saveCur(); return; }      // ended before playing: not a run
     var rel = (g.rel || []).map(function (id) { try { var x = RELICS.filter(function (q) { return q.id == id; })[0]; return x ? x.n : id; } catch (e) { return id; } });
-    var pl = 0; try { pl = PLV(); } catch (e) {}
+    var pl = runP(g);
     var s = stats();
     s.runs.push({ at: Date.now(), score: Math.round(g.tot || 0), goals: g.t || 0, end: r || g.over || 'lose', p: pl,
       sys: CUR.sys, gal: CUR.gal, spins: CUR.spins, bestSpin: CUR.bestSpin, relics: rel, picks: CUR.picks });
