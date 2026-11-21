@@ -133,7 +133,8 @@ var SG={sys:{n:'Solar System',d:'Worth 14 ⭐ + 3 for each kind of planet inside
 var PP={g:2,r:2,b:2,p:3,k:5},IP=[2,3,4,6,9],W={g:3,r:3,b:3,p:3,c:3,h:3,v:3,i:3,q:3,j:3},RENT=[30,75,160,330,650,1050,1450,2100,3150,4550],PER=5;
 var RELICS=[{id:'lens',n:'Wide Lens',d:'See 4 choices after each spin.',c:4},{id:'thumb',n:'Green Thumb',d:'Verdants worth +1 ⭐.',c:4},{id:'forge',n:'Forest Crown',d:'Forests worth +2 ⭐.',c:4},{id:'dil',n:'Time Dilation',d:'New Supernovas last 6 spins instead of 3.',c:3},
 {id:'hor',n:'Event Horizon',d:'Black Holes swallow 20% more.',c:5},{id:'pulsar',n:'Pulsar',d:'+3 ⭐ every spin.',c:6},{id:'miner',n:'Heavy Munitions',d:'Destroyers gain +4 ⭐ per Asteroid instead of +1.',c:5},{id:'scrap',n:'Scrap Collector',d:'Asteroids worth +2 ⭐ more.',c:4},
-{id:'bank',n:'Piggy Bank',d:'+3 💰 every spin.',c:3},{id:'dust',n:'Cosmic Dust',d:'Solar Systems need only 6 planets, Galaxies only 6 Solar Systems, and you get +1 choice on every pick.',c:6},{id:'nursery',n:'Stellar Nursery',d:'Solar Systems and Galaxies score 15% more.',c:6},
+{id:'bank',n:'Piggy Bank',d:'+3 💰 every spin.',c:3},{id:'dust',n:'Cosmic Dust',d:'Solar Systems need only 6 planets, and Galaxies only 6 Solar Systems.',c:6},{id:'nursery',n:'Stellar Nursery',d:'Solar Systems and Galaxies score 15% more.',c:6},
+{id:'thick',n:'Thick Dust',d:'Every Cosmic Dust is worth 3 ⭐ instead of 1.',c:5},
 {id:'vgrove',n:'Verdant Grove',d:'Verdant set bonus starts at 4 Verdants.',c:5},{id:'cinder',n:'Canopy Crown',d:'Every Forest is worth +1 ⭐ more.',c:4},{id:'icecap',n:'Frozen Core',d:'Supernovas worth +2 ⭐.',c:4},
 {id:'prism',n:'Prism Lens',d:'Nebulas give +4 ⭐ instead of +2. Inside a Solar System, each neighbour gets +2 instead of +1.',c:5},{id:'gravity',n:'Gravity Well',d:'Black Holes eat 15% more.',c:5},{id:'quarry',n:'Salvage Rights',d:'+2 💰 for each piece your Destroyers and Harvesters consume.',c:4},
 {id:'ledger',n:'Cosmic Ledger',d:'Moons and Factories give +1 💰 more.',c:5},{id:'corner',n:'Corner Beacons',d:'Pieces in the 4 corners get +2 ⭐.',c:4},{id:'stage',n:'Center Stage',d:'Pieces in the middle 4 cells get +2 ⭐.',c:4},
@@ -141,7 +142,8 @@ var RELICS=[{id:'lens',n:'Wide Lens',d:'See 4 choices after each spin.',c:4},{id
 {id:'scout',n:'Scout Fleet',d:'+1 choice on every pick screen.',c:6},{id:'spot',n:'Spotlight',d:'Your highest-scoring piece each spin scores 30% more.',c:8},{id:'prospect',n:'Prospector’s Charter',d:'Big Asteroids appear in your picks, and a Destroyer that shoots one gains +3 ⭐ permanently and it splits into 2 Asteroids.',c:5},{id:'halo',n:'Nebula Halo',d:'Nebulas also give +1 ⭐ to pieces 2 cells away.',c:4},{id:'fertile',n:'Fertile Soil',d:'Cradles grow +0.3 ⭐ more every spin.',c:5},{id:'heirloom',n:'Heirloom Seeds',d:'Cradles start worth 2 ⭐ instead of 1.',c:4},
 {id:'baton',n:'Conductor’s Baton',d:'Every Chorus counts 1 higher.',c:5},{id:'encore',n:'Encore',d:'The last Chorus to score each spin scores double.',c:5},{id:'rubble',n:'Rubble Rights',d:'Quarries get +4 ⭐ per adjacent Asteroid instead of +2.',c:4},
 {id:'magma',n:'Magma Core',d:'Volcanic worlds worth +3 ⭐.',c:5},{id:'obsidian',n:'Obsidian Shield',d:'Volcanic worlds no longer permanently lose their fame to Black Holes.',c:5},{id:'permafrost',n:'Permafrost',d:'The Ice Planet scores 1 ⭐ for every piece next to it.',c:5},{id:'glacier',n:'Glacial Lens',d:'The Ice Planet gives every piece next to it +2 ⭐.',c:5},
-{id:'twin',n:'Twin Dust',d:'Each Cosmic Dust you take brings a second Cosmic Dust with it.',c:4},{id:'debris',n:'Debris Field',d:'Every relic you buy after this one also puts an Asteroid in your bag.',c:4},{id:'founder',n:'Founder’s Charter',d:'Forming a Solar System or Galaxy gives triple fame.',c:5},{id:'permafrost',n:'Permafrost Choir',d:'Ice Planets can join a Solar System. They still hold their square for the rest of the run.',c:5},{id:'vein',n:'Quarry Vein',d:'If a Solar System holds 4 or more Quarries, it gains +20 ⭐.',c:4}]
+{id:'twin',n:'Twin Dust',d:'Each Cosmic Dust you take brings a second Cosmic Dust with it.',c:4},
+{id:'triplet',n:'Triplet Dust',d:'Each Cosmic Dust you take brings two more with it, for 3 in all. Replaces Twin Dust.',c:5},{id:'debris',n:'Debris Field',d:'Every relic you buy after this one also puts an Asteroid in your bag.',c:4},{id:'founder',n:'Founder’s Charter',d:'Forming a Solar System or Galaxy gives triple fame.',c:5},{id:'permafrost',n:'Permafrost Choir',d:'Ice Planets can join a Solar System. They still hold their square for the rest of the run.',c:5},{id:'vein',n:'Quarry Vein',d:'If a Solar System holds 4 or more Quarries, it gains +20 ⭐.',c:4}]
 
 var G,IM={};function R(n){return Math.floor(Math.random()*n)}function has(id){return G.rel.indexOf(id)>-1}
 function sleep(ms){return new Promise(function(r){setTimeout(r,(G&&G.fast?ms/6:ms)/SP)})}
@@ -303,7 +305,7 @@ else if(k=='moon')cr[i]=1+(has('ledger')?1:0);else if(k=='tel'){var kd={};N.forE
 else if(k=='fac')cr[i]=1+N.filter(function(j){return cs[j].k=='ast'}).length+(has('ledger')?1:0);
 else if(k=='nau')v=3+2*N.filter(function(j){return cs[j].k=='g'}).length;else if(k=='des')v=3;else if(k=='sun')v=2;
 else if(k=='nor')v=8+([0,4,15,19].indexOf(i)>-1?8:0);
-else if(DP[k]){v=DP[k].f+(c.perm||0);if(k=='gs'){var kid={};N.forEach(function(j){if(cs[j]&&K[cs[j].k]&&cs[j].k!='k')kid[cs[j].k]=1});v+=(has('ledger')?1:0)+Object.keys(kid).length}}
+else if(DP[k]){v=(k=='j'&&has('thick')?3:DP[k].f)+(c.perm||0);if(k=='gs'){var kid={};N.forEach(function(j){if(cs[j]&&K[cs[j].k]&&cs[j].k!='k')kid[cs[j].k]=1});v+=(has('ledger')?1:0)+Object.keys(kid).length}}
 else if(k=='sys')v=(c.val===undefined?sysVal(c):c.val);else if(k=='gal')v=galVal(c)
 f[i]=v+(c.perm||0)});
 if(has('encore')&&lastH>-1)f[lastH]*=2;
@@ -360,13 +362,14 @@ dbg('end');G.busy=false;saveRun();draw()}
 function pickN(){return Math.max(2,3+(has('lens')?1:0)+(has('scout')?1:0)+uL('scout')+(PV().choices||0))}
 function offer(){var n=pickN(),pl=pool(),o=[];while(o.length<n&&pl.length){o=o.concat(wpick(pl,1))}G.offer=shuf(o);G.mode='pick'}
 function rprice(r){return Math.max(1,r.b-(has('haggler')?2:0)-uL('tink')+Math.floor(G.rel.length/2)+(PV().relic||0))}
-function mkShop(){if(has('lucky'))G.freeRoll=1;G.shop=shuf(RELICS.filter(function(r){return !has(r.id)&&relUsable(r.id)})).slice(0,Math.max(2,3+uL('bazaar')+(PV().shop||0))).map(function(r){return{id:r.id,n:r.n,d:r.d,b:r.c}})}
+function mkShop(){if(has('lucky'))G.freeRoll=1;G.shop=shuf(shopPool().filter(function(r){return !has(r.id)&&relUsable(r.id)})).slice(0,Math.max(2,3+uL('bazaar')+(PV().shop||0))).map(function(r){return{id:r.id,n:r.n,d:r.d,b:r.c}})}
 function relUsable(id){var hasK=function(k){return G.bag.some(function(p){if(p.k==k)return true;if(p.k=='sys')return(p.comp||[]).indexOf(k)>-1;if(p.k=='gal')return(p.subs||[]).some(function(x){return(x.comp||[]).indexOf(k)>-1});return false})};
 if(id=='permafrost'||id=='glacier')return hasK('i');
 if(id=='magma'||id=='obsidian')return hasK('v');
 return true}
 function fast(){G.fast=true}
-function pickC(i){sfx('click');var p=mk(G.offer[i]);G.bag.push(p);if(p.k=='j'&&has('twin')&&!p.twin){var p2=mk('j');p2.twin=1;G.bag.push(p2);G.msg='Twin Dust: a second Cosmic Dust joins your bag.';G.mode='idle';draw();return}if(p.k=='i'){G.icePiece=p;G.mode='iceplace';G.msg='Choose the square this Ice Planet will hold, forever.';}else{G.mode='idle';G.msg='Added '+nm(G.offer[i])+' to your bag. Spin when ready.';}draw()}
+function shopPool(){return RELICS.filter(function(r){if(r.id=='triplet')return has('twin');if(r.id=='twin')return !has('triplet');return true})}
+function pickC(i){sfx('click');var p=mk(G.offer[i]);G.bag.push(p);if(p.k=='j'&&!p.twin&&(has('twin')||has('triplet'))){var nn=has('triplet')?2:(has('twin')?1:0);for(var q=0;q<nn;q++){var p2=mk('j');p2.twin=1;G.bag.push(p2)}G.msg=(has('triplet')?'Triplet Dust: two more Cosmic Dusts join your bag.':'Twin Dust: a second Cosmic Dust joins your bag.');G.mode='idle';draw();return}if(p.k=='i'){G.icePiece=p;G.mode='iceplace';G.msg='Choose the square this Ice Planet will hold, forever.';}else{G.mode='idle';G.msg='Added '+nm(G.offer[i])+' to your bag. Spin when ready.';}draw()}
 function placeIce(i){sfx('click');if(G.mode!='iceplace'||!G.icePiece)return;if(!iceFree(i))return;if(iceTaken(i)){G.msg='That square is already held by another Ice Planet.';draw();return}G.icePiece.iceAt=i;G.icePiece=null;G.mode='idle';G.msg='Ice Planet anchored at square '+(i+1)+'. It will stay there until a Solar System takes it.';draw()}
 function iceTaken(i){return G.bag.some(function(p){return p.k=='i'&&p.iceAt===i})}
 function iceFree(i){return !iceTaken(i)}
