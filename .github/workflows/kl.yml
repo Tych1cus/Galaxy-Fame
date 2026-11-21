@@ -1,0 +1,35 @@
+# Puts the leaderboard line back into index.html if an upload drops it.
+# Galaxy Fame's leaderboard lives in leaderboard.js; index.html only needs:
+#   <script src="leaderboard.js"></script>
+name: Keep leaderboard line
+on:
+  push:
+    branches: [main]
+    paths: [index.html]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: keep-leaderboard-line
+  cancel-in-progress: false
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Re-add the line if it is missing
+        run: |
+          if grep -q 'src="leaderboard.js' index.html; then echo "Leaderboard line is there. Nothing to do."; exit 0; fi
+          python3 - <<'PY'
+          p = 'index.html'
+          t = open(p, 'rb').read()
+          tag = b'<script src="leaderboard.js"></script>\n'
+          i = t.lower().rfind(b'</body>')
+          t = t[:i] + tag + t[i:] if i >= 0 else t + b'\n' + tag
+          open(p, 'wb').write(t)
+          PY
+          git config user.name "leaderboard-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "auto: re-add leaderboard line to index.html"
+          for i in 1 2 3; do git push && exit 0; git pull --rebase; done
+          exit 1

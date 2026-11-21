@@ -7,8 +7,15 @@ Build a galaxy full of planets. Earn fame. Meet the demands of the people.  Star
 database run by **archdevious** - ask them about the board, resetting scores or removing a
 cheater. Nothing to host: it works straight from GitHub Pages.
 
-- A finished run is sent once, at the end of the run (Supabase function `gf_submit`).
+All leaderboard code lives in **`leaderboard.js`** (leaderboard, personal best, Total fame box,
+Final score). Game builds don't need to include any of it: `index.html` only needs this one
+line before `</body>`:
+
+    <script src="leaderboard.js"></script>
+
+If an upload of `index.html` drops that line, the GitHub Action
+`.github/workflows/keep-leaderboard-line.yml` puts it back automatically within a minute.
+
 - Ranked by total fame earned in the run (the final score). Each player's best run counts.
 - Players set their board name on the title screen or the board page.
-- Your own best run is also remembered in your browser and shown on the title screen.
 - The key in the code is Supabase's public key: it can only read scores and submit runs.
