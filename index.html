@@ -273,7 +273,7 @@ function kinds(c){var o={};(c||[]).forEach(function(k){o[k]=1});return Object.ke
 function prestigeCtl(){var h='<div class="box" style="max-width:340px;margin:14px auto;text-align:left"><h3>🔥 Prestige</h3><div class="seg">';for(var i=0;i<=M.prestige;i++)h+='<button class="'+(PLV()==i?'on':'')+'" onclick="setPrestige('+i+')">'+(i?'P'+i:'Normal')+'</button>';h+='</div><small style="color:var(--mu);display:block;line-height:1.5">';if(!PLV())h+='Normal rules. Beat the game to unlock Prestige I.';else{for(var i=1;i<=PLV();i++)h+='<div style="margin:4px 0"><b style="color:var(--gd)">P'+i+'</b> '+PRESTIGE[i-1].d+'</div>';}h+='</small></div>';return h}
 function setPrestige(v){M.plvl=Math.min(M.prestige,Math.max(0,v));save();draw()}
 function newGame(){G={rel:[]};var b0=[];for(var u=0;u<Math.max(0,uL('start'));u++)b0.push(mk('grbp'.charAt(R(4))));G={fame:0,credits:2*uL('cash'),tot:0,run:'',earned:null,tmp:0,tmpc:0,t:0,n:0,systemsMade:0,icePiece:null,bag:b0,rel:[],cells:new Array(20).fill(null),vals:[],cv:[],hot:-1,fresh:-1,fx:{},pops:{},pull:{},sel:[],formT:'sys',banner:'',mode:'idle',back:'idle',busy:false,fast:false,msg:'Spin to scatter your bag across the star chart.',offer:[],shop:[],over:null,tip:null,startLeft:PV().startPlanets?PV().startPlanets:2};G.mode='start';G.offer=startOffer();G.msg='Pick your starting planets, then spin.';SCR='game';if(!(M.seen&&M.seen.intro))G.tip='intro';draw()}
-function startOffer(){return wpick(ppool().filter(function(x){return x[0]!='i'&&x[0]!='k'&&!DP[x[0]]}),3+uL('scout'))}
+function startOffer(){return wpick(ppool().filter(function(x){return x[0]!='i'&&x[0]!='k'&&!DP[x[0]]}),3)}
 function startC(i){G.bag.push(mk(G.offer[i]));G.startLeft--;if(G.startLeft>0)G.offer=startOffer();else{G.mode='idle';G.msg='Spin to scatter your bag across the star chart.'}draw()}
 function nb(i,R2){R2=R2||1;var r=Math.floor(i/5),c=i%5,o=[];for(var a=-R2;a<=R2;a++)for(var b=-R2;b<=R2;b++){if(!a&&!b)continue;var y=r+a,x=c+b;if(y>=0&&y<4&&x>=0&&x<5)o.push(y*5+x)}return o}
 function pre(cs){var ev=[],rg=Math.min(4,1+tierF(auras(),'a'));cs.forEach(function(c,i){if(!c||(c.k!='des'&&c.k!='sun'))return;var t=nb(i,c.k=='des'?rg:1).filter(function(j){var x=cs[j];return x&&!x.dead&&(c.k=='des'?(x.k=='ast'||x.k=='bas'):x.k=='b')});
@@ -355,7 +355,7 @@ dbg('goal check');if(G.n==PER){var rent=RT(G.t);if(G.fame<rent){finish('lose');G
 if(G.t>=RENT.length)finish('win');else{mkShop();G.mode='shop'}}}
 else {dbg('offer');offer()}
 dbg('end');G.busy=false;saveRun();draw()}
-function pickN(){return Math.max(2,3+(has('lens')?1:0)+(has('scout')?1:0)+uL('scout')+(PV().choices||0)+(has('dust')?1:0))}
+function pickN(){return Math.max(2,3+(has('lens')?1:0)+(has('scout')?1:0)+uL('scout')+(PV().choices||0))}
 function offer(){var n=pickN(),pl=pool(),o=[];while(o.length<n&&pl.length){o=o.concat(wpick(pl,1))}G.offer=shuf(o);G.mode='pick'}
 function rprice(r){return Math.max(1,r.b-(has('haggler')?2:0)-uL('tink')+Math.floor(G.rel.length/2)+(PV().relic||0))}
 function mkShop(){if(has('lucky'))G.freeRoll=1;G.shop=shuf(RELICS.filter(function(r){return !has(r.id)&&relUsable(r.id)})).slice(0,Math.max(2,3+uL('bazaar')+(PV().shop||0))).map(function(r){return{id:r.id,n:r.n,d:r.d,b:r.c}})}
@@ -495,7 +495,7 @@ function save(){try{localStorage.setItem('startithe_meta',JSON.stringify(M));loc
 function uL(id){return(M.up&&M.up[id])||0}
 function RT(t){return Math.max(1,Math.round(RENT[t]*(1-.04*uL('goal'))*(1+PV().fame/100)))}
 var UP=[{id:'start',n:'Starting Fleet',d:'Begin each run with +1 random planet per level.',max:3,base:45},{id:'cash',n:'Seed Capital',d:'Begin each run with +2 💰 per level.',max:5,base:24},
-{id:'goal',n:'Goal Haggling',d:'All fame goals are 4% lower per level.',max:5,base:42},{id:'scout',n:'Scout Network',d:'+1 choice on every pick screen.',max:2,base:90},
+{id:'goal',n:'Goal Haggling',d:'All fame goals are 4% lower per level.',max:5,base:42},
 {id:'eyes',n:'Keen Eyes',d:'Rare finds appear 25% more often per level.',max:4,base:36},{id:'fame',n:'Fame Mastery',d:'+1 ⭐ at the end of every spin per level.',max:5,base:36},
 {id:'tink',n:'Relic Tinkering',d:'Relics cost 1 💰 less per level.',max:3,base:45},{id:'bazaar',n:'Grand Bazaar',d:'+1 relic offered in each shop per level.',max:2,base:75},
 {id:'form',n:'Swift Formation',d:'Solar Systems and Galaxies need 1 fewer piece per level.',max:2,base:90}];
