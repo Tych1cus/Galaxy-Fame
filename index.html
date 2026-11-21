@@ -555,5 +555,4 @@ var AUR={g:'+1 ⭐ every roll for every 4 Verdants you have collected (bag and i
 function auraBox(){var AU=auras(),ks=Object.keys(AU);if(!ks.length)return'';return'<div class="box"><h3>Auras</h3>'+ks.map(function(k){var a=AU[k],z=tsz(k),t=tierF(AU,k);return'<div class="cs'+(G.auraHot&&G.auraHot[k]?' aflash':'')+'"><span style="color:'+CC[k]+'">✦ '+K[k].n+' Aura · tier '+t+'</span><b>'+(a%z)+' / '+z+'</b></div><div class="bar"><i style="width:'+(a%z)/z*100+'%;background:'+CC[k]+'"></i></div><small style="color:var(--mu)">'+aurTot(k,t)+'</small>'}).join('')+'<small style="color:var(--mu);display:block;margin-top:8px">Each Solar System gives 4 aura, plus 1 every spin it lands. Systems also boost their own kind on the board.</small></div>'}
 try{showMenu()}catch(e){document.getElementById('app').innerHTML='<pre style="color:#f88;padding:12px;white-space:pre-wrap">'+e+'\n'+e.stack+'</pre>'}
 
-</script><script src="leaderboard.js"></script>
-</body></html>
+</script></body></html>
