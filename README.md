@@ -17,6 +17,8 @@ If an upload of `index.html` drops that line, the GitHub Action
 `.github/workflows/keep-leaderboard-line.yml` puts it back automatically within a minute.
 
 - Ranked by total fame earned in the run (the final score). Each player's best run counts.
+- Each prestige level has its own board (Normal, P1-P10). A run counts on its own level and every
+  level below it, so a P3 run shows on the P3, P2, P1 and Normal boards but not P4 and up.
 - Players set their board name on the title screen or the board page.
 - `stats.html` shows each player's own stats (runs, scores, where runs end, picks, relics). They are
   kept only in that player's browser and are recorded by `leaderboard.js` too.

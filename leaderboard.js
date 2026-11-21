@@ -15,14 +15,18 @@
     KEY = 'gf_lb';
 
   // ---- our own save (separate from the game's save, so game code can't wipe it) ----
-  var S = { best: null, dev: '' };
-  try { var raw = JSON.parse(localStorage.getItem(KEY) || 'null'); if (raw) { S.best = raw.best || null; S.dev = raw.dev || ''; } } catch (e) {}
+  var S = { best: null, by: {}, dev: '' };          // by[p] = best run played at exactly prestige p
+  try { var raw = JSON.parse(localStorage.getItem(KEY) || 'null'); if (raw) { S.best = raw.best || null; S.by = raw.by || {}; S.dev = raw.dev || ''; } } catch (e) {}
   if (!S.best || !S.dev) {                        // carry over v138/v140 data kept inside the game save
     try { var old = JSON.parse(localStorage.getItem('startithe_meta') || 'null');
       if (old) { if (!S.best && old.best) S.best = old.best; if (!S.dev && old.dev) S.dev = old.dev; } } catch (e) {}
   }
+  if (S.best) { var bp = S.best.p || 0; if (!S.by[bp] || S.by[bp].fame < S.best.fame) S.by[bp] = S.best; }   // older single best
   function keep() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   keep();
+  // best on the board for prestige L = best run played at L or higher (same rule as the leaderboard)
+  function bestAt(L) { var b = null; for (var k in S.by) if (+k >= L && S.by[k] && (!b || S.by[k].fame > b.fame)) b = S.by[k]; return b; }
+  function curP() { try { return PLV() || 0; } catch (e) { return 0; } }
 
   function day() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
   function dev() {
@@ -56,14 +60,16 @@
     try { pl = PLV(); } catch (e) {}
     try { title = titleFor(M.total, M.prestige).n + (pl ? ' · played P' + pl : ''); } catch (e) {}
     g.newBest = false;
-    if (fame > 0 && (!S.best || fame > S.best.fame)) { S.best = { goals: goals, fame: fame, p: pl, day: day() }; g.newBest = true; keep(); }
+    var prev = bestAt(pl), run = { goals: goals, fame: fame, p: pl, day: day() };
+    if (fame > 0 && (!S.by[pl] || fame > S.by[pl].fame)) { S.by[pl] = run; keep(); }
+    if (fame > 0 && (!prev || fame > prev.fame)) { g.newBest = true; g.newBestP = pl; }
     if (fame <= 0 || typeof fetch == 'undefined') return;
     try {
-      fetch(LB_URL + '/rest/v1/rpc/gf_submit', {
-        method: 'POST',
-        headers: { 'apikey': LB_KEY, 'Authorization': 'Bearer ' + LB_KEY, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ p_dev: dev(), p_name: name(), p_day: day(), p_goals: goals, p_fame: fame, p_win: r == 'win', p_title: title })
-      }).catch(function () {});
+      var body = { p_dev: dev(), p_name: name(), p_day: day(), p_goals: goals, p_fame: fame, p_win: r == 'win', p_title: title, p_p: pl },
+        send = function (b) { return fetch(LB_URL + '/rest/v1/rpc/gf_submit', { method: 'POST',
+          headers: { 'apikey': LB_KEY, 'Authorization': 'Bearer ' + LB_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(b) }); };
+      // if the database hasn't got the prestige version yet, send it the old way (prestige is in the title)
+      send(body).then(function (res) { if (!res.ok) { delete body.p_p; return send(body); } }).catch(function () {});
     } catch (e) {}
   }
   // the game calls postScore(r) when a run ends; take it over, and also hook finish() in case that call ever goes away
@@ -135,9 +141,9 @@
   }
   // title screen: "Leaderboard" link, your best score, board name
   wrap('menuHtml', function (h) {
-    var b = S.best,
-      extra = (b ? '<p class="gflb-l">Your best score: <b style="color:var(--gd)">' + fmt(b.fame) + ' ⭐</b> <span>(' +
-        (b.goals >= 10 ? '🏆 won' : b.goals + ' goal' + (b.goals == 1 ? '' : 's')) + (b.p ? ' · P' + b.p : '') + ')</span></p>' : '') +
+    var L = curP(), b = bestAt(L),
+      extra = (b ? '<p class="gflb-l">Your best' + (L ? ' at P' + L : '') + ': <b style="color:var(--gd)">' + fmt(b.fame) + ' ⭐</b> <span>(' +
+        (b.goals >= 10 ? '🏆 won' : b.goals + ' goal' + (b.goals == 1 ? '' : 's')) + (b.p != L ? ' · played P' + b.p : '') + ')</span></p>' : '') +
         '<p class="gflb-l gflb-s">Board name: <b style="color:#fff">' + name() + '</b> <button class="sm gflb-b" onclick="gfSetName()">change</button></p>';
     h = h.replace('Daily board →', 'Leaderboard →');
     if (h.indexOf('board.html') < 0) extra = '<p class="gflb-l"><a href="board.html" style="color:var(--gd)">Leaderboard →</a></p>' + extra;
@@ -156,7 +162,7 @@
         if (e > -1) h = h.slice(0, e + 5) + fs + h.slice(e + 5);
         if (g.newBest) {
           var sh = h.indexOf('Star Shards earned</p>', ov);
-          var nb = '<p class="gflb-best">🌟 New personal best!</p>';
+          var nb = '<p class="gflb-best">🌟 New personal best' + (g.newBestP ? ' at P' + g.newBestP : '') + '!</p>';
           if (sh > -1) h = h.slice(0, sh + 22) + nb + h.slice(sh + 22);
           else if (e > -1) h = h.replace(fs, fs + nb);
         }
