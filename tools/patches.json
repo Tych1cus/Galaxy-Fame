@@ -1,0 +1,67 @@
+[
+ {
+  "name": "Permafrost Choir holds the Ice Planet's square (not plain Permafrost)",
+  "find": "var perma=has('frozen')",
+  "replace": "var perma=has('permafrost')"
+ },
+ {
+  "name": "Choir leaves a real used Ice Planet on its square, not an empty marker",
+  "find": "if(perma)G.bag.forEach(function(p){if(p.k=='sys'&&p.iceAt&&p.iceAt.length){p.iceAt.forEach(function(sq){if(psq[sq])return;psq[sq]=1;pinned.push({k:'pin',iceAt:sq})})}});",
+  "replace": "if(perma)G.bag.slice().forEach(function(p){if(p.k=='sys'&&p.iceAt&&p.iceAt.length){p.iceAt.forEach(function(sq){if(psq[sq])return;psq[sq]=1;var ci=mk('i');ci.iceAt=sq;ci.used=1;G.bag.push(ci);pinned.push(ci)})}});"
+ },
+ {
+  "name": "A used Ice Planet can't join another Solar System (Select all)",
+  "find": "(K[p.k]&&p.k!='k')||(p.k=='i'&&has('permafrost'))",
+  "replace": "(K[p.k]&&p.k!='k'&&!(p.k=='i'&&p.used))"
+ },
+ {
+  "name": "A used Ice Planet can't join another Solar System (form list)",
+  "find": "if(sy?(K[p.k]&&p.k!='k')",
+  "replace": "if(sy?(K[p.k]&&p.k!='k'&&!(p.k=='i'&&p.used))"
+ },
+ {
+  "name": "A used Ice Planet doesn't count toward the planet bar",
+  "find": "np=cntK(function(p){return K[p.k]&&p.k!='k'})",
+  "replace": "np=cntK(function(p){return K[p.k]&&p.k!='k'&&!(p.k=='i'&&p.used)})"
+ },
+ {
+  "name": "With Choir the Ice Planet also stays on its square after joining",
+  "find": "G.bag=G.bag.filter(function(p,i){return G.sel.indexOf(i)<0});var np=mk(t)",
+  "replace": "G.bag=G.bag.filter(function(p,i){return G.sel.indexOf(i)<0});if(t=='sys'&&has('permafrost'))its.forEach(function(p){if(p.k=='i'&&p.iceAt!=null){p.used=1;G.bag.push(p)}});var np=mk(t)"
+ },
+ {
+  "name": "Ice Planet in a System keeps the fame it scored on its square",
+  "find": "if(_is.length&&G.vals&&G.vals[_is[0]]!==undefined)scored=G.vals[_is[0]];",
+  "replace": "var _ice=_is.length?G.bag[_is[0]]:null;if(_ice&&_ice.iceAt!=null&&G.vals&&G.vals[_ice.iceAt]!==undefined)scored=G.vals[_ice.iceAt];"
+ },
+ {
+  "name": "Text: Ice Planet",
+  "find": "i:{n:'Ice Planet',d:'+1 ⭐, plus 1 for each neighbouring piece. Pick a place for it to always land on.'",
+  "replace": "i:{n:'Ice Planet',d:'Worth 1 ⭐. Pick a square: it always lands there until it joins a Solar System.'"
+ },
+ {
+  "name": "Text: Permafrost",
+  "find": "{id:'frozen',n:'Permafrost',d:'The Ice Planet scores 1 ⭐ for every piece next to it.'",
+  "replace": "{id:'frozen',n:'Permafrost',d:'Ice Planets score +1 ⭐ for each piece next to them.'"
+ },
+ {
+  "name": "Text: Glacial Lens",
+  "find": "{id:'glacier',n:'Glacial Lens',d:'The Ice Planet gives every piece next to it +2 ⭐.'",
+  "replace": "{id:'glacier',n:'Glacial Lens',d:'Ice Planets give each piece next to them +2 ⭐.'"
+ },
+ {
+  "name": "Text: Permafrost Choir",
+  "find": "{id:'permafrost',n:'Permafrost Choir',d:'Ice Planets can join a Solar System. They still hold their square for the rest of the run.'",
+  "replace": "{id:'permafrost',n:'Permafrost Choir',d:'An Ice Planet that joins a Solar System also stays on its square. That one can\\'t join another.'"
+ },
+ {
+  "name": "Text: choosing the Ice Planet's square (message)",
+  "find": "Choose the square this Ice Planet will hold, forever.",
+  "replace": "Choose the square this Ice Planet will hold until it joins a Solar System."
+ },
+ {
+  "name": "Text: choosing the Ice Planet's square (panel)",
+  "find": "The Ice Planet will stay in that position for the rest of this run.",
+  "replace": "The Ice Planet always lands there until it joins a Solar System."
+ }
+]

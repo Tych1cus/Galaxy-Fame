@@ -13,8 +13,10 @@ line before `</body>`:
 
     <script src="leaderboard.js"></script>
 
-If an upload of `index.html` drops that line, the GitHub Action
-`.github/workflows/keep-leaderboard-line.yml` puts it back automatically within a minute.
+After every upload of `index.html`, the GitHub Action `.github/workflows/keep-leaderboard-line.yml`
+runs `tools/apply_patches.py`, which puts that line back if it's missing and re-applies archdevious's
+game fixes listed in `tools/patches.json`. A fix whose spot in the code has changed is skipped (never
+forced) and listed as NEEDS A LOOK in `tools/STATUS.md`.
 
 - Ranked by total fame earned in the run (the final score). Each player's best run counts.
 - Each prestige level has its own board (Normal, P1-P10). A run counts on its own level and every

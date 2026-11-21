@@ -1,0 +1,30 @@
+# Re-applies archdevious's fixes after each game upload (the upload replaces all of index.html):
+# the leaderboard.js line plus every edit in tools/patches.json. Edits whose spot the game's
+# author has changed are skipped and listed as NEEDS A LOOK in tools/STATUS.md.
+name: Keep fixes applied
+on:
+  push:
+    branches: [main]
+    paths: [index.html, tools/patches.json, tools/apply_patches.py]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: keep-fixes
+  cancel-in-progress: false
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Re-apply fixes
+        run: python3 tools/apply_patches.py
+      - name: Commit if anything changed
+        run: |
+          git add index.html tools/STATUS.md
+          if git diff --cached --quiet; then echo "Nothing to change."; exit 0; fi
+          git config user.name "leaderboard-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "auto: re-apply fixes after upload (see tools/STATUS.md)"
+          for i in 1 2 3; do git push && exit 0; git pull --rebase; done
+          exit 1
