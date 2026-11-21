@@ -51,3 +51,5 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Fix: ending a run early gives no free Star Shards
 - ok (Devious): Text: Star Shards rules on the Observatory
 - ok (Devious): Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
+- ok (Devious): Verdant Aura text (sidebar)
+- ok (Devious): Verdant Aura text (banner)

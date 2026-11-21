@@ -145,5 +145,15 @@
   "name": "Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)",
   "find": "dbg('watchdog: still busy, last step '+(G.dbg||'none'));G._wd=(G._wd||0)+1;",
   "replace": "var _sig=[G.dbg,G.hot,G.msg,G.tmp,G.banner,G.fresh].join('|');if(_sig!==G._wdSig){G._wdSig=_sig;G._wd=0}G._wd=(G._wd||0)+1;"
+ },
+ {
+  "name": "Verdant Aura text (sidebar)",
+  "find": "return'Every 4 Verdants you own pay +1 ⭐ on every spin, once. '+ow+' Verdants = +'+p4+' ⭐ base. Tier '+t+' multiplies that: +'+p4+' × '+t+' = +'+pay.f+' ⭐ per spin. (A tier-2 Verdant is still one Verdant — it does not count twice.)'",
+  "replace": "return'+'+pay.f+' ⭐ every spin: +1 per 4 Verdants you own ('+ow+')'+(t>1?', × tier '+t:'')+'.'"
+ },
+ {
+  "name": "Verdant Aura text (banner)",
+  "find": "g:'+1 ⭐ every roll for every 4 Verdants you have collected (bag and inside Solar Systems)'",
+  "replace": "g:'+1 ⭐ every spin per 4 Verdants you own'"
  }
 ]
