@@ -51,6 +51,7 @@
   // ---- sending a finished run (once per run) ----
   function submit(r) {
     var g = G_(); if (!g || g._lbSent) return; g._lbSent = 1;
+    try { recordRun(r); } catch (e) {}
     var goals = g.t || 0, fame = Math.round(g.tot || 0), pl = 0, title = '';
     try { pl = PLV(); } catch (e) {}
     try { title = titleFor(M.total, M.prestige).n + (pl ? ' · played P' + pl : ''); } catch (e) {}
@@ -76,6 +77,56 @@
     window.newGame = function () { var out = newGame0.apply(this, arguments); var g = G_(); if (g) { g._lbSent = 0; g.newBest = false; } return out; };
   }
 
+
+  // ---- stats tracking (kept in this browser only: gf_stats = finished runs, gf_stats_cur = the run in progress) ----
+  var SK = 'gf_stats', CK = 'gf_stats_cur', MAXRUNS = 500;
+  function cur0() { return { picks: {}, sys: 0, gal: 0, spins: 0, bestSpin: 0 }; }
+  var CUR = cur0();
+  try { var cr = JSON.parse(localStorage.getItem(CK) || 'null'); if (cr && cr.picks) CUR = cr; } catch (e) {}
+  function saveCur() { try { localStorage.setItem(CK, JSON.stringify(CUR)); } catch (e) {} }
+  function stats() { var s = null; try { s = JSON.parse(localStorage.getItem(SK) || 'null'); } catch (e) {} if (!s || !s.runs) s = { since: Date.now(), runs: [] }; return s; }
+  function pickName(k) { try { return nm(k); } catch (e) { return String(k); } }
+  function notePick(k) { if (!k) return; var n = pickName(k); CUR.picks[n] = (CUR.picks[n] || 0) + 1; saveCur(); }
+  function recordRun(r) {
+    var g = G_(); if (!g || g._stSaved) return; g._stSaved = 1;
+    endSpin();                                     // the run can end inside its last spin
+    if (!CUR.spins && !(g.tot > 0)) { CUR = cur0(); saveCur(); return; }      // ended before playing: not a run
+    var rel = (g.rel || []).map(function (id) { try { var x = RELICS.filter(function (q) { return q.id == id; })[0]; return x ? x.n : id; } catch (e) { return id; } });
+    var pl = 0; try { pl = PLV(); } catch (e) {}
+    var s = stats();
+    s.runs.push({ at: Date.now(), score: Math.round(g.tot || 0), goals: g.t || 0, end: r || g.over || 'lose', p: pl,
+      sys: CUR.sys, gal: CUR.gal, spins: CUR.spins, bestSpin: CUR.bestSpin, relics: rel, picks: CUR.picks });
+    if (s.runs.length > MAXRUNS) s.runs = s.runs.slice(-MAXRUNS);
+    try { localStorage.setItem(SK, JSON.stringify(s)); } catch (e) {}
+    CUR = cur0(); saveCur();
+  }
+  function hook(fn, before, after) {
+    if (typeof window[fn] != 'function') return;
+    var f0 = window[fn];
+    window[fn] = function () {
+      var ctx = null; try { if (before) ctx = before.apply(this, arguments); } catch (e) {}
+      var out = f0.apply(this, arguments);
+      if (after) {
+        if (out && typeof out.then == 'function') return out.then(function (v) { try { after(ctx, v); } catch (e) {} return v; });
+        try { after(ctx, out); } catch (e) {}
+      }
+      return out;
+    };
+  }
+  hook('startC', function (i) { var g = G_(); return g && g.offer ? g.offer[i] : null; }, function (k) { notePick(k); });
+  hook('pickC', function (i) { var g = G_(); return g && g.offer ? g.offer[i] : null; }, function (k) { notePick(k); });
+  hook('confirmForm', function () { var g = G_(); return g ? { t: g.formT, n: g.bag.filter(function (p) { return p.k == g.formT; }).length } : null; },
+    function (c) { var g = G_(); if (!c || !g) return; var n = g.bag.filter(function (p) { return p.k == c.t; }).length;
+      if (n > c.n) { if (c.t == 'gal') CUR.gal++; else CUR.sys++; saveCur(); } });
+  var spinStart = null;                            // fame total when the current spin began
+  function endSpin() { var g = G_(); if (spinStart == null || !g) return; var d = Math.round((g.tot || 0) - spinStart); spinStart = null;
+    CUR.spins++; if (d > CUR.bestSpin) CUR.bestSpin = d; saveCur(); }
+  hook('spin', function () { var g = G_(); if (g && !g.busy && g.mode == 'idle') spinStart = g.tot || 0; }, function () { endSpin(); });
+  // a new run starts fresh tracking; resuming a saved run keeps it
+  var resuming = false;
+  hook('resumeRun', function () { resuming = true; }, function () { resuming = false; });
+  hook('newGame', null, function () { var g = G_(); if (g) g._stSaved = 0; if (!resuming) { CUR = cur0(); saveCur(); } });
+
   // ---- screens ----
   function wrap(fn, add) {
     if (typeof window[fn] != 'function') return;
@@ -90,6 +141,7 @@
         '<p class="gflb-l gflb-s">Board name: <b style="color:#fff">' + name() + '</b> <button class="sm gflb-b" onclick="gfSetName()">change</button></p>';
     h = h.replace('Daily board →', 'Leaderboard →');
     if (h.indexOf('board.html') < 0) extra = '<p class="gflb-l"><a href="board.html" style="color:var(--gd)">Leaderboard →</a></p>' + extra;
+    extra += '<p class="gflb-l gflb-s"><a href="stats.html" style="color:var(--gd)">📊 Your stats →</a></p>';
     var i = h.indexOf('<button class="spin"');
     return i > -1 ? h.slice(0, i) + extra + h.slice(i) : h + extra;
   });

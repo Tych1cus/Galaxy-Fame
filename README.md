@@ -18,4 +18,6 @@ If an upload of `index.html` drops that line, the GitHub Action
 
 - Ranked by total fame earned in the run (the final score). Each player's best run counts.
 - Players set their board name on the title screen or the board page.
+- `stats.html` shows each player's own stats (runs, scores, where runs end, picks, relics). They are
+  kept only in that player's browser and are recorded by `leaderboard.js` too.
 - The key in the code is Supabase's public key: it can only read scores and submit runs.

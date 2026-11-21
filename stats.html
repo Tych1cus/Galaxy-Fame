@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Galaxy Fame — your stats</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--pn:#0e1424;--ln:#1e2740;--tx:#e8eefc;--mu:#93a1c4;--gd:#ffd36a}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 700px at 70% -10%,#18234a 0%,#070a14 60%);background-color:#070a14;
+color:var(--tx);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;min-height:100vh}
+.w{max-width:780px;margin:0 auto;padding:24px 16px 60px}
+h1{margin:0;font-size:24px}.sub{color:var(--mu);font-size:13px;margin:4px 0 14px}
+a{color:var(--gd)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.t{background:var(--pn);border:1px solid var(--ln);border-radius:12px;padding:10px 12px;min-width:0}
+.t span{display:block;color:var(--mu);font-size:11px;text-transform:uppercase;letter-spacing:.6px}
+.t b{font-size:21px;white-space:nowrap}.t b.g{color:var(--gd)}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:14px 16px;margin-top:14px;min-width:0}
+h3{margin:0 0 10px;font-size:12px;color:var(--mu);text-transform:uppercase;letter-spacing:.8px}
+.row{display:grid;grid-template-columns:120px 1fr 40px;gap:10px;align-items:center;font-size:13px;margin:5px 0}
+.row b{text-align:right}.bar{height:9px;background:#141c30;border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;border-radius:6px;background:var(--gd)}
+table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:7px 6px;border-bottom:1px solid var(--ln);text-align:left;vertical-align:top}
+th{color:var(--mu);font-size:11px;text-transform:uppercase;font-weight:600}td.n{text-align:right;color:var(--gd);font-weight:700;white-space:nowrap}
+td.m{color:var(--mu);font-size:12px}tr:last-child td{border-bottom:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.empty{text-align:center;color:var(--mu);padding:30px}
+.foot{color:var(--mu);font-size:12px;margin-top:24px;border-top:1px solid var(--ln);padding-top:12px}
+button{background:#141c30;color:var(--tx);border:1px solid var(--ln);border-radius:10px;padding:6px 12px;font:inherit;font-size:12px;cursor:pointer}
+@media(max-width:640px){.grid{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.row{grid-template-columns:96px 1fr 34px}}
+</style></head><body><div class="w">
+<h1>📊 Your stats</h1>
+<div class="sub" id="sub">Tracked in this browser</div>
+<div id="out"></div>
+<div class="foot"><a href="index.html">← Back to the game</a> · <a href="board.html">Leaderboard</a> · Stats are kept only in this browser.
+<span id="rs"> <button onclick="askReset()">Reset stats</button></span></div>
+</div>
+<script>
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function f(x){return Number(Math.round(x||0)).toLocaleString()}
+function load(){var s=null;try{s=JSON.parse(localStorage.getItem('gf_stats')||'null')}catch(e){}return s&&s.runs?s:{runs:[]}}
+function when(t){var d=new Date(t),n=new Date(),same=d.toDateString()==n.toDateString(),y=new Date(n-864e5).toDateString()==d.toDateString();
+  var hm=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);return (same?'Today':y?'Yesterday':d.toLocaleDateString())+' '+hm}
+function bars(list,max){return list.map(function(x){return '<div class="row"><span>'+esc(x[0])+'</span><div class="bar"><i style="width:'+(max?Math.max(3,x[1]/max*100):0)+'%'+(x[2]?';background:'+x[2]:'')+'"></i></div><b>'+x[1]+'</b></div>'}).join('')}
+function render(){
+  var s=load(),R=s.runs,o=document.getElementById('out');
+  if(!R.length){o.innerHTML='<div class="card empty">No finished runs yet. Play a run and your stats will show up here.</div>';document.getElementById('sub').textContent='Tracked in this browser';return}
+  document.getElementById('sub').textContent='Tracked in this browser · '+R.length+' run'+(R.length==1?'':'s')+' since '+new Date(s.since||R[0].at).toLocaleDateString();
+  var played=R.filter(function(r){return r.end!='quit'}),best=0,bestSpin=0,tot=0,wins=0,sys=0,gal=0,spins=0;
+  R.forEach(function(r){best=Math.max(best,r.score);bestSpin=Math.max(bestSpin,r.bestSpin||0);tot+=r.score;sys+=r.sys||0;gal+=r.gal||0;spins+=r.spins||0;if(r.end=='win')wins++});
+  var avg=played.length?played.reduce(function(a,r){return a+r.score},0)/played.length:0;
+  var h='<div class="grid">'+
+    '<div class="t"><span>Best score</span><b class="g">'+f(best)+' ⭐</b></div>'+
+    '<div class="t"><span>Average score</span><b>'+f(avg)+'</b></div>'+
+    '<div class="t"><span>Runs · wins</span><b>'+R.length+' · '+wins+(wins?' 🏆':'')+'</b></div>'+
+    '<div class="t"><span>Best single spin</span><b>+'+f(bestSpin)+'</b></div>'+
+    '<div class="t"><span>Total fame ever</span><b>'+f(tot)+'</b></div>'+
+    '<div class="t"><span>Solar Systems made</span><b>'+sys+'</b></div>'+
+    '<div class="t"><span>Galaxies made</span><b>'+gal+'</b></div>'+
+    '<div class="t"><span>Spins played</span><b>'+f(spins)+'</b></div></div>';
+  // where runs end
+  var ends={},order=[];for(var g=1;g<=10;g++)ends['Fell at goal '+g]=0;ends['Won']=0;ends['Ended early']=0;
+  R.forEach(function(r){var k=r.end=='win'?'Won':r.end=='quit'?'Ended early':'Fell at goal '+Math.min(10,(r.goals||0)+1);ends[k]=(ends[k]||0)+1});
+  var el=Object.keys(ends).filter(function(k){return ends[k]>0}).map(function(k){return[k,ends[k],k=='Won'?'#7dffb0':k=='Ended early'?'#93a1c4':'']}),mx=Math.max.apply(null,el.map(function(x){return x[1]}));
+  h+='<div class="card"><h3>Where your runs end</h3>'+bars(el,mx)+'</div>';
+  // picks
+  var pk={};R.forEach(function(r){for(var k in (r.picks||{}))pk[k]=(pk[k]||0)+r.picks[k]});
+  var pl=Object.keys(pk).map(function(k){return[k,pk[k]]}).sort(function(a,b){return b[1]-a[1]}).slice(0,10),pm=pl.length?pl[0][1]:0;
+  // relics
+  var rl={};R.forEach(function(r){(r.relics||[]).forEach(function(n){var x=rl[n]=rl[n]||{n:0,sum:0};x.n++;x.sum+=r.score})});
+  var rr=Object.keys(rl).map(function(k){return{k:k,n:rl[k].n,avg:rl[k].sum/rl[k].n}}).sort(function(a,b){return b.avg-a.avg});
+  h+='<div class="two"><div class="card"><h3>Worlds you pick most</h3>'+(pl.length?bars(pl,pm):'<div class="empty">None yet</div>')+'</div>'+
+    '<div class="card"><h3>Relics · avg score when owned</h3>'+(rr.length?'<table><tr><th>Relic</th><th>Bought</th><th style="text-align:right">Avg score</th></tr>'+
+    rr.slice(0,12).map(function(x){return'<tr><td>'+esc(x.k)+'</td><td>'+x.n+'</td><td class="n">'+f(x.avg)+'</td></tr>'}).join('')+'</table>':'<div class="empty">No relics bought yet</div>')+'</div></div>';
+  // recent runs
+  h+='<div class="card"><h3>Recent runs</h3><table><tr><th>When</th><th style="text-align:right">Score</th><th>Goals</th><th>Systems</th><th>Relics</th></tr>'+
+    R.slice(-15).reverse().map(function(r){return'<tr><td class="m">'+when(r.at)+'</td><td class="n">'+f(r.score)+'</td><td>'+(r.end=='win'?'🏆 10':(r.goals||0)+(r.end=='quit'?' (ended)':''))+(r.p?' · P'+r.p:'')+'</td><td>'+(r.sys||0)+(r.gal?' + '+r.gal+' gal':'')+'</td><td class="m">'+esc((r.relics||[]).join(', ')||'—')+'</td></tr>'}).join('')+'</table></div>';
+  o.innerHTML=h;
+}
+function askReset(){document.getElementById('rs').innerHTML=' Erase all your stats? <button onclick="doReset()">Yes, erase</button> <button onclick="noReset()">Cancel</button>'}
+function noReset(){document.getElementById('rs').innerHTML=' <button onclick="askReset()">Reset stats</button>'}
+function doReset(){try{localStorage.removeItem('gf_stats')}catch(e){}noReset();render()}
+render();
+</script></body></html>
