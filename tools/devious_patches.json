@@ -79,7 +79,7 @@
  {
   "name": "Text: Thick Dust",
   "find": "Every Cosmic Dust is worth 3 ⭐ instead of 1.",
-  "replace": "Every Cosmic Dust is worth 4 ⭐ instead of 2."
+  "replace": "Cosmic Dust worth +2 ⭐."
  },
  {
   "name": "Text: Dust Compactor",
@@ -160,5 +160,50 @@
   "name": "Wide Lens text",
   "find": "d:'See 4 choices after each spin.'",
   "replace": "d:'+1 choice on every pick screen.'"
+ },
+ {
+  "name": "Text: You pick 1 fewer starting plan",
+  "find": "You start with 1 planet instead of 2.",
+  "replace": "You pick 1 fewer starting planet."
+ },
+ {
+  "name": "Text: Black Holes\\' base bite drops ",
+  "find": "Black Holes swallow 1/8 of a neighbour instead of 1/7.",
+  "replace": "Black Holes\\' base bite drops from 1/7 to 1/8 of each neighbour."
+ },
+ {
+  "name": "Text: Destroyers gain +3 ⭐ more for ",
+  "find": "Destroyers gain +4 ⭐ per Asteroid instead of +1.",
+  "replace": "Destroyers gain +3 ⭐ more for each Asteroid they shoot."
+ },
+ {
+  "name": "Text: Destroyers gain +2 ⭐ more for ",
+  "find": "a Destroyer that shoots one gains +4 ⭐ permanently and it splits into 2 Asteroids.",
+  "replace": "Destroyers gain +2 ⭐ more for shooting one."
+ },
+ {
+  "name": "Text: Cradles start +1 ⭐ higher.",
+  "find": "Cradles start worth 2 ⭐ instead of 1.",
+  "replace": "Cradles start +1 ⭐ higher."
+ },
+ {
+  "name": "Text: New Supernovas last 3 more spi",
+  "find": "New Supernovas last 6 spins instead of 3.",
+  "replace": "New Supernovas last 3 more spins."
+ },
+ {
+  "name": "Text: Reaching a fame goal gives +8 ",
+  "find": "Reaching a fame goal gives +12 💰 instead of +4.",
+  "replace": "Reaching a fame goal gives +8 💰 more."
+ },
+ {
+  "name": "Text: Quarries get +2 ⭐ more per adj",
+  "find": "Quarries get +4 ⭐ per adjacent Asteroid instead of +2.",
+  "replace": "Quarries get +2 ⭐ more per adjacent Asteroid."
+ },
+ {
+  "name": "Text: The Verdant +3 bonus needs 1 f",
+  "find": "Verdant set bonus starts at 4 Verdants.",
+  "replace": "The Verdant +3 bonus needs 1 fewer Verdant."
  }
 ]

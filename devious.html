@@ -136,16 +136,16 @@ var DP={j:{n:'Cosmic Dust',d:'Worth 2 ⭐. Not a planet: it never joins a Solar 
 DP.j.next='cl';DP.cl.next='ps';DP.ps.next='gs';DP.gs.next='sg';DP.sg.next=null;
 var SG={sys:{n:'Solar System',d:'Worth 14 ⭐ + 3 for each kind of planet inside.'},gal:{n:'Galaxy',d:'Worth 120 ⭐ + 16 for each kind of planet inside.'}};
 var PP={g:2,r:2,b:2,p:3,k:5},IP=[2,3,4,6,9],W={g:3,r:3,b:3,p:3,c:3,h:3,v:3,i:3,q:3,j:3},RENT=[30,55,128,255,502,850,1388,1900,2400,2900],PER=5;
-var RELICS=[{id:'lens',n:'Wide Lens',d:'+1 choice on every pick screen.',c:4},{id:'thumb',n:'Green Thumb',d:'Verdants worth +2 ⭐.',c:4},{id:'forge',n:'Forest Crown',d:'Forests worth +2 ⭐.',c:4},{id:'dil',n:'Time Dilation',d:'New Supernovas last 6 spins instead of 3.',c:3},
-{id:'hor',n:'Event Horizon',d:'Black Holes take 20% more from each neighbour.',c:5},{id:'pulsar',n:'Pulsar',d:'+3 ⭐ every spin.',c:6},{id:'miner',n:'Heavy Munitions',d:'Destroyers gain +4 ⭐ per Asteroid instead of +1.',c:5},{id:'scrap',n:'Scrap Collector',d:'Asteroids worth +2 ⭐ more.',c:4},
+var RELICS=[{id:'lens',n:'Wide Lens',d:'+1 choice on every pick screen.',c:4},{id:'thumb',n:'Green Thumb',d:'Verdants worth +2 ⭐.',c:4},{id:'forge',n:'Forest Crown',d:'Forests worth +2 ⭐.',c:4},{id:'dil',n:'Time Dilation',d:'New Supernovas last 3 more spins.',c:3},
+{id:'hor',n:'Event Horizon',d:'Black Holes take 20% more from each neighbour.',c:5},{id:'pulsar',n:'Pulsar',d:'+3 ⭐ every spin.',c:6},{id:'miner',n:'Heavy Munitions',d:'Destroyers gain +3 ⭐ more for each Asteroid they shoot.',c:5},{id:'scrap',n:'Scrap Collector',d:'Asteroids worth +2 ⭐ more.',c:4},
 {id:'bank',n:'Piggy Bank',d:'+1 💰 every spin.',c:3},{id:'dust',n:'Dust Compactor',d:'Solar Systems need 2 fewer pieces and Galaxies 1 fewer.',c:6},{id:'nursery',n:'Stellar Nursery',d:'Solar Systems and Galaxies score 15% more.',c:6},
-{id:'thick',n:'Thick Dust',d:'Every Cosmic Dust is worth 4 ⭐ instead of 2.',c:5},
-{id:'vgrove',n:'Verdant Grove',d:'Verdant set bonus starts at 4 Verdants.',c:5},{id:'cinder',n:'Canopy Crown',d:'Every Forest is worth +1 ⭐ more.',c:4},{id:'icecap',n:'Frozen Core',d:'Supernovas worth +2 ⭐.',c:4},
+{id:'thick',n:'Thick Dust',d:'Cosmic Dust worth +2 ⭐.',c:5},
+{id:'vgrove',n:'Verdant Grove',d:'The Verdant +3 bonus needs 1 fewer Verdant.',c:5},{id:'cinder',n:'Canopy Crown',d:'Every Forest is worth +1 ⭐ more.',c:4},{id:'icecap',n:'Frozen Core',d:'Supernovas worth +2 ⭐.',c:4},
 {id:'prism',n:'Prism Lens',d:'A Nebula gains 2 ⭐ itself. Its neighbours still get their +2.',c:5},{id:'gravity',n:'Gravity Well',d:'Black Holes store 15% more of what they take, without taking more.',c:5},{id:'quarry',n:'Salvage Rights',d:'+2 💰 for each piece your Destroyers and Harvesters consume.',c:4},
 {id:'ledger',n:'Cosmic Ledger',d:'Moons and Factories give +1 💰 more, and Giant Stars +1 ⭐.',c:5},{id:'corner',n:'Corner Beacons',d:'Pieces in the 4 corners get +2 ⭐.',c:4},{id:'stage',n:'Center Stage',d:'Pieces in the middle 4 cells get +2 ⭐.',c:4},
-{id:'dividend',n:'Fame Dividend',d:'Reaching a fame goal gives +12 💰 instead of +4.',c:5},{id:'haggler',n:'Haggler',d:'Relics cost 2 💰 less in the shop.',c:4},{id:'lucky',n:'Lucky Dice',d:'Every relic shop starts with one free reroll.',c:3},
-{id:'fleet',n:'Scout Fleet',d:'+1 choice on every pick screen.',c:6},{id:'spot',n:'Spotlight',d:'Your highest-scoring piece each spin scores 30% more.',c:8},{id:'prospect',n:'Prospector’s Charter',d:'Big Asteroids appear in your picks, and a Destroyer that shoots one gains +4 ⭐ permanently and it splits into 2 Asteroids.',c:5},{id:'halo',n:'Nebula Halo',d:'Nebulas also give +1 ⭐ to pieces 2 cells away.',c:4},{id:'fertile',n:'Fertile Soil',d:'Cradles grow +0.3 ⭐ more every spin.',c:5},{id:'heirloom',n:'Heirloom Seeds',d:'Cradles start worth 2 ⭐ instead of 1.',c:4},
-{id:'baton',n:'Conductor’s Baton',d:'Every Chorus counts 1 higher.',c:5},{id:'encore',n:'Encore',d:'The last Chorus to score each spin scores double.',c:5},{id:'rubble',n:'Rubble Rights',d:'Quarries get +4 ⭐ per adjacent Asteroid instead of +2.',c:4},
+{id:'dividend',n:'Fame Dividend',d:'Reaching a fame goal gives +8 💰 more.',c:5},{id:'haggler',n:'Haggler',d:'Relics cost 2 💰 less in the shop.',c:4},{id:'lucky',n:'Lucky Dice',d:'Every relic shop starts with one free reroll.',c:3},
+{id:'fleet',n:'Scout Fleet',d:'+1 choice on every pick screen.',c:6},{id:'spot',n:'Spotlight',d:'Your highest-scoring piece each spin scores 30% more.',c:8},{id:'prospect',n:'Prospector’s Charter',d:'Big Asteroids appear in your picks, and Destroyers gain +2 ⭐ more for shooting one.',c:5},{id:'halo',n:'Nebula Halo',d:'Nebulas also give +1 ⭐ to pieces 2 cells away.',c:4},{id:'fertile',n:'Fertile Soil',d:'Cradles grow +0.3 ⭐ more every spin.',c:5},{id:'heirloom',n:'Heirloom Seeds',d:'Cradles start +1 ⭐ higher.',c:4},
+{id:'baton',n:'Conductor’s Baton',d:'Every Chorus counts 1 higher.',c:5},{id:'encore',n:'Encore',d:'The last Chorus to score each spin scores double.',c:5},{id:'rubble',n:'Rubble Rights',d:'Quarries get +2 ⭐ more per adjacent Asteroid.',c:4},
 {id:'magma',n:'Magma Core',d:'Volcanic worlds worth +3 ⭐.',c:5},{id:'obsidian',n:'Obsidian Shield',d:'Volcanic worlds lose nothing to Black Holes, though Black Holes still feed on them.',c:5},{id:'frozen',n:'Permafrost',d:'Ice Planets score +1 ⭐ for each piece next to them.',c:5},{id:'glacier',n:'Glacial Lens',d:'Ice Planets give each piece next to them +2 ⭐.',c:5},
 {id:'twin',n:'Twin Dust',d:'Each Cosmic Dust you take brings a second Cosmic Dust with it.',c:4},
 {id:'triplet',n:'Triplet Dust',d:'Each Cosmic Dust you take brings two more with it, for 3 in all. Replaces Twin Dust.',c:5},{id:'debris',n:'Debris Field',d:'Every relic you buy after this one also puts an Asteroid in your bag.',c:4},{id:'founder',n:'Founder’s Charter',d:'Forming a Solar System or Galaxy gives quadruple fame.',c:5},{id:'permafrost',n:'Permafrost Choir',d:'An Ice Planet that joins a Solar System also stays on its square. That one can\'t join another.',c:5},{id:'vein',n:'Quarry Vein',d:'If a Solar System holds 3 or more Quarries, it gains +20 ⭐.',c:4}]
@@ -492,8 +492,8 @@ var SP=1,SCR='menu',M={shards:0,total:0,up:{},seen:{},prestige:0,plvl:0};
 var PRESTIGE=[
  {n:'Prestige I',d:'Every fame goal asks for 20% more.'},
  {n:'Prestige II',d:'Relics cost 2 more gold.'},
- {n:'Prestige III',d:'You start with 1 planet instead of 2.'},
- {n:'Prestige IV',d:'Black Holes swallow 1/8 of a neighbour instead of 1/7.'},
+ {n:'Prestige III',d:'You pick 1 fewer starting planet.'},
+ {n:'Prestige IV',d:'Black Holes\' base bite drops from 1/7 to 1/8 of each neighbour.'},
  {n:'Prestige V',d:'Solar Systems need 1 more planet.'},
  {n:'Prestige VI',d:'Your relic shop shows 1 fewer relic.'},
  {n:'Prestige VII',d:'Galaxies need 1 more Solar System.'},

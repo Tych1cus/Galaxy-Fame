@@ -59,7 +59,10 @@
     buy: function () { var t = AC.currentTime; tone(988, t, .08, 'square', .05); tone(1319, t + .07, .14, 'square', .05); tone(1976, t + .14, .2, 'sine', .05); },
     plant: function () { var t = AC.currentTime; tone(330, t, .2, 'sine', .1, null, 660); }
   };
-  function play(name) { if (!sfxOn() || !ac() || !SND[name]) return; try { SND[name].apply(null, [].slice.call(arguments, 1)); } catch (e) {} }
+  var lastUi = 0;
+  SND.ui = function () { var t = AC.currentTime; tone(1100, t, .06, 'triangle', .28, null, 650); nz(t, .025, .18, 'bandpass', 2500, 2500, 2); };
+  document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('button,.btn,[onclick]'); if (!b || b.closest('.dv-lever') || b.disabled) return; lastUi = performance.now(); play('ui'); }, true);
+  function play(name) { if (name == 'click' && performance.now() - lastUi < 150) return; if (!sfxOn() || !ac() || !SND[name]) return; try { SND[name].apply(null, [].slice.call(arguments, 1)); } catch (e) {} }
   DV.play = play;
   // the game's own sound calls play the Devious versions
   if (typeof window.sfx == 'function') {
@@ -337,7 +340,7 @@
     var g = h.indexOf('<div class="go">'); if (g > -1) { g += 16; h = h.slice(0, g) + leverHtml('dv-phone') + h.slice(g); }
     return h;
   });
-  wrapHtml('menuHtml', function (h) { return h.replace('✦ GALAXY FAME</h1>', '✦ GALAXY FAME</h1><div class="dv-tag dv-big">😈 DEVIOUS MODE</div>'); });
+  wrapHtml('menuHtml', function (h) { return h.replace('✦ GALAXY FAME</h1>', '✦ GALAXY FAME</h1><div class="dv-tag dv-big">😈 DEVIOUS MODE</div>').replace('<button class="sm" style="margin:0" onclick="sfxToggle()">', '<button class="sm dv-mbtn" style="margin:0 8px 0 0" onclick="dvMusic()" title="Music on/off">' + (musicOn ? '🎵 Music on' : '🎵 Music off') + '</button><button class="sm" style="margin:0" onclick="sfxToggle()">'); });
   if (typeof window.draw == 'function') { var d0 = window.draw; window.draw = function () { var o = d0.apply(this, arguments); try { drawLever(); } catch (e) {} return o; }; }
 
   // ===================================================================== look

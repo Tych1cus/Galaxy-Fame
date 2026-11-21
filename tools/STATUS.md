@@ -54,3 +54,12 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Verdant Aura text (sidebar)
 - ok (Devious): Verdant Aura text (banner)
 - ok (Devious): Wide Lens text
+- ok (Devious): Text: You pick 1 fewer starting plan
+- ok (Devious): Text: Black Holes\' base bite drops 
+- ok (Devious): Text: Destroyers gain +3 ⭐ more for 
+- ok (Devious): Text: Destroyers gain +2 ⭐ more for 
+- ok (Devious): Text: Cradles start +1 ⭐ higher.
+- ok (Devious): Text: New Supernovas last 3 more spi
+- ok (Devious): Text: Reaching a fame goal gives +8 
+- ok (Devious): Text: Quarries get +2 ⭐ more per adj
+- ok (Devious): Text: The Verdant +3 bonus needs 1 f
