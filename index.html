@@ -470,7 +470,7 @@ if(G.tip)h+=tipHtml();if(G.over)h+='<div class="ov"><div class="box" style="text
 return h}
 var SP=1,SCR='menu',M={shards:0,total:0,up:{},seen:{},prestige:0,plvl:0};
 var PRESTIGE=[
- {n:'Prestige I',d:'Every fame goal asks for 30% more.'},
+ {n:'Prestige I',d:'Every fame goal asks for 20% more.'},
  {n:'Prestige II',d:'Relics cost 2 more gold.'},
  {n:'Prestige III',d:'You start with 1 planet instead of 2.'},
  {n:'Prestige IV',d:'Black Holes swallow 1/8 of a neighbour instead of 1/7.'},
@@ -479,19 +479,19 @@ var PRESTIGE=[
  {n:'Prestige VII',d:'Galaxies need 1 more Solar System.'},
  {n:'Prestige VIII',d:'You only get 2 choices on each pick.'},
  {n:'Prestige IX',d:'Auras need 5 more points to reach their next tier.'},
- {n:'Prestige X',d:'Fame goals ask for 200% more in total.'}
+ {n:'Prestige X',d:'Fame goals ask for 110% more in total.'}
 ];
 var PEFF=[
- {fame:30},
- {fame:45,relic:2},
- {fame:60,relic:2,startPlanets:1},
- {fame:75,relic:2,startPlanets:1,swallow:8},
- {fame:90,relic:2,startPlanets:1,swallow:8,sysNeed:1},
- {fame:105,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1},
- {fame:120,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1},
- {fame:135,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1},
- {fame:150,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1,aura:5},
- {fame:200,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1,aura:5}
+ {fame:20},
+ {fame:30,relic:2},
+ {fame:40,relic:2,startPlanets:1},
+ {fame:50,relic:2,startPlanets:1,swallow:8},
+ {fame:60,relic:2,startPlanets:1,swallow:8,sysNeed:1},
+ {fame:70,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1},
+ {fame:80,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1},
+ {fame:90,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1},
+ {fame:100,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1,aura:5},
+ {fame:110,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1,aura:5}
 ];
 function PLV(){return M.plvl||0}
 function PV(){return PLV()<1?{}:(PEFF[Math.min(PEFF.length,PLV())-1]||{})}
