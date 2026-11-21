@@ -135,13 +135,13 @@ var RELICS=[{id:'lens',n:'Wide Lens',d:'See 4 choices after each spin.',c:4},{id
 {id:'hor',n:'Event Horizon',d:'Black Holes swallow 20% more.',c:5},{id:'pulsar',n:'Pulsar',d:'+3 ⭐ every spin.',c:6},{id:'miner',n:'Heavy Munitions',d:'Destroyers gain +4 ⭐ per Asteroid instead of +1.',c:5},{id:'scrap',n:'Scrap Collector',d:'Asteroids worth +2 ⭐ more.',c:4},
 {id:'bank',n:'Piggy Bank',d:'+3 💰 every spin.',c:3},{id:'dust',n:'Cosmic Dust',d:'Solar Systems need only 6 planets, Galaxies only 6 Solar Systems, and you get +1 choice on every pick.',c:6},{id:'nursery',n:'Stellar Nursery',d:'Solar Systems and Galaxies score 15% more.',c:6},
 {id:'vgrove',n:'Verdant Grove',d:'Verdant set bonus starts at 4 Verdants.',c:5},{id:'cinder',n:'Canopy Crown',d:'Every Forest is worth +1 ⭐ more.',c:4},{id:'icecap',n:'Frozen Core',d:'Supernovas worth +2 ⭐.',c:4},
-{id:'prism',n:'Prism Lens',d:'Nebulas give +4 ⭐ instead of +2. Inside a Solar System, each neighbour gets +2 instead of +1.',c:5},{id:'gravity',n:'Gravity Well',d:'Black Holes keep 75% more of what they eat.',c:5},{id:'quarry',n:'Salvage Rights',d:'+2 💰 for each piece your Destroyers and Harvesters consume.',c:4},
+{id:'prism',n:'Prism Lens',d:'Nebulas give +4 ⭐ instead of +2. Inside a Solar System, each neighbour gets +2 instead of +1.',c:5},{id:'gravity',n:'Gravity Well',d:'Black Holes eat 15% more.',c:5},{id:'quarry',n:'Salvage Rights',d:'+2 💰 for each piece your Destroyers and Harvesters consume.',c:4},
 {id:'ledger',n:'Cosmic Ledger',d:'Moons and Factories give +1 💰 more.',c:5},{id:'corner',n:'Corner Beacons',d:'Pieces in the 4 corners get +2 ⭐.',c:4},{id:'stage',n:'Center Stage',d:'Pieces in the middle 4 cells get +2 ⭐.',c:4},
 {id:'goal',n:'Fame Dividend',d:'Reaching a fame goal gives +12 💰 instead of +4.',c:5},{id:'haggler',n:'Haggler',d:'Relics cost 2 💰 less in the shop.',c:4},{id:'lucky',n:'Lucky Dice',d:'Every relic shop starts with one free reroll.',c:3},
 {id:'scout',n:'Scout Fleet',d:'+1 choice on every pick screen.',c:6},{id:'spot',n:'Spotlight',d:'Your highest-scoring piece each spin scores 30% more.',c:8},{id:'prospect',n:'Prospector’s Charter',d:'Big Asteroids appear in your picks, and a Destroyer that shoots one gains +3 ⭐ permanently and it splits into 2 Asteroids.',c:5},{id:'halo',n:'Nebula Halo',d:'Nebulas also give +1 ⭐ to pieces 2 cells away.',c:4},{id:'fertile',n:'Fertile Soil',d:'Cradles grow +0.1 ⭐ more every spin.',c:5},{id:'heirloom',n:'Heirloom Seeds',d:'Cradles start worth 2 ⭐ instead of 1.',c:4},
 {id:'baton',n:'Conductor’s Baton',d:'Every Chorus counts 1 higher.',c:5},{id:'encore',n:'Encore',d:'The last Chorus to score each spin scores double.',c:5},{id:'rubble',n:'Rubble Rights',d:'Quarries get +4 ⭐ per adjacent Asteroid instead of +2.',c:4},
 {id:'magma',n:'Magma Core',d:'Volcanic worlds worth +3 ⭐.',c:5},{id:'obsidian',n:'Obsidian Shield',d:'Volcanic worlds no longer permanently lose their fame to Black Holes.',c:5},{id:'permafrost',n:'Permafrost',d:'The Ice Planet scores 1 ⭐ for every piece next to it.',c:5},{id:'glacier',n:'Glacial Lens',d:'The Ice Planet gives every piece next to it +2 ⭐.',c:5},
-{id:'debris',n:'Debris Field',d:'Every relic you buy after this one also puts an Asteroid in your bag.',c:4},{id:'founder',n:'Founder’s Charter',d:'Forming a Solar System or Galaxy gives triple fame.',c:5}];
+{id:'twin',n:'Twin Dust',d:'Each Cosmic Dust you take brings a second Cosmic Dust with it.',c:4},{id:'debris',n:'Debris Field',d:'Every relic you buy after this one also puts an Asteroid in your bag.',c:4},{id:'founder',n:'Founder’s Charter',d:'Forming a Solar System or Galaxy gives triple fame.',c:5}];
 
 var G,IM={};function R(n){return Math.floor(Math.random()*n)}function has(id){return G.rel.indexOf(id)>-1}
 function sleep(ms){return new Promise(function(r){setTimeout(r,(G&&G.fast?ms/6:ms)/SP)})}
@@ -280,7 +280,7 @@ function startC(i){G.bag.push(mk(G.offer[i]));G.startLeft--;if(G.startLeft>0)G.o
 function nb(i,R2){R2=R2||1;var r=Math.floor(i/5),c=i%5,o=[];for(var a=-R2;a<=R2;a++)for(var b=-R2;b<=R2;b++){if(!a&&!b)continue;var y=r+a,x=c+b;if(y>=0&&y<4&&x>=0&&x<5)o.push(y*5+x)}return o}
 function pre(cs){var ev=[],rg=Math.min(4,1+tierF(auras(),'a'));cs.forEach(function(c,i){if(!c||(c.k!='des'&&c.k!='sun'))return;var t=nb(i,c.k=='des'?rg:1).filter(function(j){var x=cs[j];return x&&!x.dead&&(c.k=='des'?(x.k=='ast'||x.k=='bas'):x.k=='b')});
 if(t.length){var g=0;t.forEach(function(j){var x=cs[j];x.dead=1;g+=c.k=='sun'?3:((x.k=='bas'?(has('prospect')?3:2):1)+(has('miner')?3:0))});ev.push({s:i,t:t,g:g,big:t.filter(function(j){return cs[j].k=='bas'}).length})}});return ev}
-var RI={lens:['🔭','#6fa8ff'],thumb:['🌿','#34d6e0'],forge:['🌲','#39d879'],dil:['⏳','#ff4fd8'],hor:['⚫','#ff9a3a'],pulsar:['💫','#ffd36a'],miner:['💥','#d9a86c'],scrap:['🔩','#d9a86c'],bank:['🐷','#ffa8c8'],dust:['✨','#cdb6ff'],nursery:['🌠','#ffd36a'],vgrove:['🌳','#34d6e0'],cinder:['👑','#39d879'],icecap:['🌟','#ff4fd8'],prism:['🔷','#b06cff'],gravity:['🌀','#ff9a3a'],quarry:['♻️','#d9a86c'],ledger:['📒','#ffc857'],corner:['📍','#6fe0a8'],stage:['🎯','#ff8a6a'],goal:['💎','#ffd36a'],haggler:['🤝','#8fe0ff'],lucky:['🎲','#e8e8ff'],scout:['🛰️','#7fb0ff'],spot:['🔦','#fff0a0'],prospect:['⛏️','#d9a86c'],debris:['🪨','#9aa7c7'],founder:['📜','#ffc857'],halo:['🌌','#b06cff'],fertile:['🌱','#ff7ab8'],heirloom:['🧬','#ff7ab8'],baton:['🎼','#ffd84a'],encore:['👏','#ffd84a'],rubble:['🪨','#d9a86c'],magma:['🌋','#ff6a24'],obsidian:['🛡️','#ff6a24'],permafrost:['❄️','#8feaff'],glacier:['🏔️','#8feaff']};
+var RI={lens:['🔭','#6fa8ff'],thumb:['🌿','#34d6e0'],forge:['🌲','#39d879'],dil:['⏳','#ff4fd8'],hor:['⚫','#ff9a3a'],pulsar:['💫','#ffd36a'],miner:['💥','#d9a86c'],scrap:['🔩','#d9a86c'],bank:['🐷','#ffa8c8'],dust:['✨','#cdb6ff'],nursery:['🌠','#ffd36a'],vgrove:['🌳','#34d6e0'],cinder:['👑','#39d879'],icecap:['🌟','#ff4fd8'],prism:['🔷','#b06cff'],gravity:['🌀','#ff9a3a'],quarry:['♻️','#d9a86c'],ledger:['📒','#ffc857'],corner:['📍','#6fe0a8'],stage:['🎯','#ff8a6a'],goal:['💎','#ffd36a'],haggler:['🤝','#8fe0ff'],lucky:['🎲','#e8e8ff'],scout:['🛰️','#7fb0ff'],spot:['🔦','#fff0a0'],prospect:['⛏️','#d9a86c'],twin:['✳️','#cdb6ff'],debris:['🪨','#9aa7c7'],founder:['📜','#ffc857'],halo:['🌌','#b06cff'],fertile:['🌱','#ff7ab8'],heirloom:['🧬','#ff7ab8'],baton:['🎼','#ffd84a'],encore:['👏','#ffd84a'],rubble:['🪨','#d9a86c'],magma:['🌋','#ff6a24'],obsidian:['🛡️','#ff6a24'],permafrost:['❄️','#8feaff'],glacier:['🏔️','#8feaff']};
 var RAN=0;
 function relicArt(r,sz){var e=RI[r.id]||['🔮','#8aa4ff'],c=e[1],u='ra'+(RAN++),h=0,i;for(i=0;i<r.id.length;i++)h+=r.id.charCodeAt(i);var sh=h%3,
 fr=sh==0?'<polygon points="50,3 91,26 91,74 50,97 9,74 9,26" fill="url(#'+u+'g)"/>':sh==1?'<circle cx="50" cy="50" r="47" fill="url(#'+u+'g)"/>':'<polygon points="50,1 97,50 50,99 3,50" fill="url(#'+u+'g)"/>',
@@ -314,7 +314,7 @@ cs.forEach(function(c,i){if(c&&c.k=='i'&&has('glacier'))nb(i).forEach(function(j
 cs.forEach(function(c,i){if(c&&c.k=='rad'){var m=0;nb(i).forEach(function(j){if(cs[j]&&f[j]>m)m=f[j]});f[i]=m}});
 cs.forEach(function(c,i){if(!c||c.k=='k')return;if(has('corner')&&[0,4,15,19].indexOf(i)>-1)f[i]+=2;if(has('stage')&&[7,8,11,12].indexOf(i)>-1)f[i]+=2});
 var q=(PV().swallow?1/PV().swallow:1/7)*(has('hor')?1.2:1)+.03*T('k');
-cs.forEach(function(c,i){if(c&&c.k=='k'){var L=[],g=0;nb(i).forEach(function(j){if(cs[j]&&cs[j].k!='k'&&f[j]>0){var t=f[j]*q;if(!(cs[j].k=='v'&&has('obsidian')))f[j]-=t;var tt=t*(has('gravity')?1.75:1);c.st+=tt;g+=tt;L.push({j:j,t:t})}});if(L.length)d.push({i:i,list:L,g:g})}});
+cs.forEach(function(c,i){if(c&&c.k=='k'){var L=[],g=0;nb(i).forEach(function(j){if(cs[j]&&cs[j].k!='k'&&f[j]>0){var t=f[j]*q;if(!(cs[j].k=='v'&&has('obsidian')))f[j]-=t;var tt=t*(has('gravity')?1.15:1);c.st+=tt;g+=tt;L.push({j:j,t:t})}});if(L.length)d.push({i:i,list:L,g:g})}});
 cs.forEach(function(c,i){if(c&&c.k=='k')f[i]=c.st});
 if(has('spot')){var mi=-1,mv=0;f.forEach(function(x,i){if(x>mv){mv=x;mi=i}});if(mi>-1)f[mi]=Math.round(f[mi]*1.3*10)/10}
 var vtier=Math.max(0,T('v')-1);if(vtier>0)cs.forEach(function(c,i){if(c&&c.k=='k'){var add=Math.round((c.st||0)*.05*vtier*10)/10;f[i]+=add}});
@@ -366,7 +366,7 @@ if(id=='permafrost'||id=='glacier')return hasK('i');
 if(id=='magma'||id=='obsidian')return hasK('v');
 return true}
 function fast(){G.fast=true}
-function pickC(i){sfx('click');var p=mk(G.offer[i]);G.bag.push(p);if(p.k=='i'){G.icePiece=p;G.mode='iceplace';G.msg='Choose the square this Ice Planet will hold, forever.';}else{G.mode='idle';G.msg='Added '+nm(G.offer[i])+' to your bag. Spin when ready.';}draw()}
+function pickC(i){sfx('click');var p=mk(G.offer[i]);G.bag.push(p);if(p.k=='j'&&has('twin')&&!p.twin){var p2=mk('j');p2.twin=1;G.bag.push(p2);G.msg='Twin Dust: a second Cosmic Dust joins your bag.';G.mode='idle';draw();return}if(p.k=='i'){G.icePiece=p;G.mode='iceplace';G.msg='Choose the square this Ice Planet will hold, forever.';}else{G.mode='idle';G.msg='Added '+nm(G.offer[i])+' to your bag. Spin when ready.';}draw()}
 function placeIce(i){sfx('click');if(G.mode!='iceplace'||!G.icePiece)return;if(!iceFree(i))return;if(iceTaken(i)){G.msg='That square is already held by another Ice Planet.';draw();return}G.icePiece.iceAt=i;G.icePiece=null;G.mode='idle';G.msg='Ice Planet anchored at square '+(i+1)+'. It will stay there until a Solar System takes it.';draw()}
 function iceTaken(i){return G.bag.some(function(p){return p.k=='i'&&p.iceAt===i})}
 function iceFree(i){return !iceTaken(i)}
@@ -467,7 +467,7 @@ if(G.tip)h+=tipHtml();if(G.over)h+='<div class="ov"><div class="box" style="text
 return h}
 var SP=1,SCR='menu',M={shards:0,total:0,up:{},seen:{},prestige:0,plvl:0};
 var PRESTIGE=[
- {n:'Prestige I',d:'Every fame goal asks for 15% more.'},
+ {n:'Prestige I',d:'Every fame goal asks for 30% more.'},
  {n:'Prestige II',d:'Relics cost 2 more gold.'},
  {n:'Prestige III',d:'You start with 1 planet instead of 2.'},
  {n:'Prestige IV',d:'Black Holes swallow 1/8 of a neighbour instead of 1/7.'},
@@ -476,26 +476,26 @@ var PRESTIGE=[
  {n:'Prestige VII',d:'Galaxies need 1 more Solar System.'},
  {n:'Prestige VIII',d:'You only get 2 choices on each pick.'},
  {n:'Prestige IX',d:'Auras need 5 more points to reach their next tier.'},
- {n:'Prestige X',d:'Fame goals ask for another 20% more.'}
+ {n:'Prestige X',d:'Fame goals ask for 200% more in total.'}
 ];
 var PEFF=[
- {fame:15},
- {fame:15,relic:2},
- {fame:15,relic:2,startPlanets:1},
- {fame:15,relic:2,startPlanets:1,swallow:8},
- {fame:15,relic:2,startPlanets:1,swallow:8,sysNeed:1},
- {fame:15,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1},
- {fame:15,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1},
- {fame:15,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1},
- {fame:15,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1,aura:5},
- {fame:35,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1,aura:5}
+ {fame:30},
+ {fame:45,relic:2},
+ {fame:60,relic:2,startPlanets:1},
+ {fame:75,relic:2,startPlanets:1,swallow:8},
+ {fame:90,relic:2,startPlanets:1,swallow:8,sysNeed:1},
+ {fame:105,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1},
+ {fame:120,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1},
+ {fame:135,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1},
+ {fame:150,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1,aura:5},
+ {fame:200,relic:2,startPlanets:1,swallow:8,sysNeed:1,shop:-1,galNeed:1,choices:-1,aura:5}
 ];
 function PLV(){return M.plvl||0}
-function PV(){return PEFF[Math.min(PEFF.length,Math.max(1,PLV()))-1]||{}}
+function PV(){return PLV()<1?{}:(PEFF[Math.min(PEFF.length,PLV())-1]||{})}
 try{SP=parseFloat(localStorage.getItem('startithe_sp'))||1;var sv=localStorage.getItem('startithe_meta');if(sv){var o=JSON.parse(sv);M.shards=o.shards||0;M.total=o.total||0;M.up=o.up||{};M.seen=o.seen||{};M.prestige=o.prestige||0;M.plvl=Math.min(o.prestige||0,o.plvl||0)}}catch(e){}
 function save(){try{localStorage.setItem('startithe_meta',JSON.stringify(M));localStorage.setItem('startithe_sp',String(SP))}catch(e){}}
 function uL(id){return(M.up&&M.up[id])||0}
-function RT(t){return Math.max(1,Math.round(RENT[t]*(1-.04*uL('goal'))*(1+PV().fame/100)))}
+function RT(t){return Math.max(1,Math.round(RENT[t]*(1-.04*uL('goal'))*(1+(PV().fame||0)/100)))}
 var UP=[{id:'start',n:'Starting Fleet',d:'Begin each run with +1 random planet per level.',max:3,base:45},{id:'cash',n:'Seed Capital',d:'Begin each run with +2 💰 per level.',max:5,base:24},
 {id:'goal',n:'Goal Haggling',d:'All fame goals are 4% lower per level.',max:5,base:42},{id:'scout',n:'Scout Network',d:'+1 choice on every pick screen.',max:1,base:90},
 {id:'eyes',n:'Keen Eyes',d:'Rare finds appear 25% more often per level.',max:4,base:36},{id:'fame',n:'Fame Mastery',d:'+1 ⭐ at the end of every spin per level.',max:5,base:36},
