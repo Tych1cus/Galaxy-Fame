@@ -53,3 +53,4 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
 - ok (Devious): Verdant Aura text (sidebar)
 - ok (Devious): Verdant Aura text (banner)
+- ok (Devious): Wide Lens text

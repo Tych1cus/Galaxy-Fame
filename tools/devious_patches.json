@@ -155,5 +155,10 @@
   "name": "Verdant Aura text (banner)",
   "find": "g:'+1 ⭐ every roll for every 4 Verdants you have collected (bag and inside Solar Systems)'",
   "replace": "g:'+1 ⭐ every spin per 4 Verdants you own'"
+ },
+ {
+  "name": "Wide Lens text",
+  "find": "d:'See 4 choices after each spin.'",
+  "replace": "d:'+1 choice on every pick screen.'"
  }
 ]

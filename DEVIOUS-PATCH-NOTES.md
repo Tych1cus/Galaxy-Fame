@@ -15,7 +15,7 @@ Devious Mode is archdevious's version of Galaxy Fame (😈 button on the main me
 - **Chorus:** scores 1, 2, 3… in order. Choruses inside Solar Systems count first, then the board continues the count.
 
 ## Clearer text (numbers unchanged)
-Verdant Aura · Thick Dust · Dust Compactor · Volcanic · Obsidian Shield · Giant Star · Cosmic Ledger · Event Horizon · Gravity Well · Prestige VI and VIII · Starting Fleet
+Wide Lens · Verdant Aura · Thick Dust · Dust Compactor · Volcanic · Obsidian Shield · Giant Star · Cosmic Ledger · Event Horizon · Gravity Well · Prestige VI and VIII · Starting Fleet
 
 ## New in Devious Mode
 - Slot-machine spin: drag the lever down (or swipe down on the board on phones) and the reels spin and land column by column.
