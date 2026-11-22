@@ -79,6 +79,9 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: Prism Lens
 - ok: Nebula Halo: the Nebula scores +1 for every piece 2 cells away
 - ok: Text: Nebula Halo
+- FIXED: Gold: stats label
+- FIXED: Gold: help text
+- FIXED: Gold: Ice aura text
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -144,3 +147,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Text: Prism Lens
 - ok (Devious): Nebula Halo: the Nebula scores +1 for every piece 2 cells away
 - ok (Devious): Text: Nebula Halo
+- ok (Devious): Gold: stats label
+- ok (Devious): Gold: help text
+- ok (Devious): Gold: Ice aura text

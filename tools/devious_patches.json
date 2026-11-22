@@ -305,5 +305,20 @@
   "name": "Text: Nebula Halo",
   "find": "d:'Nebulas also give +1 ⭐ to pieces 2 cells away.'",
   "replace": "d:'Nebulas also score +1 ⭐ for every piece 2 cells away.'"
+ },
+ {
+  "name": "Gold: stats label",
+  "find": "<span>Credits</span>",
+  "replace": "<span>Gold</span>"
+ },
+ {
+  "name": "Gold: help text",
+  "find": "spend credits on relics",
+  "replace": "spend gold on relics"
+ },
+ {
+  "name": "Gold: Ice aura text",
+  "find": "+1 money per tier",
+  "replace": "+1 gold per tier"
  }
 ]

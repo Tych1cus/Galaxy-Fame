@@ -13,7 +13,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - **Solar System popup math** used each planet's plain value, not what it scores in that System: Cradle growth, Ice and Quarries showed 1, 0 and 0, and the difference was hidden in the "Solar System bonus". Rows now show the real scores, the bonus shows the real +15, and the total keeps its decimals like the board.
 - **End of run** had no way back to the main menu (only New run and Observatory). Added a Main menu button.
 - **Continue run** flashed the new-run "pick your starting planet" screen before showing your run.
-- **Credits number** showed tiny under the 💰.
+- **Gold number** showed tiny under the 💰.
 - **Rubble Rights** did nothing. Now Quarries get +4 per Asteroid (instead of +2).
 - **Prism Lens:** the Nebula gets +2 ⭐ as the text says (was +1).
 - **Info popup:** Green Thumb and Forest Crown showed +1 (real bonus is +2); Canopy Crown was missing.
@@ -25,6 +25,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - **Chorus:** scores 1, 2, 3… in order. Choruses inside Solar Systems count first, then the board continues the count.
 
 ## Clearer text (numbers unchanged)
+- The currency is called gold everywhere (was "Credits" on the stats bar, "credits" in the help and "money" in the Ice aura).
 - Bonuses now say what they add ("+1 ⭐ more", "1 fewer") instead of a fixed total, so they read right when they stack: Prestige III and IV · Time Dilation · Heavy Munitions · Prospector's Charter · Heirloom Seeds · Fame Dividend · Rubble Rights · Verdant Grove · Wide Lens
 - Reworded to be shorter or clearer: Verdant Aura · Thick Dust · Dust Compactor · Volcanic · Obsidian Shield · Giant Star · Cosmic Ledger · Event Horizon · Gravity Well · Prestige VI and VIII · Starting Fleet
 
