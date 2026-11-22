@@ -424,5 +424,15 @@
   "name": "End of run: Leeroy Jenkins shard bonus",
   "find": "✨ +'+G.earned+' Star Shards earned",
   "replace": "✨ +'+G.earned+' Star Shards earned'+(G.lj?' (+'+(G.lj*10)+'% 💀 Leeroy)':'')+'"
+ },
+ {
+  "name": "New relic: Constellation",
+  "find": "var RELICS=[",
+  "replace": "function constelSets(){var c={},n=0,add=function(k){if(K[k]&&k!='k')c[k]=(c[k]||0)+1};G.bag.forEach(function(p){if(p.k=='sys')(p.comp||[]).forEach(add);else if(p.k=='gal')(p.subs||[]).forEach(function(s){(s.comp||[]).forEach(add)});else add(p.k)});n=Infinity;['g','r','b','p','v','i','c','h','q'].forEach(function(k){n=Math.min(n,c[k]||0)});return n}\nvar RELICS=[{id:'constel',n:'Constellation',d:'+10 ⭐ every spin for each full set of planets you own (one of every kind).',c:5},"
+ },
+ {
+  "name": "Constellation pays each spin",
+  "find": "if(has('pulsar'))tf+=3;",
+  "replace": "if(has('pulsar'))tf+=3;if(has('constel'))tf+=10*constelSets();"
  }
 ]
