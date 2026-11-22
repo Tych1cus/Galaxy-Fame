@@ -12,6 +12,8 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - **"Produces each spin"** in the Solar System popup was spaced out letter by letter (it borrowed the title's style).
 - **Solar System popup math** used each planet's plain value, not what it scores in that System: Cradle growth, Ice and Quarries showed 1, 0 and 0, and the difference was hidden in the "Solar System bonus". Rows now show the real scores, the bonus shows the real +15, and the total keeps its decimals like the board.
 - **End of run** had no way back to the main menu (only New run and Observatory). Added a Main menu button.
+- **Leeroy Jenkins levels vanished** after leaving the game page (e.g. viewing the leaderboard) or reloading: the game only loaded some saved settings. Everything saved now loads.
+- **Start screen** said "(2 of 2)" from Prestige III up, where you only get 1 starting pick. It now says "Choose your starting planet (1 of 1)".
 - **Continue run** flashed the new-run "pick your starting planet" screen before showing your run.
 - **Gold number** showed tiny under the 💰.
 - **Rubble Rights** did nothing. Now Quarries get +4 per Asteroid (instead of +2).

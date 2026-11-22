@@ -406,7 +406,7 @@ G.bag=G.bag.filter(function(p,i){return G.sel.indexOf(i)<0});if(t=='sys'&&has('p
 G.banner=(t=='sys'?'☀️ A '+K[np.dom].n+' Solar System is born!':'🌌 A '+K[np.dom].n+' Galaxy forms!')+'<small>+'+b+' ⭐ · Aura tier 1: '+AUR[np.dom]+'</small>';sfx('build');G.msg=(t=='sys'?'Solar System':'Galaxy')+' added to your bag.'+(bhReward?' Black Hole reward added!':'');draw();await sleep(1800);G.banner='';G.busy=false;if(t=='sys'&&G.systemsMade==1)showTip('bh');else if(t=='sys'&&G.systemsMade==2)showTip('gal');draw()}
 function card(k,i,fn){var rc=IT[k]?RC[IT[k].r]:DP[k]?'#b9c6e8':'#3d49a0';return'<button class="card" style="--rc:'+rc+'" onclick="'+fn+'('+i+')">'+orb({k:k,life:3,st:0,s:2,perm:0},1)+'<em>'+(IT[k]?RN[IT[k].r]:DP[k]?'Emerging world':'Planet')+'</em><b>'+nm(k)+'</b><small>'+ds(k)+'</small></button>'}
 function panelInner(){var h='',m=G.mode;
-if(m=='start')h='<h3>Choose your starting planets ('+(3-G.startLeft)+' of 2)</h3><div class="cards">'+G.offer.map(function(k,i){return card(k,i,'startC')}).join('')+'</div>';
+if(m=='start')var _st=PV().startPlanets?1:2;h='<h3>Choose your starting planet'+(_st>1?'s':'')+' ('+(_st-G.startLeft+1)+' of '+_st+')</h3><div class="cards">'+G.offer.map(function(k,i){return card(k,i,'startC')}).join('')+'</div>';
 if(m=='pick')h='<h3>New worlds discovered. Add one to your bag</h3><div class="cards">'+G.offer.map(function(k,i){return card(k,i,'pickC')}).join('')+'</div><button class="sm" onclick="skip()">Skip</button><button class="sm" onclick="toRemove()">Remove one from my bag</button>';
 if(m=='iceplace')h='<h3>❄️ Anchor your Ice Planet</h3><p>Choose one square on the grid. The Ice Planet always lands there until it joins a Solar System.</p>';
 if(m=='remove')h='<h3>Remove which one from your bag?</h3><div class="cards dense">'+G.bag.map(function(p,i){return'<button class="card" onclick="rem('+i+')">'+orb(p,1)+'<b>'+pn(p)+'</b></button>'}).join('')+'</div><button class="sm" onclick="cancel()">Cancel</button>';
@@ -520,7 +520,7 @@ var PEFF=[
 ];
 function PLV(){return M.plvl||0}
 function PV(){return PLV()<1?{}:(PEFF[Math.min(PEFF.length,PLV())-1]||{})}
-try{SP=parseFloat(localStorage.getItem('startithe_sp'))||1;var sv=localStorage.getItem('startithe_meta');if(sv){var o=JSON.parse(sv);M.shards=o.shards||0;M.total=o.total||0;M.up=o.up||{};M.seen=o.seen||{};M.prestige=o.prestige||0;M.plvl=Math.min(o.prestige||0,o.plvl||0)}}catch(e){}
+try{SP=parseFloat(localStorage.getItem('startithe_sp'))||1;var sv=localStorage.getItem('startithe_meta');if(sv){var o=JSON.parse(sv);M.shards=o.shards||0;M.total=o.total||0;M.up=o.up||{};M.seen=o.seen||{};M.prestige=o.prestige||0;M.plvl=Math.min(o.prestige||0,o.plvl||0);for(var _k in o)if(M[_k]===undefined)M[_k]=o[_k]}}catch(e){}
 function save(){try{localStorage.setItem('startithe_meta',JSON.stringify(M));localStorage.setItem('startithe_sp',String(SP))}catch(e){}}
 function uL(id){return(M.up&&M.up[id])||0}
 function RT(t){return Math.max(1,Math.round(RENT[t]*(1-.04*uL('goal'))*(1+(PV().fame||0)/100)*(1+.13*((G&&G.lj)||0))))}

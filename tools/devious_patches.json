@@ -340,5 +340,15 @@
   "name": "Leeroy Jenkins bonus on a win is only paid once",
   "find": "if(G.t>=RENT.length){var lb=ljBonus();if(lb>0)",
   "replace": "if(G.t>=RENT.length){var lb=ljBonus();G._ljPaid=1;G.ljBonusGot=lb;if(lb>0)"
+ },
+ {
+  "name": "Start screen: right count of starting picks (1 from Prestige III)",
+  "find": "h='<h3>Choose your starting planets ('+(3-G.startLeft)+' of 2)</h3>",
+  "replace": "var _st=PV().startPlanets?1:2;h='<h3>Choose your starting planet'+(_st>1?'s':'')+' ('+(_st-G.startLeft+1)+' of '+_st+')</h3>"
+ },
+ {
+  "name": "Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)",
+  "find": "M.prestige=o.prestige||0;M.plvl=Math.min(o.prestige||0,o.plvl||0)}",
+  "replace": "M.prestige=o.prestige||0;M.plvl=Math.min(o.prestige||0,o.plvl||0);for(var _k in o)if(M[_k]===undefined)M[_k]=o[_k]}"
  }
 ]

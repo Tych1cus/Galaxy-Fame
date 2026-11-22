@@ -488,6 +488,10 @@
     G.cells = cs; draw();
   };
 
+  // one-off restore of Leeroy Jenkins levels lost to the old reload bug: devious.html?setlj=3 (Devious Mode only, behind the password)
+  try { var _m = /[?&]setlj=(\d+)/.exec(location.search); if (DEVM && _m && typeof M == 'object' && localStorage.getItem('gf_dv_ok') == '17gnq1hzxh6') { M.lj = Math.min(+_m[1], (typeof LJMAX == 'function' ? LJMAX() : 20)); save();
+    history.replaceState(null, '', location.pathname); setTimeout(function () { try { G && (G.msg = ''); } catch (e) {} alertLike('Leeroy Jenkins set to level ' + M.lj); }, 300); } } catch (e) {}
+  function alertLike(s) { var d = document.createElement('div'); d.textContent = s; d.style.cssText = 'position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:99998;background:#2a1450;color:#fff;border:1px solid #ff7ae0;border-radius:12px;padding:10px 16px;font:600 15px sans-serif'; document.body.appendChild(d); setTimeout(function () { d.remove(); }, 4000); }
   if (!DEVM) delete DV.deal;   // standard game: the game's own deal, no reels
 
   // ===================================================================== scoring effects
