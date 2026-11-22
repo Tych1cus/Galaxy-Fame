@@ -82,6 +82,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Gold: stats label
 - ok: Gold: help text
 - ok: Gold: Ice aura text
+- ok: Ice Planet in a Solar System works like on the board (Permafrost counts pieces touching the System)
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -150,3 +151,4 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Gold: stats label
 - ok (Devious): Gold: help text
 - ok (Devious): Gold: Ice aura text
+- ok (Devious): Ice Planet in a Solar System works like on the board (Permafrost counts pieces touching the System)

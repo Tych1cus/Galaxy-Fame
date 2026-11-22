@@ -21,6 +21,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - **Star Shards:** ending a run right away no longer gives 4 free shards.
 
 ## Rule change
+- **Planets in Solar Systems work like on the board,** counting what touches the System: Quarries get +2 per Asteroid touching the System (+4 with Rubble Rights), Ice Planets with Permafrost +1 per piece touching it. Supernovas are the one exception: they never burn out inside a System.
 - **Nebula** scores +2 ⭐ itself for every piece touching it (diagonals count) instead of giving +2 to its neighbours. Inside a Solar System, each Nebula scores +2 ⭐ for every piece touching that System (before, it scored nothing there). Nebula Halo: the Nebula scores +1 ⭐ for every piece 2 cells away. The Nebula aura only gives extra "find more often" choices (it no longer raises the +2).
 - **Chorus:** scores 1, 2, 3… in order. Choruses inside Solar Systems count first, then the board continues the count.
 
