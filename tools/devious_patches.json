@@ -404,5 +404,25 @@
   "name": "Canopy Crown only offered once you have a tier 1 Forest aura",
   "find": "if(id=='magma'||id=='obsidian')return hasK('v');",
   "replace": "if(id=='magma'||id=='obsidian')return hasK('v');\nif(id=='cinder')return tierF(auras(),'r')>=1;"
+ },
+ {
+  "name": "Leeroy Jenkins: no fame bonus",
+  "find": "function ljBonus(){return Math.round((G&&G.tot||0)*.1*((G&&G.lj)||0))}",
+  "replace": "function ljBonus(){return 0}"
+ },
+ {
+  "name": "Leeroy Jenkins: +10% Star Shards per level",
+  "find": "var s=Math.max(r=='quit'?0:4,G.t*9+Math.floor(G.tot/120)+(r=='win'?20:0));",
+  "replace": "var s=Math.max(r=='quit'?0:4,G.t*9+Math.floor(G.tot/120)+(r=='win'?20:0));s=Math.round(s*(1+.1*((G&&G.lj)||0)));"
+ },
+ {
+  "name": "Text: Leeroy Jenkins card",
+  "find": "you get +10% more final fame per level",
+  "replace": "you get +10% more Star Shards per level"
+ },
+ {
+  "name": "End of run: Leeroy Jenkins shard bonus",
+  "find": "✨ +'+G.earned+' Star Shards earned",
+  "replace": "✨ +'+G.earned+' Star Shards earned'+(G.lj?' (+'+(G.lj*10)+'% 💀 Leeroy)':'')+'"
  }
 ]

@@ -99,6 +99,10 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: Canopy Crown
 - ok: Sidebar: your planets (count of each kind you own, loose and inside Systems and Galaxies) instead of find odds
 - ok: Canopy Crown only offered once you have a tier 1 Forest aura
+- FIXED: Leeroy Jenkins: no fame bonus
+- FIXED: Leeroy Jenkins: +10% Star Shards per level
+- FIXED: Text: Leeroy Jenkins card
+- FIXED: End of run: Leeroy Jenkins shard bonus
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -184,3 +188,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Text: Canopy Crown
 - ok (Devious): Sidebar: your planets (count of each kind you own, loose and inside Systems and Galaxies) instead of find odds
 - ok (Devious): Canopy Crown only offered once you have a tier 1 Forest aura
+- ok (Devious): Leeroy Jenkins: no fame bonus
+- ok (Devious): Leeroy Jenkins: +10% Star Shards per level
+- ok (Devious): Text: Leeroy Jenkins card
+- ok (Devious): End of run: Leeroy Jenkins shard bonus

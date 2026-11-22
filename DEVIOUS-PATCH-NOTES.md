@@ -26,7 +26,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - **Star Shards:** ending a run right away no longer gives 4 free shards.
 
 ## Rule change
-- **Leeroy Jenkins bonus** (+10% final fame per level) is also paid when a run is lost, not only on a win, and before the score goes to the leaderboard. Ending a run early still gets no bonus. The end-of-run box shows it as "Run fame + Leeroy bonus = Final score".
+- **Leeroy Jenkins** no longer adds fame: each level gives +10% Star Shards for the run instead (goals still 13% harder per level). The end-of-run box shows the bonus.
 - **Starting Fleet** gives a random planet of any kind (it only ever gave Verdant, Forest, Supernova or Nebula).
 - **Planets in Solar Systems work like on the board,** counting what touches the System: Quarries get +2 per Asteroid touching the System (+4 with Rubble Rights), Ice Planets with Permafrost +1 per piece touching it. Supernovas are the one exception: they never burn out inside a System.
 - **Nebula** scores +2 ⭐ itself for every piece touching it (diagonals count) instead of giving +2 to its neighbours. Inside a Solar System, each Nebula scores +2 ⭐ for every piece touching that System (before, it scored nothing there). Nebula Halo: the Nebula scores +1 ⭐ for every piece 2 cells away. The Nebula aura only gives extra "find more often" choices (it no longer raises the +2).
