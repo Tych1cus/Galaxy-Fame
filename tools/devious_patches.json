@@ -478,11 +478,11 @@
  {
   "name": "Sidebar: Volcanic aura text",
   "find": "v:(5*t)+'% Black Hole'",
-  "replace": "v:'Black Holes score +'+(5*t)+'% more ⭐ every spin'"
+  "replace": "v:'Black Holes '+(5*t)+'% stronger'"
  },
  {
   "name": "Volcanic aura base text",
   "find": "v:'+5% Black Hole per tier'",
-  "replace": "v:'Black Holes score +5% more ⭐ per tier'"
+  "replace": "v:'Black Holes 5% stronger per tier'"
  }
 ]
