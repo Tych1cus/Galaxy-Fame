@@ -79,26 +79,26 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Gold: help text
 - ok: Gold: Ice aura text
 - ok: Ice Planet in a Solar System works like on the board (Permafrost counts pieces touching the System)
-- FIXED: Starting Fleet gives a random planet of any kind (not Black Holes)
+- ok: Starting Fleet gives a random planet of any kind (not Black Holes)
 - ok: Text: Starting Fleet
-- FIXED: Leeroy Jenkins bonus also when a run is lost (added before the score goes to the leaderboard)
-- FIXED: Leeroy Jenkins bonus on a win is only paid once
-- FIXED: Start screen: right count of starting picks (1 from Prestige III)
-- FIXED: Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)
-- FIXED: Text: Solar System and Galaxy (real scoring)
-- FIXED: Forests: Forest Crown +2, Green Thumb +1 (they were checking Green Thumb) - board
-- FIXED: Forests: Forest Crown +2, Green Thumb +1 (they were checking Green Thumb) - Solar System
-- FIXED: Forests: Forest Crown +2, Green Thumb +1 - info popup
-- FIXED: Verdants: Green Thumb +1 - board
-- FIXED: Verdants: Green Thumb +1 - Solar System
-- FIXED: Verdants: Green Thumb +1 - info popup
-- FIXED: Text: Green Thumb
-- FIXED: Forest info popup: no Canopy Crown flat bonus
-- FIXED: Canopy Crown: Forest aura 1 tier higher (payout)
-- FIXED: Canopy Crown: Forest aura 1 tier higher (sidebar)
-- FIXED: Text: Canopy Crown
-- FIXED: Sidebar: your planets (count of each kind you own, loose and inside Systems and Galaxies) instead of find odds
-- FIXED: Canopy Crown only offered once you have a tier 1 Forest aura
+- ok: Leeroy Jenkins bonus also when a run is lost (added before the score goes to the leaderboard)
+- ok: Leeroy Jenkins bonus on a win is only paid once
+- ok: Start screen: right count of starting picks (1 from Prestige III)
+- ok: Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)
+- ok: Text: Solar System and Galaxy (real scoring)
+- ok: Forests: Forest Crown +2, Green Thumb +1 (they were checking Green Thumb) - board
+- ok: Forests: Forest Crown +2, Green Thumb +1 (they were checking Green Thumb) - Solar System
+- ok: Forests: Forest Crown +2, Green Thumb +1 - info popup
+- ok: Verdants: Green Thumb +1 - board
+- ok: Verdants: Green Thumb +1 - Solar System
+- ok: Verdants: Green Thumb +1 - info popup
+- ok: Text: Green Thumb
+- ok: Forest info popup: no Canopy Crown flat bonus
+- ok: Canopy Crown: Forest aura 1 tier higher (payout)
+- ok: Canopy Crown: Forest aura 1 tier higher (sidebar)
+- ok: Text: Canopy Crown
+- ok: Sidebar: your planets (count of each kind you own, loose and inside Systems and Galaxies) instead of find odds
+- ok: Canopy Crown only offered once you have a tier 1 Forest aura
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
