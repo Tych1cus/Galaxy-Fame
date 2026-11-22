@@ -343,8 +343,8 @@
  },
  {
   "name": "Start screen: right count of starting picks (1 from Prestige III)",
-  "find": "h='<h3>Choose your starting planets ('+(3-G.startLeft)+' of 2)</h3>",
-  "replace": "var _st=PV().startPlanets?1:2;h='<h3>Choose your starting planet'+(_st>1?'s':'')+' ('+(_st-G.startLeft+1)+' of '+_st+')</h3>"
+  "find": "if(m=='start')h='<h3>Choose your starting planets ('+(3-G.startLeft)+' of 2)</h3><div class=\"cards\">'+G.offer.map(function(k,i){return card(k,i,'startC')}).join('')+'</div>';",
+  "replace": "if(m=='start'){var _st=PV().startPlanets?1:2;h='<h3>Choose your starting planet'+(_st>1?'s':'')+' ('+(_st-G.startLeft+1)+' of '+_st+')</h3><div class=\"cards\">'+G.offer.map(function(k,i){return card(k,i,'startC')}).join('')+'</div>'}"
  },
  {
   "name": "Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)",
