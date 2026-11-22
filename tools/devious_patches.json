@@ -137,8 +137,8 @@
  },
  {
   "name": "Verdant Aura text (banner)",
-  "find": "g:'+1 ⭐ every spin per 4 Verdants you own'",
-  "replace": "g:'All Verdants score +1 ⭐ more per 5 Verdants you have (counts every Verdant: bag and inside Solar Systems)'"
+  "find": "g:'Every Verdant scores +1 ⭐ more per 5 Verdants you own, for each aura tier'",
+  "replace": "g:'All Verdants score +1 ⭐ more per 5 Verdants you have'"
  },
  {
   "name": "Wide Lens text",
