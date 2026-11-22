@@ -8,6 +8,24 @@
   if (window.DV) return;
   var DV = window.DV = {};
 
+  // ===================================================================== password lock
+  // A simple lock (the site has no server, so it only keeps casual players out). Remembered per device.
+  (function () {
+    function h(s) { var a = 0xdeadbeef ^ 7, b = 0x41c6ce57 ^ 7; for (var i = 0; i < s.length; i++) { var c = s.charCodeAt(i); a = Math.imul(a ^ c, 2654435761); b = Math.imul(b ^ c, 1597334677); }
+      a = Math.imul(a ^ (a >>> 16), 2246822507) ^ Math.imul(b ^ (b >>> 13), 3266489909); b = Math.imul(b ^ (b >>> 16), 2246822507) ^ Math.imul(a ^ (a >>> 13), 3266489909); return (4294967296 * (2097151 & b) + (a >>> 0)).toString(36); }
+    var KEY = '17gnq1hzxh6', ok = false; try { ok = localStorage.getItem('gf_dv_ok') == KEY; } catch (e) {}
+    if (ok) return;
+    var d = document.createElement('div'); d.id = 'dv-lock';
+    d.innerHTML = '<form><div style="font-size:44px">😈</div><h2>Devious Mode</h2><p>Enter the password</p><input type="password" autocomplete="current-password" autofocus><button type="submit">Enter</button><small></small><a href="index.html">⬅ Back to the standard game</a></form>';
+    d.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:radial-gradient(900px 600px at 50% 0%,#2a1450,#07040f 70%);color:#f3e9ff;font:16px -apple-system,Segoe UI,Roboto,sans-serif;padding:16px';
+    var st = document.createElement('style'); st.textContent = '#dv-lock form{display:flex;flex-direction:column;align-items:center;gap:10px;max-width:320px;width:100%;text-align:center}#dv-lock h2{margin:0;font-size:26px;color:#ff7ae0}#dv-lock p{margin:0;color:#c9b7e6}#dv-lock input{width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #6b3fa0;background:#140a26;color:#fff;text-align:center}#dv-lock button{width:100%;font-size:17px;font-weight:800;padding:12px;border-radius:12px;border:0;background:linear-gradient(#ff7ae0,#a43cff);color:#fff;cursor:pointer}#dv-lock small{color:#ff8a8a;min-height:1em}#dv-lock a{color:#c9b7e6;font-size:14px}@keyframes dvno{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}';
+    document.head.appendChild(st); document.body.appendChild(d);
+    var inp = d.querySelector('input'); setTimeout(function () { try { inp.focus(); } catch (e) {} }, 50);
+    d.querySelector('form').onsubmit = function (e) { e.preventDefault();
+      if (h(inp.value.trim().toLowerCase()) == KEY) { try { localStorage.setItem('gf_dv_ok', KEY); } catch (x) {} d.remove(); }
+      else { d.querySelector('small').textContent = 'Wrong password'; inp.value = ''; d.querySelector('form').style.animation = 'none'; void d.offsetWidth; d.querySelector('form').style.animation = 'dvno .3s'; } };
+  })();
+
   // ===================================================================== speed: planet pictures
   // The game writes each planet's full picture (≈200 KB of text) into the page every time the
   // screen redraws, so a full board was a ~10 MB page rebuilt many times per spin, and it got
