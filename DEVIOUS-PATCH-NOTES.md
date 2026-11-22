@@ -37,7 +37,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 ## Clearer text (numbers unchanged)
 - The currency is called gold everywhere (was "Credits" on the stats bar, "credits" in the help and "money" in the Ice aura).
 - Bonuses now say what they add ("+1 ⭐ more", "1 fewer") instead of a fixed total, so they read right when they stack: Prestige III and IV · Time Dilation · Heavy Munitions · Prospector's Charter · Heirloom Seeds · Fame Dividend · Rubble Rights · Verdant Grove · Wide Lens
-- Reworded to be shorter or clearer: Verdant Aura · Thick Dust · Dust Compactor · Volcanic · Obsidian Shield · Giant Star · Cosmic Ledger · Event Horizon · Gravity Well · Prestige VI and VIII · Starting Fleet
+- Reworded to be shorter or clearer: Verdant Aura · Volcanic Aura · Thick Dust · Dust Compactor · Volcanic · Obsidian Shield · Giant Star · Cosmic Ledger · Event Horizon · Gravity Well · Prestige VI and VIII · Starting Fleet
 
 ## New in Devious Mode
 - Slot-machine spin: drag the lever down (or swipe down on the board on phones) and the reels spin and land column by column.

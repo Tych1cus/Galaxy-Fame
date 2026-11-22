@@ -474,5 +474,15 @@
   "name": "Scout Fleet no longer in the shop (same as Wide Lens; runs that own it keep it)",
   "find": "function shopPool(){return RELICS.filter(function(r){",
   "replace": "function shopPool(){return RELICS.filter(function(r){if(r.id=='fleet')return false;"
+ },
+ {
+  "name": "Sidebar: Volcanic aura text",
+  "find": "v:(5*t)+'% Black Hole'",
+  "replace": "v:'Black Holes score +'+(5*t)+'% more ⭐ every spin'"
+ },
+ {
+  "name": "Volcanic aura base text",
+  "find": "v:'+5% Black Hole per tier'",
+  "replace": "v:'Black Holes score +5% more ⭐ per tier'"
  }
 ]
