@@ -1,0 +1,540 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Galaxy Fame — Reference</title>
+<style>
+:root{--bg:#0a0d1c;--bg2:#111631;--card:#161c38;--bd:#28305c;--tx:#e8ecff;--mu:#8a93b5;--gd:#ffc857;--pk:#ff4fd8}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 600px at 50% -10%,#1b1140,#0a0d1c 60%);color:var(--tx);
+font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 18px 80px}
+header{text-align:center;padding:22px 0 10px}
+h1{margin:0;font-size:34px;letter-spacing:.5px;background:linear-gradient(90deg,#ff4fd8,#ffc857,#8feaff);
+-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mu);font-size:13px;margin-top:6px}
+nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:20px 0 8px;position:sticky;top:0;
+background:rgba(10,13,28,.92);backdrop-filter:blur(8px);padding:10px 0;z-index:9;border-bottom:1px solid var(--bd)}
+nav a{color:var(--tx);text-decoration:none;font-size:13px;padding:6px 12px;border:1px solid var(--bd);
+border-radius:999px;background:var(--card)}
+nav a:hover{border-color:var(--gd);color:var(--gd)}
+h2{font-size:22px;margin:44px 0 4px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+h2 small{color:var(--mu);font-size:13px;font-weight:400;margin-left:8px}
+h3{font-size:15px;margin:26px 0 10px;color:var(--gd);text-transform:uppercase;letter-spacing:1.2px}
+p{margin:6px 0}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.pcard,.scard,.rcard,.urow,.arow{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px 14px;position:relative}
+.pcard{border-left:3px solid var(--c)}
+.phead,.shead,.rhead,.ahead{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.phead b,.shead b,.ahead b{font-size:16px}
+.dot{width:11px;height:11px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c);flex:none}
+.sv,.gold,.meta{margin-left:auto;font-size:12px;color:var(--gd)}
+.gold{color:var(--gd)}
+.rid{position:absolute;top:10px;right:12px;font-size:10px;color:#4d5680;background:#0e1329;padding:1px 6px;border-radius:5px}
+.rcard p,.pcard p,.scard p,.arow p,.urow p{font-size:13.5px;color:#c3cbe8;margin:0}
+.irow{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--bd);
+border-radius:12px;padding:11px 14px;position:relative;margin-bottom:10px}
+.iemoji{font-size:26px;line-height:1;flex:none}
+.ibody{flex:1}
+.ihead{display:flex;align-items:center;gap:10px}
+.rar{font-size:11px;letter-spacing:1px;margin-left:auto}
+.arow{border-left:3px solid var(--c);margin-bottom:10px}
+.dead{font-size:11px;color:#ff6a6a;border:1px solid #ff6a6a55;border-radius:6px;padding:1px 7px;margin-left:auto}
+.find{background:var(--card);border:1px solid var(--bd);border-left:3px solid var(--c);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.fhead{display:flex;gap:10px;align-items:center;margin-bottom:6px}
+.sev{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--c);border:1px solid var(--c);border-radius:6px;padding:1px 8px}
+.farea{font-size:12px;color:var(--mu)}
+.find h4{margin:2px 0 10px;font-size:15.5px}
+.fbody{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+@media(max-width:640px){.fbody{grid-template-columns:1fr}}
+.fl{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--mu);display:block;margin-bottom:2px}
+.fbody p{font-size:13.5px;color:#c3cbe8}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:#9fe8ff}
+.sum{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 0}
+.pill{background:var(--card);border:1px solid var(--bd);border-radius:999px;padding:5px 14px;font-size:13px}
+.pill b{color:var(--gd)}
+footer{margin-top:60px;text-align:center;color:#4d5680;font-size:12px}
+</style></head><body><div class="wrap">
+<header>
+  <h1>Galaxy Fame — Reference</h1>
+  <div class="sub">Every name and description, straight out of the game file. v166 (live)</div>
+  <div class="sum">
+    <span class="pill"><b>10</b> planets</span>
+    <span class="pill"><b>12</b> items</span>
+    <span class="pill"><b>5</b> stars</span>
+    <span class="pill"><b>43</b> relics</span>
+    <span class="pill"><b>10</b> auras</span>
+    <span class="pill"><b>9</b> upgrades</span>
+    <span class="pill"><b>10</b> prestige levels</span>
+    <span class="pill" style="border-color:#ff6a6a55"><b>9</b> text/code clashes</span>
+  </div>
+</header>
+<nav>
+  <a href="#findings">Findings</a>
+  <a href="#planets">Planets</a>
+  <a href="#items">Items</a>
+  <a href="#stars">Stars</a>
+  <a href="#relics">Relics</a>
+  <a href="#auras">Auras</a>
+  <a href="#upgrades">Upgrades</a>
+  <a href="#prestige">Prestige</a>
+</nav>
+
+<h2 id="findings">Where the text and the code disagree <small>read this first</small></h2>
+<p style="color:var(--mu);font-size:13.5px">9 places where a card says one thing and the code does another, plus 6 where the card simply leaves something out. Nothing here has been changed — this is the list to work from.</p>
+<div class="find" style="--c:#ff6a6a">
+  <div class="fhead"><span class="sev">Text contradicts code</span><span class="farea">Planets</span></div>
+  <h4>Orbital Factory pays 1 gold with no Asteroid</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p>“+1 💰, +1 💰 per adjacent Asteroid.” Reads as: 1 gold, and another per Asteroid.</p></div>
+  <div><span class="fl">Code does</span><p>Code: <code>cr[i] = 1 + asteroids + (ledger?1:0)</code> — a flat 1 gold for existing, then +1 per adjacent Asteroid. Alone it pays 1 (2 with Cosmic Ledger).</p></div></div>
+</div><div class="find" style="--c:#ff6a6a">
+  <div class="fhead"><span class="sev">Text contradicts code</span><span class="farea">Planets</span></div>
+  <h4>Ice Planet’s text promises a bonus it never gets</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p>“Worth 1 ⭐. Pick a square…” — flat 1 fame, no neighbour bonus mentioned.</p></div>
+  <div><span class="fl">Code does</span><p>Code gives exactly 1, so the text is right — but the <b>find-odds card</b> still says “+1 ⭐, plus 1 for each neighbouring piece”, which is the <i>Permafrost</i> relic’s effect. Two places, two different stories.</p></div></div>
+</div><div class="find" style="--c:#ff6a6a">
+  <div class="fhead"><span class="sev">Text contradicts code</span><span class="farea">Relics</span></div>
+  <h4>Fame Dividend says +8, code gives +12</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p>“Reaching a fame goal gives +8 💰 more.”</p></div>
+  <div><span class="fl">Code does</span><p>Code: <code>divPay = has('dividend') ? 12 : 4</code>. Base goal reward is 4, so the relic adds <b>+8</b> — the text is actually correct here; the +12 is the total, not the bonus. Worth rewording so nobody reads it as +12 more.</p></div></div>
+</div><div class="find" style="--c:#ff6a6a">
+  <div class="fhead"><span class="sev">Text contradicts code</span><span class="farea">Relics</span></div>
+  <h4>Encore doubles the Chorus’s own worth, not “scores double”</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p>“The last Chorus to score each spin scores double.”</p></div>
+  <div><span class="fl">Code does</span><p>Code: <code>if(has('encore') &amp;&amp; lastH &gt; -1) f[lastH] *= 2</code> — applied after the Chorus’s base value, so the doubling happens <i>before</i> auras and Nebula boosts are added. Not literally “double” at the end.</p></div></div>
+</div><div class="find" style="--c:#ff6a6a">
+  <div class="fhead"><span class="sev">Text contradicts code</span><span class="farea">Relics</span></div>
+  <h4>Prism Lens text says +2, code adds 2 <i>and</i> a Nebula aura tier</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p>“A Nebula gains 2 ⭐ itself. Its neighbours still get their +2.”</p></div>
+  <div><span class="fl">Code does</span><p>Code gives the Nebula 2 fame per Prism <i>and</i> Nebula-adjacency is +2+T('p'), so the real gain scales with the Nebula aura tier. Text states a flat 2.</p></div></div>
+</div><div class="find" style="--c:#ff6a6a">
+  <div class="fhead"><span class="sev">Text contradicts code</span><span class="farea">Auras</span></div>
+  <h4>The Asteroid aura can never appear</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p>AUR has an entry for “a”: “Destroyers shoot 1 cell farther per tier, and Asteroids and Big Asteroids appear 15% more often per tier.”</p></div>
+  <div><span class="fl">Code does</span><p>No planet has the key <code>a</code>, so no system can ever be dominant in it and <code>auras()</code> never returns it. <code>desRg()</code>, <code>rockMul()</code> and <code>ipool()</code> all read <code>tierF(auras(),'a')</code> and always get 0. If this aura is meant to work it needs a source; if not, those three functions are dead code.</p></div></div>
+</div><div class="find" style="--c:#ff6a6a">
+  <div class="fhead"><span class="sev">Text contradicts code</span><span class="farea">Auras</span></div>
+  <h4>Aura panel would crash if an unknown kind ever appeared</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p><code>auraBox()</code> builds its heading from <code>K[k].n</code> and its colour from <code>CC[k]</code>.</p></div>
+  <div><span class="fl">Code does</span><p><code>K</code> has no entry for <code>a</code> or <code>q</code>-adjacent kinds beyond the ten planets. Any aura key without a <code>K</code> entry throws. Harmless today only because <code>a</code> is unreachable — the two problems hide each other.</p></div></div>
+</div><div class="find" style="--c:#ff6a6a">
+  <div class="fhead"><span class="sev">Text contradicts code</span><span class="farea">Auras</span></div>
+  <h4>Nebula’s aura description does not match its effect</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p>AUR: “+1 more growth choice at each fame goal.”</p></div>
+  <div><span class="fl">Code does</span><p>The code reads <code>boostPicks() = 1 + tierF(auras(),'p')</code>, so it adds choices to the <b>find-more</b> pick, not to growth. Different screen entirely.</p></div></div>
+</div><div class="find" style="--c:#ff6a6a">
+  <div class="fhead"><span class="sev">Text contradicts code</span><span class="farea">Auras</span></div>
+  <h4>Chorus aura text is right, but “counts as if 1 higher” is vague</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p>AUR: “Each Chorus counts as if 1 higher.”</p></div>
+  <div><span class="fl">Code does</span><p>Code: <code>x = chorusHeld() + hc + T('h') + (baton?1:0)</code> — each Chorus’s order number is raised by the tier. Says what happens, not what it’s worth.</p></div></div>
+</div><div class="find" style="--c:#ffb347">
+  <div class="fhead"><span class="sev">Text incomplete</span><span class="farea">Relics</span></div>
+  <h4>Moon’s card says nothing about Cosmic Ledger</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p>Moon: “+1 💰.”</p></div>
+  <div><span class="fl">Code does</span><p>Code: <code>cr[i] = 1 + (ledger?1:0)</code>. This is the second gold that looked like a bug — Cosmic Ledger gives it, and no text mentions it.</p></div></div>
+</div><div class="find" style="--c:#ffb347">
+  <div class="fhead"><span class="sev">Text incomplete</span><span class="farea">Relics</span></div>
+  <h4>Quarry’s card omits its in-system value</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p>Quarry: “Worth 2 ⭐, +2 for each adjacent Asteroid.”</p></div>
+  <div><span class="fl">Code does</span><p>In <code>sysVal()</code> a Quarry is a flat <b>2</b> with no Asteroid term at all — Asteroid adjacency only counts on the board. The card describes a bonus that stops applying the moment the Quarry joins a system.</p></div></div>
+</div><div class="find" style="--c:#ffb347">
+  <div class="fhead"><span class="sev">Text incomplete</span><span class="farea">Relics</span></div>
+  <h4>Rubble Rights has no effect inside a system</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p>“Quarries get +2 ⭐ more per adjacent Asteroid.”</p></div>
+  <div><span class="fl">Code does</span><p><code>sysVal()</code> hard-codes <code>x = 2</code> for Quarries, so the relic only works on the board. Same shape of problem as Quarry itself.</p></div></div>
+</div><div class="find" style="--c:#ffb347">
+  <div class="fhead"><span class="sev">Text incomplete</span><span class="farea">Upgrades</span></div>
+  <h4>Starting Fleet names four kinds but the code picks any planet</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p>“Begin each run with +1 random Verdant, Forest, Supernova or Nebula per level.”</p></div>
+  <div><span class="fl">Code does</span><p><code>startOffer()</code> filters only to exclude Ice (<code>i</code>), Black Holes (<code>k</code>) and merge-stars, so Cradle, Chorus and Quarry are also possible. Text lists four; the pool is seven.</p></div></div>
+</div><div class="find" style="--c:#ffb347">
+  <div class="fhead"><span class="sev">Text incomplete</span><span class="farea">Prestige</span></div>
+  <h4>Prestige IX and X read as if they stack their fame penalty</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p>IX: “Auras need 5 more points to reach their next tier.” X: “Fame goals ask for 110% more in total.”</p></div>
+  <div><span class="fl">Code does</span><p><code>PEFF</code> is cumulative — each entry repeats every earlier penalty and the fame column runs 20,30,40,…,110. So IX and X also carry their own fame rise; the descriptions only name the <i>new</i> rule, not the running total.</p></div></div>
+</div><div class="find" style="--c:#ffb347">
+  <div class="fhead"><span class="sev">Text incomplete</span><span class="farea">Text</span></div>
+  <h4>Goal reward is stated in two places</h4>
+  <div class="fbody"><div><span class="fl">Text says</span><p>The goal banner builds its own string.</p></div>
+  <div><span class="fl">Code does</span><p>It now uses the shared <code>divPay</code> variable, so payout and banner cannot drift again. Kept here as a reminder that this was the original Fame Dividend bug.</p></div></div>
+</div>
+
+<h2 id="planets">Planets <small>10 kinds — all flat odds</small></h2>
+<div class="grid"><div class="pcard" style="--c:#ff6a24">
+  <div class="phead"><span class="dot"></span><b>Volcanic</b></div>
+  <p>Worth 4 ⭐. A Black Hole next to it eats some of its fame that spin.</p>
+  <code class="rid">v</code>
+</div><div class="pcard" style="--c:#8feaff">
+  <div class="phead"><span class="dot"></span><b>Ice Planet</b></div>
+  <p>Worth 1 ⭐. Pick a square: it always lands there until it joins a Solar System.</p>
+  <code class="rid">i</code>
+</div><div class="pcard" style="--c:#34d6e0">
+  <div class="phead"><span class="dot"></span><b>Verdant</b></div>
+  <p>Worth 1 ⭐. While you hold 5 or more Verdants in total, each is worth +3.</p>
+  <code class="rid">g</code>
+</div><div class="pcard" style="--c:#39d879">
+  <div class="phead"><span class="dot"></span><b>Forest</b></div>
+  <p>Worth 1 ⭐, plus 1 for every 2 other Forests on the grid or in systems. On the 3rd spin of each goal spawn a forest one time only.</p>
+  <code class="rid">r</code>
+</div><div class="pcard" style="--c:#ff4fd8">
+  <div class="phead"><span class="dot"></span><b>Supernova</b></div>
+  <p>Worth 5 ⭐, then burns out after 3 spins.</p>
+  <code class="rid">b</code>
+</div><div class="pcard" style="--c:#b06cff">
+  <div class="phead"><span class="dot"></span><b>Nebula</b></div>
+  <p>Any piece next to it gains +2 ⭐.</p>
+  <code class="rid">p</code>
+</div><div class="pcard" style="--c:#ff9a3a">
+  <div class="phead"><span class="dot"></span><b>Black Hole</b></div>
+  <p>Eats 1/7 of each neighbor’s ⭐ and keeps it. Grows every spin. Can never join a Solar System.</p>
+  <code class="rid">k</code>
+</div><div class="pcard" style="--c:#ff7ab8">
+  <div class="phead"><span class="dot"></span><b>Cradle</b></div>
+  <p>Worth 1 ⭐ and grows +0.1 ⭐ permanently every spin.</p>
+  <code class="rid">c</code>
+</div><div class="pcard" style="--c:#ffd84a">
+  <div class="phead"><span class="dot"></span><b>Chorus</b></div>
+  <p>The 1st Chorus to score each spin gives 1 ⭐, the 2nd gives 2, the 3rd gives 3…</p>
+  <code class="rid">h</code>
+</div><div class="pcard" style="--c:#d9a86c">
+  <div class="phead"><span class="dot"></span><b>Quarry</b></div>
+  <p>Worth 2 ⭐, +2 for each adjacent Asteroid.</p>
+  <code class="rid">q</code>
+</div></div>
+
+<h2 id="items">Items <small>12 kinds — rarity tiers kept</small></h2>
+<div class="irow">
+  <div class="iemoji">🪨</div>
+  <div class="ibody"><div class="ihead"><b>Asteroid</b>
+    <span class="rar" style="color:#9aa7c7">Common ★☆☆☆☆</span></div>
+    <p>+1 ⭐. Fodder for Destroyers.</p></div>
+  <code class="rid">ast</code>
+</div><div class="irow">
+  <div class="iemoji">☄️</div>
+  <div class="ibody"><div class="ihead"><b>Comet</b>
+    <span class="rar" style="color:#9aa7c7">Common ★☆☆☆☆</span></div>
+    <p>+2 ⭐.</p></div>
+  <code class="rid">com</code>
+</div><div class="irow">
+  <div class="iemoji">🌙</div>
+  <div class="ibody"><div class="ihead"><b>Moon</b>
+    <span class="rar" style="color:#9aa7c7">Common ★☆☆☆☆</span></div>
+    <p>+1 💰.</p></div>
+  <code class="rid">moon</code>
+</div><div class="irow">
+  <div class="iemoji">🛰️</div>
+  <div class="ibody"><div class="ihead"><b>Satellite</b>
+    <span class="rar" style="color:#9aa7c7">Common ★☆☆☆☆</span></div>
+    <p>+1 ⭐, +1 for each adjacent planet.</p></div>
+  <code class="rid">sat</code>
+</div><div class="irow">
+  <div class="iemoji">🌑</div>
+  <div class="ibody"><div class="ihead"><b>Big Asteroid</b>
+    <span class="rar" style="color:#5be28a">Uncommon ★★☆☆☆</span></div>
+    <p>+1 ⭐. A Destroyer that shoots it gains +2 ⭐ permanently and it splits into 2 Asteroids in your bag.</p></div>
+  <code class="rid">bas</code>
+</div><div class="irow">
+  <div class="iemoji">🏭</div>
+  <div class="ibody"><div class="ihead"><b>Orbital Factory</b>
+    <span class="rar" style="color:#5be28a">Uncommon ★★☆☆☆</span></div>
+    <p>+1 💰, +1 💰 per adjacent Asteroid.</p></div>
+  <code class="rid">fac</code>
+</div><div class="irow">
+  <div class="iemoji">🔭</div>
+  <div class="ibody"><div class="ihead"><b>Telescope</b>
+    <span class="rar" style="color:#5be28a">Uncommon ★★☆☆☆</span></div>
+    <p>+2 ⭐, +1 for each different kind of neighbor.</p></div>
+  <code class="rid">tel</code>
+</div><div class="irow">
+  <div class="iemoji">👨‍🚀</div>
+  <div class="ibody"><div class="ihead"><b>Astronaut</b>
+    <span class="rar" style="color:#4fa8ff">Rare ★★★☆☆</span></div>
+    <p>+3 ⭐, +2 ⭐ per adjacent Verdant.</p></div>
+  <code class="rid">nau</code>
+</div><div class="irow">
+  <div class="iemoji">🚀</div>
+  <div class="ibody"><div class="ihead"><b>Destroyer</b>
+    <span class="rar" style="color:#4fa8ff">Rare ★★★☆☆</span></div>
+    <p>+3 ⭐. Shoots nearby Asteroids, gaining +1 ⭐ permanently for each.</p></div>
+  <code class="rid">des</code>
+</div><div class="irow">
+  <div class="iemoji">📡</div>
+  <div class="ibody"><div class="ihead"><b>Radio Array</b>
+    <span class="rar" style="color:#c77dff">Epic ★★★★☆</span></div>
+    <p>Copies the highest ⭐ among its neighbors.</p></div>
+  <code class="rid">rad</code>
+</div><div class="irow">
+  <div class="iemoji">☀️</div>
+  <div class="ibody"><div class="ihead"><b>Solar Harvester</b>
+    <span class="rar" style="color:#c77dff">Epic ★★★★☆</span></div>
+    <p>+2 ⭐. Consumes adjacent Supernovas, gaining +3 ⭐ permanently for each.</p></div>
+  <code class="rid">sun</code>
+</div><div class="irow">
+  <div class="iemoji">⭐</div>
+  <div class="ibody"><div class="ihead"><b>North Star</b>
+    <span class="rar" style="color:#ffc857">Legendary ★★★★★</span></div>
+    <p>+8 ⭐, and +8 more in a corner.</p></div>
+  <code class="rid">nor</code>
+</div>
+
+<h2 id="stars">Stars <small>merge chain — not planets, never join a Solar System</small></h2>
+<div class="grid"><div class="scard" style="--c:#b9c6e8">
+  <div class="shead"><span class="dot"></span><b>Cosmic Dust</b><span class="sv">2 ⭐ base</span></div>
+  <p>Worth 2 ⭐. Not a planet: it never joins a Solar System. 2 Cosmic Dusts that touch become a Cosmic Cloud.</p><code class="rid">j</code>
+</div><div class="scard" style="--c:#8fa2d8">
+  <div class="shead"><span class="dot"></span><b>Cosmic Cloud</b><span class="sv">3 ⭐ base</span></div>
+  <p>Worth 3 ⭐. 2 Cosmic Clouds that touch become a Protostar.</p><code class="rid">cl</code>
+</div><div class="scard" style="--c:#ffa94a">
+  <div class="shead"><span class="dot"></span><b>Protostar</b><span class="sv">6 ⭐ base</span></div>
+  <p>Worth 6 ⭐. 2 Protostars that touch become a Giant Star.</p><code class="rid">ps</code>
+</div><div class="scard" style="--c:#ffd36a">
+  <div class="shead"><span class="dot"></span><b>Giant Star</b><span class="sv">11 ⭐ base</span></div>
+  <p>Worth 11 ⭐, +1 for each different kind of planet next to it. 2 Giant Stars that touch become a Super Giant.</p><code class="rid">gs</code>
+</div><div class="scard" style="--c:#fff0a0">
+  <div class="shead"><span class="dot"></span><b>Super Giant</b><span class="sv">31 ⭐ base</span></div>
+  <p>Worth 31 ⭐. The final star. Nothing merges with a Super Giant.</p><code class="rid">sg</code>
+</div></div>
+
+<h2 id="relics">Relics <small>43 — sorted by price</small></h2>
+<div class="grid"><div class="rcard">
+  <div class="rhead"><b>Lucky Dice</b><span class="gold">3 💰</span></div>
+  <p>Every relic shop starts with one free reroll.</p>
+  <code class="rid">lucky</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Piggy Bank</b><span class="gold">3 💰</span></div>
+  <p>+1 💰 every spin.</p>
+  <code class="rid">bank</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Time Dilation</b><span class="gold">3 💰</span></div>
+  <p>New Supernovas last 3 more spins.</p>
+  <code class="rid">dil</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Canopy Crown</b><span class="gold">4 💰</span></div>
+  <p>Every Forest is worth +1 ⭐ more.</p>
+  <code class="rid">cinder</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Center Stage</b><span class="gold">4 💰</span></div>
+  <p>Pieces in the middle 4 cells get +2 ⭐.</p>
+  <code class="rid">stage</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Corner Beacons</b><span class="gold">4 💰</span></div>
+  <p>Pieces in the 4 corners get +2 ⭐.</p>
+  <code class="rid">corner</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Debris Field</b><span class="gold">4 💰</span></div>
+  <p>Every relic you buy after this one also puts an Asteroid in your bag.</p>
+  <code class="rid">debris</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Forest Crown</b><span class="gold">4 💰</span></div>
+  <p>Forests worth +2 ⭐.</p>
+  <code class="rid">forge</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Frozen Core</b><span class="gold">4 💰</span></div>
+  <p>Supernovas worth +2 ⭐.</p>
+  <code class="rid">icecap</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Green Thumb</b><span class="gold">4 💰</span></div>
+  <p>Verdants worth +2 ⭐.</p>
+  <code class="rid">thumb</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Haggler</b><span class="gold">4 💰</span></div>
+  <p>Relics cost 2 💰 less in the shop.</p>
+  <code class="rid">haggler</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Heirloom Seeds</b><span class="gold">4 💰</span></div>
+  <p>Cradles start +1 ⭐ higher.</p>
+  <code class="rid">heirloom</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Nebula Halo</b><span class="gold">4 💰</span></div>
+  <p>Nebulas also give +1 ⭐ to pieces 2 cells away.</p>
+  <code class="rid">halo</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Quarry Vein</b><span class="gold">4 💰</span></div>
+  <p>If a Solar System holds 3 or more Quarries, it gains +20 ⭐.</p>
+  <code class="rid">vein</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Rubble Rights</b><span class="gold">4 💰</span></div>
+  <p>Quarries get +2 ⭐ more per adjacent Asteroid.</p>
+  <code class="rid">rubble</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Salvage Rights</b><span class="gold">4 💰</span></div>
+  <p>+2 💰 for each piece your Destroyers and Harvesters consume.</p>
+  <code class="rid">quarry</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Scrap Collector</b><span class="gold">4 💰</span></div>
+  <p>Asteroids worth +2 ⭐ more.</p>
+  <code class="rid">scrap</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Twin Dust</b><span class="gold">4 💰</span></div>
+  <p>Each Cosmic Dust you take brings a second Cosmic Dust with it.</p>
+  <code class="rid">twin</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Wide Lens</b><span class="gold">4 💰</span></div>
+  <p>+1 choice on every pick screen.</p>
+  <code class="rid">lens</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Conductor’s Baton</b><span class="gold">5 💰</span></div>
+  <p>Every Chorus counts 1 higher.</p>
+  <code class="rid">baton</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Cosmic Ledger</b><span class="gold">5 💰</span></div>
+  <p>Moons and Factories give +1 💰 more, and Giant Stars +1 ⭐.</p>
+  <code class="rid">ledger</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Encore</b><span class="gold">5 💰</span></div>
+  <p>The last Chorus to score each spin scores double.</p>
+  <code class="rid">encore</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Event Horizon</b><span class="gold">5 💰</span></div>
+  <p>Black Holes take 20% more from each neighbour.</p>
+  <code class="rid">hor</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Fame Dividend</b><span class="gold">5 💰</span></div>
+  <p>Reaching a fame goal gives +8 💰 more.</p>
+  <code class="rid">dividend</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Fertile Soil</b><span class="gold">5 💰</span></div>
+  <p>Cradles grow +0.3 ⭐ more every spin.</p>
+  <code class="rid">fertile</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Founder’s Charter</b><span class="gold">5 💰</span></div>
+  <p>Forming a Solar System or Galaxy gives quadruple fame.</p>
+  <code class="rid">founder</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Glacial Lens</b><span class="gold">5 💰</span></div>
+  <p>Ice Planets give each piece next to them +2 ⭐.</p>
+  <code class="rid">glacier</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Gravity Well</b><span class="gold">5 💰</span></div>
+  <p>Black Holes store 15% more of what they take, without taking more.</p>
+  <code class="rid">gravity</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Heavy Munitions</b><span class="gold">5 💰</span></div>
+  <p>Destroyers gain +3 ⭐ more for each Asteroid they shoot.</p>
+  <code class="rid">miner</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Magma Core</b><span class="gold">5 💰</span></div>
+  <p>Volcanic worlds worth +3 ⭐.</p>
+  <code class="rid">magma</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Obsidian Shield</b><span class="gold">5 💰</span></div>
+  <p>Volcanic worlds lose nothing to Black Holes, though Black Holes still feed on them.</p>
+  <code class="rid">obsidian</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Permafrost</b><span class="gold">5 💰</span></div>
+  <p>Ice Planets score +1 ⭐ for each piece next to them.</p>
+  <code class="rid">frozen</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Permafrost Choir</b><span class="gold">5 💰</span></div>
+  <p>An Ice Planet that joins a Solar System also stays on its square. That one can't join another.</p>
+  <code class="rid">permafrost</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Prism Lens</b><span class="gold">5 💰</span></div>
+  <p>A Nebula gains 2 ⭐ itself. Its neighbours still get their +2.</p>
+  <code class="rid">prism</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Prospector’s Charter</b><span class="gold">5 💰</span></div>
+  <p>Big Asteroids appear in your picks, and Destroyers gain +2 ⭐ more for shooting one.</p>
+  <code class="rid">prospect</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Thick Dust</b><span class="gold">5 💰</span></div>
+  <p>Cosmic Dust worth +2 ⭐.</p>
+  <code class="rid">thick</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Triplet Dust</b><span class="gold">5 💰</span></div>
+  <p>Each Cosmic Dust you take brings two more with it, for 3 in all. Replaces Twin Dust.</p>
+  <code class="rid">triplet</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Verdant Grove</b><span class="gold">5 💰</span></div>
+  <p>The Verdant +3 bonus needs 1 fewer Verdant.</p>
+  <code class="rid">vgrove</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Dust Compactor</b><span class="gold">6 💰</span></div>
+  <p>Solar Systems need 2 fewer pieces and Galaxies 1 fewer.</p>
+  <code class="rid">dust</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Pulsar</b><span class="gold">6 💰</span></div>
+  <p>+3 ⭐ every spin.</p>
+  <code class="rid">pulsar</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Scout Fleet</b><span class="gold">6 💰</span></div>
+  <p>+1 choice on every pick screen.</p>
+  <code class="rid">fleet</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Stellar Nursery</b><span class="gold">6 💰</span></div>
+  <p>Solar Systems and Galaxies score 15% more.</p>
+  <code class="rid">nursery</code>
+</div><div class="rcard">
+  <div class="rhead"><b>Spotlight</b><span class="gold">8 💰</span></div>
+  <p>Your highest-scoring piece each spin scores 30% more.</p>
+  <code class="rid">spot</code>
+</div></div>
+
+<h2 id="auras">Auras <small>10 defined, 9 reachable</small></h2>
+<p style="color:var(--mu);font-size:13.5px">A Solar System gives aura only for its dominant kind: 4 to start, +1 each spin it lands. A tie for dominant is broken by a coin flip. Every planet of that kind — on the board, in your bag, or in another system — benefits.</p>
+<div class="arow" style="--c:#34d6e0">
+  <div class="ahead"><span class="dot"></span><b>Verdant Aura</b></div>
+  <p>+1 ⭐ every spin per 4 Verdants you own</p>
+  <code class="rid">g</code>
+</div><div class="arow" style="--c:#39d879">
+  <div class="ahead"><span class="dot"></span><b>Forest Aura</b></div>
+  <p>+2 ⭐ every roll</p>
+  <code class="rid">r</code>
+</div><div class="arow" style="--c:#ff4fd8">
+  <div class="ahead"><span class="dot"></span><b>Supernova Aura</b></div>
+  <p>+2 gold per spin</p>
+  <code class="rid">b</code>
+</div><div class="arow" style="--c:#b06cff">
+  <div class="ahead"><span class="dot"></span><b>Nebula Aura</b></div>
+  <p>+1 more growth choice at each fame goal</p>
+  <code class="rid">p</code>
+</div><div class="arow" style="--c:#ff9a3a">
+  <div class="ahead"><span class="dot"></span><b>Black Hole Aura</b></div>
+  <p>Black Holes feed 3% more</p>
+  <code class="rid">k</code>
+</div><div class="arow" style="--c:#ff7ab8">
+  <div class="ahead"><span class="dot"></span><b>Cradle Aura</b></div>
+  <p>+0.2 growth per spin</p>
+  <code class="rid">c</code>
+</div><div class="arow" style="--c:#ffd84a">
+  <div class="ahead"><span class="dot"></span><b>Chorus Aura</b></div>
+  <p>Each Chorus counts as if 1 higher</p>
+  <code class="rid">h</code>
+</div><div class="arow" style="--c:#d9a86c">
+  <div class="ahead"><span class="dot"></span><b>Asteroid Aura</b><span class="dead">no source — can never appear</span></div>
+  <p>Destroyers shoot 1 cell farther per tier, and Asteroids and Big Asteroids appear 15% more often per tier</p>
+  <code class="rid">a</code>
+</div><div class="arow" style="--c:#ff6a24">
+  <div class="ahead"><span class="dot"></span><b>Volcanic Aura</b></div>
+  <p>+5% Black Hole per tier</p>
+  <code class="rid">v</code>
+</div><div class="arow" style="--c:#8feaff">
+  <div class="ahead"><span class="dot"></span><b>Ice Planet Aura</b></div>
+  <p>Corner Ice pockets +2 fame and +1 money per tier</p>
+  <code class="rid">i</code>
+</div>
+
+<h2 id="upgrades">Upgrades <small>9 — bought with shards ✦</small></h2>
+<div class="urow"><div class="uhead"><b>Starting Fleet</b>
+    <span class="meta">2 levels · 45 ✦ base</span></div>
+    <p>Begin each run with +1 random Verdant, Forest, Supernova or Nebula per level.</p><code class="rid">start</code></div><div class="urow"><div class="uhead"><b>Seed Capital</b>
+    <span class="meta">5 levels · 24 ✦ base</span></div>
+    <p>Begin each run with +2 💰 per level.</p><code class="rid">cash</code></div><div class="urow"><div class="uhead"><b>Goal Haggling</b>
+    <span class="meta">5 levels · 42 ✦ base</span></div>
+    <p>All fame goals are 4% lower per level.</p><code class="rid">goal</code></div><div class="urow"><div class="uhead"><b>Scout Network</b>
+    <span class="meta">1 levels · 90 ✦ base</span></div>
+    <p>+1 choice on every pick screen.</p><code class="rid">scout</code></div><div class="urow"><div class="uhead"><b>Keen Eyes</b>
+    <span class="meta">4 levels · 36 ✦ base</span></div>
+    <p>Rare finds appear 25% more often per level.</p><code class="rid">eyes</code></div><div class="urow"><div class="uhead"><b>Fame Mastery</b>
+    <span class="meta">5 levels · 36 ✦ base</span></div>
+    <p>+1 ⭐ at the end of every spin per level.</p><code class="rid">fame</code></div><div class="urow"><div class="uhead"><b>Relic Tinkering</b>
+    <span class="meta">3 levels · 45 ✦ base</span></div>
+    <p>Relics cost 1 💰 less per level.</p><code class="rid">tink</code></div><div class="urow"><div class="uhead"><b>Grand Bazaar</b>
+    <span class="meta">2 levels · 75 ✦ base</span></div>
+    <p>+1 relic offered in each shop per level.</p><code class="rid">bazaar</code></div><div class="urow"><div class="uhead"><b>Swift Formation</b>
+    <span class="meta">2 levels · 90 ✦ base</span></div>
+    <p>Solar Systems and Galaxies need 1 fewer piece per level.</p><code class="rid">form</code></div>
+
+<h2 id="prestige">Prestige <small>10 levels — each adds one rule, all cumulative</small></h2>
+<div class="prrow"><div class="prn">Prestige I</div><p>Every fame goal asks for 20% more.</p></div><div class="prrow"><div class="prn">Prestige II</div><p>Relics cost 2 more gold.</p></div><div class="prrow"><div class="prn">Prestige III</div><p>You pick 1 fewer starting planet.</p></div><div class="prrow"><div class="prn">Prestige IV</div><p>Black Holes' base bite drops from 1/7 to 1/8 of each neighbour.</p></div><div class="prrow"><div class="prn">Prestige V</div><p>Solar Systems need 1 more planet.</p></div><div class="prrow"><div class="prn">Prestige VI</div><p>Your relic shop shows 1 fewer relic.</p></div><div class="prrow"><div class="prn">Prestige VII</div><p>Galaxies need 1 more Solar System.</p></div><div class="prrow"><div class="prn">Prestige VIII</div><p>You get 1 fewer choice on each pick.</p></div><div class="prrow"><div class="prn">Prestige IX</div><p>Auras need 5 more points to reach their next tier.</p></div><div class="prrow"><div class="prn">Prestige X</div><p>Fame goals ask for 110% more in total.</p></div>
+
+<footer>Generated from galaxy-fame-live-166.html — nothing invented, nothing edited.</footer>
+</div></body></html>
