@@ -51,11 +51,6 @@
   "all": true
  },
  {
-  "name": "Fix: info popup shows Forest Crown's real +2 and Canopy Crown",
-  "find": "+(has('thumb')?2:0)+(has('cinder')?1:0),w:'1 base",
-  "replace": "+(has('thumb')?2:0)+(has('cinder')?1:0),w:'1 base"
- },
- {
   "name": "Fix: Super Giant banner says its real value",
   "find": "<small>Worth 30 ⭐</small>",
   "replace": "<small>Worth 31 ⭐</small>"
@@ -200,11 +195,6 @@
   "name": "Forest info popup uses the same count",
   "find": "w:'1 base'+(has('thumb')?' + Green Thumb':'')",
   "replace": "w:'1 base'+(has('thumb')?' + Green Thumb':'')"
- },
- {
-  "name": "Forest info popup value",
-  "find": "n:'Forest',v:1+(has('thumb')?2:0)",
-  "replace": "n:'Forest',v:1+(has('thumb')?2:0)"
  },
  {
   "name": "Solar System picture matches its planets (picture cache ignored Cradles, Choruses and Quarries)",
@@ -355,5 +345,20 @@
   "name": "Text: Solar System and Galaxy (real scoring)",
   "find": "var SG={sys:{n:'Solar System',d:'Worth 14 ⭐ + 3 for each kind of planet inside.'},gal:{n:'Galaxy',d:'Worth 120 ⭐ + 16 for each kind of planet inside.'}};",
   "replace": "var SG={sys:{n:'Solar System',d:'Scores what all its planets score, +15 ⭐.'},gal:{n:'Galaxy',d:'Scores what all its Solar Systems score, ×1.3.'}};"
+ },
+ {
+  "name": "Forest Crown boosts Forests (they were checking Green Thumb) - board",
+  "find": "else if(k=='r')v=1+(has('thumb')?2:0)+(has('cinder')?1:0);",
+  "replace": "else if(k=='r')v=1+(has('forge')?2:0)+(has('cinder')?1:0);"
+ },
+ {
+  "name": "Forest Crown boosts Forests (they were checking Green Thumb) - Solar System",
+  "find": "else if(k=='r')x=1+(has('thumb')?2:0)+(has('cinder')?1:0);",
+  "replace": "else if(k=='r')x=1+(has('forge')?2:0)+(has('cinder')?1:0);"
+ },
+ {
+  "name": "Forest Crown boosts Forests - info popup",
+  "find": "if(k=='r')return{n:'Forest',v:1+(has('thumb')?2:0)+(has('cinder')?1:0),w:'1 base'+(has('thumb')?' + Green Thumb':'')",
+  "replace": "if(k=='r')return{n:'Forest',v:1+(has('forge')?2:0)+(has('cinder')?1:0),w:'1 base'+(has('forge')?' + Forest Crown':'')"
  }
 ]

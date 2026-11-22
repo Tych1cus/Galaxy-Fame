@@ -28,7 +28,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Chorus: System panel shows each Chorus's number
 - ok: Fix: Rubble Rights works (Quarries +4 per Asteroid)
 - ok: Fix: info popup shows Green Thumb's real +2
-- ok: Fix: info popup shows Forest Crown's real +2 and Canopy Crown
 - ok: Fix: Super Giant banner says its real value
 - ok: Text: Thick Dust
 - ok: Text: Dust Compactor
@@ -58,7 +57,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Speeds 1x 2x 3x 5x
 - ok: Forests count loose Forests again (broken in v157)
 - ok: Forest info popup uses the same count
-- ok: Forest info popup value
 - ok: Solar System picture matches its planets (picture cache ignored Cradles, Choruses and Quarries)
 - ok: Continue run: no flash of the new-run screen
 - ok: Continue run: show the run straight away
@@ -89,6 +87,9 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Start screen: right count of starting picks (1 from Prestige III)
 - ok: Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)
 - ok: Text: Solar System and Galaxy (real scoring)
+- ok: Forest Crown boosts Forests (they were checking Green Thumb) - board
+- ok: Forest Crown boosts Forests (they were checking Green Thumb) - Solar System
+- ok: Forest Crown boosts Forests - info popup
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -103,7 +104,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Chorus: System panel shows each Chorus's number
 - ok (Devious): Fix: Rubble Rights works (Quarries +4 per Asteroid)
 - ok (Devious): Fix: info popup shows Green Thumb's real +2
-- ok (Devious): Fix: info popup shows Forest Crown's real +2 and Canopy Crown
 - ok (Devious): Fix: Super Giant banner says its real value
 - ok (Devious): Text: Thick Dust
 - ok (Devious): Text: Dust Compactor
@@ -133,7 +133,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Speeds 1x 2x 3x 5x
 - ok (Devious): Forests count loose Forests again (broken in v157)
 - ok (Devious): Forest info popup uses the same count
-- ok (Devious): Forest info popup value
 - ok (Devious): Solar System picture matches its planets (picture cache ignored Cradles, Choruses and Quarries)
 - ok (Devious): Continue run: no flash of the new-run screen
 - ok (Devious): Continue run: show the run straight away
@@ -164,3 +163,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Start screen: right count of starting picks (1 from Prestige III)
 - ok (Devious): Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)
 - ok (Devious): Text: Solar System and Galaxy (real scoring)
+- ok (Devious): Forest Crown boosts Forests (they were checking Green Thumb) - board
+- ok (Devious): Forest Crown boosts Forests (they were checking Green Thumb) - Solar System
+- ok (Devious): Forest Crown boosts Forests - info popup

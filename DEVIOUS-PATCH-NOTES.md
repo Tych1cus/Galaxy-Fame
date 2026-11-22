@@ -13,6 +13,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - **Solar System popup math** used each planet's plain value, not what it scores in that System: Cradle growth, Ice and Quarries showed 1, 0 and 0, and the difference was hidden in the "Solar System bonus". Rows now show the real scores, the bonus shows the real +15, and the total keeps its decimals like the board.
 - **Solar System and Galaxy text** described an old scoring rule. Now: a Solar System scores what its planets score +15 ⭐; a Galaxy scores its Solar Systems ×1.3.
 - **End of run** had no way back to the main menu (only New run and Observatory). Added a Main menu button.
+- **Forest Crown did nothing** and Green Thumb boosted Forests (since the flat-Forest update). Forest Crown now gives Forests +2, Green Thumb only Verdants.
 - **Leeroy Jenkins levels vanished** after leaving the game page (e.g. viewing the leaderboard) or reloading: the game only loaded some saved settings. Everything saved now loads.
 - **Music kept playing on phones** after switching tabs or apps. Sound now pauses when the game isn't on screen.
 - **Start screen** said "(2 of 2)" from Prestige III up, where you only get 1 starting pick. It now says "Choose your starting planet (1 of 1)".
@@ -44,6 +45,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - Speed options 1x, 2x, 3x, 5x.
 - Planets light up as they score; big spins shake the screen with explosions and a BIG COMBO / MEGA FAME banner; fireworks on fame goals.
 - A click sound on every button; a Music button on the main menu; a moving star field behind every screen.
-- 📖 Compendium (Devious Mode only): every planet, piece, aura and relic with what it does, with search. Built from the game's own data, so it stays up to date.
+- 📖 Compendium (Devious Mode only): every planet, piece, aura and relic with what it does, with search. Built from the game's own data, so it stays up to date. Lists only auras a Solar System can give.
+- Verdant texts say 3 instead of 5 while you own Verdant Grove.
 - Diagonal lines on the board, so it's clear diagonals count as touching.
 - Compact stats row on phones.

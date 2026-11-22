@@ -490,6 +490,10 @@
     G.cells = cs; draw();
   };
 
+  // Verdant texts show 3 instead of 5 while you own Verdant Grove
+  try { [[AUR, 'g'], [K.g, 'd']].forEach(function (x) { var o = x[0], f = x[1], base = o[f];
+    if (typeof base == 'string' && /\b5 Verdants\b/.test(base)) Object.defineProperty(o, f, { configurable: true, enumerable: true,
+      get: function () { var n = 5; try { n = VGT(); } catch (e) {} return base.replace(/\b5 Verdants\b/, n + ' Verdants'); } }); }); } catch (e) {}
   if (!DEVM) delete DV.deal;   // standard game: the game's own deal, no reels
 
   // ===================================================================== scoring effects
@@ -573,7 +577,7 @@
         var groups = [['Planets', []], ['Emerging worlds', []], ['Other pieces', []], ['Formations', []]];
         var keys = []; [K, DP, IT, SG].forEach(function (o) { Object.keys(o || {}).forEach(function (k) { if (keys.indexOf(k) < 0) keys.push(k); }); });
         keys.forEach(function (k) {
-          var n = nm(k), d = ds(k); if (!hit(n + ' ' + d)) return;
+          var n = nm(k), d = ds(k); if (k == 'g') d = d.replace(/\b[35] Verdants\b/, '5 Verdants (3 with Verdant Grove)'); if (!hit(n + ' ' + d)) return;
           var art = ''; try { art = orb({ k: k, life: 3, st: 0, s: 2, perm: 0 }, 1); } catch (e) {}
           if (SG[k]) groups[3][1].push(row(art, n, '', d));
           else if (DP[k]) groups[1][1].push(row(art, n, '', d));
@@ -584,7 +588,7 @@
       } else if (tab == 'auras') {
         var z = tsz('g');
         body += '<p class="dvb-note">A Solar System gives an aura of its main planet: 4 points when formed, +1 every spin it lands. Every ' + z + ' points is a new tier. Points from several Systems of the same kind add up. A System also gives +2 ⭐ to every piece of its kind on the board.</p>';
-        Object.keys(AUR).forEach(function (k) { var n = (K[k] ? K[k].n : k) + ' Aura'; if (hit(n + ' ' + AUR[k])) body += row('', n, /tier/i.test(AUR[k]) ? '' : 'per tier', esc(AUR[k]), CC[k]); });
+        Object.keys(AUR).forEach(function (k) { /* only auras a Solar System can give */ if (!K[k]) return; var n = K[k].n + ' Aura'; if (hit(n + ' ' + AUR[k])) body += row('', n, /tier/i.test(AUR[k]) ? '' : 'per tier', esc(k == 'g' ? AUR[k].replace(/\b[35] Verdants\b/, '5 Verdants (3 with Verdant Grove)') : AUR[k]), CC[k]); });
       } else {
         RELICS.slice().sort(function (a, b) { return a.n < b.n ? -1 : 1; }).forEach(function (r) { if (hit(r.n + ' ' + r.d)) body += row('', r.n, r.c + ' gold', esc(r.d)); });
       }
