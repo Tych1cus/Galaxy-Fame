@@ -27,8 +27,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Chorus: in a Solar System they score 1, 2, 3... like on the board
 - ok: Chorus: System panel shows each Chorus's number
 - ok: Fix: Rubble Rights works (Quarries +4 per Asteroid)
-- ok: Fix: Prism Lens gives the Nebula +2 on the board
-- ok: Fix: Prism Lens gives the Nebula +2 in a Solar System
 - ok: Fix: info popup shows Green Thumb's real +2
 - ok: Fix: info popup shows Forest Crown's real +2 and Canopy Crown
 - ok: Fix: Super Giant banner says its real value
@@ -72,6 +70,13 @@ Updated by tools/apply_patches.py after each upload.
 - ok: System panel: total keeps decimals (matches the board)
 - ok: System pieces row: every planet shows its own score
 - ok: System pieces row: score under every planet (not a dot)
+- ok: Nebula: scores +2 itself for every piece touching it (Prism Lens +2 more)
+- ok: Nebula in a Solar System: +2 for every piece touching the System (board)
+- ok: Nebula in a Solar System: +2 for every piece touching the System, Prism Lens +2 (System score)
+- ok: Nebula: shows its own score when it scores (not 'Buff!')
+- ok: Text: Nebula
+- ok: Nebula info popup
+- ok: Text: Prism Lens
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -85,8 +90,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Chorus: in a Solar System they score 1, 2, 3... like on the board
 - ok (Devious): Chorus: System panel shows each Chorus's number
 - ok (Devious): Fix: Rubble Rights works (Quarries +4 per Asteroid)
-- ok (Devious): Fix: Prism Lens gives the Nebula +2 on the board
-- ok (Devious): Fix: Prism Lens gives the Nebula +2 in a Solar System
 - ok (Devious): Fix: info popup shows Green Thumb's real +2
 - ok (Devious): Fix: info popup shows Forest Crown's real +2 and Canopy Crown
 - ok (Devious): Fix: Super Giant banner says its real value
@@ -130,3 +133,10 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): System panel: total keeps decimals (matches the board)
 - ok (Devious): System pieces row: every planet shows its own score
 - ok (Devious): System pieces row: score under every planet (not a dot)
+- ok (Devious): Nebula: scores +2 itself for every piece touching it (Prism Lens +2 more)
+- ok (Devious): Nebula in a Solar System: +2 for every piece touching the System (board)
+- ok (Devious): Nebula in a Solar System: +2 for every piece touching the System, Prism Lens +2 (System score)
+- ok (Devious): Nebula: shows its own score when it scores (not 'Buff!')
+- ok (Devious): Text: Nebula
+- ok (Devious): Nebula info popup
+- ok (Devious): Text: Prism Lens

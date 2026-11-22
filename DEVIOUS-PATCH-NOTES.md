@@ -21,6 +21,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - **Star Shards:** ending a run right away no longer gives 4 free shards.
 
 ## Rule change
+- **Nebula** scores +2 ⭐ itself for every piece touching it (diagonals count) instead of giving +2 to its neighbours. Inside a Solar System, each Nebula scores +2 ⭐ for every piece touching that System (before, it scored nothing there).
 - **Chorus:** scores 1, 2, 3… in order. Choruses inside Solar Systems count first, then the board continues the count.
 
 ## Clearer text (numbers unchanged)
