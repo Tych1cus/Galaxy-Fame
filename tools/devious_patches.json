@@ -187,8 +187,8 @@
  },
  {
   "name": "Text: The Verdant +3 bonus needs 1 f",
-  "find": "Verdant set bonus starts at 4 Verdants.",
-  "replace": "The Verdant +3 bonus needs 1 fewer Verdant."
+  "find": "d:'Verdants need 3 instead of 5 for buff/aura.'",
+  "replace": "d:'Verdants need 3 instead of 5 for buff/aura.'"
  },
  {
   "name": "Speeds 1x 2x 3x 5x",
