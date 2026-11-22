@@ -10,6 +10,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - **Closing the page mid-step lost progress:** the run was only saved at the end of a spin, so a planet pick, a shop visit, relics bought or the "find more often" choice were lost. Those are saved now too.
 - **Solar System picture** showed blank white planets (since the lag fix). It shows every planet in the System again.
 - **"Produces each spin"** in the Solar System popup was spaced out letter by letter (it borrowed the title's style).
+- **Solar System popup math** used each planet's plain value, not what it scores in that System: Cradle growth, Ice and Quarries showed 1, 0 and 0, and the difference was hidden in the "Solar System bonus". Rows now show the real scores, the bonus shows the real +15, and the total keeps its decimals like the board.
 - **End of run** had no way back to the main menu (only New run and Observatory). Added a Main menu button.
 - **Continue run** flashed the new-run "pick your starting planet" screen before showing your run.
 - **Credits number** showed tiny under the 💰.

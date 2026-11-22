@@ -37,7 +37,7 @@
  {
   "name": "Chorus: System panel shows each Chorus's number",
   "find": "else if(k=='h'){sc=cm.slice(0,ci+1).filter(function(x){return x=='h'}).length}",
-  "replace": "else if(k=='h'){var _H=cm.filter(function(x){return x=='h'}).length,_t=tierF(auras(),'h'),_l=has('encore')&&cm.lastIndexOf('h')==ci;var _n=chOff(c)+cm.slice(0,ci+1).filter(function(x){return x=='h'}).length;sc=(_n+_t+(has('baton')?1:0))*(_l?2:1);note='Chorus #'+_n+(_t?' + aura '+_t:'')+(has('baton')?' + Baton':'')+(_l?' ×2 Encore':'')}"
+  "replace": "else if(k=='h'){var _H=cm.filter(function(x){return x=='h'}).length,_t=tierF(auras(),'h'),_l=has('encore')&&cm.lastIndexOf('h')==ci;var _n=chOff(s2)+cm.slice(0,ci+1).filter(function(x){return x=='h'}).length;sc=(_n+_t+(has('baton')?1:0))*(_l?2:1);note='Chorus #'+_n+(_t?' + aura '+_t:'')+(has('baton')?' + Baton':'')+(_l?' ×2 Encore':'')}"
  },
  {
   "name": "Fix: Rubble Rights works (Quarries +4 per Asteroid)",
@@ -240,5 +240,35 @@
   "name": "End of run: Main menu button",
   "find": "<button class=\"sm\" onclick=\"newGame()\">New run</button><button class=\"sm\" onclick=\"showMeta()\">Observatory</button></div></div>';",
   "replace": "<button class=\"sm\" onclick=\"newGame()\">New run</button><button class=\"sm\" onclick=\"showMeta()\">Observatory</button><button class=\"sm\" onclick=\"showMenu()\">Main menu</button></div></div>';"
+ },
+ {
+  "name": "System panel: record what each planet in a System really scores",
+  "find": "else if(k=='q')x=2;v+=x});",
+  "replace": "else if(k=='q')x=2;if(window.__px)window.__px.push([k,x]);v+=x});"
+ },
+ {
+  "name": "System panel: every planet listed on its own with what it really scores",
+  "find": "var rows=Object.keys(o).map(function(k){var pv=pval(k),each=pv.v,sub=each*o[k];return'<div class=\"prow\"><span style=\"color:'+CC[k]+'\">'+K[k].n+' ×'+o[k]+'</span><b>'+fm1(each)+' ⭐ each</b><i>= '+fm1(sub)+'</i><small>'+pv.w+'</small></div>'}).join('');",
+  "replace": "window.__px=[];try{sysVal(p)}catch(e){}var _PX=window.__px||[];window.__px=null;var act={};_PX.forEach(function(a){(act[a[0]]=act[a[0]]||[]).push(a[1])});var _hn=0;var rows=_PX.map(function(a,i){var k=a[0];if(!K[k])return'';var pv=pval(k),note=pv.w;if(k=='c'){var _g=(p.ch&&p.ch[i]!=null)?p.ch[i]:0;note=(has('heirloom')?2:1)+' base + '+fm1(_g)+' growth'}else if(k=='h'){_hn++;note='Chorus #'+(chOff(p)+_hn)}return'<div class=\"prow\"><span style=\"color:'+CC[k]+'\">'+K[k].n+'</span><b>'+fm1(a[1])+' ⭐</b><small>'+(note||'')+'</small></div>'}).join('');"
+ },
+ {
+  "name": "System panel: planets total uses the real scores",
+  "find": "var raw=0;Object.keys(o).forEach(function(k){raw+=pval(k).v*o[k]});",
+  "replace": "var raw=0;Object.keys(o).forEach(function(k){raw+=(act[k]||[]).reduce(function(a,b){return a+b},0)});"
+ },
+ {
+  "name": "System panel: total keeps decimals (matches the board)",
+  "find": "var total=Math.round(p.val!==undefined?p.val:sysVal(p));",
+  "replace": "var total=Math.round((p.val!==undefined?p.val:sysVal(p))*10)/10;"
+ },
+ {
+  "name": "System pieces row: every planet shows its own score",
+  "find": "subs.forEach(function(s2,si){var cm=s2.comp||[],rows='',vc=0;",
+  "replace": "subs.forEach(function(s2,si){var cm=s2.comp||[],rows='',vc=0;window.__px=[];try{sysVal(s2)}catch(e){}var _pv=window.__px||[];window.__px=null;"
+ },
+ {
+  "name": "System pieces row: score under every planet (not a dot)",
+  "find": "else sc='\\u00b7';",
+  "replace": "else sc=r1(_pv[ci]?_pv[ci][1]:0);"
  }
 ]
