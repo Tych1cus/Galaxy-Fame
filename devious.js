@@ -552,14 +552,56 @@
   function leverHtml(cls) { return '<div class="dv-lever ' + cls + '" tabindex="0" role="button" aria-label="Pull the lever to spin"><div class="dv-base"></div><div class="dv-slot"></div><div class="dv-arm"></div><div class="dv-knob"></div></div>'; }
   wrapHtml('gameHtml', function (h) {
     var mb = '<button class="sm dv-mbtn" style="margin:0 6px" onclick="dvMusic()" title="Music: loud, quiet or off">' + mLabel() + '</button>';
-    h = h.replace('<h1>✦ GALAXY FAME</h1>', DEVM ? '<h1>✦ GALAXY FAME <span class="dv-tag">DEVIOUS</span></h1>' + mb : '<h1>✦ GALAXY FAME</h1>' + mb);
+    h = h.replace('<h1>✦ GALAXY FAME</h1>', DEVM ? '<h1>✦ GALAXY FAME <span class="dv-tag">DEVIOUS</span></h1>' + mb + bookBtn : '<h1>✦ GALAXY FAME</h1>' + mb);
     if (!DEVM) return h;
     var i = h.indexOf('<div class="bw"');
     if (i > -1) { var j = h.indexOf('>', i) + 1; h = h.slice(0, j) + leverHtml('dv-wide') + h.slice(j); }
     var g = h.indexOf('<div class="go">'); if (g > -1) { g += 16; h = h.slice(0, g) + leverHtml('dv-phone') + h.slice(g); }
     return h;
   });
-  wrapHtml('menuHtml', function (h) { return (DEVM ? h.replace('✦ GALAXY FAME</h1>', '✦ GALAXY FAME</h1><div class="dv-tag dv-big">😈 DEVIOUS MODE</div>') : h).replace('<button class="sm" style="margin:0" onclick="sfxToggle()">', '<button class="sm dv-mbtn" style="margin:0 8px 0 0" onclick="dvMusic()" title="Music: loud, quiet or off">' + mLabel() + '</button><button class="sm" style="margin:0" onclick="sfxToggle()">'); });
+  // ===================================================================== compendium (Devious Mode only)
+  // Built from the game's own data each time it opens, so it always matches the current rules.
+  window.dvBook = function (tab, q) {
+    var old = document.getElementById('dv-book'); if (old && tab === undefined) { old.remove(); return; }
+    tab = tab || (old && old.dataset.tab) || 'planets'; q = q !== undefined ? q : ((old && old.querySelector('input') || {}).value || '');
+    var ql = q.toLowerCase(), hit = function (s) { return !ql || s.toLowerCase().indexOf(ql) > -1; };
+    var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+    var row = function (art, name, tag, txt, col) { return '<div class="dvb-row">' + (art ? '<div class="dvb-art">' + art + '</div>' : '') + '<div><b style="color:' + (col || '#fff') + '">' + esc(name) + '</b>' + (tag ? ' <span class="dvb-tag">' + esc(tag) + '</span>' : '') + '<p>' + txt + '</p></div></div>'; };
+    var body = '';
+    try {
+      if (tab == 'planets') {
+        var groups = [['Planets', []], ['Emerging worlds', []], ['Other pieces', []], ['Formations', []]];
+        var keys = []; [K, DP, IT, SG].forEach(function (o) { Object.keys(o || {}).forEach(function (k) { if (keys.indexOf(k) < 0) keys.push(k); }); });
+        keys.forEach(function (k) {
+          var n = nm(k), d = ds(k); if (!hit(n + ' ' + d)) return;
+          var art = ''; try { art = orb({ k: k, life: 3, st: 0, s: 2, perm: 0 }, 1); } catch (e) {}
+          if (SG[k]) groups[3][1].push(row(art, n, '', d));
+          else if (DP[k]) groups[1][1].push(row(art, n, '', d));
+          else if (IT[k]) groups[2][1].push(row(art, n, RN[IT[k].r], d, RC[IT[k].r]));
+          else groups[0][1].push(row(art, n, '', d, CC[k]));
+        });
+        groups.forEach(function (g) { if (g[1].length) body += '<h4>' + g[0] + '</h4>' + g[1].join(''); });
+      } else if (tab == 'auras') {
+        var z = tsz('g');
+        body += '<p class="dvb-note">A Solar System gives an aura of its main planet: 4 points when formed, +1 every spin it lands. Every ' + z + ' points is a new tier. Points from several Systems of the same kind add up. A System also gives +2 ⭐ to every piece of its kind on the board.</p>';
+        Object.keys(AUR).forEach(function (k) { var n = (K[k] ? K[k].n : k) + ' Aura'; if (hit(n + ' ' + AUR[k])) body += row('', n, /tier/i.test(AUR[k]) ? '' : 'per tier', esc(AUR[k]), CC[k]); });
+      } else {
+        RELICS.slice().sort(function (a, b) { return a.n < b.n ? -1 : 1; }).forEach(function (r) { if (hit(r.n + ' ' + r.d)) body += row('', r.n, r.c + ' gold', esc(r.d)); });
+      }
+    } catch (e) { body = '<p class="dvb-note">Could not read the game data (' + esc(e.message) + ').</p>'; }
+    if (!body) body = '<p class="dvb-note">Nothing matches “' + esc(q) + '”.</p>';
+    var tb = function (id, label) { return '<button class="' + (tab == id ? 'on' : '') + '" onclick="dvBook(\'' + id + '\')">' + label + '</button>'; };
+    var html = '<div class="dvb-box"><div class="dvb-top"><b>📖 Compendium</b><button class="dvb-x" onclick="dvBook()" aria-label="Close">✕</button></div>' +
+      '<div class="dvb-tabs">' + tb('planets', 'Planets') + tb('auras', 'Auras') + tb('relics', 'Relics') + '</div>' +
+      '<input type="search" placeholder="Search…" value="' + esc(q) + '" oninput="dvBook(\'' + tab + '\', this.value)"><div class="dvb-list">' + body + '</div></div>';
+    var d = old || document.createElement('div'); d.id = 'dv-book'; d.dataset.tab = tab; d.innerHTML = html;
+    d.onclick = function (e) { if (e.target === d) dvBook(); };
+    if (!old) document.body.appendChild(d);
+    var inp = d.querySelector('input'); if (q && inp) { inp.focus(); inp.setSelectionRange(q.length, q.length); }
+  };
+  var bookBtn = '<button class="sm" style="margin:0 6px 0 0" onclick="dvBook()">📖 Compendium</button>';
+
+  wrapHtml('menuHtml', function (h) { return (DEVM ? h.replace('✦ GALAXY FAME</h1>', '✦ GALAXY FAME</h1><div class="dv-tag dv-big">😈 DEVIOUS MODE</div>') : h).replace('<button class="sm" style="margin:0" onclick="sfxToggle()">', (DEVM ? bookBtn : '') + '<button class="sm dv-mbtn" style="margin:0 8px 0 0" onclick="dvMusic()" title="Music: loud, quiet or off">' + mLabel() + '</button><button class="sm" style="margin:0" onclick="sfxToggle()">'); });
   if (typeof window.draw == 'function') { var d0 = window.draw; window.draw = function () { var o = d0.apply(this, arguments); try { drawLever(); } catch (e) {} return o; }; }
 
   // ===================================================================== look
@@ -589,6 +631,14 @@
     '.dv-lever.dv-phone{display:none}',
     (DEVM ? '@media(min-width:901px){.wrap>div:first-child{padding-right:64px}.dv-lever.dv-wide{right:-62px}}' : ''),
     '.board .cell{background-image:linear-gradient(45deg,transparent calc(50% - .7px),#3a47a03a 50%,transparent calc(50% + .7px)),linear-gradient(-45deg,transparent calc(50% - .7px),#3a47a03a 50%,transparent calc(50% + .7px))}',   // diagonal lines: diagonals count as touching
+    '#dv-book{position:fixed;inset:0;z-index:9000;background:#03050cd0;display:flex;align-items:center;justify-content:center;padding:12px}',
+    '.dvb-box{background:#0e1424;border:1px solid #2a3560;border-radius:16px;width:100%;max-width:640px;max-height:calc(100vh - 24px);display:flex;flex-direction:column;color:#e8eefc;font:14px/1.45 -apple-system,Segoe UI,Roboto,sans-serif}',
+    '.dvb-top{display:flex;justify-content:space-between;align-items:center;padding:12px 14px 6px;font-size:18px}.dvb-x{background:none;border:0;color:#93a1c4;font-size:20px;cursor:pointer;padding:4px 8px}',
+    '.dvb-tabs{display:flex;gap:6px;padding:0 14px}.dvb-tabs button{flex:1;background:#141c30;color:#c9d3f0;border:1px solid #2a3560;border-radius:10px;padding:8px;font:inherit;font-weight:700;cursor:pointer}.dvb-tabs button.on{background:#3a2a6a;color:#fff;border-color:#ff7ae0}',
+    '#dv-book input{margin:10px 14px 6px;padding:9px 12px;border-radius:10px;border:1px solid #2a3560;background:#070a14;color:#fff;font:inherit;font-size:16px}',
+    '.dvb-list{overflow:auto;padding:0 14px 14px}.dvb-list h4{margin:14px 0 4px;color:#93a1c4;font-size:12px;text-transform:uppercase;letter-spacing:.8px}',
+    '.dvb-row{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #1e2740}.dvb-row p{margin:2px 0 0;color:#c9d3f0}.dvb-art{width:40px;height:40px;flex:none}.dvb-art img,.dvb-art svg,.dvb-art .orb{width:40px!important;height:40px!important}',
+    '.dvb-tag{font-size:11px;color:#93a1c4;border:1px solid #2a3560;border-radius:6px;padding:0 5px;margin-left:4px}.dvb-note{color:#93a1c4;margin:10px 0}',
     '.sumline.big{letter-spacing:normal!important;font-size:15px!important;margin-bottom:0!important}',   // the title's .big class made "Produces each spin" spaced out
     '.pill b span#tc{display:inline!important;font-size:inherit!important;color:inherit!important;letter-spacing:0!important;text-transform:none!important}',
     '@media(max-width:520px){.stats{grid-template-columns:repeat(3,1fr)!important;gap:6px!important}.stats .pill{padding:6px 10px!important}.stats .pill b{font-size:17px!important}.stats .pill b#fbar,.stats .pill b#fbar span{font-size:18px!important}}',

@@ -350,5 +350,10 @@
   "name": "Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)",
   "find": "M.prestige=o.prestige||0;M.plvl=Math.min(o.prestige||0,o.plvl||0)}",
   "replace": "M.prestige=o.prestige||0;M.plvl=Math.min(o.prestige||0,o.plvl||0);for(var _k in o)if(M[_k]===undefined)M[_k]=o[_k]}"
+ },
+ {
+  "name": "Text: Solar System and Galaxy (real scoring)",
+  "find": "var SG={sys:{n:'Solar System',d:'Worth 14 ⭐ + 3 for each kind of planet inside.'},gal:{n:'Galaxy',d:'Worth 120 ⭐ + 16 for each kind of planet inside.'}};",
+  "replace": "var SG={sys:{n:'Solar System',d:'Scores what all its planets score, +15 ⭐.'},gal:{n:'Galaxy',d:'Scores what all its Solar Systems score, ×1.3.'}};"
  }
 ]
