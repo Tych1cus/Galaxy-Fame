@@ -11,7 +11,7 @@ const srv = http.createServer((q, r) => { const f = path.join(ROOT, decodeURICom
 const SCORES = [
   ['A lone Verdant', 'g', v => v == 1, '1'],
   ['A lone Forest', 'r', v => v == 1, '1'],
-  ['3 Forests (each)', 'r3', v => v == 2, '2'],
+  ['3 Forests (each)', 'r3', v => v == 1, '1'],
   ['A lone Supernova', 'b', v => v == 5, '5'],
   ['A lone Cradle', 'c', v => v == 1, '1'],
 ];
