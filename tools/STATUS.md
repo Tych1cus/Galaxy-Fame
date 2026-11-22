@@ -45,7 +45,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: Star Shards rules on the Observatory
 - ok: Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
 - ok: Verdant Aura text (sidebar)
-- NEEDS A LOOK: Verdant Aura text (banner) (game code changed here, skipped)
+- FIXED: Verdant Aura text (banner)
 - ok: Wide Lens text
 - ok: Text: You pick 1 fewer starting plan
 - ok: Text: Black Holes\' base bite drops 
@@ -114,7 +114,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Text: Star Shards rules on the Observatory
 - ok (Devious): Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
 - ok (Devious): Verdant Aura text (sidebar)
-- NEEDS A LOOK (Devious): Verdant Aura text (banner) (game code changed here, skipped)
+- ok (Devious): Verdant Aura text (banner)
 - ok (Devious): Wide Lens text
 - ok (Devious): Text: You pick 1 fewer starting plan
 - ok (Devious): Text: Black Holes\' base bite drops 
