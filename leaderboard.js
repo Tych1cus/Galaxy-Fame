@@ -185,7 +185,10 @@
   wrap('gameHtml', function (h) {
     var g = G_(); if (!g) return h;
     if (g.over) {
-      var fs = '<p class="gflb-final">Final score: ' + fmt(g.tot) + ' ⭐</p>';
+      var lj = g.ljBonusGot || 0;
+      var fs = lj > 0
+        ? '<p class="gflb-final"><small style="display:block;font-size:13px;font-weight:600;color:var(--mu)">Run fame ' + fmt(g.tot - lj) + ' + 💀 Leeroy bonus ' + fmt(lj) + ' =</small>Final score: ' + fmt(g.tot) + ' ⭐</p>'
+        : '<p class="gflb-final">Final score: ' + fmt(g.tot) + ' ⭐</p>';
       var ov = h.lastIndexOf('<div class="ov">');
       if (ov > -1) {
         var e = h.indexOf('</h1>', ov);

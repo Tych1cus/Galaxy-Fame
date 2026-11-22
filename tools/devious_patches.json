@@ -340,10 +340,5 @@
   "name": "Leeroy Jenkins bonus on a win is only paid once",
   "find": "if(G.t>=RENT.length){var lb=ljBonus();if(lb>0)",
   "replace": "if(G.t>=RENT.length){var lb=ljBonus();G._ljPaid=1;G.ljBonusGot=lb;if(lb>0)"
- },
- {
-  "name": "End of run shows the Leeroy Jenkins bonus",
-  "find": "<p style=\"color:var(--gd)\">✨ +'+G.earned+' Star Shards earned</p>'",
-  "replace": "<p style=\"color:var(--gd)\">✨ +'+G.earned+' Star Shards earned</p>'+(G.ljBonusGot?'<p style=\"color:var(--gd)\">💀 Leeroy Jenkins bonus: +'+G.ljBonusGot+' ⭐ final fame</p>':'')"
  }
 ]

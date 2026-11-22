@@ -86,7 +86,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: Starting Fleet
 - ok: Leeroy Jenkins bonus also when a run is lost (added before the score goes to the leaderboard)
 - ok: Leeroy Jenkins bonus on a win is only paid once
-- ok: End of run shows the Leeroy Jenkins bonus
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -159,4 +158,3 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Text: Starting Fleet
 - ok (Devious): Leeroy Jenkins bonus also when a run is lost (added before the score goes to the leaderboard)
 - ok (Devious): Leeroy Jenkins bonus on a win is only paid once
-- ok (Devious): End of run shows the Leeroy Jenkins bonus
