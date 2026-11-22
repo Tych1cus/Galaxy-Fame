@@ -525,7 +525,7 @@ function save(){try{localStorage.setItem('startithe_meta',JSON.stringify(M));loc
 function uL(id){return(M.up&&M.up[id])||0}
 function RT(t){return Math.max(1,Math.round(RENT[t]*(1-.04*uL('goal'))*(1+(PV().fame||0)/100)*(1+.13*((G&&G.lj)||0))))}
 function ljBonus(){return Math.round((G&&G.tot||0)*.1*((G&&G.lj)||0))}
-var UP=[{id:'start',n:'Starting Fleet',d:'Begin each run with +1 random planet per level.',max:2,base:45},{id:'cash',n:'Seed Capital',d:'+1 💰 each time you reach a fame goal, per level.',max:3,base:24},
+var UP=[{id:'start',n:'Starting Fleet',d:'Begin each run with +1 random Verdant, Forest, Supernova or Nebula per level.',max:2,base:45},{id:'cash',n:'Seed Capital',d:'+1 💰 each time you reach a fame goal, per level.',max:3,base:24},
 {id:'goal',n:'Goal Haggling',d:'All fame goals are 4% lower per level.',max:5,base:42},{id:'scout',n:'Scout Network',d:'+1 choice on every pick screen.',max:1,base:90},{id:'fame',n:'Fame Mastery',d:'+3 ⭐ at the end of every spin per level.',max:5,base:36},
 {id:'tink',n:'Relic Tinkering',d:'Relics cost 1 💰 less per level.',max:3,base:45},{id:'bazaar',n:'Grand Bazaar',d:'+1 relic offered in each shop per level.',max:2,base:75},
 {id:'form',n:'Swift Formation',d:'Solar Systems and Galaxies need 1 fewer piece per level.',max:2,base:90},
