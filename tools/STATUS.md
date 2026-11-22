@@ -28,7 +28,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Chorus: System panel shows each Chorus's number
 - ok: Fix: Rubble Rights works (Quarries +4 per Asteroid)
 - ok: Fix: info popup shows Green Thumb's real +2
-- NEEDS A LOOK: Fix: info popup shows Forest Crown's real +2 and Canopy Crown (game code changed here, skipped)
+- ok: Fix: info popup shows Forest Crown's real +2 and Canopy Crown
 - ok: Fix: Super Giant banner says its real value
 - ok: Text: Thick Dust
 - ok: Text: Dust Compactor
@@ -58,8 +58,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: The Verdant +3 bonus needs 1 f
 - ok: Speeds 1x 2x 3x 5x
 - ok: Forests count loose Forests again (broken in v157)
-- NEEDS A LOOK: Forest info popup uses the same count (game code changed here, skipped)
-- NEEDS A LOOK: Forest info popup value (game code changed here, skipped)
+- ok: Forest info popup uses the same count
+- ok: Forest info popup value
 - ok: Solar System picture matches its planets (picture cache ignored Cradles, Choruses and Quarries)
 - ok: Continue run: no flash of the new-run screen
 - ok: Continue run: show the run straight away
@@ -97,7 +97,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Chorus: System panel shows each Chorus's number
 - ok (Devious): Fix: Rubble Rights works (Quarries +4 per Asteroid)
 - ok (Devious): Fix: info popup shows Green Thumb's real +2
-- NEEDS A LOOK (Devious): Fix: info popup shows Forest Crown's real +2 and Canopy Crown (game code changed here, skipped)
+- ok (Devious): Fix: info popup shows Forest Crown's real +2 and Canopy Crown
 - ok (Devious): Fix: Super Giant banner says its real value
 - ok (Devious): Text: Thick Dust
 - ok (Devious): Text: Dust Compactor
@@ -127,8 +127,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Text: The Verdant +3 bonus needs 1 f
 - ok (Devious): Speeds 1x 2x 3x 5x
 - ok (Devious): Forests count loose Forests again (broken in v157)
-- NEEDS A LOOK (Devious): Forest info popup uses the same count (game code changed here, skipped)
-- NEEDS A LOOK (Devious): Forest info popup value (game code changed here, skipped)
+- ok (Devious): Forest info popup uses the same count
+- ok (Devious): Forest info popup value
 - ok (Devious): Solar System picture matches its planets (picture cache ignored Cradles, Choruses and Quarries)
 - ok (Devious): Continue run: no flash of the new-run screen
 - ok (Devious): Continue run: show the run straight away
