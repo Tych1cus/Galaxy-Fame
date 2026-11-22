@@ -52,7 +52,16 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;co
 .pill{background:var(--card);border:1px solid var(--bd);border-radius:999px;padding:5px 14px;font-size:13px}
 .pill b{color:var(--gd)}
 footer{margin-top:60px;text-align:center;color:#4d5680;font-size:12px}
-</style></head><body><div class="wrap">
+</style><style>
+nav.rnav{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 4px}
+nav.rnav a{color:var(--tx);text-decoration:none;font-size:12.5px;padding:5px 10px;border:1px solid var(--bd);border-radius:999px;background:var(--card)}
+nav.rnav a:hover{border-color:var(--gd);color:var(--gd)}
+nav.rnav a i{color:var(--mu);font-style:normal;font-size:11px;margin-left:3px}
+h3.rgrp{font-size:15px;margin:30px 0 4px;color:var(--gd);text-transform:uppercase;letter-spacing:1.2px}
+h3.rgrp small{color:var(--mu);font-size:12px;font-weight:400;margin-left:6px;letter-spacing:0}
+p.rblurb{color:var(--mu);font-size:13px;margin:0 0 10px}
+</style>
+</head><body><div class="wrap">
 <header>
   <h1>Galaxy Fame — Reference</h1>
   <div class="sub">Every name and description, straight out of the game file. v166 (live)</div>
@@ -293,180 +302,272 @@ footer{margin-top:60px;text-align:center;color:#4d5680;font-size:12px}
   <p>Worth 31 ⭐. The final star. Nothing merges with a Super Giant.</p><code class="rid">sg</code>
 </div></div>
 
-<h2 id="relics">Relics <small>43 — sorted by price</small></h2>
-<div class="grid"><div class="rcard">
-  <div class="rhead"><b>Lucky Dice</b><span class="gold">3 💰</span></div>
-  <p>Every relic shop starts with one free reroll.</p>
-  <code class="rid">lucky</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Piggy Bank</b><span class="gold">3 💰</span></div>
-  <p>+1 💰 every spin.</p>
-  <code class="rid">bank</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Time Dilation</b><span class="gold">3 💰</span></div>
-  <p>New Supernovas last 3 more spins.</p>
-  <code class="rid">dil</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Canopy Crown</b><span class="gold">4 💰</span></div>
-  <p>Every Forest is worth +1 ⭐ more.</p>
-  <code class="rid">cinder</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Center Stage</b><span class="gold">4 💰</span></div>
-  <p>Pieces in the middle 4 cells get +2 ⭐.</p>
-  <code class="rid">stage</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Corner Beacons</b><span class="gold">4 💰</span></div>
-  <p>Pieces in the 4 corners get +2 ⭐.</p>
-  <code class="rid">corner</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Debris Field</b><span class="gold">4 💰</span></div>
-  <p>Every relic you buy after this one also puts an Asteroid in your bag.</p>
-  <code class="rid">debris</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Forest Crown</b><span class="gold">4 💰</span></div>
-  <p>Forests worth +2 ⭐.</p>
-  <code class="rid">forge</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Frozen Core</b><span class="gold">4 💰</span></div>
-  <p>Supernovas worth +2 ⭐.</p>
-  <code class="rid">icecap</code>
-</div><div class="rcard">
+<h2 id="relics">Relics <small>43 — grouped by the planet they serve</small></h2>
+<p style="color:var(--mu);font-size:13.5px">Each group holds the relics that change one planet’s own worth or its aura. Planet groups run in the same order as the <a href="#auras" style="color:var(--gd)">Auras</a> section; inside a group, cheaper first. The last two groups are the randoms: <b>Cosmic Dust</b> covers the star chain (Dust → Cloud → Protostar → Giant Star → Supernova, none of which has an aura), and <b>General</b> holds relics that help any run plus the ones that work on board shape rather than a planet.</p>
+<nav class="rnav"><a href="#relics-verdant">Verdant <i>2</i></a><a href="#relics-forest">Forest <i>2</i></a><a href="#relics-supernova">Supernova <i>2</i></a><a href="#relics-nebula">Nebula <i>2</i></a><a href="#relics-blackhole">Black Hole <i>2</i></a><a href="#relics-cradle">Cradle <i>2</i></a><a href="#relics-chorus">Chorus <i>2</i></a><a href="#relics-volcanic">Volcanic <i>2</i></a><a href="#relics-ice">Ice Planet <i>2</i></a><a href="#relics-quarry">Quarry <i>2</i></a><a href="#relics-dust">Cosmic Dust <i>6</i></a><a href="#relics-general">General <i>17</i></a></nav>
+<h3 id="relics-verdant" class="rgrp">Verdant <small>2</small></h3>
+<p class="rblurb">Anything that moves the Verdant’s own worth or the 5-Verdant +3 set bonus.</p>
+<div class="grid">
+<div class="rcard">
   <div class="rhead"><b>Green Thumb</b><span class="gold">4 💰</span></div>
   <p>Verdants worth +2 ⭐.</p>
   <code class="rid">thumb</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Haggler</b><span class="gold">4 💰</span></div>
-  <p>Relics cost 2 💰 less in the shop.</p>
-  <code class="rid">haggler</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Heirloom Seeds</b><span class="gold">4 💰</span></div>
-  <p>Cradles start +1 ⭐ higher.</p>
-  <code class="rid">heirloom</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Nebula Halo</b><span class="gold">4 💰</span></div>
-  <p>Nebulas also give +1 ⭐ to pieces 2 cells away.</p>
-  <code class="rid">halo</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Quarry Vein</b><span class="gold">4 💰</span></div>
-  <p>If a Solar System holds 3 or more Quarries, it gains +20 ⭐.</p>
-  <code class="rid">vein</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Rubble Rights</b><span class="gold">4 💰</span></div>
-  <p>Quarries get +2 ⭐ more per adjacent Asteroid.</p>
-  <code class="rid">rubble</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Salvage Rights</b><span class="gold">4 💰</span></div>
-  <p>+2 💰 for each piece your Destroyers and Harvesters consume.</p>
-  <code class="rid">quarry</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Scrap Collector</b><span class="gold">4 💰</span></div>
-  <p>Asteroids worth +2 ⭐ more.</p>
-  <code class="rid">scrap</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Twin Dust</b><span class="gold">4 💰</span></div>
-  <p>Each Cosmic Dust you take brings a second Cosmic Dust with it.</p>
-  <code class="rid">twin</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Wide Lens</b><span class="gold">4 💰</span></div>
-  <p>+1 choice on every pick screen.</p>
-  <code class="rid">lens</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Conductor’s Baton</b><span class="gold">5 💰</span></div>
-  <p>Every Chorus counts 1 higher.</p>
-  <code class="rid">baton</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Cosmic Ledger</b><span class="gold">5 💰</span></div>
-  <p>Moons and Factories give +1 💰 more, and Giant Stars +1 ⭐.</p>
-  <code class="rid">ledger</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Encore</b><span class="gold">5 💰</span></div>
-  <p>The last Chorus to score each spin scores double.</p>
-  <code class="rid">encore</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Event Horizon</b><span class="gold">5 💰</span></div>
-  <p>Black Holes take 20% more from each neighbour.</p>
-  <code class="rid">hor</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Fame Dividend</b><span class="gold">5 💰</span></div>
-  <p>Reaching a fame goal gives +8 💰 more.</p>
-  <code class="rid">dividend</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Fertile Soil</b><span class="gold">5 💰</span></div>
-  <p>Cradles grow +0.3 ⭐ more every spin.</p>
-  <code class="rid">fertile</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Founder’s Charter</b><span class="gold">5 💰</span></div>
-  <p>Forming a Solar System or Galaxy gives quadruple fame.</p>
-  <code class="rid">founder</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Glacial Lens</b><span class="gold">5 💰</span></div>
-  <p>Ice Planets give each piece next to them +2 ⭐.</p>
-  <code class="rid">glacier</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Gravity Well</b><span class="gold">5 💰</span></div>
-  <p>Black Holes store 15% more of what they take, without taking more.</p>
-  <code class="rid">gravity</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Heavy Munitions</b><span class="gold">5 💰</span></div>
-  <p>Destroyers gain +3 ⭐ more for each Asteroid they shoot.</p>
-  <code class="rid">miner</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Magma Core</b><span class="gold">5 💰</span></div>
-  <p>Volcanic worlds worth +3 ⭐.</p>
-  <code class="rid">magma</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Obsidian Shield</b><span class="gold">5 💰</span></div>
-  <p>Volcanic worlds lose nothing to Black Holes, though Black Holes still feed on them.</p>
-  <code class="rid">obsidian</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Permafrost</b><span class="gold">5 💰</span></div>
-  <p>Ice Planets score +1 ⭐ for each piece next to them.</p>
-  <code class="rid">frozen</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Permafrost Choir</b><span class="gold">5 💰</span></div>
-  <p>An Ice Planet that joins a Solar System also stays on its square. That one can't join another.</p>
-  <code class="rid">permafrost</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Prism Lens</b><span class="gold">5 💰</span></div>
-  <p>A Nebula gains 2 ⭐ itself. Its neighbours still get their +2.</p>
-  <code class="rid">prism</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Prospector’s Charter</b><span class="gold">5 💰</span></div>
-  <p>Big Asteroids appear in your picks, and Destroyers gain +2 ⭐ more for shooting one.</p>
-  <code class="rid">prospect</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Thick Dust</b><span class="gold">5 💰</span></div>
-  <p>Cosmic Dust worth +2 ⭐.</p>
-  <code class="rid">thick</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Triplet Dust</b><span class="gold">5 💰</span></div>
-  <p>Each Cosmic Dust you take brings two more with it, for 3 in all. Replaces Twin Dust.</p>
-  <code class="rid">triplet</code>
-</div><div class="rcard">
+</div>
+<div class="rcard">
   <div class="rhead"><b>Verdant Grove</b><span class="gold">5 💰</span></div>
   <p>The Verdant +3 bonus needs 1 fewer Verdant.</p>
   <code class="rid">vgrove</code>
-</div><div class="rcard">
+</div>
+</div>
+<h3 id="relics-forest" class="rgrp">Forest <small>2</small></h3>
+<p class="rblurb">Forest worth per other Forest, on the board and in systems.</p>
+<div class="grid">
+<div class="rcard">
+  <div class="rhead"><b>Canopy Crown</b><span class="gold">4 💰</span></div>
+  <p>Every Forest is worth +1 ⭐ more.</p>
+  <code class="rid">cinder</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Forest Crown</b><span class="gold">4 💰</span></div>
+  <p>Forests worth +2 ⭐.</p>
+  <code class="rid">forge</code>
+</div>
+</div>
+<h3 id="relics-supernova" class="rgrp">Supernova <small>2</small></h3>
+<p class="rblurb">Supernova worth, and how long a new one burns.</p>
+<div class="grid">
+<div class="rcard">
+  <div class="rhead"><b>Time Dilation</b><span class="gold">3 💰</span></div>
+  <p>New Supernovas last 3 more spins.</p>
+  <code class="rid">dil</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Frozen Core</b><span class="gold">4 💰</span></div>
+  <p>Supernovas worth +2 ⭐.</p>
+  <code class="rid">icecap</code>
+</div>
+</div>
+<h3 id="relics-nebula" class="rgrp">Nebula <small>2</small></h3>
+<p class="rblurb">Nebula worth and how far its +2 reaches.</p>
+<div class="grid">
+<div class="rcard">
+  <div class="rhead"><b>Nebula Halo</b><span class="gold">4 💰</span></div>
+  <p>Nebulas also give +1 ⭐ to pieces 2 cells away.</p>
+  <code class="rid">halo</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Prism Lens</b><span class="gold">5 💰</span></div>
+  <p>A Nebula gains 2 ⭐ itself. Its neighbours still get their +2.</p>
+  <code class="rid">prism</code>
+</div>
+</div>
+<h3 id="relics-blackhole" class="rgrp">Black Hole <small>2</small></h3>
+<p class="rblurb">How hard a Black Hole bites, and how much of the bite it keeps.</p>
+<div class="grid">
+<div class="rcard">
+  <div class="rhead"><b>Event Horizon</b><span class="gold">5 💰</span></div>
+  <p>Black Holes take 20% more from each neighbour.</p>
+  <code class="rid">hor</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Gravity Well</b><span class="gold">5 💰</span></div>
+  <p>Black Holes store 15% more of what they take, without taking more.</p>
+  <code class="rid">gravity</code>
+</div>
+</div>
+<h3 id="relics-cradle" class="rgrp">Cradle <small>2</small></h3>
+<p class="rblurb">Cradle base worth and growth per spin.</p>
+<div class="grid">
+<div class="rcard">
+  <div class="rhead"><b>Heirloom Seeds</b><span class="gold">4 💰</span></div>
+  <p>Cradles start +1 ⭐ higher.</p>
+  <code class="rid">heirloom</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Fertile Soil</b><span class="gold">5 💰</span></div>
+  <p>Cradles grow +0.3 ⭐ more every spin.</p>
+  <code class="rid">fertile</code>
+</div>
+</div>
+<h3 id="relics-chorus" class="rgrp">Chorus <small>2</small></h3>
+<p class="rblurb">Chorus ordering, counting and the Encore double.</p>
+<div class="grid">
+<div class="rcard">
+  <div class="rhead"><b>Conductor’s Baton</b><span class="gold">5 💰</span></div>
+  <p>Every Chorus counts 1 higher.</p>
+  <code class="rid">baton</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Encore</b><span class="gold">5 💰</span></div>
+  <p>The last Chorus to score each spin scores double.</p>
+  <code class="rid">encore</code>
+</div>
+</div>
+<h3 id="relics-volcanic" class="rgrp">Volcanic <small>2</small></h3>
+<p class="rblurb">Volcanic worth and its shield against Black Holes.</p>
+<div class="grid">
+<div class="rcard">
+  <div class="rhead"><b>Magma Core</b><span class="gold">5 💰</span></div>
+  <p>Volcanic worlds worth +3 ⭐.</p>
+  <code class="rid">magma</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Obsidian Shield</b><span class="gold">5 💰</span></div>
+  <p>Volcanic worlds lose nothing to Black Holes, though Black Holes still feed on them.</p>
+  <code class="rid">obsidian</code>
+</div>
+</div>
+<h3 id="relics-ice" class="rgrp">Ice Planet <small>2</small></h3>
+<p class="rblurb">Ice Planet worth, its neighbours, and Permafrost Choir.</p>
+<div class="grid">
+<div class="rcard">
+  <div class="rhead"><b>Glacial Lens</b><span class="gold">5 💰</span></div>
+  <p>Ice Planets give each piece next to them +2 ⭐.</p>
+  <code class="rid">glacier</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Permafrost</b><span class="gold">5 💰</span></div>
+  <p>Ice Planets score +1 ⭐ for each piece next to them.</p>
+  <code class="rid">frozen</code>
+</div>
+</div>
+<h3 id="relics-quarry" class="rgrp">Quarry <small>2</small></h3>
+<p class="rblurb">Quarry’s Asteroid bonus and the gold from what Destroyers eat.</p>
+<div class="grid">
+<div class="rcard">
+  <div class="rhead"><b>Rubble Rights</b><span class="gold">4 💰</span></div>
+  <p>Quarries get +2 ⭐ more per adjacent Asteroid.</p>
+  <code class="rid">rubble</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Salvage Rights</b><span class="gold">4 💰</span></div>
+  <p>+2 💰 for each piece your Destroyers and Harvesters consume.</p>
+  <code class="rid">quarry</code>
+</div>
+</div>
+<h3 id="relics-dust" class="rgrp">Cosmic Dust <small>6</small></h3>
+<p class="rblurb">Cosmic Dust and the star chain it merges into — Dust, Cloud, Protostar, Giant Star, Supernova. Items and stars have no aura of their own.</p>
+<div class="grid">
+<div class="rcard">
+  <div class="rhead"><b>Twin Dust</b><span class="gold">4 💰</span></div>
+  <p>Each Cosmic Dust you take brings a second Cosmic Dust with it.</p>
+  <code class="rid">twin</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Founder’s Charter</b><span class="gold">5 💰</span></div>
+  <p>Forming a Solar System or Galaxy gives quadruple fame.</p>
+  <code class="rid">founder</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Thick Dust</b><span class="gold">5 💰</span></div>
+  <p>Cosmic Dust worth +2 ⭐.</p>
+  <code class="rid">thick</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Triplet Dust</b><span class="gold">5 💰</span></div>
+  <p>Each Cosmic Dust you take brings two more with it, for 3 in all. Replaces Twin Dust.</p>
+  <code class="rid">triplet</code>
+</div>
+<div class="rcard">
   <div class="rhead"><b>Dust Compactor</b><span class="gold">6 💰</span></div>
   <p>Solar Systems need 2 fewer pieces and Galaxies 1 fewer.</p>
   <code class="rid">dust</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Pulsar</b><span class="gold">6 💰</span></div>
-  <p>+3 ⭐ every spin.</p>
-  <code class="rid">pulsar</code>
-</div><div class="rcard">
-  <div class="rhead"><b>Scout Fleet</b><span class="gold">6 💰</span></div>
-  <p>+1 choice on every pick screen.</p>
-  <code class="rid">fleet</code>
-</div><div class="rcard">
+</div>
+<div class="rcard">
   <div class="rhead"><b>Stellar Nursery</b><span class="gold">6 💰</span></div>
   <p>Solar Systems and Galaxies score 15% more.</p>
   <code class="rid">nursery</code>
-</div><div class="rcard">
+</div>
+</div>
+<h3 id="relics-general" class="rgrp">General <small>17</small></h3>
+<p class="rblurb">Help any run: picks, gold, shop, Destroyers, and piece-shape relics that belong to no planet.</p>
+<div class="grid">
+<div class="rcard">
+  <div class="rhead"><b>Lucky Dice</b><span class="gold">3 💰</span></div>
+  <p>Every relic shop starts with one free reroll.</p>
+  <code class="rid">lucky</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Piggy Bank</b><span class="gold">3 💰</span></div>
+  <p>+1 💰 every spin.</p>
+  <code class="rid">bank</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Center Stage</b><span class="gold">4 💰</span></div>
+  <p>Pieces in the middle 4 cells get +2 ⭐.</p>
+  <code class="rid">stage</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Corner Beacons</b><span class="gold">4 💰</span></div>
+  <p>Pieces in the 4 corners get +2 ⭐.</p>
+  <code class="rid">corner</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Debris Field</b><span class="gold">4 💰</span></div>
+  <p>Every relic you buy after this one also puts an Asteroid in your bag.</p>
+  <code class="rid">debris</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Haggler</b><span class="gold">4 💰</span></div>
+  <p>Relics cost 2 💰 less in the shop.</p>
+  <code class="rid">haggler</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Quarry Vein</b><span class="gold">4 💰</span></div>
+  <p>If a Solar System holds 3 or more Quarries, it gains +20 ⭐.</p>
+  <code class="rid">vein</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Scrap Collector</b><span class="gold">4 💰</span></div>
+  <p>Asteroids worth +2 ⭐ more.</p>
+  <code class="rid">scrap</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Wide Lens</b><span class="gold">4 💰</span></div>
+  <p>+1 choice on every pick screen.</p>
+  <code class="rid">lens</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Cosmic Ledger</b><span class="gold">5 💰</span></div>
+  <p>Moons and Factories give +1 💰 more, and Giant Stars +1 ⭐.</p>
+  <code class="rid">ledger</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Fame Dividend</b><span class="gold">5 💰</span></div>
+  <p>Reaching a fame goal gives +8 💰 more.</p>
+  <code class="rid">dividend</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Heavy Munitions</b><span class="gold">5 💰</span></div>
+  <p>Destroyers gain +3 ⭐ more for each Asteroid they shoot.</p>
+  <code class="rid">miner</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Permafrost Choir</b><span class="gold">5 💰</span></div>
+  <p>An Ice Planet that joins a Solar System also stays on its square. That one can't join another.</p>
+  <code class="rid">permafrost</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Prospector’s Charter</b><span class="gold">5 💰</span></div>
+  <p>Big Asteroids appear in your picks, and Destroyers gain +2 ⭐ more for shooting one.</p>
+  <code class="rid">prospect</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Pulsar</b><span class="gold">6 💰</span></div>
+  <p>+3 ⭐ every spin.</p>
+  <code class="rid">pulsar</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Scout Fleet</b><span class="gold">6 💰</span></div>
+  <p>+1 choice on every pick screen.</p>
+  <code class="rid">fleet</code>
+</div>
+<div class="rcard">
   <div class="rhead"><b>Spotlight</b><span class="gold">8 💰</span></div>
   <p>Your highest-scoring piece each spin scores 30% more.</p>
   <code class="rid">spot</code>
-</div></div>
+</div>
+</div>
 
 <h2 id="auras">Auras <small>10 defined, 9 reachable</small></h2>
 <p style="color:var(--mu);font-size:13.5px">A Solar System gives aura only for its dominant kind: 4 to start, +1 each spin it lands. A tie for dominant is broken by a coin flip. Every planet of that kind — on the board, in your bag, or in another system — benefits.</p>
