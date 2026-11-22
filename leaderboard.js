@@ -16,18 +16,6 @@
     DEV = false,
     KEY = 'gf_lb';
 
-  // one-time merge of Devious Mode's old separate best, stats and saved run into the shared ones
-  (function () { try {
-    var LS = localStorage, j = function (k) { try { return JSON.parse(LS.getItem(k) || 'null'); } catch (e) { return null; } };
-    var dl = j('gf_dv_lb'); if (dl) { var sl = j('gf_lb') || {}; sl.by = sl.by || {};
-      for (var k in (dl.by || {})) { var e = dl.by[k]; if (e && (!sl.by[k] || sl.by[k].fame < e.fame)) sl.by[k] = e; }
-      if (dl.best && (!sl.best || sl.best.fame < dl.best.fame)) sl.best = dl.best; if (!sl.dev && dl.dev) sl.dev = dl.dev; if (dl.fix146) sl.fix146 = sl.fix146 || dl.fix146;
-      LS.setItem('gf_lb', JSON.stringify(sl)); LS.removeItem('gf_dv_lb'); }
-    var ds = j('gf_dv_stats'); if (ds && ds.runs) { var ss = j('gf_stats') || { runs: [] }; ss.runs = (ss.runs || []).concat(ds.runs).sort(function (a, b) { return (a.at || 0) - (b.at || 0); });
-      if (ds.since && (!ss.since || ds.since < ss.since)) ss.since = ds.since; LS.setItem('gf_stats', JSON.stringify(ss)); LS.removeItem('gf_dv_stats'); }
-    LS.removeItem('gf_dv_stats_cur');
-    var dr = LS.getItem('gf_dv_run'); if (dr) { if (!LS.getItem('gf_run')) LS.setItem('gf_run', dr); LS.removeItem('gf_dv_run'); }
-  } catch (e) {} })();
 
   // ---- our own save (separate from the game's save, so game code can't wipe it) ----
   var S = { best: null, by: {}, dev: '' };          // by[p] = best run played at exactly prestige p

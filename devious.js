@@ -388,7 +388,6 @@
       if (MD.final && s % 8 == 0) mVoice(mtof(root + 36 + (song.bar % 2 ? 1 : 0)), t, .45, 'sawtooth', .022, 6000);
     }
   };
-  DV.mus = { state: function () { return { calm: MD.calm, calmS: calmS, style: song && song.style }; }, calm: function (n) { calmS = n; calmBars = 0; ilBar = 0; calmMel = motif(); }, game: function (n) { if (song) song.style = n; } };
   function startMusic() {
     if (!ac()) return; if (!song) newSong();
     if (!echoIn) { echoIn = AC.createGain(); var dl = AC.createDelay(1), fb = AC.createGain(), lp = AC.createBiquadFilter(); dl.delayTime.value = .42; fb.gain.value = .38; lp.type = 'lowpass'; lp.frequency.value = 2600;
@@ -397,6 +396,9 @@
     if (!mTimer) { nextT = AC.currentTime + .08; mTimer = setInterval(schedule, 30); }
   }
   function stopMusic() { if (AC) musicBus.gain.setTargetAtTime(0, AC.currentTime, .15); clearInterval(mTimer); mTimer = null; }
+  // silence everything when the game isn't on screen (another tab, another app, phone locked)
+  document.addEventListener('visibilitychange', function () { try { if (!AC) return; if (document.hidden) AC.suspend(); else AC.resume(); } catch (e) {} });
+  addEventListener('pagehide', function () { try { if (AC) AC.suspend(); } catch (e) {} });
   window.dvMusic = function () { mLv = NEXTLV[mLv]; ls('gf_dv_mvol', mLv); musicOn = mLv != 'off'; if (musicOn) startMusic(); else stopMusic(); try { DH = ''; draw(); } catch (e) {} };
   // sound effects: loud → quiet → off
   window.sfxToggle = function () { sLv = NEXTLV[sLv]; ls('gf_dv_svol', sLv); try { SFX.on = sLv != 'off'; } catch (e) {} if (AC) sfxBus.gain.setTargetAtTime(sGain(), AC.currentTime, .05); try { DH = ''; draw(); } catch (e) {} };
@@ -488,10 +490,6 @@
     G.cells = cs; draw();
   };
 
-  // one-off restore of Leeroy Jenkins levels lost to the old reload bug: devious.html?setlj=3 (Devious Mode only, behind the password)
-  try { var _m = /[?&]setlj=(\d+)/.exec(location.search); if (DEVM && _m && typeof M == 'object' && localStorage.getItem('gf_dv_ok') == '17gnq1hzxh6') { M.lj = Math.min(+_m[1], (typeof LJMAX == 'function' ? LJMAX() : 20)); save();
-    history.replaceState(null, '', location.pathname); setTimeout(function () { try { G && (G.msg = ''); } catch (e) {} alertLike('Leeroy Jenkins set to level ' + M.lj); }, 300); } } catch (e) {}
-  function alertLike(s) { var d = document.createElement('div'); d.textContent = s; d.style.cssText = 'position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:99998;background:#2a1450;color:#fff;border:1px solid #ff7ae0;border-radius:12px;padding:10px 16px;font:600 15px sans-serif'; document.body.appendChild(d); setTimeout(function () { d.remove(); }, 4000); }
   if (!DEVM) delete DV.deal;   // standard game: the game's own deal, no reels
 
   // ===================================================================== scoring effects
