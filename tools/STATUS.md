@@ -27,7 +27,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Chorus: in a Solar System they score 1, 2, 3... like on the board
 - ok: Chorus: System panel shows each Chorus's number
 - ok: Fix: Rubble Rights works (Quarries +4 per Asteroid)
-- ok: Fix: info popup shows Green Thumb's real +2
 - ok: Fix: Super Giant banner says its real value
 - ok: Text: Thick Dust
 - ok: Text: Dust Compactor
@@ -80,16 +79,26 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Gold: help text
 - ok: Gold: Ice aura text
 - ok: Ice Planet in a Solar System works like on the board (Permafrost counts pieces touching the System)
-- ok: Starting Fleet gives a random planet of any kind (not Black Holes)
+- FIXED: Starting Fleet gives a random planet of any kind (not Black Holes)
 - ok: Text: Starting Fleet
-- ok: Leeroy Jenkins bonus also when a run is lost (added before the score goes to the leaderboard)
-- ok: Leeroy Jenkins bonus on a win is only paid once
-- ok: Start screen: right count of starting picks (1 from Prestige III)
-- ok: Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)
-- ok: Text: Solar System and Galaxy (real scoring)
-- ok: Forest Crown boosts Forests (they were checking Green Thumb) - board
-- ok: Forest Crown boosts Forests (they were checking Green Thumb) - Solar System
-- ok: Forest Crown boosts Forests - info popup
+- FIXED: Leeroy Jenkins bonus also when a run is lost (added before the score goes to the leaderboard)
+- FIXED: Leeroy Jenkins bonus on a win is only paid once
+- FIXED: Start screen: right count of starting picks (1 from Prestige III)
+- FIXED: Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)
+- FIXED: Text: Solar System and Galaxy (real scoring)
+- FIXED: Forests: Forest Crown +2, Green Thumb +1 (they were checking Green Thumb) - board
+- FIXED: Forests: Forest Crown +2, Green Thumb +1 (they were checking Green Thumb) - Solar System
+- FIXED: Forests: Forest Crown +2, Green Thumb +1 - info popup
+- FIXED: Verdants: Green Thumb +1 - board
+- FIXED: Verdants: Green Thumb +1 - Solar System
+- FIXED: Verdants: Green Thumb +1 - info popup
+- FIXED: Text: Green Thumb
+- FIXED: Forest info popup: no Canopy Crown flat bonus
+- FIXED: Canopy Crown: Forest aura 1 tier higher (payout)
+- FIXED: Canopy Crown: Forest aura 1 tier higher (sidebar)
+- FIXED: Text: Canopy Crown
+- FIXED: Sidebar: your planets (count of each kind you own, loose and inside Systems and Galaxies) instead of find odds
+- FIXED: Canopy Crown only offered once you have a tier 1 Forest aura
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -103,7 +112,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Chorus: in a Solar System they score 1, 2, 3... like on the board
 - ok (Devious): Chorus: System panel shows each Chorus's number
 - ok (Devious): Fix: Rubble Rights works (Quarries +4 per Asteroid)
-- ok (Devious): Fix: info popup shows Green Thumb's real +2
 - ok (Devious): Fix: Super Giant banner says its real value
 - ok (Devious): Text: Thick Dust
 - ok (Devious): Text: Dust Compactor
@@ -163,6 +171,16 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Start screen: right count of starting picks (1 from Prestige III)
 - ok (Devious): Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)
 - ok (Devious): Text: Solar System and Galaxy (real scoring)
-- ok (Devious): Forest Crown boosts Forests (they were checking Green Thumb) - board
-- ok (Devious): Forest Crown boosts Forests (they were checking Green Thumb) - Solar System
-- ok (Devious): Forest Crown boosts Forests - info popup
+- ok (Devious): Forests: Forest Crown +2, Green Thumb +1 (they were checking Green Thumb) - board
+- ok (Devious): Forests: Forest Crown +2, Green Thumb +1 (they were checking Green Thumb) - Solar System
+- ok (Devious): Forests: Forest Crown +2, Green Thumb +1 - info popup
+- ok (Devious): Verdants: Green Thumb +1 - board
+- ok (Devious): Verdants: Green Thumb +1 - Solar System
+- ok (Devious): Verdants: Green Thumb +1 - info popup
+- ok (Devious): Text: Green Thumb
+- ok (Devious): Forest info popup: no Canopy Crown flat bonus
+- ok (Devious): Canopy Crown: Forest aura 1 tier higher (payout)
+- ok (Devious): Canopy Crown: Forest aura 1 tier higher (sidebar)
+- ok (Devious): Text: Canopy Crown
+- ok (Devious): Sidebar: your planets (count of each kind you own, loose and inside Systems and Galaxies) instead of find odds
+- ok (Devious): Canopy Crown only offered once you have a tier 1 Forest aura

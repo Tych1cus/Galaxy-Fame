@@ -45,12 +45,6 @@
   "replace": "else if(k=='q')v=2+(has('rubble')?4:2)*N.filter("
  },
  {
-  "name": "Fix: info popup shows Green Thumb's real +2",
-  "find": "(has('thumb')?1:0)",
-  "replace": "(has('thumb')?2:0)",
-  "all": true
- },
- {
   "name": "Fix: Super Giant banner says its real value",
   "find": "<small>Worth 30 ⭐</small>",
   "replace": "<small>Worth 31 ⭐</small>"
@@ -347,18 +341,68 @@
   "replace": "var SG={sys:{n:'Solar System',d:'Scores what all its planets score, +15 ⭐.'},gal:{n:'Galaxy',d:'Scores what all its Solar Systems score, ×1.3.'}};"
  },
  {
-  "name": "Forest Crown boosts Forests (they were checking Green Thumb) - board",
+  "name": "Forests: Forest Crown +2, Green Thumb +1 (they were checking Green Thumb) - board",
   "find": "else if(k=='r')v=1+(has('thumb')?2:0)+(has('cinder')?1:0);",
-  "replace": "else if(k=='r')v=1+(has('forge')?2:0)+(has('cinder')?1:0);"
+  "replace": "else if(k=='r')v=1+(has('thumb')?1:0)+(has('forge')?2:0);"
  },
  {
-  "name": "Forest Crown boosts Forests (they were checking Green Thumb) - Solar System",
+  "name": "Forests: Forest Crown +2, Green Thumb +1 (they were checking Green Thumb) - Solar System",
   "find": "else if(k=='r')x=1+(has('thumb')?2:0)+(has('cinder')?1:0);",
-  "replace": "else if(k=='r')x=1+(has('forge')?2:0)+(has('cinder')?1:0);"
+  "replace": "else if(k=='r')x=1+(has('thumb')?1:0)+(has('forge')?2:0);"
  },
  {
-  "name": "Forest Crown boosts Forests - info popup",
+  "name": "Forests: Forest Crown +2, Green Thumb +1 - info popup",
   "find": "if(k=='r')return{n:'Forest',v:1+(has('thumb')?2:0)+(has('cinder')?1:0),w:'1 base'+(has('thumb')?' + Green Thumb':'')",
-  "replace": "if(k=='r')return{n:'Forest',v:1+(has('forge')?2:0)+(has('cinder')?1:0),w:'1 base'+(has('forge')?' + Forest Crown':'')"
+  "replace": "if(k=='r')return{n:'Forest',v:1+(has('thumb')?1:0)+(has('forge')?2:0),w:'1 base'+(has('thumb')?' + Green Thumb':'')+(has('forge')?' + Forest Crown':'')"
+ },
+ {
+  "name": "Verdants: Green Thumb +1 - board",
+  "find": "else if(k=='g')v=1+(has('thumb')?2:0)",
+  "replace": "else if(k=='g')v=1+(has('thumb')?1:0)"
+ },
+ {
+  "name": "Verdants: Green Thumb +1 - Solar System",
+  "find": "if(k=='g')x=1+(has('thumb')?2:0)",
+  "replace": "if(k=='g')x=1+(has('thumb')?1:0)"
+ },
+ {
+  "name": "Verdants: Green Thumb +1 - info popup",
+  "find": "{n:'Verdant',v:1+(has('thumb')?2:0)",
+  "replace": "{n:'Verdant',v:1+(has('thumb')?1:0)"
+ },
+ {
+  "name": "Text: Green Thumb",
+  "find": "{id:'thumb',n:'Green Thumb',d:'Verdants worth +2 ⭐.'",
+  "replace": "{id:'thumb',n:'Green Thumb',d:'Verdants and Forests worth +1 ⭐.'"
+ },
+ {
+  "name": "Forest info popup: no Canopy Crown flat bonus",
+  "find": "+(has('cinder')?' + Canopy Crown':'')",
+  "replace": ""
+ },
+ {
+  "name": "Canopy Crown: Forest aura 1 tier higher (payout)",
+  "find": "function aurTier(k){return Math.floor((auras()[k]||0)/(20+(PV().aura||0)))}",
+  "replace": "function aurTier(k){var _a=auras()[k]||0;return Math.floor(_a/(20+(PV().aura||0)))+(k=='r'&&_a>0&&has('cinder')?1:0)}"
+ },
+ {
+  "name": "Canopy Crown: Forest aura 1 tier higher (sidebar)",
+  "find": "function tierF(A,k){var a=A[k]||0;return a>0?1+Math.floor(a/tsz(k)):0}",
+  "replace": "function tierF(A,k){var a=A[k]||0;return a>0?1+Math.floor(a/tsz(k))+(k=='r'&&has('cinder')?1:0):0}"
+ },
+ {
+  "name": "Text: Canopy Crown",
+  "find": "{id:'cinder',n:'Canopy Crown',d:'Every Forest is worth +1 ⭐ more.'",
+  "replace": "{id:'cinder',n:'Canopy Crown',d:'Your Forest aura is 1 tier higher.'"
+ },
+ {
+  "name": "Sidebar: your planets (count of each kind you own, loose and inside Systems and Galaxies) instead of find odds",
+  "find": "function boostBox(){var N=pickN(),rows=oddsRows().map(function(r){var up=r.seen-r.seenBase;\nreturn'<div class=\"od\" title=\"'+r.n+'\"><div class=\"odh\"><span class=\"odn\"><i class=\"mic\">'+artSafe({k:r.k,life:3,st:0,s:2,perm:0})+'</i><span style=\"color:'+(CC[r.k]||'#fff')+'\">'+r.n+'</span></span><b>'+r.seen.toFixed(1)+'%</b></div></div>'}).join('');\nvar sp=poolSplit();\nrows+='<div class=\"od tot\"><div class=\"odh\"><span style=\"color:#ffb26b\">All items</span><b>'+sp.item.toFixed(1)+'%</b></div></div>';\nreturn'<h3 style=\"margin-top:12px\">Find odds</h3>'+rows}",
+  "replace": "function boostBox(){var c={},tot=0,add=function(k){if(K[k]){c[k]=(c[k]||0)+1;tot++}};G.bag.forEach(function(p){if(p.k=='sys')(p.comp||[]).forEach(add);else if(p.k=='gal')(p.subs||[]).forEach(function(s){(s.comp||[]).forEach(add)});else add(p.k)});\nvar ks=Object.keys(K).filter(function(k){return c[k]}).sort(function(a,b){return c[b]-c[a]});if(!ks.length)return'';\nreturn'<h3 style=\"margin-top:12px\">Your planets · '+tot+'</h3>'+ks.map(function(k){return'<div class=\"od\" title=\"'+K[k].n+'\"><div class=\"odh\"><span class=\"odn\"><i class=\"mic\"><img src=\"'+art(k,1)+'\" alt=\"\" style=\"width:100%;height:100%\"></i><span style=\"color:'+(CC[k]||'#fff')+'\">'+K[k].n+'</span></span><b>'+c[k]+'</b></div></div>'}).join('')}"
+ },
+ {
+  "name": "Canopy Crown only offered once you have a tier 1 Forest aura",
+  "find": "if(id=='magma'||id=='obsidian')return hasK('v');",
+  "replace": "if(id=='magma'||id=='obsidian')return hasK('v');\nif(id=='cinder')return tierF(auras(),'r')>=1;"
  }
 ]
