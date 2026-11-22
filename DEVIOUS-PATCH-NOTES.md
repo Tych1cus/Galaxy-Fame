@@ -19,6 +19,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - **Start screen** said "(2 of 2)" from Prestige III up, where you only get 1 starting pick. It now says "Choose your starting planet (1 of 1)".
 - **Continue run** flashed the new-run "pick your starting planet" screen before showing your run.
 - **Gold number** showed tiny under the 💰.
+- **Screen jumped during spins:** the End run button vanished mid-spin, so the header got shorter and the game moved. Its space is now kept.
 - **Rubble Rights** did nothing. Now Quarries get +4 per Asteroid (instead of +2).
 - **Prism Lens:** the Nebula gets +2 ⭐ as the text says (was +1).
 - **Info popup:** Green Thumb and Forest Crown showed +1 (real bonus is +2); Canopy Crown was missing.

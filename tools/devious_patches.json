@@ -484,5 +484,10 @@
   "name": "Volcanic aura base text",
   "find": "v:'+5% Black Hole per tier'",
   "replace": "v:'Black Holes 5% stronger per tier'"
+ },
+ {
+  "name": "End run button keeps its space during a spin (no header jump)",
+  "find": "(G&&!G.busy&&!G.over?'<button onclick=\"quitRun()\">End run</button>':'')",
+  "replace": "(G&&!G.over?'<button onclick=\"quitRun()\"'+(G.busy?' disabled style=\"visibility:hidden\"':'')+'>End run</button>':'')"
  }
 ]
