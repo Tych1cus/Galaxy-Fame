@@ -87,7 +87,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Leeroy Jenkins bonus also when a run is lost (added before the score goes to the leaderboard)
 - ok: Leeroy Jenkins bonus on a win is only paid once
 - ok: Start screen: right count of starting picks (1 from Prestige III)
-- FIXED: Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)
+- ok: Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
