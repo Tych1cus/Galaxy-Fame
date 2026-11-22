@@ -49,5 +49,6 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - 📖 Compendium (Devious Mode only): every planet, piece, aura and relic with what it does, with search. Built from the game's own data, so it stays up to date. Lists only auras a Solar System can give.
 - Verdant texts say 3 instead of 5 while you own Verdant Grove.
 - The sidebar shows how many of each planet you own (loose and inside Solar Systems and Galaxies) instead of the find odds.
+- Leaderboard has a 💀 Leeroy Jenkins tab: each player's highest Leeroy level they have won a run at.
 - Diagonal lines on the board, so it's clear diagonals count as touching.
 - Compact stats row on phones.

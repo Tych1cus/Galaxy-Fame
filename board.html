@@ -50,6 +50,7 @@ td.win{color:var(--gd)}
 <div class="tabs">
   <button id="tToday" onclick="tab('today')">Today</button>
   <button id="tAll" class="ghost" onclick="tab('all')">All time</button>
+  <button id="tLJ" class="ghost" onclick="tab('lj')">💀 Leeroy Jenkins</button>
 </div>
 <div class="ptabs" id="ptabs"></div>
 
@@ -83,7 +84,20 @@ function paint(rows){
   }).join('');
 }
 
+async function loadLJ(){
+  document.getElementById('sub').textContent='Highest Leeroy Jenkins level each player has won a run at';
+  document.getElementById('ptabs').innerHTML='';
+  var b=document.getElementById('rows');
+  try{
+    var r=await fetch(LB_URL+'/rest/v1/gf_lj?select=name,lj,updated_at&order=lj.desc,updated_at.asc&limit=100',{cache:'no-store',headers:{apikey:LB_KEY,Authorization:'Bearer '+LB_KEY}});
+    if(!r.ok)throw new Error(r.status==404?'the Leeroy board is not set up in the database yet':'HTTP '+r.status);
+    var rows=await r.json();
+    if(!rows.length){b.innerHTML='<tr><td colspan="4" class="msg">Nobody has won a Leeroy Jenkins run yet. Be first.</td></tr>';return}
+    b.innerHTML=rows.map(function(x,i){return '<tr class="'+(ME&&x.name.toLowerCase()===ME.toLowerCase()?'me':'')+'"><td class="pos">'+(i+1)+'</td><td>'+esc(x.name)+'<div class="title">since '+esc(String(x.updated_at||'').slice(0,10))+'</div></td><td class="fame">💀 Level '+x.lj+'</td><td></td></tr>'}).join('');
+  }catch(e){b.innerHTML='<tr><td colspan="4" class="msg err">Could not load the Leeroy board: '+esc(e.message)+'</td></tr>'}
+}
 async function load(){
+  if(TAB=='lj')return loadLJ();
   var pn=PL?'Prestige '+PL:'Normal';
   document.getElementById('sub').textContent=(TAB=='today'?'Best runs today ('+today()+')':'Best runs of all time')+' · '+pn+(PL<PMAX?' (runs at '+pn.replace('Prestige ','P')+' or higher)':'');
   ptabs();
@@ -102,7 +116,7 @@ async function load(){
 }
 function ptabs(){var h='';for(var i=0;i<=PMAX;i++)h+='<button class="'+(i==PL?'':'ghost')+'" onclick="ptab('+i+')">'+(i?'P'+i:'Normal')+'</button>';document.getElementById('ptabs').innerHTML=h}
 function ptab(i){PL=i;load()}
-function tab(t){TAB=t;document.getElementById('tToday').className=t=='today'?'':'ghost';document.getElementById('tAll').className=t=='all'?'':'ghost';load()}
+function tab(t){TAB=t;document.getElementById('tToday').className=t=='today'?'':'ghost';document.getElementById('tAll').className=t=='all'?'':'ghost';document.getElementById('tLJ').className=t=='lj'?'':'ghost';load()}
 
 function saveName(){
   var v=cleanName(document.getElementById('nm').value),m=document.getElementById('msg');

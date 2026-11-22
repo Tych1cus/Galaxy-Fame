@@ -77,6 +77,11 @@
     var prev = bestAt(pl), run = { goals: goals, fame: fame, p: pl, day: day() };
     if (fame > 0 && (!S.by[pl] || fame > S.by[pl].fame)) { S.by[pl] = run; keep(); }
     if (fame > 0 && (!prev || fame > prev.fame)) { g.newBest = true; g.newBestP = pl; }
+    // Leeroy Jenkins board: the highest Leeroy level this player has won a run at
+    if (r == 'win' && (g.lj || 0) > 0 && typeof fetch != 'undefined') try {
+      fetch(LB_URL + '/rest/v1/rpc/gf_submit_lj', { method: 'POST', headers: { 'apikey': LB_KEY, 'Authorization': 'Bearer ' + LB_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ p_dev: dev(), p_name: name(), p_lj: g.lj }) }).catch(function () {});
+    } catch (e) {}
     if (fame <= 0 || typeof fetch == 'undefined') return;
     try {
       var body = { p_dev: dev(), p_name: name(), p_day: day(), p_goals: goals, p_fame: fame, p_win: r == 'win', p_title: title, p_p: pl },
