@@ -8,6 +8,9 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - **Forests scored 0** unless you had Forests inside Solar Systems (since v157 loose Forests weren't counted). They count again, as the description says.
 - **Solar System pictures** could show another System's planets (the saved picture ignored Cradles, Choruses and Quarries). Each System now shows its own planets.
 - **Closing the page mid-step lost progress:** the run was only saved at the end of a spin, so a planet pick, a shop visit, relics bought or the "find more often" choice were lost. Those are saved now too.
+- **Solar System picture** showed blank white planets (since the lag fix). It shows every planet in the System again.
+- **"Produces each spin"** in the Solar System popup was spaced out letter by letter (it borrowed the title's style).
+- **End of run** had no way back to the main menu (only New run and Observatory). Added a Main menu button.
 - **Continue run** flashed the new-run "pick your starting planet" screen before showing your run.
 - **Credits number** showed tiny under the 💰.
 - **Rubble Rights** did nothing. Now Quarries get +4 per Asteroid (instead of +2).

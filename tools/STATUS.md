@@ -65,6 +65,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Solar System picture matches its planets (picture cache ignored Cradles, Choruses and Quarries)
 - ok: Continue run: no flash of the new-run screen
 - ok: Continue run: show the run straight away
+- ok: End of run: Main menu button
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -116,3 +117,4 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Solar System picture matches its planets (picture cache ignored Cradles, Choruses and Quarries)
 - ok (Devious): Continue run: no flash of the new-run screen
 - ok (Devious): Continue run: show the run straight away
+- ok (Devious): End of run: Main menu button

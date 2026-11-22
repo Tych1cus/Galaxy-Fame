@@ -41,7 +41,22 @@
       try { var i = d.indexOf(','), bin = atob(d.slice(i + 1)), u = new Uint8Array(bin.length); for (var j = 0; j < bin.length; j++) u[j] = bin.charCodeAt(j);
         return cache[d] = URL.createObjectURL(new Blob([u], { type: d.slice(5, d.indexOf(';')) })); } catch (e) { return d; }
     }
+    // Solar System pictures draw the small planets inside an SVG, which can't load shared links,
+    // so they keep their own copy of the pictures (PLANET_MINI used to be the same object)
+    try { if (window.PLANET_ART) { var mini = {}; for (var k0 in PLANET_ART) mini[k0] = PLANET_ART[k0]; window.PLANET_MINI = mini; } } catch (e) {}
     try { if (window.PLANET_ART) for (var k in PLANET_ART) PLANET_ART[k] = link(PLANET_ART[k]); } catch (e) {}
+    // and each finished Solar System picture is turned into one small shared image too
+    try { if (typeof window.cosArt == 'function') { var cos0 = window.cosArt, cosC = {}, pend = {};
+      window.cosArt = function (p) {
+        var key = p && p.k == 'sys' ? (p.comp || []).join('') + '|' + (p.dom || '') + '|' + (p.cg ? Math.round(p.cg * 10) : 0) : null;
+        if (key && cosC[key]) return cosC[key];
+        var s = cos0.apply(this, arguments);
+        if (key && typeof s == 'string' && s.length > 20000 && !pend[key]) { pend[key] = 1;
+          var img = new Image(); img.onload = function () { try { var c = document.createElement('canvas'); c.width = c.height = 400; c.getContext('2d').drawImage(img, 0, 0, 400, 400);
+            c.toBlob(function (b) { if (b) { cosC[key] = URL.createObjectURL(b); try { DH = ''; draw(); } catch (e) {} } }); } catch (e) {} };
+          img.src = s; }
+        return s;
+      }; } } catch (e) {}
     try { if (typeof AST_ART == 'string') AST_ART = link(AST_ART); } catch (e) {}
     try { if (window.IM) for (var q in IM) if (typeof IM[q] == 'string' && IM[q].length > 20000) IM[q] = link(IM[q]); } catch (e) {}
     DV.link = link;
@@ -571,6 +586,7 @@
     '.dv-knob{position:absolute;left:50%;width:42px;height:42px;margin-left:-21px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0 8%,#ff6fe2 18%,#e0129f 55%,#6a0447 100%);box-shadow:0 0 18px #ff3fd2,0 6px 10px #000a}',
     '.dv-lever.dv-phone{display:none}',
     (DEVM ? '@media(min-width:901px){.wrap>div:first-child{padding-right:64px}.dv-lever.dv-wide{right:-62px}}' : ''),
+    '.sumline.big{letter-spacing:normal!important;font-size:15px!important;margin-bottom:0!important}',   // the title's .big class made "Produces each spin" spaced out
     '.pill b span#tc{display:inline!important;font-size:inherit!important;color:inherit!important;letter-spacing:0!important;text-transform:none!important}',
     '@media(max-width:520px){.stats{grid-template-columns:repeat(3,1fr)!important;gap:6px!important}.stats .pill{padding:6px 10px!important}.stats .pill b{font-size:17px!important}.stats .pill b#fbar,.stats .pill b#fbar span{font-size:18px!important}}',
     (DEVM ? '@media(max-width:900px){.board::after{content:"↓ swipe down to spin";position:absolute;left:0;right:0;bottom:4px;text-align:center;font-size:10px;letter-spacing:.12em;color:#ffffff55;pointer-events:none}.board.dv-spinning::after{content:none}}' : ''),

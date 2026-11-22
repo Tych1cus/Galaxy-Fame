@@ -235,5 +235,10 @@
   "name": "Continue run: show the run straight away",
   "find": "G.msg='Welcome back. Your run is where you left it.';return true}",
   "replace": "G.msg='Welcome back. Your run is where you left it.';DH='';draw();return true}"
+ },
+ {
+  "name": "End of run: Main menu button",
+  "find": "<button class=\"sm\" onclick=\"newGame()\">New run</button><button class=\"sm\" onclick=\"showMeta()\">Observatory</button></div></div>';",
+  "replace": "<button class=\"sm\" onclick=\"newGame()\">New run</button><button class=\"sm\" onclick=\"showMeta()\">Observatory</button><button class=\"sm\" onclick=\"showMenu()\">Main menu</button></div></div>';"
  }
 ]
