@@ -77,6 +77,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: Nebula
 - ok: Nebula info popup
 - ok: Text: Prism Lens
+- ok: Nebula Halo: the Nebula scores +1 for every piece 2 cells away
+- ok: Text: Nebula Halo
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -140,3 +142,5 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Text: Nebula
 - ok (Devious): Nebula info popup
 - ok (Devious): Text: Prism Lens
+- ok (Devious): Nebula Halo: the Nebula scores +1 for every piece 2 cells away
+- ok (Devious): Text: Nebula Halo

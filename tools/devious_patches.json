@@ -239,7 +239,7 @@
  {
   "name": "System panel: every planet listed on its own with what it really scores",
   "find": "var rows=Object.keys(o).map(function(k){var pv=pval(k),each=pv.v,sub=each*o[k];return'<div class=\"prow\"><span style=\"color:'+CC[k]+'\">'+K[k].n+' ×'+o[k]+'</span><b>'+fm1(each)+' ⭐ each</b><i>= '+fm1(sub)+'</i><small>'+pv.w+'</small></div>'}).join('');",
-  "replace": "window.__px=[];try{sysVal(p)}catch(e){}var _PX=window.__px||[];window.__px=null;var act={};_PX.forEach(function(a){(act[a[0]]=act[a[0]]||[]).push(a[1])});var _hn=0;var rows=_PX.map(function(a,i){var k=a[0];if(!K[k])return'';var pv=pval(k),note=pv.w;if(k=='c'){var _g=(p.ch&&p.ch[i]!=null)?p.ch[i]:0;note=(has('heirloom')?2:1)+' base + '+fm1(_g)+' growth'}else if(k=='h'){_hn++;note='Chorus #'+(chOff(p)+_hn)}else if(k=='p'){note='+'+(2+tierF(auras(),'p'))+' for each of the '+(p._nbN||0)+' pieces touching this System'+(has('prism')?' + Prism 2':'')}return'<div class=\"prow\"><span style=\"color:'+CC[k]+'\">'+K[k].n+'</span><b>'+fm1(a[1])+' ⭐</b><small>'+(note||'')+'</small></div>'}).join('');"
+  "replace": "window.__px=[];try{sysVal(p)}catch(e){}var _PX=window.__px||[];window.__px=null;var act={};_PX.forEach(function(a){(act[a[0]]=act[a[0]]||[]).push(a[1])});var _hn=0;var rows=_PX.map(function(a,i){var k=a[0];if(!K[k])return'';var pv=pval(k),note=pv.w;if(k=='c'){var _g=(p.ch&&p.ch[i]!=null)?p.ch[i]:0;note=(has('heirloom')?2:1)+' base + '+fm1(_g)+' growth'}else if(k=='h'){_hn++;note='Chorus #'+(chOff(p)+_hn)}else if(k=='p'){note='+2 for each of the '+(p._nbN||0)+' pieces touching this System'+(has('prism')?' + Prism 2':'')}return'<div class=\"prow\"><span style=\"color:'+CC[k]+'\">'+K[k].n+'</span><b>'+fm1(a[1])+' ⭐</b><small>'+(note||'')+'</small></div>'}).join('');"
  },
  {
   "name": "System panel: planets total uses the real scores",
@@ -264,7 +264,7 @@
  {
   "name": "Nebula: scores +2 itself for every piece touching it (Prism Lens +2 more)",
   "find": "if(!baseOnly)cs.forEach(function(c,i){if(c&&c.k=='p')nb(i).forEach(function(j){if(cs[j]&&cs[j].k!='k'){if(cr[j]>0&&f[j]==0){cr[j]++;ab[j]=(ab[j]||0)+1}else f[j]+=2+T('p')}});if(has('prism')&&!baseOnly)f[i]+=1});",
-  "replace": "if(!baseOnly)cs.forEach(function(c,i){if(c&&c.k=='p'){f[i]+=nb(i).filter(function(j){return cs[j]}).length*(2+T('p'));if(has('prism'))f[i]+=2}});"
+  "replace": "if(!baseOnly)cs.forEach(function(c,i){if(c&&c.k=='p'){f[i]+=nb(i).filter(function(j){return cs[j]}).length*2;if(has('prism'))f[i]+=2}});"
  },
  {
   "name": "Nebula in a Solar System: +2 for every piece touching the System (board)",
@@ -274,7 +274,7 @@
  {
   "name": "Nebula in a Solar System: +2 for every piece touching the System, Prism Lens +2 (System score)",
   "find": "else if(k=='p')x=has('prism')?1:0;",
-  "replace": "else if(k=='p')x=(has('prism')?2:0)+(s._nbN||0)*(2+T('p'));"
+  "replace": "else if(k=='p')x=(has('prism')?2:0)+(s._nbN||0)*2;"
  },
  {
   "name": "Nebula: shows its own score when it scores (not 'Buff!')",
@@ -295,5 +295,15 @@
   "name": "Text: Prism Lens",
   "find": "d:'A Nebula gains 2 ⭐ itself. Its neighbours still get their +2.'",
   "replace": "d:'Nebulas score +2 ⭐ more.'"
+ },
+ {
+  "name": "Nebula Halo: the Nebula scores +1 for every piece 2 cells away",
+  "find": "if(!baseOnly&&has('halo'))cs.forEach(function(c,i){if(c&&c.k=='p'){var n1=nb(i);nb(i,2).forEach(function(j){if(n1.indexOf(j)<0&&cs[j]&&cs[j].k!='k')f[j]+=1})}});",
+  "replace": "if(!baseOnly&&has('halo'))cs.forEach(function(c,i){if(c&&c.k=='p'){var n1=nb(i);f[i]+=nb(i,2).filter(function(j){return n1.indexOf(j)<0&&cs[j]}).length}});"
+ },
+ {
+  "name": "Text: Nebula Halo",
+  "find": "d:'Nebulas also give +1 ⭐ to pieces 2 cells away.'",
+  "replace": "d:'Nebulas also score +1 ⭐ for every piece 2 cells away.'"
  }
 ]

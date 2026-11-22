@@ -586,6 +586,7 @@
     '.dv-knob{position:absolute;left:50%;width:42px;height:42px;margin-left:-21px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0 8%,#ff6fe2 18%,#e0129f 55%,#6a0447 100%);box-shadow:0 0 18px #ff3fd2,0 6px 10px #000a}',
     '.dv-lever.dv-phone{display:none}',
     (DEVM ? '@media(min-width:901px){.wrap>div:first-child{padding-right:64px}.dv-lever.dv-wide{right:-62px}}' : ''),
+    '.board .cell{background-image:linear-gradient(45deg,transparent calc(50% - .7px),#3a47a03a 50%,transparent calc(50% + .7px)),linear-gradient(-45deg,transparent calc(50% - .7px),#3a47a03a 50%,transparent calc(50% + .7px))}',   // diagonal lines: diagonals count as touching
     '.sumline.big{letter-spacing:normal!important;font-size:15px!important;margin-bottom:0!important}',   // the title's .big class made "Produces each spin" spaced out
     '.pill b span#tc{display:inline!important;font-size:inherit!important;color:inherit!important;letter-spacing:0!important;text-transform:none!important}',
     '@media(max-width:520px){.stats{grid-template-columns:repeat(3,1fr)!important;gap:6px!important}.stats .pill{padding:6px 10px!important}.stats .pill b{font-size:17px!important}.stats .pill b#fbar,.stats .pill b#fbar span{font-size:18px!important}}',
@@ -598,9 +599,9 @@
     '@media(prefers-reduced-motion:reduce){.board.dv-flash,.board .cell.hot{animation:none}.dv-banner.go{animation-duration:.01s}}'
   ].join('');
 
-  // ===================================================================== main menu star field
+  // ===================================================================== star field (menu and in a run)
   (function () {
-    var c = document.createElement('canvas'), x = c.getContext('2d'), S = [], W = 0, H = 0, r = Math.min(2, devicePixelRatio || 1), on = false, last = 0, shoot = null;
+    var menu = true, skip = 0, c = document.createElement('canvas'), x = c.getContext('2d'), S = [], W = 0, H = 0, r = Math.min(2, devicePixelRatio || 1), on = false, last = 0, shoot = null;
     c.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:none';
     function size() {
       W = innerWidth; H = innerHeight; c.width = W * r; c.height = H * r; S = [];
@@ -609,6 +610,7 @@
     }
     function frame(now) {
       if (!on) return; requestAnimationFrame(frame);
+      if (!menu && (skip = (skip + 1) % 3)) return;   // in a run: a third of the frame rate, to stay light on phones
       var dt = Math.min(50, now - (last || now)); last = now;
       x.setTransform(r, 0, 0, r, 0, 0); x.clearRect(0, 0, W, H);
       for (var i = 0; i < S.length; i++) {
@@ -628,7 +630,7 @@
       x.globalAlpha = 1;
     }
     function check() {
-      var want = typeof SCR != 'undefined' && SCR == 'menu' && !document.hidden;
+      var want = !document.hidden; menu = typeof SCR != 'undefined' && SCR == 'menu'; c.style.opacity = menu ? 1 : .6;
       if (want && !on) { if (!c.parentNode) document.body.appendChild(c); if (!S.length) size(); c.style.display = 'block'; on = true; last = 0; requestAnimationFrame(frame); }
       else if (!want && on) { on = false; c.style.display = 'none'; }
     }

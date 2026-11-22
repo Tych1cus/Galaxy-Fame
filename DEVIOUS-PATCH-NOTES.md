@@ -21,7 +21,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - **Star Shards:** ending a run right away no longer gives 4 free shards.
 
 ## Rule change
-- **Nebula** scores +2 ⭐ itself for every piece touching it (diagonals count) instead of giving +2 to its neighbours. Inside a Solar System, each Nebula scores +2 ⭐ for every piece touching that System (before, it scored nothing there).
+- **Nebula** scores +2 ⭐ itself for every piece touching it (diagonals count) instead of giving +2 to its neighbours. Inside a Solar System, each Nebula scores +2 ⭐ for every piece touching that System (before, it scored nothing there). Nebula Halo: the Nebula scores +1 ⭐ for every piece 2 cells away. The Nebula aura only gives extra "find more often" choices (it no longer raises the +2).
 - **Chorus:** scores 1, 2, 3… in order. Choruses inside Solar Systems count first, then the board continues the count.
 
 ## Clearer text (numbers unchanged)
@@ -35,5 +35,6 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - Scoring sounds rise in pitch with every piece that scores, with no cap.
 - Speed options 1x, 2x, 3x, 5x.
 - Planets light up as they score; big spins shake the screen with explosions and a BIG COMBO / MEGA FAME banner; fireworks on fame goals.
-- A click sound on every button; a Music button and a moving star field on the main menu.
+- A click sound on every button; a Music button on the main menu; a moving star field behind every screen.
+- Diagonal lines on the board, so it's clear diagonals count as touching.
 - Compact stats row on phones.
