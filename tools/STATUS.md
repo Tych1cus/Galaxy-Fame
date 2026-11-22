@@ -44,8 +44,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Fix: ending a run early gives no free Star Shards
 - ok: Text: Star Shards rules on the Observatory
 - ok: Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
-- ok: Verdant Aura text (sidebar)
-- ok: Verdant Aura text (banner)
+- NEEDS A LOOK: Verdant Aura text (sidebar) (game code changed here, skipped)
+- NEEDS A LOOK: Verdant Aura text (banner) (game code changed here, skipped)
 - ok: Wide Lens text
 - ok: Text: You pick 1 fewer starting plan
 - ok: Text: Black Holes\' base bite drops 
@@ -55,7 +55,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: New Supernovas last 3 more spi
 - ok: Text: Reaching a fame goal gives +8 
 - ok: Text: Quarries get +2 ⭐ more per adj
-- ok: Text: The Verdant +3 bonus needs 1 f
+- NEEDS A LOOK: Text: The Verdant +3 bonus needs 1 f (game code changed here, skipped)
 - ok: Speeds 1x 2x 3x 5x
 - ok: Forests count loose Forests again (broken in v157)
 - ok: Forest info popup uses the same count
@@ -113,8 +113,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Fix: ending a run early gives no free Star Shards
 - ok (Devious): Text: Star Shards rules on the Observatory
 - ok (Devious): Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
-- ok (Devious): Verdant Aura text (sidebar)
-- ok (Devious): Verdant Aura text (banner)
+- NEEDS A LOOK (Devious): Verdant Aura text (sidebar) (game code changed here, skipped)
+- NEEDS A LOOK (Devious): Verdant Aura text (banner) (game code changed here, skipped)
 - ok (Devious): Wide Lens text
 - ok (Devious): Text: You pick 1 fewer starting plan
 - ok (Devious): Text: Black Holes\' base bite drops 
@@ -124,7 +124,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Text: New Supernovas last 3 more spi
 - ok (Devious): Text: Reaching a fame goal gives +8 
 - ok (Devious): Text: Quarries get +2 ⭐ more per adj
-- ok (Devious): Text: The Verdant +3 bonus needs 1 f
+- NEEDS A LOOK (Devious): Text: The Verdant +3 bonus needs 1 f (game code changed here, skipped)
 - ok (Devious): Speeds 1x 2x 3x 5x
 - ok (Devious): Forests count loose Forests again (broken in v157)
 - ok (Devious): Forest info popup uses the same count
