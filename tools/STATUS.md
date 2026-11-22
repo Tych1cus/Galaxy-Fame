@@ -64,3 +64,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Text: Quarries get +2 ⭐ more per adj
 - ok (Devious): Text: The Verdant +3 bonus needs 1 f
 - ok (Devious): Speeds 1x 2x 3x 5x
+- ok (Devious): Forests count loose Forests again (broken in v157)
+- ok (Devious): Forest info popup uses the same count
+- ok (Devious): Forest info popup value

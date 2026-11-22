@@ -5,7 +5,7 @@ name: Keep fixes applied
 on:
   push:
     branches: [main]
-    paths: [index.html, tools/patches.json, tools/apply_patches.py, tools/devious_patches.json, tools/build_devious.py]
+    paths: [index.html, tools/patches.json, tools/apply_patches.py, tools/devious_patches.json, tools/build_devious.py, tools/check_game.js, devious.js]
   workflow_dispatch:
 permissions:
   contents: write
@@ -21,12 +21,25 @@ jobs:
         run: python3 tools/apply_patches.py
       - name: Rebuild Devious Mode from the latest game
         run: python3 tools/build_devious.py
+      - name: Check the game still works (results in tools/GAME-CHECK.md)
+        id: check
+        continue-on-error: true
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.49.1
+          npx playwright install --with-deps chromium
+          node tools/check_game.js
       - name: Commit if anything changed
         run: |
-          git add index.html devious.html tools/STATUS.md
+          git add index.html devious.html tools/STATUS.md tools/GAME-CHECK.md
           if git diff --cached --quiet; then echo "Nothing to change."; exit 0; fi
           git config user.name "leaderboard-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "auto: re-apply fixes after upload (see tools/STATUS.md)"
           for i in 1 2 3; do git push && exit 0; git pull --rebase; done
+          exit 1
+      - name: Flag problems found by the game check
+        if: steps.check.outcome == 'failure'
+        run: |
+          cat tools/GAME-CHECK.md
+          echo "::error::The game check found problems. See tools/GAME-CHECK.md"
           exit 1

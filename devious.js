@@ -7,6 +7,24 @@
 (function () {
   if (window.DV) return;
   var DV = window.DV = {};
+
+  // ===================================================================== speed: planet pictures
+  // The game writes each planet's full picture (≈200 KB of text) into the page every time the
+  // screen redraws, so a full board was a ~10 MB page rebuilt many times per spin, and it got
+  // slower as the bag grew. Turn each picture into a short link to one shared copy instead.
+  (function () {
+    var cache = {};
+    function link(d) {
+      if (typeof d != 'string' || d.indexOf('data:image/') != 0 || d.indexOf(';base64,') < 0) return d;
+      if (cache[d]) return cache[d];
+      try { var i = d.indexOf(','), bin = atob(d.slice(i + 1)), u = new Uint8Array(bin.length); for (var j = 0; j < bin.length; j++) u[j] = bin.charCodeAt(j);
+        return cache[d] = URL.createObjectURL(new Blob([u], { type: d.slice(5, d.indexOf(';')) })); } catch (e) { return d; }
+    }
+    try { if (window.PLANET_ART) for (var k in PLANET_ART) PLANET_ART[k] = link(PLANET_ART[k]); } catch (e) {}
+    try { if (typeof AST_ART == 'string') AST_ART = link(AST_ART); } catch (e) {}
+    try { if (window.IM) for (var q in IM) if (typeof IM[q] == 'string' && IM[q].length > 20000) IM[q] = link(IM[q]); } catch (e) {}
+    DV.link = link;
+  })();
   var reduced = false;
   try { reduced = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
   function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
