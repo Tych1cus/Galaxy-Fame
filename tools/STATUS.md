@@ -113,6 +113,15 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Sidebar: Aura box footer
 - ok: Wide Lens costs 5
 - ok: Scout Fleet no longer in the shop (same as Wide Lens; runs that own it keep it)
+- FIXED: Sidebar: Volcanic aura text
+- FIXED: Volcanic aura base text
+- FIXED: End run button keeps its space during a spin (no header jump)
+- FIXED: New relic: Orbital Salvage
+- FIXED: Orbital Salvage: +1 to Comets and Satellites
+- FIXED: Orbital Salvage: Harvesters consume Satellites and Comets
+- FIXED: Orbital Salvage: +2 per Satellite or Comet
+- FIXED: Orbital Salvage: Harvester message
+- FIXED: Orbital Salvage: only offered once you own a Satellite, Comet or Solar Harvester
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -212,3 +221,12 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Sidebar: Aura box footer
 - ok (Devious): Wide Lens costs 5
 - ok (Devious): Scout Fleet no longer in the shop (same as Wide Lens; runs that own it keep it)
+- ok (Devious): Sidebar: Volcanic aura text
+- ok (Devious): Volcanic aura base text
+- ok (Devious): End run button keeps its space during a spin (no header jump)
+- ok (Devious): New relic: Orbital Salvage
+- ok (Devious): Orbital Salvage: +1 to Comets and Satellites
+- ok (Devious): Orbital Salvage: Harvesters consume Satellites and Comets
+- ok (Devious): Orbital Salvage: +2 per Satellite or Comet
+- ok (Devious): Orbital Salvage: Harvester message
+- ok (Devious): Orbital Salvage: only offered once you own a Satellite, Comet or Solar Harvester
