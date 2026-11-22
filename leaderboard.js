@@ -163,7 +163,7 @@
     if (h.indexOf('board.html') < 0) extra = '<p class="gflb-l"><a href="board.html' + (DEV ? '?mode=devious' : '') + '" style="color:var(--gd)">Leaderboard →</a></p>' + extra;
     extra += '<p class="gflb-l gflb-s"><a href="stats.html' + (DEV ? '?mode=devious' : '') + '" style="color:var(--gd)">📊 Your stats →</a></p>';
     extra += DEV ? '<p class="gflb-l"><a class="gflb-mode std" href="index.html">⬅ Standard Mode</a></p>'
-                 : '<p class="gflb-l"><a class="gflb-mode" href="devious.html">😈 Devious Mode</a></p>';
+                 : '<a class="gflb-dv" href="devious.html" aria-label="Devious Mode">✦</a>';
     var i = h.indexOf('<button class="spin"');
     return i > -1 ? h.slice(0, i) + extra + h.slice(i) : h + extra;
   });
@@ -191,6 +191,7 @@
     css.textContent =
       '.gflb-l{color:var(--mu);font-size:13px;margin:6px 0 0}.gflb-s{font-size:12px;margin:4px 0 10px}' +
       '.gflb-b{margin:0 0 0 6px!important;padding:2px 8px!important;font-size:11px!important}' +
+      '.gflb-dv{position:fixed;right:10px;bottom:8px;font-size:11px;line-height:1;padding:6px;color:#8a93b8;opacity:.28;text-decoration:none;z-index:5}.gflb-dv:hover{opacity:.7}' +
       '.gflb-mode{display:inline-block;margin-top:6px;padding:8px 16px;border-radius:999px;font-weight:800;letter-spacing:.06em;text-decoration:none;color:#1a0016;background:linear-gradient(180deg,#ff7ae6,#d4149a);box-shadow:0 0 16px #ff3fd2aa}.gflb-mode.std{color:#fff;background:#1b1440;box-shadow:0 0 0 1px #4a3c8f}' +
       '.gflb-final{font-size:22px;font-weight:800;color:var(--gd);margin:6px 0}.gflb-best{color:#7dffb0;font-weight:700}';
     document.head.appendChild(css);
