@@ -7,12 +7,15 @@
 (function () {
   if (window.DV) return;
   var DV = window.DV = {};
+  // devious.html = full Devious Mode; the standard game (index.html) gets everything except the slot machine and the password
+  var DEVM = window.GF_MODE == 'devious'; DV.devious = DEVM;
 
   // ===================================================================== password lock
   // A simple lock (the site has no server, so it only keeps casual players out). Remembered per device.
   (function () {
     function h(s) { var a = 0xdeadbeef ^ 7, b = 0x41c6ce57 ^ 7; for (var i = 0; i < s.length; i++) { var c = s.charCodeAt(i); a = Math.imul(a ^ c, 2654435761); b = Math.imul(b ^ c, 1597334677); }
       a = Math.imul(a ^ (a >>> 16), 2246822507) ^ Math.imul(b ^ (b >>> 13), 3266489909); b = Math.imul(b ^ (b >>> 16), 2246822507) ^ Math.imul(a ^ (a >>> 13), 3266489909); return (4294967296 * (2097151 & b) + (a >>> 0)).toString(36); }
+    if (!DEVM) return;
     var KEY = '17gnq1hzxh6', ok = false; try { ok = localStorage.getItem('gf_dv_ok') == KEY; } catch (e) {}
     if (ok) return;
     var d = document.createElement('div'); d.id = 'dv-lock';
@@ -438,6 +441,8 @@
     G.cells = cs; draw();
   };
 
+  if (!DEVM) delete DV.deal;   // standard game: the game's own deal, no reels
+
   // ===================================================================== scoring effects
   var dingN = 0;
   DV.cell = function (i, f, c, isSys) {
@@ -463,7 +468,7 @@
 
   // ===================================================================== lever
   var pull = 0, drag = null, lastN = 0;
-  function canSpin() { try { return G && !G.busy && G.mode == 'idle' && !G.over && SCR == 'game'; } catch (e) { return false; } }
+  function canSpin() { if (!DEVM) return false; try { return G && !G.busy && G.mode == 'idle' && !G.over && SCR == 'game'; } catch (e) { return false; } }
   // two levers: a tall one beside the board on wide screens, a compact one next to SPIN on phones
   function lv() { var ls = document.querySelectorAll('.dv-lever'); for (var i = 0; i < ls.length; i++) if (ls[i].offsetParent) return ls[i]; return null; }
   function drawLever() {
@@ -498,13 +503,14 @@
   function leverHtml(cls) { return '<div class="dv-lever ' + cls + '" tabindex="0" role="button" aria-label="Pull the lever to spin"><div class="dv-base"></div><div class="dv-slot"></div><div class="dv-arm"></div><div class="dv-knob"></div></div>'; }
   wrapHtml('gameHtml', function (h) {
     var mb = '<button class="sm dv-mbtn" style="margin:0 6px" onclick="dvMusic()" title="Music: loud, quiet or off">' + mLabel() + '</button>';
-    h = h.replace('<h1>✦ GALAXY FAME</h1>', '<h1>✦ GALAXY FAME <span class="dv-tag">DEVIOUS</span></h1>' + mb);
+    h = h.replace('<h1>✦ GALAXY FAME</h1>', DEVM ? '<h1>✦ GALAXY FAME <span class="dv-tag">DEVIOUS</span></h1>' + mb : '<h1>✦ GALAXY FAME</h1>' + mb);
+    if (!DEVM) return h;
     var i = h.indexOf('<div class="bw"');
     if (i > -1) { var j = h.indexOf('>', i) + 1; h = h.slice(0, j) + leverHtml('dv-wide') + h.slice(j); }
     var g = h.indexOf('<div class="go">'); if (g > -1) { g += 16; h = h.slice(0, g) + leverHtml('dv-phone') + h.slice(g); }
     return h;
   });
-  wrapHtml('menuHtml', function (h) { return h.replace('✦ GALAXY FAME</h1>', '✦ GALAXY FAME</h1><div class="dv-tag dv-big">😈 DEVIOUS MODE</div>').replace('<button class="sm" style="margin:0" onclick="sfxToggle()">', '<button class="sm dv-mbtn" style="margin:0 8px 0 0" onclick="dvMusic()" title="Music: loud, quiet or off">' + mLabel() + '</button><button class="sm" style="margin:0" onclick="sfxToggle()">'); });
+  wrapHtml('menuHtml', function (h) { return (DEVM ? h.replace('✦ GALAXY FAME</h1>', '✦ GALAXY FAME</h1><div class="dv-tag dv-big">😈 DEVIOUS MODE</div>') : h).replace('<button class="sm" style="margin:0" onclick="sfxToggle()">', '<button class="sm dv-mbtn" style="margin:0 8px 0 0" onclick="dvMusic()" title="Music: loud, quiet or off">' + mLabel() + '</button><button class="sm" style="margin:0" onclick="sfxToggle()">'); });
   if (typeof window.draw == 'function') { var d0 = window.draw; window.draw = function () { var o = d0.apply(this, arguments); try { drawLever(); } catch (e) {} return o; }; }
 
   // ===================================================================== look
@@ -532,10 +538,10 @@
     '.dv-arm{position:absolute;left:50%;top:10%;width:11px;margin-left:-5.5px;border-radius:6px;background:linear-gradient(90deg,#d9d9e8,#8a87a8 60%,#f4f4ff)}',
     '.dv-knob{position:absolute;left:50%;width:42px;height:42px;margin-left:-21px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0 8%,#ff6fe2 18%,#e0129f 55%,#6a0447 100%);box-shadow:0 0 18px #ff3fd2,0 6px 10px #000a}',
     '.dv-lever.dv-phone{display:none}',
-    '@media(min-width:901px){.wrap>div:first-child{padding-right:64px}.dv-lever.dv-wide{right:-62px}}',
+    (DEVM ? '@media(min-width:901px){.wrap>div:first-child{padding-right:64px}.dv-lever.dv-wide{right:-62px}}' : ''),
     '.pill b span#tc{display:inline!important;font-size:inherit!important;color:inherit!important;letter-spacing:0!important;text-transform:none!important}',
     '@media(max-width:520px){.stats{grid-template-columns:repeat(3,1fr)!important;gap:6px!important}.stats .pill{padding:6px 10px!important}.stats .pill b{font-size:17px!important}.stats .pill b#fbar,.stats .pill b#fbar span{font-size:18px!important}}',
-    '@media(max-width:900px){.board::after{content:"↓ swipe down to spin";position:absolute;left:0;right:0;bottom:4px;text-align:center;font-size:10px;letter-spacing:.12em;color:#ffffff55;pointer-events:none}.board.dv-spinning::after{content:none}}',
+    (DEVM ? '@media(max-width:900px){.board::after{content:"↓ swipe down to spin";position:absolute;left:0;right:0;bottom:4px;text-align:center;font-size:10px;letter-spacing:.12em;color:#ffffff55;pointer-events:none}.board.dv-spinning::after{content:none}}' : ''),
     '@media(max-width:900px){.dv-lever.dv-wide{display:none}.dv-lever.dv-phone{display:block;position:relative;right:auto;top:auto;flex:0 0 44px;width:44px;height:96px;margin:-30px 0 -8px}.dv-phone .dv-base{width:34px;height:40px;bottom:12%}.dv-phone .dv-knob{width:34px;height:34px;margin-left:-17px}.dv-phone .dv-slot{width:7px}.dv-phone .dv-arm{width:9px;margin-left:-4.5px}}',
     '.dv-banner{position:fixed;left:50%;top:38%;z-index:9001;transform:translate(-50%,-50%) scale(.2);font:900 clamp(34px,9vw,84px)/1 system-ui,Impact,sans-serif;letter-spacing:.04em;color:#fff;',
     'text-shadow:0 0 10px #ffd23f,0 0 30px #ff3fd2,0 0 60px #36e6ff,0 5px 0 #5b1050;opacity:0;pointer-events:none;white-space:nowrap}',

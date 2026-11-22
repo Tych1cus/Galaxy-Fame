@@ -18,7 +18,52 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: choosing the Ice Planet's square (panel)
 - ok: Cradles only grow +0.1 per spin; they no longer keep the extra fame they scored
 - ok: Cradles ignore old wrongly-kept bonuses (cleans runs saved before the fix)
-- ok: Solar System panel shows what each Chorus really scores there
+- ok: Effects: slot-machine reels when the planets are dealt
+- ok: Effects: each planet as it scores
+- ok: Effects: each Solar System as it scores
+- ok: Effects: big spins
+- ok: Effects: fame goal reached
+- ok: Chorus: counting starts with the Choruses inside Solar Systems
+- ok: Chorus: in a Solar System they score 1, 2, 3... like on the board
+- ok: Chorus: System panel shows each Chorus's number
+- ok: Fix: Rubble Rights works (Quarries +4 per Asteroid)
+- ok: Fix: Prism Lens gives the Nebula +2 on the board
+- ok: Fix: Prism Lens gives the Nebula +2 in a Solar System
+- ok: Fix: info popup shows Green Thumb's real +2
+- ok: Fix: info popup shows Forest Crown's real +2 and Canopy Crown
+- ok: Fix: Super Giant banner says its real value
+- ok: Text: Thick Dust
+- ok: Text: Dust Compactor
+- ok: Text: Volcanic
+- ok: Text: Obsidian Shield
+- ok: Text: Giant Star
+- ok: Text: Cosmic Ledger
+- ok: Text: Event Horizon
+- ok: Text: Gravity Well
+- ok: Text: Prestige VI
+- ok: Text: Prestige VIII
+- ok: Text: Starting Fleet
+- ok: Fix: ending a run early gives no free Star Shards
+- ok: Text: Star Shards rules on the Observatory
+- ok: Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
+- ok: Verdant Aura text (sidebar)
+- ok: Verdant Aura text (banner)
+- ok: Wide Lens text
+- ok: Text: You pick 1 fewer starting plan
+- ok: Text: Black Holes\' base bite drops 
+- ok: Text: Destroyers gain +3 ⭐ more for 
+- ok: Text: Destroyers gain +2 ⭐ more for 
+- ok: Text: Cradles start +1 ⭐ higher.
+- ok: Text: New Supernovas last 3 more spi
+- ok: Text: Reaching a fame goal gives +8 
+- ok: Text: Quarries get +2 ⭐ more per adj
+- ok: Text: The Verdant +3 bonus needs 1 f
+- ok: Speeds 1x 2x 3x 5x
+- ok: Forests count loose Forests again (broken in v157)
+- ok: Forest info popup uses the same count
+- ok: Forest info popup value
+- ok: Solar System picture matches its planets (picture cache ignored Cradles, Choruses and Quarries)
+- ok: effects line already there
 
 ## Devious Mode (devious.html)
 

@@ -21,7 +21,9 @@ lines = []
 for p in json.load(open(PATCHES, encoding='utf-8')):
     name, find, rep, many = p['name'], p['find'], p['replace'], p.get('all', False)
     n = t.count(find)
-    if n == 0:
+    if rep in t and ((find not in rep and n == 0) or (find in rep and n == t.count(rep))):
+        lines.append('- ok (Devious): ' + name)
+    elif n == 0:
         lines.append('- NEEDS A LOOK (Devious): ' + name + ' (game code changed here, skipped)')
     elif n > 1 and not many:
         lines.append('- NEEDS A LOOK (Devious): ' + name + ' (found ' + str(n) + ' times, skipped)')
@@ -30,6 +32,7 @@ for p in json.load(open(PATCHES, encoding='utf-8')):
         lines.append('- ok (Devious): ' + name)
 
 tag = '<script src="leaderboard.js"></script>'
+t = t.replace('<script src="devious.js"></script>', '')
 dv = '<script>window.GF_MODE="devious"</script>' + tag + '<script src="devious.js"></script>'
 if tag in t:
     t = t.replace(tag, dv)

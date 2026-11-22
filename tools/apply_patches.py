@@ -42,6 +42,28 @@ for p in json.load(open(PATCHES, encoding='utf-8')):
     else:
         lines.append('- NEEDS A LOOK: ' + name + ' (game code changed here, skipped)')
 
+# Devious Mode's fixes and effects (everything except the slot machine), for the standard game too.
+DVTAG = '<script src="devious.js"></script>'
+for p in json.load(open(os.path.join(ROOT, 'tools', 'devious_patches.json'), encoding='utf-8')):
+    if p.get('devious_only'):
+        continue
+    name, find, rep, many = p['name'], p['find'], p['replace'], p.get('all', False)
+    nf = text.count(find)
+    if rep in text and ((find not in rep and nf == 0) or (find in rep and nf == text.count(rep))):
+        lines.append('- ok: ' + name)
+    elif nf == 1 or (nf > 1 and many):
+        text = text.replace(find, rep)
+        lines.append('- FIXED: ' + name)
+    elif nf > 1:
+        lines.append('- NEEDS A LOOK: ' + name + ' (found ' + str(nf) + ' times, skipped)')
+    else:
+        lines.append('- NEEDS A LOOK: ' + name + ' (game code changed here, skipped)')
+if DVTAG in text:
+    lines.append('- ok: effects line already there')
+else:
+    text = text.replace(TAG, TAG + DVTAG, 1)
+    lines.append('- FIXED: effects line (devious.js) re-added')
+
 changed = text.encode('utf-8') != raw
 if changed:
     open(INDEX, 'wb').write(text.encode('utf-8'))

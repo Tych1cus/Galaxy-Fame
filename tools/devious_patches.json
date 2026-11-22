@@ -28,7 +28,8 @@
   "name": "Devious Mode keeps its own run in progress",
   "find": "'gf_run'",
   "replace": "'gf_dv_run'",
-  "all": true
+  "all": true,
+  "devious_only": true
  },
  {
   "name": "Chorus: counting starts with the Choruses inside Solar Systems",
@@ -42,8 +43,8 @@
  },
  {
   "name": "Chorus: System panel shows each Chorus's number",
-  "find": "sc=(_H+_t+(has('baton')?1:0))*(_l?2:1);note=_H+' Chorus'+(_H==1?'':'es')+' here'",
-  "replace": "var _n=chOff(c)+cm.slice(0,ci+1).filter(function(x){return x=='h'}).length;sc=(_n+_t+(has('baton')?1:0))*(_l?2:1);note='Chorus #'+_n"
+  "find": "else if(k=='h'){sc=cm.slice(0,ci+1).filter(function(x){return x=='h'}).length}",
+  "replace": "else if(k=='h'){var _H=cm.filter(function(x){return x=='h'}).length,_t=tierF(auras(),'h'),_l=has('encore')&&cm.lastIndexOf('h')==ci;var _n=chOff(c)+cm.slice(0,ci+1).filter(function(x){return x=='h'}).length;sc=(_n+_t+(has('baton')?1:0))*(_l?2:1);note='Chorus #'+_n+(_t?' + aura '+_t:'')+(has('baton')?' + Baton':'')+(_l?' ×2 Encore':'')}"
  },
  {
   "name": "Fix: Rubble Rights works (Quarries +4 per Asteroid)",

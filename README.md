@@ -28,7 +28,7 @@ forced) and listed as NEEDS A LOOK in `tools/STATUS.md`.
 
 ## Devious Mode
 
-`devious.html` is archdevious's version of the game (😈 Devious Mode on the main menu). It is rebuilt
+`devious.html` is archdevious's version of the game (password-protected). The standard game also gets every Devious change except the slot machine: `tools/apply_patches.py` applies `tools/devious_patches.json` to `index.html` and loads `devious.js`, which skips the lever, reels and password outside Devious Mode. It is rebuilt
 automatically from `index.html` after every upload (`tools/build_devious.py`): the game's newest code plus
 the fixes in `tools/devious_patches.json` and the effects in `devious.js`. It has its own leaderboard
 (Supabase table `gf_dv_scores`), best score, stats and saved run. Changes are listed in

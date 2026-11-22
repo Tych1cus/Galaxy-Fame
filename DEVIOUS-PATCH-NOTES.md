@@ -1,6 +1,6 @@
 # Devious Mode: changes vs the standard game
 
-Devious Mode is archdevious's version of Galaxy Fame (😈 button on the main menu). Keep anything you like in the classic game.
+Everything below is now in the standard game too, except the slot machine (lever and spinning reels), the password and Devious Mode's separate leaderboard, best score, stats and saved run. Devious Mode (archdevious's version) keeps all of it.
 
 ## Bug fixes
 - **SPIN unlocked mid-spin:** on long spins (~10s+) the stall check said "Recovered from a stall" and re-enabled SPIN while the spin was still running. Now it only steps in if nothing has changed for 10 seconds.
