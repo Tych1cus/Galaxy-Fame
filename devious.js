@@ -54,6 +54,38 @@
   function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
   function sfxOn() { try { return SFX.on !== false; } catch (e) { return true; } }
 
+  // ===================================================================== save picks and shop visits too
+  // The game saves only at the end of a spin, so closing the page while picking a planet, in the
+  // shop or choosing what to find more often lost that step. Save those screens as well.
+  (function () {
+    if (typeof window.saveRun != 'function' || typeof window.resumeRun != 'function') return;
+    var KEEP = { pick: 1, remove: 1, shop: 1, boost: 1 }, last = '';
+    var sv0 = window.saveRun;
+    window.saveRun = function () {
+      var o = sv0.apply(this, arguments);
+      try { if (G && !G.over && SCR == 'game' && KEEP[G.mode]) { var r = JSON.parse(localStorage.getItem('gf_run') || 'null');
+        if (r) { r.x = { mode: G.mode == 'remove' ? 'pick' : G.mode, offer: G.offer, shop: G.shop, boostLeft: G.boostLeft, boostThis: G.boostThis, freeRoll: G.freeRoll, msg: G.msg }; localStorage.setItem('gf_run', JSON.stringify(r)); } } } catch (e) {}
+      return o;
+    };
+    var rr0 = window.resumeRun;
+    window.resumeRun = function () {
+      var x = null; try { x = (JSON.parse(localStorage.getItem('gf_run') || 'null') || {}).x || null; } catch (e) {}
+      var ok = rr0.apply(this, arguments);
+      if (ok && x && KEEP[x.mode]) { try { G.mode = x.mode; G.offer = x.offer || []; G.shop = x.shop || []; G.boostLeft = x.boostLeft; G.boostThis = x.boostThis || {}; G.freeRoll = x.freeRoll || 0;
+        if (x.mode == 'pick' && !G.offer.length) G.mode = 'idle'; G.msg = 'Welcome back. Your run is where you left it.'; DH = ''; draw(); } catch (e) {} }
+      return ok;
+    };
+    // save after every step taken outside a spin (a pick, a purchase, a reroll, leaving the shop...)
+    var dr0 = window.draw;
+    window.draw = function () {
+      var o = dr0.apply(this, arguments);
+      try { if (G && !G.busy && !G.over && SCR == 'game' && G.mode != 'start' && G.bag && G.bag.length) {
+        var sig = G.mode + '|' + G.n + '|' + G.t + '|' + G.bag.length + '|' + G.credits + '|' + (G.rel || []).length + '|' + JSON.stringify(G.offer) + '|' + JSON.stringify(G.shop && G.shop.map(function (s) { return s.id; })) + '|' + G.boostLeft;
+        if (sig != last) { last = sig; window.saveRun(); } } } catch (e) {}
+      return o;
+    };
+  })();
+
   // ===================================================================== audio
   var AC = null, master = null, sfxBus = null, musicBus = null, noiseBuf = null;
   function ac() {

@@ -25,13 +25,6 @@
   "replace": "goBoom();if(window.DV&&DV.goal)DV.goal();"
  },
  {
-  "name": "Devious Mode keeps its own run in progress",
-  "find": "'gf_run'",
-  "replace": "'gf_dv_run'",
-  "all": true,
-  "devious_only": true
- },
- {
   "name": "Chorus: counting starts with the Choruses inside Solar Systems",
   "find": "function galVal(g){",
   "replace": "function chOff(s){var o=0,done=false;G.bag.forEach(function(p){if(done)return;var L=p.k=='sys'?[p]:p.k=='gal'?(p.subs||[]):[];L.forEach(function(x){if(done)return;if(x===s){done=true;return}(x.comp||[]).forEach(function(k){if(k=='h')o++})})});return done?o:0}\nfunction galVal(g){"
@@ -232,5 +225,15 @@
   "name": "Solar System picture matches its planets (picture cache ignored Cradles, Choruses and Quarries)",
   "find": "'grbpkiv'.split('').forEach(function(k){ct+=k+(p.comp||[]).filter(function(x){return x==k}).length});",
   "replace": "ct=(p.comp||[]).join('');"
+ },
+ {
+  "name": "Continue run: no flash of the new-run screen",
+  "find": "if(!r||!r.bag||!r.bag.length)return false;newGame();",
+  "replace": "if(!r||!r.bag||!r.bag.length)return false;var _dw=window.draw;window.draw=function(){};try{newGame()}finally{window.draw=_dw}"
+ },
+ {
+  "name": "Continue run: show the run straight away",
+  "find": "G.msg='Welcome back. Your run is where you left it.';return true}",
+  "replace": "G.msg='Welcome back. Your run is where you left it.';DH='';draw();return true}"
  }
 ]

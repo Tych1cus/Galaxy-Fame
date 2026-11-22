@@ -1,12 +1,14 @@
 # Devious Mode: changes vs the standard game
 
-Everything below is now in the standard game too, except the slot machine (lever and spinning reels), the password and Devious Mode's separate leaderboard, best score, stats and saved run. Devious Mode (archdevious's version) keeps all of it.
+Everything below is in the standard game. Devious Mode is the same game (same leaderboard, best score, stats and saved run); its only difference is the slot-machine UI: pull the lever and the planets spin before they land.
 
 ## Bug fixes
 - **SPIN unlocked mid-spin:** on long spins (~10s+) the stall check said "Recovered from a stall" and re-enabled SPIN while the spin was still running. Now it only steps in if nothing has changed for 10 seconds.
 - **Lag that grew through a run (worst on phones):** every redraw wrote each planet's full ~200 KB picture into the page, so a full board was a ~10 MB page rebuilt many times per spin. Pictures are now shared, not copied: late-game spins took about half as long and ran about twice as smooth in a slow-phone test.
 - **Forests scored 0** unless you had Forests inside Solar Systems (since v157 loose Forests weren't counted). They count again, as the description says.
 - **Solar System pictures** could show another System's planets (the saved picture ignored Cradles, Choruses and Quarries). Each System now shows its own planets.
+- **Closing the page mid-step lost progress:** the run was only saved at the end of a spin, so a planet pick, a shop visit, relics bought or the "find more often" choice were lost. Those are saved now too.
+- **Continue run** flashed the new-run "pick your starting planet" screen before showing your run.
 - **Credits number** showed tiny under the 💰.
 - **Rubble Rights** did nothing. Now Quarries get +4 per Asteroid (instead of +2).
 - **Prism Lens:** the Nebula gets +2 ⭐ as the text says (was +1).
@@ -30,4 +32,3 @@ Everything below is now in the standard game too, except the slot machine (lever
 - Planets light up as they score; big spins shake the screen with explosions and a BIG COMBO / MEGA FAME banner; fireworks on fame goals.
 - A click sound on every button; a Music button and a moving star field on the main menu.
 - Compact stats row on phones.
-- Its own leaderboard, best score, stats and saved run.
