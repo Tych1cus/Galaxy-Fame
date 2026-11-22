@@ -111,11 +111,6 @@
   "replace": "You get 1 fewer choice on each pick."
  },
  {
-  "name": "Text: Starting Fleet",
-  "find": "Begin each run with +1 random Verdant, Forest, Supernova or Nebula per level.",
-  "replace": "Begin each run with +1 random Verdant, Forest, Supernova or Nebula per level."
- },
- {
   "name": "Fix: ending a run early gives no free Star Shards",
   "find": "var s=Math.max(4,G.t*9+Math.floor(G.tot/120)+(r=='win'?20:0));",
   "replace": "var s=Math.max(r=='quit'?0:4,G.t*9+Math.floor(G.tot/120)+(r=='win'?20:0));"
@@ -325,5 +320,30 @@
   "name": "Ice Planet in a Solar System works like on the board (Permafrost counts pieces touching the System)",
   "find": "else if(k=='i')x=(s.iceFame||1);",
   "replace": "else if(k=='i')x=1+(has('frozen')?1:0)*(s._nbN||0);"
+ },
+ {
+  "name": "Starting Fleet gives a random planet of any kind (not Black Holes)",
+  "find": "b0.push(mk('grbp'.charAt(R(4))))",
+  "replace": "b0.push(mk(['g','r','b','p','v','i','c','h','q'][R(9)]))"
+ },
+ {
+  "name": "Text: Starting Fleet",
+  "find": "d:'Begin each run with +1 random Verdant, Forest, Supernova or Nebula per level.'",
+  "replace": "d:'Begin each run with +1 random planet per level.'"
+ },
+ {
+  "name": "Leeroy Jenkins bonus also when a run is lost (added before the score goes to the leaderboard)",
+  "find": "function finish(r){if(r=='lose')sfx('lose');G.over=r;",
+  "replace": "function finish(r){if(r!='quit'&&G&&!G._ljPaid){G._ljPaid=1;var _lb=ljBonus();if(_lb>0){G.tot+=_lb;G.ljBonusGot=_lb}}if(r=='lose')sfx('lose');G.over=r;"
+ },
+ {
+  "name": "Leeroy Jenkins bonus on a win is only paid once",
+  "find": "if(G.t>=RENT.length){var lb=ljBonus();if(lb>0)",
+  "replace": "if(G.t>=RENT.length){var lb=ljBonus();G._ljPaid=1;G.ljBonusGot=lb;if(lb>0)"
+ },
+ {
+  "name": "End of run shows the Leeroy Jenkins bonus",
+  "find": "<p style=\"color:var(--gd)\">✨ +'+G.earned+' Star Shards earned</p>'",
+  "replace": "<p style=\"color:var(--gd)\">✨ +'+G.earned+' Star Shards earned</p>'+(G.ljBonusGot?'<p style=\"color:var(--gd)\">💀 Leeroy Jenkins bonus: +'+G.ljBonusGot+' ⭐ final fame</p>':'')"
  }
 ]

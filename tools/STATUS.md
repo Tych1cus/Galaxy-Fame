@@ -40,7 +40,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: Gravity Well
 - ok: Text: Prestige VI
 - ok: Text: Prestige VIII
-- ok: Text: Starting Fleet
 - ok: Fix: ending a run early gives no free Star Shards
 - ok: Text: Star Shards rules on the Observatory
 - ok: Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
@@ -83,6 +82,11 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Gold: help text
 - ok: Gold: Ice aura text
 - ok: Ice Planet in a Solar System works like on the board (Permafrost counts pieces touching the System)
+- ok: Starting Fleet gives a random planet of any kind (not Black Holes)
+- ok: Text: Starting Fleet
+- FIXED: Leeroy Jenkins bonus also when a run is lost (added before the score goes to the leaderboard)
+- FIXED: Leeroy Jenkins bonus on a win is only paid once
+- FIXED: End of run shows the Leeroy Jenkins bonus
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -109,7 +113,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Text: Gravity Well
 - ok (Devious): Text: Prestige VI
 - ok (Devious): Text: Prestige VIII
-- ok (Devious): Text: Starting Fleet
 - ok (Devious): Fix: ending a run early gives no free Star Shards
 - ok (Devious): Text: Star Shards rules on the Observatory
 - ok (Devious): Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
@@ -152,3 +155,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Gold: help text
 - ok (Devious): Gold: Ice aura text
 - ok (Devious): Ice Planet in a Solar System works like on the board (Permafrost counts pieces touching the System)
+- ok (Devious): Starting Fleet gives a random planet of any kind (not Black Holes)
+- ok (Devious): Text: Starting Fleet
+- ok (Devious): Leeroy Jenkins bonus also when a run is lost (added before the score goes to the leaderboard)
+- ok (Devious): Leeroy Jenkins bonus on a win is only paid once
+- ok (Devious): End of run shows the Leeroy Jenkins bonus
