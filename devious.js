@@ -494,6 +494,7 @@
   try { [[AUR, 'g'], [K.g, 'd']].forEach(function (x) { var o = x[0], f = x[1], base = o[f];
     if (typeof base == 'string' && /\b5 Verdants\b/.test(base)) Object.defineProperty(o, f, { configurable: true, enumerable: true,
       get: function () { var n = 5; try { n = VGT(); } catch (e) {} return base.replace(/\b5 Verdants\b/, n + ' Verdants'); } }); }); } catch (e) {}
+  try { if (typeof RI == 'object' && !RI.constel) RI.constel = ['🌠', '#ffd36a']; } catch (e) {}   // icon for the Constellation relic
   if (!DEVM) delete DV.deal;   // standard game: the game's own deal, no reels
 
   // ===================================================================== scoring effects
@@ -590,7 +591,16 @@
         body += '<p class="dvb-note">A Solar System gives an aura of its main planet: 4 points when formed, +1 every spin it lands. Every ' + z + ' points is a new tier. Points from several Systems of the same kind add up. A System also gives +2 ⭐ to every piece of its kind on the board.</p>';
         Object.keys(AUR).forEach(function (k) { /* only auras a Solar System can give */ if (!K[k]) return; var n = K[k].n + ' Aura'; if (hit(n + ' ' + AUR[k])) body += row('', n, /tier/i.test(AUR[k]) ? '' : 'per tier', esc(k == 'g' ? AUR[k].replace(/\b[35] Verdants\b/, '5 Verdants (3 with Verdant Grove)') : AUR[k]), CC[k]); });
       } else {
-        RELICS.slice().sort(function (a, b) { return a.n < b.n ? -1 : 1; }).forEach(function (r) { if (hit(r.n + ' ' + r.d)) body += row('', r.n, r.c + ' gold', esc(r.d)); });
+        // grouped by what they improve (first match wins), A to Z inside each group
+        var RG = [['Verdant', /verdant/i], ['Forest', /forest|canopy/i], ['Supernova', /supernova/i], ['Nebula', /nebula/i], ['Black Hole', /black hole/i],
+          ['Cradle', /cradle/i], ['Chorus', /chorus/i], ['Volcanic', /volcan|magma/i], ['Ice Planet', /\bice\b|frost|glacier/i], ['Quarry, Asteroids and Destroyers', /quarr|asteroid|destroyer|rubble/i],
+          ['Dust and stars', /dust|protostar|giant star|super giant|cloud/i], ['Moons, Factories and other pieces', /moon|factor|satellite|telescope|astronaut|harvester|radio|north star|comet/i],
+          ['Solar Systems and Galaxies', /solar system|galax/i], ['Gold and the shop', /gold|💰|shop|relic|reroll/i], ['Choices and finds', /choice|pick|find|offer/i], ['Fame', /./]];
+        var bin = RG.map(function () { return []; });
+        RELICS.slice().sort(function (a, b) { return a.n < b.n ? -1 : 1; }).forEach(function (r) { var s = r.n + ' ' + r.d; if (r.id == 'fleet' || !hit(s)) return;
+          var ov = { obsidian: 'Volcanic', dust: 'Solar Systems and Galaxies', ledger: 'Moons, Factories and other pieces' }[r.id];
+          for (var i = 0; i < RG.length; i++) if (ov ? RG[i][0] == ov : RG[i][1].test(s)) { bin[i].push(row((function () { try { return relicArt(r, 40); } catch (e) { return ''; } })(), r.n, r.c + ' gold', esc(r.d))); break; } });
+        RG.forEach(function (g, i) { if (bin[i].length) body += '<h4>' + g[0] + '</h4>' + bin[i].join(''); });
       }
     } catch (e) { body = '<p class="dvb-note">Could not read the game data (' + esc(e.message) + ').</p>'; }
     if (!body) body = '<p class="dvb-note">Nothing matches “' + esc(q) + '”.</p>';

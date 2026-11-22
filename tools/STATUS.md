@@ -105,6 +105,14 @@ Updated by tools/apply_patches.py after each upload.
 - ok: End of run: Leeroy Jenkins shard bonus
 - ok: New relic: Constellation
 - ok: Constellation pays each spin
+- ok: Leeroy Jenkins button shows 200 when you have fewer than 200 shards
+- ok: Sidebar: Cradle aura text
+- ok: Sidebar: Supernova aura text
+- ok: Sidebar: Nebula aura text
+- ok: Sidebar: Chorus aura text
+- ok: Sidebar: Aura box footer
+- ok: Wide Lens costs 5
+- ok: Scout Fleet no longer in the shop (same as Wide Lens; runs that own it keep it)
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -196,3 +204,11 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): End of run: Leeroy Jenkins shard bonus
 - ok (Devious): New relic: Constellation
 - ok (Devious): Constellation pays each spin
+- ok (Devious): Leeroy Jenkins button shows 200 when you have fewer than 200 shards
+- ok (Devious): Sidebar: Cradle aura text
+- ok (Devious): Sidebar: Supernova aura text
+- ok (Devious): Sidebar: Nebula aura text
+- ok (Devious): Sidebar: Chorus aura text
+- ok (Devious): Sidebar: Aura box footer
+- ok (Devious): Wide Lens costs 5
+- ok (Devious): Scout Fleet no longer in the shop (same as Wide Lens; runs that own it keep it)

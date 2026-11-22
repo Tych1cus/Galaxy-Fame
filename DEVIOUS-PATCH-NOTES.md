@@ -26,6 +26,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - **Star Shards:** ending a run right away no longer gives 4 free shards.
 
 ## Rule change
+- **Scout Fleet** removed from the shop (it did the same as Wide Lens). **Wide Lens** now costs 5 gold.
 - **New relic: Constellation** (5 gold): +10 ⭐ every spin for each full set of planets you own: one of every planet kind, counting loose ones and ones inside Solar Systems and Galaxies.
 - **Leeroy Jenkins** no longer adds fame: each level gives +10% Star Shards for the run instead (goals still 13% harder per level). The end-of-run box shows the bonus.
 - **Starting Fleet** gives a random planet of any kind (it only ever gave Verdant, Forest, Supernova or Nebula).

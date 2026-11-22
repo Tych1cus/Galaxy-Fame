@@ -434,5 +434,45 @@
   "name": "Constellation pays each spin",
   "find": "if(has('pulsar'))tf+=3;",
   "replace": "if(has('pulsar'))tf+=3;if(has('constel'))tf+=10*constelSets();"
+ },
+ {
+  "name": "Leeroy Jenkins button shows 200 when you have fewer than 200 shards",
+  "find": "'<button class=\"buy\" '+(M.shards<200?'disabled':'')+' onclick=\"buyLJ()\">'+M.shards+' ✨</button>'",
+  "replace": "'<button class=\"buy\" '+(M.shards<200?'disabled':'')+' onclick=\"buyLJ()\">'+Math.max(200,M.shards)+' ✨</button>'"
+ },
+ {
+  "name": "Sidebar: Cradle aura text",
+  "find": "c:Math.round(.2*t*100)/100+' growth per spin'",
+  "replace": "c:'Cradles grow +'+Math.round(.2*t*100)/100+' ⭐ more every spin'"
+ },
+ {
+  "name": "Sidebar: Supernova aura text",
+  "find": "b:pay2.c+' gold per spin'",
+  "replace": "b:'+'+pay2.c+' gold every spin'"
+ },
+ {
+  "name": "Sidebar: Nebula aura text",
+  "find": "p:t+' more growth choice'+(t>1?'s':'')",
+  "replace": "p:'+'+t+' \"find more often\" choice'+(t>1?'s':'')"
+ },
+ {
+  "name": "Sidebar: Chorus aura text",
+  "find": "h:'Each counts as if '+t+' higher'",
+  "replace": "h:'Every Chorus counts '+t+' higher'"
+ },
+ {
+  "name": "Sidebar: Aura box footer",
+  "find": "Each Solar System gives 4 aura, plus 1 every spin it lands. Systems also boost their own kind on the board.",
+  "replace": "Solar Systems give 4 aura when formed, and +1 every spin."
+ },
+ {
+  "name": "Wide Lens costs 5",
+  "find": "{id:'lens',n:'Wide Lens',d:'+1 choice on every pick screen.',c:4}",
+  "replace": "{id:'lens',n:'Wide Lens',d:'+1 choice on every pick screen.',c:5}"
+ },
+ {
+  "name": "Scout Fleet no longer in the shop (same as Wide Lens; runs that own it keep it)",
+  "find": "function shopPool(){return RELICS.filter(function(r){",
+  "replace": "function shopPool(){return RELICS.filter(function(r){if(r.id=='fleet')return false;"
  }
 ]
