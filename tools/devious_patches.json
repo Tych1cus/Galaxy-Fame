@@ -132,13 +132,13 @@
  },
  {
   "name": "Verdant Aura text (sidebar)",
-  "find": "return'Every 4 Verdants you own pay +1 ⭐ on every spin, once. '+ow+' Verdants = +'+p4+' ⭐ base. Tier '+t+' multiplies that: +'+p4+' × '+t+' = +'+pay.f+' ⭐ per spin. (A tier-2 Verdant is still one Verdant — it does not count twice.)'",
-  "replace": "return'+'+pay.f+' ⭐ every spin: +1 per 4 Verdants you own ('+ow+')'+(t>1?', × tier '+t:'')+'.'"
+  "find": "return'+'+pay.f+' ⭐ every spin: +1 per 4 Verdants you own ('+ow+')'+(t>1?', × tier '+t:'')+'.'",
+  "replace": "if(k=='g'){var need=VGT();if(t<1)return AUR.g+' — needs tier 1 (20 aura).';return'All Verdants score +'+t+' ⭐ more per '+need+' Verdants you have ('+owned('g')+').'}"
  },
  {
   "name": "Verdant Aura text (banner)",
-  "find": "g:'+1 ⭐ every roll for every 4 Verdants you have collected (bag and inside Solar Systems)'",
-  "replace": "g:'+1 ⭐ every spin per 4 Verdants you own'"
+  "find": "g:'+1 ⭐ every spin per 4 Verdants you own'",
+  "replace": "g:'All Verdants score +1 ⭐ more per 5 Verdants you have (counts every Verdant: bag and inside Solar Systems)'"
  },
  {
   "name": "Wide Lens text",
