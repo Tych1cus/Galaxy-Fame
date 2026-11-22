@@ -55,7 +55,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: New Supernovas last 3 more spi
 - ok: Text: Reaching a fame goal gives +8 
 - ok: Text: Quarries get +2 ⭐ more per adj
-- NEEDS A LOOK: Text: The Verdant +3 bonus needs 1 f (game code changed here, skipped)
+- ok: Text: The Verdant +3 bonus needs 1 f
 - ok: Speeds 1x 2x 3x 5x
 - ok: Forests count loose Forests again (broken in v157)
 - ok: Forest info popup uses the same count
@@ -124,7 +124,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Text: New Supernovas last 3 more spi
 - ok (Devious): Text: Reaching a fame goal gives +8 
 - ok (Devious): Text: Quarries get +2 ⭐ more per adj
-- NEEDS A LOOK (Devious): Text: The Verdant +3 bonus needs 1 f (game code changed here, skipped)
+- ok (Devious): Text: The Verdant +3 bonus needs 1 f
 - ok (Devious): Speeds 1x 2x 3x 5x
 - ok (Devious): Forests count loose Forests again (broken in v157)
 - ok (Devious): Forest info popup uses the same count
