@@ -226,5 +226,10 @@
   "name": "Forest info popup value",
   "find": "n:'Forest',v:1+Math.floor((n.r-1)/2)",
   "replace": "n:'Forest',v:1+Math.floor((forestInPlay()-1)/2)"
+ },
+ {
+  "name": "Solar System picture matches its planets (picture cache ignored Cradles, Choruses and Quarries)",
+  "find": "'grbpkiv'.split('').forEach(function(k){ct+=k+(p.comp||[]).filter(function(x){return x==k}).length});",
+  "replace": "ct=(p.comp||[]).join('');"
  }
 ]

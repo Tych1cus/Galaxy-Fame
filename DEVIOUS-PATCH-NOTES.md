@@ -6,6 +6,7 @@ Devious Mode is archdevious's version of Galaxy Fame (😈 button on the main me
 - **SPIN unlocked mid-spin:** on long spins (~10s+) the stall check said "Recovered from a stall" and re-enabled SPIN while the spin was still running. Now it only steps in if nothing has changed for 10 seconds.
 - **Lag that grew through a run (worst on phones):** every redraw wrote each planet's full ~200 KB picture into the page, so a full board was a ~10 MB page rebuilt many times per spin. Pictures are now shared, not copied: late-game spins took about half as long and ran about twice as smooth in a slow-phone test.
 - **Forests scored 0** unless you had Forests inside Solar Systems (since v157 loose Forests weren't counted). They count again, as the description says.
+- **Solar System pictures** could show another System's planets (the saved picture ignored Cradles, Choruses and Quarries). Each System now shows its own planets.
 - **Credits number** showed tiny under the 💰.
 - **Rubble Rights** did nothing. Now Quarries get +4 per Asteroid (instead of +2).
 - **Prism Lens:** the Nebula gets +2 ⭐ as the text says (was +1).

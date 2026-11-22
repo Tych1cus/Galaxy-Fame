@@ -67,3 +67,4 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Forests count loose Forests again (broken in v157)
 - ok (Devious): Forest info popup uses the same count
 - ok (Devious): Forest info popup value
+- ok (Devious): Solar System picture matches its planets (picture cache ignored Cradles, Choruses and Quarries)
