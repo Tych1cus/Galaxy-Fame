@@ -44,7 +44,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Fix: ending a run early gives no free Star Shards
 - ok: Text: Star Shards rules on the Observatory
 - ok: Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
-- NEEDS A LOOK: Verdant Aura text (sidebar) (game code changed here, skipped)
+- ok: Verdant Aura text (sidebar)
 - NEEDS A LOOK: Verdant Aura text (banner) (game code changed here, skipped)
 - ok: Wide Lens text
 - ok: Text: You pick 1 fewer starting plan
@@ -113,7 +113,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Fix: ending a run early gives no free Star Shards
 - ok (Devious): Text: Star Shards rules on the Observatory
 - ok (Devious): Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
-- NEEDS A LOOK (Devious): Verdant Aura text (sidebar) (game code changed here, skipped)
+- ok (Devious): Verdant Aura text (sidebar)
 - NEEDS A LOOK (Devious): Verdant Aura text (banner) (game code changed here, skipped)
 - ok (Devious): Wide Lens text
 - ok (Devious): Text: You pick 1 fewer starting plan
