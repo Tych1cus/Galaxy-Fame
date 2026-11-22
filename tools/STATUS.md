@@ -40,7 +40,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: Gravity Well
 - ok: Text: Prestige VI
 - ok: Text: Prestige VIII
-- FIXED: Text: Starting Fleet
+- ok: Text: Starting Fleet
 - ok: Fix: ending a run early gives no free Star Shards
 - ok: Text: Star Shards rules on the Observatory
 - ok: Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
