@@ -28,6 +28,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 
 ## Rule change
 - **Scout Fleet** removed from the shop (it did the same as Wide Lens). **Wide Lens** now costs 5 gold.
+- **New relic: Orbital Salvage** (4 gold): Satellites and Comets +1 ⭐, and Solar Harvesters also consume touching Satellites and Comets for +2 ⭐ permanently each. Only offered once you own a Satellite, Comet or Solar Harvester.
 - **New relic: Constellation** (5 gold): +10 ⭐ every spin for each full set of planets you own: one of every planet kind, counting loose ones and ones inside Solar Systems and Galaxies.
 - **Leeroy Jenkins** no longer adds fame: each level gives +10% Star Shards for the run instead (goals still 13% harder per level). The end-of-run box shows the bonus.
 - **Starting Fleet** gives a random planet of any kind (it only ever gave Verdant, Forest, Supernova or Nebula).
@@ -48,7 +49,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - Speed options 1x, 2x, 3x, 5x.
 - Planets light up as they score; big spins shake the screen with explosions and a BIG COMBO / MEGA FAME banner; fireworks on fame goals.
 - A click sound on every button; a Music button on the main menu; a moving star field behind every screen.
-- 📖 Compendium (Devious Mode only): every planet, piece, aura and relic with what it does, with search. Built from the game's own data, so it stays up to date. Lists only auras a Solar System can give.
+- 📖 Compendium (Devious Mode only): every planet, piece, aura and relic with what it does, with search. Relic icons shown (Constellation has its own star-pattern icon). Built from the game's own data, so it stays up to date. Lists only auras a Solar System can give.
 - Verdant texts say 3 instead of 5 while you own Verdant Grove.
 - The sidebar shows how many of each planet you own (loose and inside Solar Systems and Galaxies) instead of the find odds.
 - Leaderboard has a 💀 Leeroy Jenkins tab: each player's highest Leeroy level they have won a run at.

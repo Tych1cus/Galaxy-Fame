@@ -494,7 +494,14 @@
   try { [[AUR, 'g'], [K.g, 'd']].forEach(function (x) { var o = x[0], f = x[1], base = o[f];
     if (typeof base == 'string' && /\b5 Verdants\b/.test(base)) Object.defineProperty(o, f, { configurable: true, enumerable: true,
       get: function () { var n = 5; try { n = VGT(); } catch (e) {} return base.replace(/\b5 Verdants\b/, n + ' Verdants'); } }); }); } catch (e) {}
-  try { if (typeof RI == 'object' && !RI.constel) RI.constel = ['🌠', '#ffd36a']; } catch (e) {}   // icon for the Constellation relic
+  try { if (typeof RI == 'object' && !RI.constel) RI.constel = ['✦', '#ffd36a']; } catch (e) {}   // Constellation relic colour (picture drawn below)
+  try { if (typeof RI == 'object' && !RI.salvage) RI.salvage = ['🛰️', '#7fe0c8']; } catch (e) {}   // Orbital Salvage icon
+  // Constellation: draw a small star pattern instead of an emoji (the shooting-star emoji is a square picture)
+  try { if (typeof relicArt == 'function') { var _ra = relicArt; relicArt = function (r, sz) { var o = _ra(r, sz); if (!r || r.id != 'constel') return o;
+    var P = [[30, 38], [44, 30], [58, 40], [72, 32], [64, 58], [46, 64], [36, 54]], L = [[0, 1], [1, 2], [2, 3], [2, 4], [4, 5], [5, 6], [6, 0]], g = '';
+    L.forEach(function (l) { g += '<line x1="' + P[l[0]][0] + '" y1="' + P[l[0]][1] + '" x2="' + P[l[1]][0] + '" y2="' + P[l[1]][1] + '" stroke="#fff3c4" stroke-width="2" stroke-opacity=".75"/>'; });
+    P.forEach(function (p, i) { var s = i == 2 || i == 5 ? 5.5 : 3.8; g += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (s + 3) + '" fill="#ffe27a" opacity=".35"/><circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + s + '" fill="#fffbe6"/>'; });
+    return o.replace(/<text x="50" y="63"[^>]*>[\s\S]*?<\/text>/, g); }; } } catch (e) {}
   if (!DEVM) delete DV.deal;   // standard game: the game's own deal, no reels
 
   // ===================================================================== scoring effects

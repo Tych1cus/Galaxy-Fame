@@ -489,5 +489,35 @@
   "name": "End run button keeps its space during a spin (no header jump)",
   "find": "(G&&!G.busy&&!G.over?'<button onclick=\"quitRun()\">End run</button>':'')",
   "replace": "(G&&!G.over?'<button onclick=\"quitRun()\"'+(G.busy?' disabled style=\"visibility:hidden\"':'')+'>End run</button>':'')"
+ },
+ {
+  "name": "New relic: Orbital Salvage",
+  "find": "var RELICS=[",
+  "replace": "var RELICS=[{id:'salvage',n:'Orbital Salvage',d:'Satellites and Comets +1 ⭐. Solar Harvesters also consume them, +2 ⭐ permanently each.',c:4},"
+ },
+ {
+  "name": "Orbital Salvage: +1 to Comets and Satellites",
+  "find": "else if(k=='com')v=2;else if(k=='sat')v=1+N.filter(function(j){return PL[cs[j].k]||cs[j].k=='v'||cs[j].k=='i'}).length;",
+  "replace": "else if(k=='com')v=2+(has('salvage')?1:0);else if(k=='sat')v=1+(has('salvage')?1:0)+N.filter(function(j){return PL[cs[j].k]||cs[j].k=='v'||cs[j].k=='i'}).length;"
+ },
+ {
+  "name": "Orbital Salvage: Harvesters consume Satellites and Comets",
+  "find": "(c.k=='des'?(x.k=='ast'||x.k=='bas'):x.k=='b')});",
+  "replace": "(c.k=='des'?(x.k=='ast'||x.k=='bas'):(x.k=='b'||(has('salvage')&&(x.k=='sat'||x.k=='com'))))});"
+ },
+ {
+  "name": "Orbital Salvage: +2 per Satellite or Comet",
+  "find": "g+=c.k=='sun'?3:(",
+  "replace": "g+=c.k=='sun'?(x.k=='b'?3:2):("
+ },
+ {
+  "name": "Orbital Salvage: Harvester message",
+  "find": "'The Solar Harvester consumes a Supernova!'",
+  "replace": "(E.t.every(function(j){return cs[j].k=='b'})?'The Solar Harvester consumes a Supernova!':'The Solar Harvester feeds!')"
+ },
+ {
+  "name": "Orbital Salvage: only offered once you own a Satellite, Comet or Solar Harvester",
+  "find": "if(id=='cinder')return tierF(auras(),'r')>=1;",
+  "replace": "if(id=='cinder')return tierF(auras(),'r')>=1;\nif(id=='salvage')return hasK('sat')||hasK('com')||hasK('sun');"
  }
 ]
