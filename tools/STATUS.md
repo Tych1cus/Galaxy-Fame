@@ -36,8 +36,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: Cosmic Ledger
 - ok: Text: Event Horizon
 - ok: Text: Gravity Well
-- ok: Text: Prestige VI
-- ok: Text: Prestige VIII
+- NEEDS A LOOK: Text: Prestige VI (game code changed here, skipped)
+- NEEDS A LOOK: Text: Prestige VIII (game code changed here, skipped)
 - ok: Fix: ending a run early gives no free Star Shards
 - ok: Text: Star Shards rules on the Observatory
 - ok: Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
@@ -115,8 +115,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok: End run button keeps its space during a spin (no header jump)
 - ok: New relics: Orbital Salvage and Constellation
 - ok: Orbital Salvage: +1 to Comets and Satellites
-- ok: Orbital Salvage: Harvesters consume Satellites and Comets
-- ok: Orbital Salvage: +2 per Satellite or Comet
+- NEEDS A LOOK: Orbital Salvage: Harvesters consume Satellites and Comets (game code changed here, skipped)
+- NEEDS A LOOK: Orbital Salvage: +2 per Satellite or Comet (game code changed here, skipped)
 - ok: Orbital Salvage: Harvester message
 - ok: Orbital Salvage: only offered once you own a Satellite, Comet or Solar Harvester
 - ok: Cool Kid: +1 aura per aura kind each spin (not +1 per Solar System)
@@ -159,7 +159,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Telescope counts the planet kinds inside touching Systems and Galaxies
 - ok: Text: Telescope
 - ok: No Black Hole aura (Black Holes can't form a Solar System)
-- ok: Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1)
+- NEEDS A LOOK: Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1) (game code changed here, skipped)
 - ok: Campaign: Rogue Destroyer shoots after your Destroyers (Chapter 2)
 - ok: Campaign: Rogue Destroyer never scores fame
 - ok: Campaign: Rogue Destroyer can't be removed from the bag
@@ -186,8 +186,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Text: Cosmic Ledger
 - ok (Devious): Text: Event Horizon
 - ok (Devious): Text: Gravity Well
-- ok (Devious): Text: Prestige VI
-- ok (Devious): Text: Prestige VIII
+- NEEDS A LOOK (Devious): Text: Prestige VI (game code changed here, skipped)
+- NEEDS A LOOK (Devious): Text: Prestige VIII (game code changed here, skipped)
 - ok (Devious): Fix: ending a run early gives no free Star Shards
 - ok (Devious): Text: Star Shards rules on the Observatory
 - ok (Devious): Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
@@ -265,8 +265,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): End run button keeps its space during a spin (no header jump)
 - ok (Devious): New relics: Orbital Salvage and Constellation
 - ok (Devious): Orbital Salvage: +1 to Comets and Satellites
-- ok (Devious): Orbital Salvage: Harvesters consume Satellites and Comets
-- ok (Devious): Orbital Salvage: +2 per Satellite or Comet
+- NEEDS A LOOK (Devious): Orbital Salvage: Harvesters consume Satellites and Comets (game code changed here, skipped)
+- NEEDS A LOOK (Devious): Orbital Salvage: +2 per Satellite or Comet (game code changed here, skipped)
 - ok (Devious): Orbital Salvage: Harvester message
 - ok (Devious): Orbital Salvage: only offered once you own a Satellite, Comet or Solar Harvester
 - ok (Devious): Cool Kid: +1 aura per aura kind each spin (not +1 per Solar System)
@@ -309,7 +309,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Telescope counts the planet kinds inside touching Systems and Galaxies
 - ok (Devious): Text: Telescope
 - ok (Devious): No Black Hole aura (Black Holes can't form a Solar System)
-- ok (Devious): Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1)
+- NEEDS A LOOK (Devious): Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1) (game code changed here, skipped)
 - ok (Devious): Campaign: Rogue Destroyer shoots after your Destroyers (Chapter 2)
 - ok (Devious): Campaign: Rogue Destroyer never scores fame
 - ok (Devious): Campaign: Rogue Destroyer can't be removed from the bag
