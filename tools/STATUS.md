@@ -45,7 +45,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Verdant Aura text (banner)
 - ok: Wide Lens text
 - ok: Text: You pick 1 fewer starting plan
-- NEEDS A LOOK: Text: Black Holes\' base bite drops  (game code changed here, skipped)
 - ok: Text: Destroyers gain +3 ⭐ more for 
 - ok: Text: Destroyers gain +2 ⭐ more for 
 - ok: Text: Cradles start +1 ⭐ higher.
@@ -113,8 +112,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Sidebar: Aura box footer
 - ok: Wide Lens costs 5
 - ok: Scout Fleet no longer in the shop (same as Wide Lens; runs that own it keep it)
-- NEEDS A LOOK: Sidebar: Volcanic aura text (game code changed here, skipped)
-- NEEDS A LOOK: Volcanic aura base text (game code changed here, skipped)
 - ok: End run button keeps its space during a spin (no header jump)
 - ok: New relics: Orbital Salvage and Constellation
 - ok: Orbital Salvage: +1 to Comets and Satellites
@@ -198,7 +195,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Verdant Aura text (banner)
 - ok (Devious): Wide Lens text
 - ok (Devious): Text: You pick 1 fewer starting plan
-- NEEDS A LOOK (Devious): Text: Black Holes\' base bite drops  (game code changed here, skipped)
 - ok (Devious): Text: Destroyers gain +3 ⭐ more for 
 - ok (Devious): Text: Destroyers gain +2 ⭐ more for 
 - ok (Devious): Text: Cradles start +1 ⭐ higher.
@@ -266,8 +262,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Sidebar: Aura box footer
 - ok (Devious): Wide Lens costs 5
 - ok (Devious): Scout Fleet no longer in the shop (same as Wide Lens; runs that own it keep it)
-- NEEDS A LOOK (Devious): Sidebar: Volcanic aura text (game code changed here, skipped)
-- NEEDS A LOOK (Devious): Volcanic aura base text (game code changed here, skipped)
 - ok (Devious): End run button keeps its space during a spin (no header jump)
 - ok (Devious): New relics: Orbital Salvage and Constellation
 - ok (Devious): Orbital Salvage: +1 to Comets and Satellites
