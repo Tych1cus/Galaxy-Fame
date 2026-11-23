@@ -715,7 +715,10 @@
  {
   "name": "Text: Astronaut",
   "find": "nau:{n:'Astronaut',e:'👨‍🚀',r:2,d:'+3 ⭐, +2 ⭐ per adjacent Verdant.'}",
-  "replace": "nau:{n:'Astronaut',e:'👨‍🚀',r:2,d:'+3 ⭐, +2 ⭐ per touching Verdant (in Systems too).'}"
+  "replace": "nau:{n:'Astronaut',e:'👨‍🚀',r:2,d:'+3 ⭐, +2 ⭐ per touching Verdant.'}",
+  "was": [
+   "nau:{n:'Astronaut',e:'👨‍🚀',r:2,d:'+3 ⭐, +2 ⭐ per touching Verdant (in Systems too).'}"
+  ]
  },
  {
   "name": "Telescope counts the planet kinds inside touching Systems and Galaxies",
