@@ -76,7 +76,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: Nebula Halo
 - ok: Gold: stats label
 - ok: Gold: help text
-- ok: Gold: Ice aura text
+- NEEDS A LOOK: Gold: Ice aura text (game code changed here, skipped)
 - ok: Ice Planet in a Solar System works like on the board (Permafrost counts pieces touching the System)
 - ok: Starting Fleet gives a random planet of any kind (not Black Holes)
 - ok: Text: Starting Fleet
@@ -149,8 +149,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Ice aura counts Ice inside corner Systems (sidebar total)
 - ok: Ice aura counts Ice inside corner Systems (spin)
 - ok: Ice aura glow on corner Systems holding Ice
-- ok: Text: Ice aura (banner/Compendium)
-- ok: Text: Ice aura (sidebar, per Ice and total)
+- NEEDS A LOOK: Text: Ice aura (banner/Compendium) (game code changed here, skipped)
+- NEEDS A LOOK: Text: Ice aura (sidebar, per Ice and total) (game code changed here, skipped)
 - ok: Helper: count planets inside a System or Galaxy
 - ok: Text: Satellite counts planets inside Systems
 - ok: Helper: count one planet kind inside a System or Galaxy
@@ -226,7 +226,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Text: Nebula Halo
 - ok (Devious): Gold: stats label
 - ok (Devious): Gold: help text
-- ok (Devious): Gold: Ice aura text
+- NEEDS A LOOK (Devious): Gold: Ice aura text (game code changed here, skipped)
 - ok (Devious): Ice Planet in a Solar System works like on the board (Permafrost counts pieces touching the System)
 - ok (Devious): Starting Fleet gives a random planet of any kind (not Black Holes)
 - ok (Devious): Text: Starting Fleet
@@ -299,8 +299,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Ice aura counts Ice inside corner Systems (sidebar total)
 - ok (Devious): Ice aura counts Ice inside corner Systems (spin)
 - ok (Devious): Ice aura glow on corner Systems holding Ice
-- ok (Devious): Text: Ice aura (banner/Compendium)
-- ok (Devious): Text: Ice aura (sidebar, per Ice and total)
+- NEEDS A LOOK (Devious): Text: Ice aura (banner/Compendium) (game code changed here, skipped)
+- NEEDS A LOOK (Devious): Text: Ice aura (sidebar, per Ice and total) (game code changed here, skipped)
 - ok (Devious): Helper: count planets inside a System or Galaxy
 - ok (Devious): Text: Satellite counts planets inside Systems
 - ok (Devious): Helper: count one planet kind inside a System or Galaxy
