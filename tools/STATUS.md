@@ -166,6 +166,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Campaign: Rogue Destroyer shoots after your Destroyers (Chapter 2)
 - ok: Campaign: Rogue Destroyer never scores fame
 - ok: Campaign: Rogue Destroyer can't be removed from the bag
+- FIXED: Forming a System: Forests that haven't planted yet and Supernova lifespans are marked
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -318,3 +319,4 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Campaign: Rogue Destroyer shoots after your Destroyers (Chapter 2)
 - ok (Devious): Campaign: Rogue Destroyer never scores fame
 - ok (Devious): Campaign: Rogue Destroyer can't be removed from the bag
+- ok (Devious): Forming a System: Forests that haven't planted yet and Supernova lifespans are marked
