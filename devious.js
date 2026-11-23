@@ -722,7 +722,7 @@
   var CHAP = [
     { n: 'Chapter 1 · The Dust Reaches',
       story: 'Your father charted half the known stars, and his star maps still hang in every observatory. Today the Star Council handed you a sector of your own: the Dust Reaches, a grey drift of cosmic dust that no planner has ever wanted. The others laugh when they hear where you are going. You don\'t. Somewhere under all that dust is a sky worth seeing, and you are going to make it shine.',
-      rules: 'Prestige 10 rules. Whenever a Supernova burns out on the board, 2 Cosmic Dusts drift into your bag. Reach every fame goal to win.',
+      rules: 'Prestige 10 rules. You start with 1 fewer planet but 1 Cosmic Dust. Whenever a Supernova burns out on the board, 2 Cosmic Dusts drift into your bag. Reach every fame goal to win.',
       ending: 'The last fame goal lights up across the Reaches. Where there was only grey dust, young stars now burn, and passing ships are already changing course to see them. At the Star Council, nobody is laughing anymore. That night a single message arrives from your father: "I knew you would."' }
     ,{ n: 'Chapter 2 · Pirates in the Reaches',
       story: 'Word travels fast. The Reaches now shine bright enough to be seen three systems away, and not everyone who comes to look is friendly. Your new sector has no patrols and no beacons, and a rogue crew of mining pirates has already slipped in to strip your asteroid fields bare. Rebuild what they break, keep the sector shining, and show these troublemakers this is no longer a place they can take from.',
@@ -753,7 +753,7 @@
   if (typeof window.PV == 'function') { var pv0 = window.PV; window.PV = function () { if ((typeof G != 'undefined' && G && G.camp) || campNext) return PEFF[9] || pv0(); return pv0(); }; }
   window.campBuy = function (i) { if (chOwned(i) || !chReady(i) || M.shards < CAMP_COST) return; M.shards -= CAMP_COST; CM().own[i] = 1; save(); draw(); };
   window.campPlay = function (i) { if (!chOwned(i) || !chReady(i)) return; campNext = i; try { newGame(); } finally { campNext = 0; }
-    G.camp = i; G.lj = 0; if (i == 2) G.bag.push(mk('rog')); G.msg = '📜 ' + CHAP[i - 1].n.split(' · ')[0] + ': pick your starting planets, then spin.'; DH = ''; draw(); };
+    G.camp = i; G.lj = 0; if (i == 1) { var _pl = G.bag.filter(function (x) { return K[x.k]; }); if (_pl.length) G.bag.splice(G.bag.indexOf(_pl[R(_pl.length)]), 1); G.bag.push(mk('j')); } if (i == 2) G.bag.push(mk('rog')); G.msg = '📜 ' + CHAP[i - 1].n.split(' · ')[0] + ': pick your starting planets, then spin.'; DH = ''; draw(); };
   window.showCamp = function () { SCR = 'camp'; draw(); };
   window.campBurn = function () { if (G && G.camp == 1) { G.bag.push(mk('j'), mk('j')); G._cb = (G._cb || 0) + 2; } };
   function campHtml() {
