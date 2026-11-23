@@ -106,8 +106,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Constellation pays each spin
 - ok: Leeroy Jenkins button shows 200 when you have fewer than 200 shards
 - ok: Sidebar: Cradle aura text
-- ok: Sidebar: Supernova aura text
-- ok: Sidebar: Nebula aura text
+- NEEDS A LOOK: Sidebar: Supernova aura text (game code changed here, skipped)
+- NEEDS A LOOK: Sidebar: Nebula aura text (game code changed here, skipped)
 - ok: Sidebar: Chorus aura text
 - ok: Sidebar: Aura box footer
 - ok: Wide Lens costs 5
@@ -256,8 +256,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Constellation pays each spin
 - ok (Devious): Leeroy Jenkins button shows 200 when you have fewer than 200 shards
 - ok (Devious): Sidebar: Cradle aura text
-- ok (Devious): Sidebar: Supernova aura text
-- ok (Devious): Sidebar: Nebula aura text
+- NEEDS A LOOK (Devious): Sidebar: Supernova aura text (game code changed here, skipped)
+- NEEDS A LOOK (Devious): Sidebar: Nebula aura text (game code changed here, skipped)
 - ok (Devious): Sidebar: Chorus aura text
 - ok (Devious): Sidebar: Aura box footer
 - ok (Devious): Wide Lens costs 5
