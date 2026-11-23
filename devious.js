@@ -718,8 +718,8 @@
   // ===================================================================== forming a System: what each piece still has to give
   window.formTag = function (p) {
     if (!p) return '';
-    if (p.k == 'r' && !p.planted && !p.seed) return '<small style="display:block;color:#52e58b;font-size:11px">🌱 hasn\'t planted yet</small>';
-    if (p.k == 'b') { var l = Math.max(0, p.life || 0); return '<small style="display:block;color:#ff70e8;font-size:11px">⏳ ' + l + ' spin' + (l == 1 ? '' : 's') + ' left</small>'; }
+    if (p.k == 'r' && !p.planted && !p.seed) return '<span style="display:block;font-size:16px;line-height:1.2" title="Hasn\'t planted yet">🌱</span>';
+    if (p.k == 'b') { var l = Math.max(0, p.life || 0); return '<span style="display:block;font-weight:800;color:#ff70e8;font-size:15px;line-height:1.2" title="Spins left">' + l + '</span>'; }
     return '';
   };
 
