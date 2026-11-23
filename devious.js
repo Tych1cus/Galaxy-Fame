@@ -715,6 +715,11 @@
     setInterval(check, 250); check();
   })();
   document.head.appendChild(css);
+  // ===================================================================== old saves
+  // Upgrades bought above today's max in older versions (e.g. Starting Fleet level 3) are brought down to the max,
+  // so older saves have no edge over new ones.
+  try { var _cap = false; UP.forEach(function (u) { if (M.up && (M.up[u.id] || 0) > u.max) { M.up[u.id] = u.max; _cap = true; } }); if (_cap) save(); } catch (e) {}
+
   // ===================================================================== campaign
   // Opens once every Observatory upgrade is maxed (Leeroy Jenkins not needed). Each chapter costs 200 shards and
   // opens after the one before it is beaten. Chapter runs use Prestige 10 rules, Leeroy is off, they give
