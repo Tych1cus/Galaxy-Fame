@@ -3,6 +3,7 @@
 Everything below is in the standard game. Developer Mode is the same game (same leaderboard, best score, stats and saved run); its only difference is the slot-machine UI: pull the lever and the planets spin before they land.
 
 ## Bug fixes
+- **Encore** doubled the last Chorus in every Solar System as well as on the board. Now it doubles only the very last Chorus counted that spin, on the board or in a System.
 - **Glacial Lens** reworked: Ice Planets get +2 ⭐ for each piece touching them (inside a System or Galaxy: for each piece touching it). Costs 6 gold.
 - **Permafrost** costs 4 gold.
 - **Constellation and Orbital Salvage showed up several times in the shop**: two edits shared one spot, so every automatic run after an upload added another copy. Now each is added once, and extra copies are cleaned up automatically.

@@ -37,6 +37,10 @@ for p in json.load(open(PATCHES, encoding='utf-8')):
         lines.append('- FIXED: ' + name)
     elif nf == 0 and nr >= 1:
         lines.append('- ok: ' + name)
+    elif nf == 0 and any(text.count(w) == 1 for w in p.get('was', [])):
+        w = [w for w in p['was'] if text.count(w) == 1][0]
+        text = text.replace(w, rep)
+        lines.append('- UPDATED: ' + name)
     elif nf > 1:
         lines.append('- NEEDS A LOOK: ' + name + ' (found ' + str(nf) + ' times, skipped)')
     else:
@@ -69,6 +73,11 @@ for p in DVP:
     elif nf == 1 or (nf > 1 and many):
         text = text.replace(find, rep)
         lines.append('- FIXED: ' + name)
+    elif nf == 0 and any(text.count(w) == 1 for w in p.get('was', [])):
+        # an older version of this edit is in the file: swap it for the new one
+        w = [w for w in p['was'] if text.count(w) == 1][0]
+        text = text.replace(w, rep)
+        lines.append('- UPDATED: ' + name)
     elif nf > 1:
         lines.append('- NEEDS A LOOK: ' + name + ' (found ' + str(nf) + ' times, skipped)')
     else:

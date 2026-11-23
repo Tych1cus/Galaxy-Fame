@@ -26,6 +26,10 @@ for p in json.load(open(PATCHES, encoding='utf-8')):
         lines.append('- ok (Devious): ' + name)
     elif rep in t and ((find not in rep and n == 0) or (find in rep and n == t.count(rep))):
         lines.append('- ok (Devious): ' + name)
+    elif n == 0 and any(t.count(w) == 1 for w in p.get('was', [])):
+        w = [w for w in p['was'] if t.count(w) == 1][0]
+        t = t.replace(w, rep)
+        lines.append('- ok (Devious): ' + name)
     elif n == 0:
         lines.append('- NEEDS A LOOK (Devious): ' + name + ' (game code changed here, skipped)')
     elif n > 1 and not many:
