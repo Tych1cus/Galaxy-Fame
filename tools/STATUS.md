@@ -26,7 +26,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Chorus: counting starts with the Choruses inside Solar Systems
 - ok: Chorus: in a Solar System they score 1, 2, 3... like on the board
 - ok: Chorus: System panel shows each Chorus's number
-- ok: Fix: Rubble Rights works (Quarries +4 per Asteroid)
+- NEEDS A LOOK: Fix: Rubble Rights works (Quarries +4 per Asteroid) (game code changed here, skipped)
 - NEEDS A LOOK: Fix: Super Giant banner says its real value (game code changed here, skipped)
 - NEEDS A LOOK: Text: Thick Dust (game code changed here, skipped)
 - ok: Text: Dust Compactor
@@ -45,7 +45,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Verdant Aura text (banner)
 - ok: Wide Lens text
 - ok: Text: You pick 1 fewer starting plan
-- ok: Text: Destroyers gain +3 ⭐ more for 
+- NEEDS A LOOK: Text: Destroyers gain +3 ⭐ more for  (game code changed here, skipped)
 - ok: Text: Destroyers gain +2 ⭐ more for 
 - ok: Text: Cradles start +1 ⭐ higher.
 - ok: Text: New Supernovas last 3 more spi
@@ -66,7 +66,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: System pieces row: every planet shows its own score
 - ok: System pieces row: score under every planet (not a dot)
 - ok: Nebula: scores +2 itself for every piece touching it (Prism Lens +2 more)
-- ok: Nebula in a Solar System: +2 for every piece touching the System (board)
+- NEEDS A LOOK: Nebula in a Solar System: +2 for every piece touching the System (board) (game code changed here, skipped)
 - ok: Nebula in a Solar System: +2 for every piece touching the System, Prism Lens +2 (System score)
 - ok: Nebula: shows its own score when it scores (not 'Buff!')
 - ok: Text: Nebula
@@ -128,10 +128,10 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Remove unused Asteroid aura odds code
 - NEEDS A LOOK: Quarry aura: sidebar text (game code changed here, skipped)
 - ok: Aura text: no System of that kind yet (was 'needs tier 1 (10 aura)')
-- ok: Text: Heavy Munitions (+1 Destroyer range)
+- NEEDS A LOOK: Text: Heavy Munitions (+1 Destroyer range) (game code changed here, skipped)
 - ok: Verdant aura text: no Verdant System yet (was 'needs tier 1 (20 aura)')
 - ok: Prestige box wide enough for P9 and P10 (buttons wrap on small phones)
-- ok: Quarry aura counts Quarries inside Solar Systems and Galaxies too
+- NEEDS A LOOK: Quarry aura counts Quarries inside Solar Systems and Galaxies too (game code changed here, skipped)
 - ok: Volcanic in a System: Magma Core counted once, and keeps its own Black Hole damage
 - ok: Nebula Halo works for Nebulas inside Solar Systems and Galaxies
 - ok: Text: Cosmic Dust (drop 'Not a planet' line)
@@ -176,7 +176,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Chorus: counting starts with the Choruses inside Solar Systems
 - ok (Devious): Chorus: in a Solar System they score 1, 2, 3... like on the board
 - ok (Devious): Chorus: System panel shows each Chorus's number
-- ok (Devious): Fix: Rubble Rights works (Quarries +4 per Asteroid)
+- NEEDS A LOOK (Devious): Fix: Rubble Rights works (Quarries +4 per Asteroid) (game code changed here, skipped)
 - NEEDS A LOOK (Devious): Fix: Super Giant banner says its real value (game code changed here, skipped)
 - NEEDS A LOOK (Devious): Text: Thick Dust (game code changed here, skipped)
 - ok (Devious): Text: Dust Compactor
@@ -195,7 +195,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Verdant Aura text (banner)
 - ok (Devious): Wide Lens text
 - ok (Devious): Text: You pick 1 fewer starting plan
-- ok (Devious): Text: Destroyers gain +3 ⭐ more for 
+- NEEDS A LOOK (Devious): Text: Destroyers gain +3 ⭐ more for  (game code changed here, skipped)
 - ok (Devious): Text: Destroyers gain +2 ⭐ more for 
 - ok (Devious): Text: Cradles start +1 ⭐ higher.
 - ok (Devious): Text: New Supernovas last 3 more spi
@@ -216,7 +216,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): System pieces row: every planet shows its own score
 - ok (Devious): System pieces row: score under every planet (not a dot)
 - ok (Devious): Nebula: scores +2 itself for every piece touching it (Prism Lens +2 more)
-- ok (Devious): Nebula in a Solar System: +2 for every piece touching the System (board)
+- NEEDS A LOOK (Devious): Nebula in a Solar System: +2 for every piece touching the System (board) (game code changed here, skipped)
 - ok (Devious): Nebula in a Solar System: +2 for every piece touching the System, Prism Lens +2 (System score)
 - ok (Devious): Nebula: shows its own score when it scores (not 'Buff!')
 - ok (Devious): Text: Nebula
@@ -278,10 +278,10 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Remove unused Asteroid aura odds code
 - NEEDS A LOOK (Devious): Quarry aura: sidebar text (game code changed here, skipped)
 - ok (Devious): Aura text: no System of that kind yet (was 'needs tier 1 (10 aura)')
-- ok (Devious): Text: Heavy Munitions (+1 Destroyer range)
+- NEEDS A LOOK (Devious): Text: Heavy Munitions (+1 Destroyer range) (game code changed here, skipped)
 - ok (Devious): Verdant aura text: no Verdant System yet (was 'needs tier 1 (20 aura)')
 - ok (Devious): Prestige box wide enough for P9 and P10 (buttons wrap on small phones)
-- ok (Devious): Quarry aura counts Quarries inside Solar Systems and Galaxies too
+- NEEDS A LOOK (Devious): Quarry aura counts Quarries inside Solar Systems and Galaxies too (game code changed here, skipped)
 - ok (Devious): Volcanic in a System: Magma Core counted once, and keeps its own Black Hole damage
 - ok (Devious): Nebula Halo works for Nebulas inside Solar Systems and Galaxies
 - ok (Devious): Text: Cosmic Dust (drop 'Not a planet' line)
