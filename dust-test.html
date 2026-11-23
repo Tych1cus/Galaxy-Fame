@@ -533,9 +533,9 @@ function RT(t){return Math.max(1,Math.round(RENT[t]*(1-.04*uL('goal'))*(1+(PV().
 function ljBonus(){return 0}
 var UP=[{id:'start',n:'Starting Fleet',d:'Begin each run with +1 random planet per level.',max:2,base:45},{id:'cash',n:'Seed Capital',d:'+1 💰 each time you reach a fame goal, per level.',max:3,base:24},
 {id:'goal',n:'Goal Haggling',d:'All fame goals are 4% lower per level.',max:5,base:42},{id:'scout',n:'Scout Network',d:'+1 choice on every pick screen.',max:1,base:90},{id:'fame',n:'Fame Mastery',d:'+3 ⭐ at the end of every spin per level.',max:5,base:36},
-{id:'tink',n:'Relic Tinkering',d:'Relics cost 1 💰 less per level.',max:3,base:45},{id:'bazaar',n:'Grand Bazaar',d:'+1 relic offered in each shop per level.',max:2,base:75},
+{id:'tink',n:'Relic Tinkering',d:'Relics cost 1 💰 less per level.',max:2,base:45},{id:'bazaar',n:'Grand Bazaar',d:'+1 relic offered in each shop per level.',max:1,base:75},
 {id:'form',n:'Swift Formation',d:'Solar Systems and Galaxies need 1 fewer piece per level.',max:2,base:90},
-{id:'cool',n:'Cool Kid',d:'Each aura gains +1 more each spin.',max:1,base:60}];
+{id:'cool',n:'Cool Kid',d:'Each aura gains +1 more each spin.',max:1,base:60}];UP.forEach(function(u){if(M.up&&M.up[u.id]>u.max)M.up[u.id]=u.max});
 var RNK=[['Stargazer',0],['Navigator',90],['Pathfinder',240],['Cartographer',480],['Astronomer',900],['Constellation Keeper',1500],['Galactic Sage',2400]];
 function rank(){var th=[0,90,240,480,900,1500,2400],nz=['Stargazer','Navigator','Pathfinder','Cartographer','Astronomer','Constellation Keeper','Galactic Sage'],i=0;th.forEach(function(t,j){if(M.total>=t)i=j});return{n:nz[i],next:th[i+1]}}
 var ROM=['','I','II','III','IV','V','VI','VII','VIII','IX','X'];
