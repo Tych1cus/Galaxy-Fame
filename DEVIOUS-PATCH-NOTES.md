@@ -5,7 +5,7 @@ Everything below is in the standard game. Developer Mode is the same game (same 
 ## Bug fixes
 - **Campaign mode** (📜 Campaign on the menu): appears once every Observatory upgrade is maxed (Leeroy Jenkins not needed). Each chapter costs 200 Star Shards and opens after the previous one is beaten. Chapter runs use Prestige 10 rules with Leeroy off, earn Star Shards as normal, and stay off the leaderboards, best score and stats; a win marks the chapter beaten and never changes your Prestige. Saved runs remember the chapter. Developer Mode shows the Campaign button always, with every chapter free.
   - Chapter 1 · The Dust Reaches: whenever a Supernova burns out on the board, 2 Cosmic Dusts go into your bag. Winning shows a closing story message.
-  - Chapter 2 · Pirates in the Reaches: a Rogue Destroyer starts in your bag. It shoots touching Asteroids after your own Destroyers and grows from them, but never scores fame, and nothing it destroys pays you (no Salvage Rights gold, no Big Asteroid split, no Heavy Munitions or Prospector bonus). It can't be removed and never appears in picks or shops.
+  - Chapter 2 · Pirates in the Reaches: a Rogue Destroyer starts in your bag. It shoots touching Asteroids after your own Destroyers and grows from them, but never scores fame, and nothing it destroys pays you (no Salvage Rights gold, no Big Asteroid split, no Heavy Munitions or Prospector bonus). It can't be removed and never appears in picks or shops. It blocks its square but counts as nothing for any other piece (no touching bonuses, not a kind for Telescopes, nothing for Black Holes to eat). It has its own red pirate-ship look.
 - **Black Hole Aura** removed from the Compendium and aura list (Black Holes can never form a Solar System, so it could never happen).
 - **Telescope** now counts the planet kinds inside a touching Solar System or Galaxy (a System with 5 different planets gives +5).
 - **Astronaut** now counts Verdants inside a touching Solar System or Galaxy (+2 each).
@@ -23,7 +23,7 @@ Everything below is in the standard game. Developer Mode is the same game (same 
 - **Asteroid aura** removed (Asteroids can't form a Solar System, so it could never be reached).
 - **Heavy Munitions** now also gives +1 Destroyer range (moved from the auras).
 - **Aura text** said "needs tier 1 (10/20 aura)"; tier 1 actually starts when the System forms. Now says "needs a <kind> Solar System". Compendium note fixed the same way.
-- **Prestige box** on the menu is wider so P9 and P10 fit inside (buttons wrap on small phones).
+- **Prestige box** on the menu is wider so P9 and P10 fit inside, with little room to spare (buttons wrap on small phones).
 - **Cool Kid** gave +1 aura to every Solar System each spin; now each aura gets +1 in total each spin (only once per aura kind, and only if a System of that kind is on the board). Text: "Each aura gains +1 more each spin."
 - **SPIN unlocked mid-spin:** on long spins (~10s+) the stall check said "Recovered from a stall" and re-enabled SPIN while the spin was still running. Now it only steps in if nothing has changed for 10 seconds.
 - **Lag that grew through a run (worst on phones):** every redraw wrote each planet's full ~200 KB picture into the page, so a full board was a ~10 MB page rebuilt many times per spin. Pictures are now shared, not copied: late-game spins took about half as long and ran about twice as smooth in a slow-phone test.

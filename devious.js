@@ -629,6 +629,10 @@
   var css = document.createElement('style');
   css.textContent = [
     'body{background:radial-gradient(1100px 700px at 50% -10%,#3a0f5c 0%,transparent 60%),radial-gradient(900px 600px at 100% 100%,#10284a 0%,transparent 60%),#07030f!important}',
+    '.dv-rog{position:relative;container-type:size;border-radius:50%;background:radial-gradient(circle at 50% 45%,#5a0d14 0%,#2a0508 60%,#120204 100%);box-shadow:0 0 0 3px #ff2a3a,0 0 18px #ff2a3acc,inset 0 0 18px #ff2a3a88;animation:dvRog 1.6s ease-in-out infinite}',
+    '.dv-rog-ship{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2.1em;font-size:50cqw;transform:rotate(-45deg);filter:grayscale(1) sepia(1) hue-rotate(-50deg) saturate(6) brightness(.85) drop-shadow(0 0 6px #ff2a3a)}',
+    '.dv-rog-flag{position:absolute;right:-4%;top:-6%;font-size:1.05em;font-size:20cqw;background:#120204;border:2px solid #ff2a3a;border-radius:50%;width:1.5em;height:1.5em;display:flex;align-items:center;justify-content:center;box-shadow:0 0 8px #ff2a3a}',
+    '@keyframes dvRog{0%,100%{box-shadow:0 0 0 3px #ff2a3a,0 0 14px #ff2a3a99,inset 0 0 14px #ff2a3a66}50%{box-shadow:0 0 0 3px #ff5a5a,0 0 26px #ff2a3aee,inset 0 0 22px #ff2a3aaa}}',
     '.dv-tag{display:inline-block;vertical-align:middle;margin-left:8px;font-size:11px;letter-spacing:.2em;padding:4px 9px;border-radius:999px;color:#1a0016;background:#ff3fd2;box-shadow:0 0 14px #ff3fd2}',
     '.dv-tag.dv-big{display:block;width:max-content;margin:6px auto 0;font-size:13px}',
     '.board{position:relative;box-shadow:0 0 0 2px #ff3fd266,0 0 30px #ff3fd244,0 0 60px #36e6ff22,inset 0 0 40px #4a5cff22!important}',
@@ -728,6 +732,14 @@
   var CAMP_COST = 200;
   // Chapter 2's pirate: a Destroyer that never scores and pays you nothing (kept out of picks, shops and odds)
   try { Object.defineProperty(IT, 'rog', { value: { n: 'Rogue Destroyer', e: '🏴‍☠️', r: 2, d: 'A pirate ship. Shoots nearby Asteroids and grows from them, but never scores fame for you. Can\'t be removed.' }, enumerable: false, configurable: true }); } catch (e) {}
+  // he blocks his square but counts as nothing for any other piece (no touching bonus, no kind, nothing to eat)
+  if (typeof window.score == 'function') { var sc0 = window.score; window.score = function (cs, b) {
+    if (!cs || !cs.some(function (c) { return c && c.k == 'rog'; })) return sc0.apply(this, arguments);
+    var c2 = cs.map(function (c) { return c && c.k == 'rog' ? null : c; }), r = sc0.call(this, c2, b);
+    cs.forEach(function (c, i) { if (c && c.k == 'rog') { r.f[i] = 0; if (r.c) r.c[i] = 0; } }); return r; }; }
+  // his own look: a red pirate gunship, not the blue item badge
+  if (typeof window.orb == 'function') { var ob0 = window.orb; window.orb = function (p) { if (!p || p.k != 'rog') return ob0.apply(this, arguments);
+    return '<div class="art dv-rog"><div class="dv-rog-ship">🚀</div><div class="dv-rog-flag">☠️</div>' + (p.rg ? '<span class="pip" style="color:#ff5a5a">' + p.rg + '</span>' : '') + '</div>'; }; }
   window.rogEv = function (cs) { var ev = []; cs.forEach(function (c, i) { if (!c || c.k != 'rog') return;
     var t = nb(i, 1).filter(function (j) { var x = cs[j]; return x && !x.dead && (x.k == 'ast' || x.k == 'bas'); });
     if (t.length) { t.forEach(function (j) { cs[j].dead = 1; }); ev.push({ s: i, t: t }); } }); return ev; };

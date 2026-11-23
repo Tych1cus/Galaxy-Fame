@@ -584,7 +584,10 @@
  {
   "name": "Prestige box wide enough for P9 and P10 (buttons wrap on small phones)",
   "find": "<div class=\"box\" style=\"max-width:340px;margin:14px auto;text-align:left\"><h3>🔥 Prestige</h3><div class=\"seg\">",
-  "replace": "<div class=\"box\" style=\"max-width:480px;margin:14px auto;text-align:left\"><h3>🔥 Prestige</h3><div class=\"seg\" style=\"flex-wrap:wrap\">"
+  "replace": "<div class=\"box\" style=\"max-width:466px;margin:14px auto;text-align:left\"><h3>🔥 Prestige</h3><div class=\"seg\" style=\"flex-wrap:wrap\">",
+  "was": [
+   "<div class=\"box\" style=\"max-width:480px;margin:14px auto;text-align:left\"><h3>🔥 Prestige</h3><div class=\"seg\" style=\"flex-wrap:wrap\">"
+  ]
  },
  {
   "name": "Quarry aura counts Quarries inside Solar Systems and Galaxies too",
