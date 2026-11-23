@@ -97,7 +97,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Canopy Crown: Forest aura 1 tier higher (payout)
 - ok: Canopy Crown: Forest aura 1 tier higher (sidebar)
 - ok: Text: Canopy Crown
-- ok: Sidebar: your planets (count of each kind you own, loose and inside Systems and Galaxies) instead of find odds
+- UPDATED: Sidebar: your planets (count of each kind you own, loose and inside Systems and Galaxies) instead of find odds
 - ok: Canopy Crown only offered once you have a tier 1 Forest aura
 - ok: Leeroy Jenkins: no fame bonus
 - ok: Leeroy Jenkins: +10% Star Shards per level
@@ -155,10 +155,10 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: Ice aura (banner/Compendium)
 - ok: Text: Ice aura (sidebar, per Ice and total)
 - ok: Helper: count planets inside a System or Galaxy
-- ok: Text: Satellite counts planets inside Systems
+- UPDATED: Text: Satellite counts planets inside Systems
 - ok: Helper: count one planet kind inside a System or Galaxy
 - ok: Astronaut counts Verdants inside touching Systems and Galaxies
-- ok: Text: Astronaut
+- UPDATED: Text: Astronaut
 - ok: Telescope counts the planet kinds inside touching Systems and Galaxies
 - ok: Text: Telescope
 - ok: No Black Hole aura (Black Holes can't form a Solar System)
