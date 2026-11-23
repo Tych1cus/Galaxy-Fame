@@ -133,7 +133,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Aura text: no System of that kind yet (was 'needs tier 1 (10 aura)')
 - ok: Text: Heavy Munitions (+1 Destroyer range)
 - ok: Verdant aura text: no Verdant System yet (was 'needs tier 1 (20 aura)')
-- UPDATED: Prestige box wide enough for P9 and P10 (buttons wrap on small phones)
+- ok: Prestige box wide enough for P9 and P10 (buttons wrap on small phones)
 - ok: Quarry aura counts Quarries inside Solar Systems and Galaxies too
 - ok: Volcanic in a System: Magma Core counted once, and keeps its own Black Hole damage
 - ok: Nebula Halo works for Nebulas inside Solar Systems and Galaxies
@@ -159,13 +159,13 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Helper: count one planet kind inside a System or Galaxy
 - ok: Astronaut counts Verdants inside touching Systems and Galaxies
 - ok: Text: Astronaut
-- UPDATED: Telescope counts the planet kinds inside touching Systems and Galaxies
+- ok: Telescope counts the planet kinds inside touching Systems and Galaxies
 - ok: Text: Telescope
-- FIXED: No Black Hole aura (Black Holes can't form a Solar System)
-- FIXED: Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1)
-- FIXED: Campaign: Rogue Destroyer shoots after your Destroyers (Chapter 2)
-- FIXED: Campaign: Rogue Destroyer never scores fame
-- FIXED: Campaign: Rogue Destroyer can't be removed from the bag
+- ok: No Black Hole aura (Black Holes can't form a Solar System)
+- ok: Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1)
+- ok: Campaign: Rogue Destroyer shoots after your Destroyers (Chapter 2)
+- ok: Campaign: Rogue Destroyer never scores fame
+- ok: Campaign: Rogue Destroyer can't be removed from the bag
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
