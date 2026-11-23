@@ -287,7 +287,7 @@ function need(t){var b=t=='gal'?7:8;if(has('dust'))b-=t=='gal'?1:2;b+=t=='gal'?(
 function cntK(f){return G.bag.filter(f).length}
 function bagMerge(){var moved=1;while(moved){moved=0;var ks={};G.bag.forEach(function(p,i){if(DP[p.k]&&DP[p.k].next)(ks[p.k]=ks[p.k]||[]).push(i)});for(var k in ks){var L=ks[k];if(L.length>=2){var a=L[0],b=L[1];G.bag[a]=mkHy(DP[k].next);G.bag.splice(b,1);moved=1;break}}}}
 function kinds(c){var o={};(c||[]).forEach(function(k){o[k]=1});return Object.keys(o).length}
-function prestigeCtl(){var h='<div class="box" style="max-width:466px;margin:14px auto;text-align:left"><h3>🔥 Prestige</h3><div class="seg" style="flex-wrap:wrap">';for(var i=0;i<=M.prestige;i++)h+='<button class="'+(PLV()==i?'on':'')+'" onclick="setPrestige('+i+')">'+(i?'P'+i:'Normal')+'</button>';h+='</div><small style="color:var(--mu);display:block;line-height:1.5">';if(!PLV())h+='Normal rules. Beat the game to unlock Prestige I.';else{for(var i=1;i<=PLV();i++){var fi=(PEFF[i-1]&&PEFF[i-1].fame)||0;var _pd=PRESTIGE[i-1].d;h+='<div style="margin:4px 0"><b style="color:var(--gd)">P'+i+'</b> '+(/goal/i.test(_pd)?_pd:'<span style="color:var(--gd)">⭐ goals '+fi+'% more</span> · '+_pd)+'</div>';}}h+='</small></div>';return h}
+function prestigeCtl(){var h='<div class="box" style="max-width:466px;margin:14px auto;text-align:left"><h3>🔥 Prestige</h3><div class="seg" style="flex-wrap:wrap">';for(var i=0;i<=M.prestige;i++)h+='<button class="'+(PLV()==i?'on':'')+'" onclick="setPrestige('+i+')">'+(i?'P'+i:'Normal')+'</button>';h+='</div><small style="color:var(--mu);display:block;line-height:1.5">';if(!PLV())h+='Normal rules. Beat the game to unlock Prestige I.';else{for(var i=1;i<=PLV();i++){var fi=(PEFF[i-1]&&PEFF[i-1].fame)||0;var _pd=PRESTIGE[i-1].d;h+='<div style="margin:4px 0"><b style="color:var(--gd)">P'+i+'</b> '+(/goal/i.test(_pd)?_pd:'<span style="color:var(--gd)">⭐ goals '+fi+'% more</span>'+(_pd?' · '+_pd:''))+'</div>';}}h+='</small></div>';return h}
 function setPrestige(v){M.plvl=Math.min(M.prestige,Math.max(0,v));save();draw()}
 function newGame(){G={rel:[]};var b0=[];for(var u=0;u<Math.max(0,uL('start'));u++)b0.push(mk(['g','r','b','p','v','i','c','h','q'][R(9)]));G={fame:0,credits:0,tot:0,run:'',earned:null,tmp:0,tmpc:0,t:0,n:0,systemsMade:0,lj:(M.ljoff?0:(M.lj||0)),icePiece:null,bag:b0,rel:[],cells:new Array(20).fill(null),vals:[],cv:[],hot:-1,fresh:-1,fx:{},pops:{},pull:{},sel:[],formT:'sys',banner:'',mode:'idle',back:'idle',busy:false,fast:false,msg:'Spin to scatter your bag across the star chart.',offer:[],shop:[],over:null,tip:null,startLeft:PV().startPlanets?PV().startPlanets:2};if(PV().debris){var _db=mk('deb');_db.dv=1;G.bag.push(_db)}G.mode='start';G.offer=startOffer();G.msg='Pick your starting planets, then spin.';SCR='game';if(!(M.seen&&M.seen.intro))G.tip='intro';draw()}
 function startOffer(){return wpick(ppool().filter(function(x){return x[0]!='i'&&x[0]!='k'&&!DP[x[0]]}),3+uL('scout'))}
@@ -504,13 +504,13 @@ var PRESTIGE=[
  {n:'Prestige I',d:'Every fame goal asks for 20% more.'},
  {n:'Prestige II',d:'Rerolls cost 3 💰.'},
  {n:'Prestige III',d:'You pick 1 fewer starting planet.'},
- {n:'Prestige IV',d:'Black Holes\' base bite drops from 15% to 12.5% of each neighbour.'},
+ {n:'Prestige IV',d:'Black Holes eat 12.5%, not 15%.'},
  {n:'Prestige V',d:'Solar Systems need 1 more planet.'},
  {n:'Prestige VI',d:'Gain 1 Space Debris.'},
  {n:'Prestige VII',d:'Galaxies need 1 more Solar System.'},
  {n:'Prestige VIII',d:'Auras need 5 more points to reach their next tier.'},
- {n:'Prestige IX',d:'Gain 1 Solar Flare. It burns up whatever lands on its square.'},
- {n:'Prestige X',d:'Fame goals ask for 110% more in total.'}
+ {n:'Prestige IX',d:'Gain 1 Solar Flare.'},
+ {n:'Prestige X',d:''}
 ];
 var PEFF=[
  {fame:20},
