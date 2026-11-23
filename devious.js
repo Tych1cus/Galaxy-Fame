@@ -719,6 +719,7 @@
   window.formTag = function (p) {
     if (!p) return '';
     if (p.k == 'r' && !p.planted && !p.seed) return '<span style="display:block;font-size:16px;line-height:1.2" title="Hasn\'t planted yet">🌱</span>';
+    if (p.k == 'i' && p.iceAt != null && p.iceAt >= 0) return '<span style="display:block;font-weight:800;color:#8feaff;font-size:14px;line-height:1.2" title="Its square on the board">' + 'ABCD'.charAt(Math.floor(p.iceAt / 5)) + (p.iceAt % 5 + 1) + '</span>';
     if (p.k == 'b') { var l = Math.max(0, p.life || 0); return '<span style="display:block;font-weight:800;color:#ff70e8;font-size:15px;line-height:1.2" title="Spins left">' + l + '</span>'; }
     return '';
   };
