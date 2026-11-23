@@ -725,5 +725,10 @@
   "name": "No Black Hole aura (Black Holes can't form a Solar System)",
   "find": "k:'Black Holes feed 3% more',",
   "replace": ""
+ },
+ {
+  "name": "Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1)",
+  "find": "cs.forEach(function(p){if(p&&p.k=='b'){p.life--;if(p.life<=0&&G.bag.indexOf(p)>-1)G.bag.splice(G.bag.indexOf(p),1)}});G.n++;",
+  "replace": "cs.forEach(function(p){if(p&&p.k=='b'){p.life--;if(p.life<=0&&G.bag.indexOf(p)>-1){G.bag.splice(G.bag.indexOf(p),1);if(G.camp&&window.campBurn)campBurn(p)}}});if(G._cb){G.banner='☄️ A Supernova burned out<small>+'+G._cb+' Cosmic Dust in your bag</small>';draw();await sleep(1300);G.banner='';G._cb=0}G.n++;"
  }
 ]

@@ -711,5 +711,65 @@
     setInterval(check, 250); check();
   })();
   document.head.appendChild(css);
+  // ===================================================================== campaign
+  // Opens once every Observatory upgrade is maxed (Leeroy Jenkins not needed). Each chapter costs 200 shards and
+  // opens after the one before it is beaten. Chapter runs use Prestige 10 rules, Leeroy is off, they give
+  // Star Shards as normal but stay off the leaderboard, best score and stats. Developer Mode: every chapter free.
+  var CHAP = [
+    { n: 'Chapter 1 · The Dust Reaches',
+      story: 'Your father charted half the known stars, and his star maps still hang in every observatory. Today the Star Council handed you a sector of your own: the Dust Reaches, a grey drift of cosmic dust that no planner has ever wanted. The others laugh when they hear where you are going. You don\'t. Somewhere under all that dust is a sky worth seeing, and you are going to make it shine.',
+      rules: 'Prestige 10 rules. Whenever a Supernova burns out on the board, 2 Cosmic Dusts drift into your bag. Reach every fame goal to win.' }
+  ];
+  var CAMP_COST = 200;
+  function CM() { M.camp = M.camp || { own: {}, won: {} }; M.camp.own = M.camp.own || {}; M.camp.won = M.camp.won || {}; return M.camp; }
+  function campOpen() { if (DEVM) return true; try { return UP.every(function (u) { return uL(u.id) >= u.max; }); } catch (e) { return false; } }
+  function chOwned(i) { return DEVM || !!CM().own[i]; }
+  function chWon(i) { return !!CM().won[i]; }
+  function chReady(i) { return DEVM || i == 1 || chWon(i - 1); }      // can be bought / played
+  var campNext = 0;
+  if (typeof window.PV == 'function') { var pv0 = window.PV; window.PV = function () { if ((typeof G != 'undefined' && G && G.camp) || campNext) return PEFF[9] || pv0(); return pv0(); }; }
+  window.campBuy = function (i) { if (chOwned(i) || !chReady(i) || M.shards < CAMP_COST) return; M.shards -= CAMP_COST; CM().own[i] = 1; save(); draw(); };
+  window.campPlay = function (i) { if (!chOwned(i) || !chReady(i)) return; campNext = i; try { newGame(); } finally { campNext = 0; }
+    G.camp = i; G.lj = 0; G.msg = '📜 ' + CHAP[i - 1].n.split(' · ')[0] + ': pick your starting planets, then spin.'; DH = ''; draw(); };
+  window.showCamp = function () { SCR = 'camp'; draw(); };
+  window.campBurn = function () { if (G && G.camp == 1) { G.bag.push(mk('j'), mk('j')); G._cb = (G._cb || 0) + 2; } };
+  function campHtml() {
+    var h = '<div class="hd"><h1>📜 CAMPAIGN</h1><button class="sm" style="margin:0" onclick="showMenu()">← Back</button></div>' +
+      '<p style="color:var(--mu);text-align:center">✨ ' + M.shards + ' Star Shards' + (DEVM ? ' · Developer Mode: every chapter is unlocked for testing' : '') + '<br>Campaign runs don\'t count for the leaderboards, your best score or stats. You still earn Star Shards.</p>';
+    for (var i = 1; i <= CHAP.length; i++) {
+      if (!DEVM && i > 1 && !chWon(i - 1)) break;
+      var c = CHAP[i - 1], own = chOwned(i), won = chWon(i);
+      h += '<div class="box" style="max-width:560px;margin:14px auto;text-align:left"><h3>' + c.n + (won ? ' <span style="color:var(--gd)">✓ beaten</span>' : '') + '</h3>' +
+        '<div style="border:1px solid var(--ln);border-radius:12px;padding:12px 14px;margin:8px 0;background:#0008;font-style:italic;line-height:1.55">' + c.story + '</div>' +
+        '<div style="margin:10px 0"><b style="color:var(--gd)">Challenge</b><br><span style="font-size:14px">' + c.rules + '</span><br><small style="color:var(--mu)">Leeroy Jenkins is off.</small></div>' +
+        (own ? '<button class="spin" style="max-width:320px;width:100%" onclick="campPlay(' + i + ')">' + (won ? 'PLAY AGAIN' : 'PLAY CHAPTER') + '</button>'
+             : '<button class="spin" style="max-width:320px;width:100%" ' + (M.shards < CAMP_COST ? 'disabled' : '') + ' onclick="campBuy(' + i + ')">UNLOCK · ' + CAMP_COST + ' ✨</button>') + '</div>';
+    }
+    if (chWon(CHAP.length) || DEVM) h += '<p style="color:var(--mu);text-align:center">More chapters coming soon.</p>';
+    return h;
+  }
+  if (typeof window.draw0 == 'function') { var dz0 = window.draw0; window.draw0 = function () { if (SCR == 'camp') { var a = document.getElementById('app'); DH = ''; a.innerHTML = campHtml(); return; } return dz0.apply(this, arguments); }; }
+  wrapHtml('menuHtml', function (h) { if (!campOpen()) return h;
+    return h.replace('🔭 Observatory · permanent upgrades</button>', '🔭 Observatory · permanent upgrades</button><br><button class="sm" style="margin-top:10px" onclick="showCamp()">📜 Campaign</button>'); });
+  wrapHtml('gameHtml', function (h) { if (!G || !G.camp) return h;
+    var tag = '<span class="dv-tag" style="background:#ffd36a;box-shadow:0 0 12px #ffd36a">📜 CHAPTER ' + G.camp + '</span>';
+    h = h.replace('GALAXY FAME', 'GALAXY FAME ' + tag);
+    if (G.over) { var won = G.over == 'win';
+      var box = '<div class="box" style="border:1px solid var(--gd);margin:12px 0"><h3 style="margin:0">📜 ' + CHAP[G.camp - 1].n + '</h3><small>' + (won ? 'Chapter beaten! The Dust Reaches have started to shine.' + (G.camp < CHAP.length ? ' The next chapter can now be unlocked.' : '') : 'Not this time. You can play the chapter again from the Campaign screen.') + '</small></div>';
+      h = h.replace('<button class="sm" onclick="newGame()">New run</button>', box + '<button class="sm" onclick="showCamp()">📜 Campaign</button><button class="sm" onclick="newGame()">New run</button>'); }
+    return h; });
+  // a chapter win marks the chapter beaten and never moves your Prestige
+  if (typeof window.finish == 'function') { var cf0 = window.finish; window.finish = function (r) {
+    if (!(G && G.camp)) return cf0.apply(this, arguments);
+    var sp = M.prestige, spl = M.plvl, out = cf0.apply(this, arguments);
+    M.prestige = sp; M.plvl = spl; G.prestigeUp = false; if (r == 'win') CM().won[G.camp] = 1; save(); return out; }; }
+  // keep the chapter with a saved run
+  if (typeof window.saveRun == 'function') { var cs0 = window.saveRun; window.saveRun = function () { var o = cs0.apply(this, arguments);
+    try { if (G && G.camp && !G.over) { var r = JSON.parse(localStorage.getItem('gf_run') || 'null'); if (r) { r.camp = G.camp; localStorage.setItem('gf_run', JSON.stringify(r)); } } } catch (e) {} return o; }; }
+  if (typeof window.resumeRun == 'function') { var cr0 = window.resumeRun; window.resumeRun = function () {
+    var ch = 0; try { ch = (JSON.parse(localStorage.getItem('gf_run') || 'null') || {}).camp || 0; } catch (e) {}
+    campNext = ch; var ok; try { ok = cr0.apply(this, arguments); } finally { campNext = 0; }
+    if (ok && ch) { G.camp = ch; G.lj = 0; DH = ''; draw(); } return ok; }; }
+
   try { DH = ''; draw(); } catch (e) {}
 })();

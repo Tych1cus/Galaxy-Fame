@@ -69,7 +69,7 @@
 
   // ---- sending a finished run (once per run) ----
   function submit(r) {
-    var g = G_(); if (!g || g._lbSent) return; g._lbSent = 1;
+    var g = G_(); if (!g || g._lbSent) return; g._lbSent = 1; if (g.camp) return;   // campaign chapters stay off the board, best score and stats
     try { recordRun(r); } catch (e) {}
     var goals = g.t || 0, fame = Math.round(g.tot || 0), pl = runP(g), title = '';
     try { title = titleFor(M.total, M.prestige).n + (pl ? ' · played P' + pl : ''); } catch (e) {}
