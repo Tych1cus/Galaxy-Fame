@@ -745,7 +745,13 @@
     if (t.length) { t.forEach(function (j) { cs[j].dead = 1; }); ev.push({ s: i, t: t }); } }); return ev; };
 
   function CM() { M.camp = M.camp || { own: {}, won: {} }; M.camp.own = M.camp.own || {}; M.camp.won = M.camp.won || {}; return M.camp; }
-  function campOpen() { if (DEVM) return true; try { return UP.every(function (u) { return uL(u.id) >= u.max; }); } catch (e) { return false; } }
+  // the Campaign opens the first time you win a run at Prestige 10
+  function campOpen() { return DEVM || !!CM().open; }
+  (function () { if (CM().open) return; var beat = false;      // players who beat P10 before the Campaign existed
+    try { var lb = JSON.parse(localStorage.getItem('gf_lb') || 'null'); if (lb && lb.by && lb.by[10] && lb.by[10].goals >= 10) beat = true; } catch (e) {}
+    try { var st = JSON.parse(localStorage.getItem('gf_stats') || 'null'); if (st && st.runs && st.runs.some(function (r) { return r.p >= 10 && r.end == 'win'; })) beat = true; } catch (e) {}
+    if (beat) { CM().open = 1; CM().fresh = 1; save(); } })();
+  var CAMP_MSG = 'You beat Prestige 10. A new sector awaits: open 📜 Campaign on the menu.';
   function chOwned(i) { return DEVM || !!CM().own[i]; }
   function chWon(i) { return !!CM().won[i]; }
   function chReady(i) { return DEVM || i == 1 || chWon(i - 1); }      // can be bought / played
@@ -754,7 +760,7 @@
   window.campBuy = function (i) { if (chOwned(i) || !chReady(i) || M.shards < CAMP_COST) return; M.shards -= CAMP_COST; CM().own[i] = 1; save(); draw(); };
   window.campPlay = function (i) { if (!chOwned(i) || !chReady(i)) return; campNext = i; try { newGame(); } finally { campNext = 0; }
     G.camp = i; G.lj = 0; if (i == 1) { var _pl = G.bag.filter(function (x) { return K[x.k]; }); if (_pl.length) G.bag.splice(G.bag.indexOf(_pl[R(_pl.length)]), 1); G.bag.push(mk('j')); } if (i == 2) G.bag.push(mk('rog')); G.msg = '📜 ' + CHAP[i - 1].n.split(' · ')[0] + ': pick your starting planets, then spin.'; DH = ''; draw(); };
-  window.showCamp = function () { SCR = 'camp'; draw(); };
+  window.showCamp = function () { if (CM().fresh) { CM().fresh = 0; save(); } SCR = 'camp'; draw(); };
   window.campBurn = function () { if (G && G.camp == 1) { G.bag.push(mk('j'), mk('j')); G._cb = (G._cb || 0) + 2; } };
   function campHtml() {
     var h = '<div class="hd"><h1>📜 CAMPAIGN</h1><button class="sm" style="margin:0" onclick="showMenu()">← Back</button></div>' +
@@ -775,8 +781,11 @@
   }
   if (typeof window.draw0 == 'function') { var dz0 = window.draw0; window.draw0 = function () { if (SCR == 'camp') { var a = document.getElementById('app'); DH = ''; a.innerHTML = campHtml(); return; } return dz0.apply(this, arguments); }; }
   wrapHtml('menuHtml', function (h) { if (!campOpen()) return h;
-    return h.replace('🔭 Observatory · permanent upgrades</button>', '🔭 Observatory · permanent upgrades</button><br><button class="sm" style="margin-top:10px" onclick="showCamp()">📜 Campaign</button>'); });
-  wrapHtml('gameHtml', function (h) { if (!G || !G.camp) return h;
+    var note = CM().fresh ? '<div class="box" style="max-width:420px;margin:10px auto 0;border:1px solid var(--gd);font-size:13px">📜 <b style="color:var(--gd)">Campaign unlocked!</b> ' + CAMP_MSG + '</div>' : '';
+    return h.replace('🔭 Observatory · permanent upgrades</button>', '🔭 Observatory · permanent upgrades</button><br><button class="sm" style="margin-top:10px" onclick="showCamp()">📜 Campaign</button>' + note); });
+  wrapHtml('gameHtml', function (h) {
+    if (G && G.over && G.campNew && !G.camp) h = h.replace('<button class="sm" onclick="newGame()">New run</button>', '<div class="box" style="border:1px solid var(--gd);margin:12px 0"><h3 style="margin:0">📜 Campaign unlocked!</h3><small>' + CAMP_MSG + '</small></div><button class="sm" onclick="showCamp()">📜 Campaign</button><button class="sm" onclick="newGame()">New run</button>');
+    if (!G || !G.camp) return h;
     var tag = '<span class="dv-tag" style="background:#ffd36a;box-shadow:0 0 12px #ffd36a">📜 CHAPTER ' + G.camp + '</span>';
     h = h.replace('GALAXY FAME', 'GALAXY FAME ' + tag);
     if (G.over) { var won = G.over == 'win';
@@ -785,7 +794,7 @@
     return h; });
   // a chapter win marks the chapter beaten and never moves your Prestige
   if (typeof window.finish == 'function') { var cf0 = window.finish; window.finish = function (r) {
-    if (!(G && G.camp)) return cf0.apply(this, arguments);
+    if (!(G && G.camp)) { var o0 = cf0.apply(this, arguments); try { if (r == 'win' && PLV() >= 10 && !CM().open) { CM().open = 1; CM().fresh = 1; G.campNew = 1; save(); } } catch (e) {} return o0; }
     var sp = M.prestige, spl = M.plvl, out = cf0.apply(this, arguments);
     M.prestige = sp; M.plvl = spl; G.prestigeUp = false; if (r == 'win') CM().won[G.camp] = 1; save(); return out; }; }
   // keep the chapter with a saved run
