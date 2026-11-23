@@ -3,6 +3,7 @@
 Everything below is in the standard game. Developer Mode is the same game (same leaderboard, best score, stats and saved run); its only difference is the slot-machine UI: pull the lever and the planets spin before they land.
 
 ## Bug fixes
+- **Solar Systems and Galaxies no longer give +2 ⭐ (Galaxies +2.6) to planets of their kind on the board.** Their texts and the Compendium no longer mention it.
 - **Encore** doubled the last Chorus in every Solar System as well as on the board. Now it doubles only the very last Chorus counted that spin, on the board or in a System.
 - **Glacial Lens** reworked: Ice Planets get +2 ⭐ for each piece touching them (inside a System or Galaxy: for each piece touching it). Costs 6 gold.
 - **Permafrost** costs 4 gold.
