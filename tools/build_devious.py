@@ -8,7 +8,9 @@ author's newest version plus:
   - devious.js (effects, lever, sound, music) and the Devious leaderboard
 Edits whose spot has changed are skipped and listed as NEEDS A LOOK in tools/STATUS.md.
 """
-import json, os, sys
+import json, os, sys, datetime
+AUTO_DROP = os.environ.get('GF_AUTO_DROP') == '1'
+DROPPED = []
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, 'index.html')
@@ -30,6 +32,8 @@ for p in json.load(open(PATCHES, encoding='utf-8')):
         w = [w for w in p['was'] if t.count(w) == 1][0]
         t = t.replace(w, rep)
         lines.append('- ok (Devious): ' + name)
+    elif n == 0 and AUTO_DROP:
+        DROPPED.append(name); lines.append('- DROPPED (Devious): ' + name + ' (the author rewrote this spot; his version kept)')
     elif n == 0:
         lines.append('- NEEDS A LOOK (Devious): ' + name + ' (game code changed here, skipped)')
     elif n > 1 and not many:
@@ -48,6 +52,13 @@ else:
     t = t[:i] + dv + '\n' + t[i:]
 t = t.replace('<title>Galaxy Fame</title>', '<title>Galaxy Fame · Developer Mode</title>', 1)
 open(OUT, 'wb').write(t.encode('utf-8'))
+if DROPPED:
+    data = json.load(open(PATCHES, encoding='utf-8'))
+    json.dump([p for p in data if p['name'] not in DROPPED], open(PATCHES, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+    log = os.path.join(ROOT, 'tools', 'DROPPED.md')
+    head = '' if os.path.exists(log) else '# Edits dropped because the game\'s author rewrote that spot (his version kept)\n\n'
+    with open(log, 'a', encoding='utf-8') as fh:
+        fh.write(head + ''.join('- ' + datetime.date.today().isoformat() + ': ' + n + ' (Developer Mode)\n' for n in DROPPED))
 
 old = open(STATUS, encoding='utf-8').read() if os.path.exists(STATUS) else '# Fix status\n'
 old = '\n'.join(l for l in old.splitlines() if '(Devious)' not in l and not l.startswith('## Devious'))

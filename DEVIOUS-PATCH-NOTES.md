@@ -82,3 +82,6 @@ Everything below is in the standard game. Developer Mode is the same game (same 
 - Leaderboard has a 💀 Leeroy Jenkins tab: each player's highest Leeroy level they have won a run at.
 - Diagonal lines on the board, so it's clear diagonals count as touching.
 - Compact stats row on phones.
+
+## Robot
+- When the game's author uploads a version that rewrites the exact spot one of our edits changes, the robot now drops that edit for good (his version is kept) and lists it in tools/DROPPED.md instead of flagging NEEDS A LOOK. Edits found more than once are still flagged.

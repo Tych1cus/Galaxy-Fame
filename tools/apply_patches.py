@@ -8,9 +8,13 @@ This script (run by .github/workflows/keep-leaderboard-line.yml) puts our change
      by "replace". If "find" is gone and "replace" is not there either, the game code has
      changed in that spot: the edit is skipped and listed as NEEDS A LOOK in tools/STATUS.md.
 Nothing is ever forced over code the author has changed.
+On the robot (GF_AUTO_DROP=1), an edit whose spot the author has rewritten is dropped from the
+patch file for good (his version is kept) and listed in tools/DROPPED.md.
 Usage: python3 tools/apply_patches.py [path/to/index.html]
 """
-import json, os, sys
+import json, os, sys, datetime
+AUTO_DROP = os.environ.get('GF_AUTO_DROP') == '1'
+DROPPED = []
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INDEX = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'index.html')
@@ -43,6 +47,8 @@ for p in json.load(open(PATCHES, encoding='utf-8')):
         lines.append('- UPDATED: ' + name)
     elif nf > 1:
         lines.append('- NEEDS A LOOK: ' + name + ' (found ' + str(nf) + ' times, skipped)')
+    elif AUTO_DROP:
+        DROPPED.append(('patches.json', name)); lines.append('- DROPPED: ' + name + ' (the author rewrote this spot; his version kept)')
     else:
         lines.append('- NEEDS A LOOK: ' + name + ' (game code changed here, skipped)')
 
@@ -80,6 +86,8 @@ for p in DVP:
         lines.append('- UPDATED: ' + name)
     elif nf > 1:
         lines.append('- NEEDS A LOOK: ' + name + ' (found ' + str(nf) + ' times, skipped)')
+    elif AUTO_DROP:
+        DROPPED.append(('devious_patches.json', name)); lines.append('- DROPPED: ' + name + ' (the author rewrote this spot; his version kept)')
     else:
         lines.append('- NEEDS A LOOK: ' + name + ' (game code changed here, skipped)')
 if DVTAG in text:
@@ -87,6 +95,21 @@ if DVTAG in text:
 else:
     text = text.replace(TAG, TAG + DVTAG, 1)
     lines.append('- FIXED: effects line (devious.js) re-added')
+
+# drop edits whose spot the author rewrote, so they are not flagged again (robot only)
+def drop_from(fname, names):
+    path = os.path.join(ROOT, 'tools', fname)
+    data = json.load(open(path, encoding='utf-8'))
+    keep = [p for p in data if p['name'] not in names]
+    if len(keep) != len(data):
+        json.dump(keep, open(path, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+if DROPPED:
+    for f in ('patches.json', 'devious_patches.json'):
+        drop_from(f, set(n for ff, n in DROPPED if ff == f))
+    log = os.path.join(ROOT, 'tools', 'DROPPED.md')
+    head = '' if os.path.exists(log) else '# Edits dropped because the game\'s author rewrote that spot (his version kept)\n\n'
+    with open(log, 'a', encoding='utf-8') as fh:
+        fh.write(head + ''.join('- ' + datetime.date.today().isoformat() + ': ' + n + '\n' for f, n in DROPPED))
 
 changed = text.encode('utf-8') != raw
 if changed:

@@ -1,6 +1,6 @@
 # Re-applies archdevious's fixes after each game upload (the upload replaces all of index.html):
 # the leaderboard.js line plus every edit in tools/patches.json. Edits whose spot the game's
-# author has changed are skipped and listed as NEEDS A LOOK in tools/STATUS.md.
+# author has changed are dropped (his version kept) and listed in tools/DROPPED.md.
 name: Keep fixes applied
 on:
   push:
@@ -18,9 +18,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Re-apply fixes
-        run: python3 tools/apply_patches.py
+        run: GF_AUTO_DROP=1 python3 tools/apply_patches.py
       - name: Rebuild Devious Mode from the latest game
-        run: python3 tools/build_devious.py
+        run: GF_AUTO_DROP=1 python3 tools/build_devious.py
       - name: Check the game still works (results in tools/GAME-CHECK.md)
         id: check
         continue-on-error: true
@@ -30,7 +30,8 @@ jobs:
           node tools/check_game.js
       - name: Commit if anything changed
         run: |
-          git add index.html devious.html tools/STATUS.md tools/GAME-CHECK.md
+          git add index.html devious.html tools/STATUS.md tools/GAME-CHECK.md tools/patches.json tools/devious_patches.json
+          if [ -f tools/DROPPED.md ]; then git add tools/DROPPED.md; fi
           if git diff --cached --quiet; then echo "Nothing to change."; exit 0; fi
           git config user.name "leaderboard-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
