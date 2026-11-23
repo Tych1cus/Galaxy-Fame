@@ -715,6 +715,14 @@
     setInterval(check, 250); check();
   })();
   document.head.appendChild(css);
+  // ===================================================================== forming a System: what each piece still has to give
+  window.formTag = function (p) {
+    if (!p) return '';
+    if (p.k == 'r' && !p.planted && !p.seed) return '<small style="display:block;color:#52e58b;font-size:11px">🌱 hasn\'t planted yet</small>';
+    if (p.k == 'b') { var l = Math.max(0, p.life || 0); return '<small style="display:block;color:#ff70e8;font-size:11px">⏳ ' + l + ' spin' + (l == 1 ? '' : 's') + ' left</small>'; }
+    return '';
+  };
+
   // ===================================================================== old saves
   // Upgrades bought above today's max in older versions (e.g. Starting Fleet level 3) are brought down to the max,
   // so older saves have no edge over new ones.

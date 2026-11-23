@@ -765,5 +765,10 @@
   "name": "Campaign: Rogue Destroyer can't be removed from the bag",
   "find": "function rem(i){var p=G.bag[i];",
   "replace": "function rem(i){var p=G.bag[i];if(p&&p.k=='rog'){G.msg='The pirates won\\'t leave that easily.';draw();return}"
+ },
+ {
+  "name": "Forming a System: Forests that haven't planted yet and Supernova lifespans are marked",
+  "find": "'<b>'+pn(x[0])+'</b></button>'",
+  "replace": "'<b>'+pn(x[0])+'</b>'+(window.formTag?formTag(x[0]):'')+'</button>'"
  }
 ]
