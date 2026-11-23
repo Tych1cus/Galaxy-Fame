@@ -10,7 +10,7 @@ Everything below is in the standard game. Developer Mode is the same game (same 
   - Chapter 2 · Pirates in the Reaches: a Rogue Destroyer starts in your bag. It shoots touching Asteroids after your own Destroyers and grows from them, but never scores fame, and nothing it destroys pays you (no Salvage Rights gold, no Big Asteroid split, no Heavy Munitions or Prospector bonus). It can't be removed and never appears in picks or shops. It blocks its square but counts as nothing for any other piece (no touching bonuses, not a kind for Telescopes, nothing for Black Holes to eat). It has its own red pirate-ship look.
 - **Black Hole Aura** removed from the Compendium and aura list (Black Holes can never form a Solar System, so it could never happen).
 - **Old saves:** upgrades bought above today's max in older versions (Starting Fleet level 3) are brought down to the max, so older saves have no edge. No shards are refunded.
-- **Sidebar "Your planets"** no longer lists or counts Black Holes.
+- **Sidebar "Your planets"** lists every planet kind (0s dimmed, most owned first) and no longer lists or counts Black Holes.
 - **Telescope** now counts the planet kinds inside a touching Solar System or Galaxy (a System with 5 different planets gives +5); its text is just "+2 ⭐, +1 for each different kind touching it."
 - **Astronaut** now counts Verdants inside a touching Solar System or Galaxy (+2 each).
 - **Satellite** now counts every planet inside a touching Solar System or Galaxy (+1 each).
