@@ -3,6 +3,8 @@
 Everything below is in the standard game. Developer Mode is the same game (same leaderboard, best score, stats and saved run); its only difference is the slot-machine UI: pull the lever and the planets spin before they land.
 
 ## Bug fixes
+- **Glacial Lens** reworked: Ice Planets get +2 ⭐ for each piece touching them (inside a System or Galaxy: for each piece touching it). Costs 6 gold.
+- **Permafrost** costs 4 gold.
 - **Constellation and Orbital Salvage showed up several times in the shop**: two edits shared one spot, so every automatic run after an upload added another copy. Now each is added once, and extra copies are cleaned up automatically.
 - **Volcanic in a System** with Magma Core got +6 instead of +3, and Black Hole damage could land on the wrong Volcanic. Now +3, and each keeps its own damage.
 - **Nebula Halo** now also works for Nebulas inside Solar Systems and Galaxies (+1 per piece 2 away from the System).

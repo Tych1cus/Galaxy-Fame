@@ -47,7 +47,7 @@
  {
   "name": "Text: Glacial Lens",
   "find": "{id:'glacier',n:'Glacial Lens',d:'The Ice Planet gives every piece next to it +2 ⭐.'",
-  "replace": "{id:'glacier',n:'Glacial Lens',d:'Ice Planets give each piece next to them +2 ⭐.'"
+  "replace": "{id:'glacier',n:'Glacial Lens',d:'Ice Planets get +2 ⭐ for each piece touching them.'"
  },
  {
   "name": "Text: Permafrost Choir",

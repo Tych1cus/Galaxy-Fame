@@ -599,5 +599,30 @@
   "name": "Text: Cosmic Dust (drop 'Not a planet' line)",
   "find": "d:'Worth 2 ⭐. Not a planet: it never joins a Solar System. 2 Cosmic Dusts",
   "replace": "d:'Worth 2 ⭐. 2 Cosmic Dusts"
+ },
+ {
+  "name": "Glacial Lens: Ice Planets get +2 per touching piece (board)",
+  "find": "if(!baseOnly)cs.forEach(function(c,i){if(c&&c.k=='i'&&has('glacier'))nb(i).forEach(function(j){if(cs[j]&&cs[j].k!='k')f[j]+=2})});",
+  "replace": "if(!baseOnly)cs.forEach(function(c,i){if(c&&c.k=='i'&&has('glacier'))f[i]+=2*nb(i).filter(function(j){return cs[j]}).length});"
+ },
+ {
+  "name": "Glacial Lens: Ice inside Systems and Galaxies gets +2 per piece touching the System",
+  "find": "else if(k=='i')x=1+(has('frozen')?1:0)*(s._nbN||0);",
+  "replace": "else if(k=='i')x=1+(has('frozen')?1:0)*(s._nbN||0);if(k=='i'&&has('glacier'))x+=2*(s._nbN||0);"
+ },
+ {
+  "name": "System panel: Glacial Lens shown on Ice",
+  "find": "window.__px=[];try{sysVal(p)}catch(e){}var _PX=window.__px||[];window.__px=null;var act={};_PX.forEach(function(a){(act[a[0]]=act[a[0]]||[]).push(a[1])});var _hn=0;var rows=_PX.map(function(a,i){var k=a[0];if(!K[k])return'';var pv=pval(k),note=pv.w;if(k=='c'){var _g=(p.ch&&p.ch[i]!=null)?p.ch[i]:0;note=(has('heirloom')?2:1)+' base + '+fm1(_g)+' growth'}else if(k=='h'){_hn++;note='Chorus #'+(chOff(p)+_hn)}else if(k=='q'){note='2 + '+(has('rubble')?4:2)+' for each of the '+(p._nbA||0)+' Asteroids touching this System'}else if(k=='i'){note=has('frozen')?'1 + 1 for each of the '+(p._nbN||0)+' pieces touching this System':'1 base'}else if(k=='p'){note='+2 for each of the '+(p._nbN||0)+' pieces touching this System'+(has('prism')?' + Prism 2':'')}return'<div class=\"prow\"><span style=\"color:'+CC[k]+'\">'+K[k].n+'</span><b>'+fm1(a[1])+' ⭐</b><small>'+(note||'')+'</small></div>'}).join('');",
+  "replace": "window.__px=[];try{sysVal(p)}catch(e){}var _PX=window.__px||[];window.__px=null;var act={};_PX.forEach(function(a){(act[a[0]]=act[a[0]]||[]).push(a[1])});var _hn=0;var rows=_PX.map(function(a,i){var k=a[0];if(!K[k])return'';var pv=pval(k),note=pv.w;if(k=='c'){var _g=(p.ch&&p.ch[i]!=null)?p.ch[i]:0;note=(has('heirloom')?2:1)+' base + '+fm1(_g)+' growth'}else if(k=='h'){_hn++;note='Chorus #'+(chOff(p)+_hn)}else if(k=='q'){note='2 + '+(has('rubble')?4:2)+' for each of the '+(p._nbA||0)+' Asteroids touching this System'}else if(k=='i'){note=has('frozen')?'1 + 1 for each of the '+(p._nbN||0)+' pieces touching this System':'1 base'}else if(k=='p'){note='+2 for each of the '+(p._nbN||0)+' pieces touching this System'+(has('prism')?' + Prism 2':'')}return'<div class=\"prow\"><span style=\"color:'+CC[k]+'\">'+K[k].n+'</span><b>'+fm1(a[1])+' ⭐</b><small>'+(note||'')+'</small></div>'}).join('');if(has('glacier'))rows=rows.replace(/(Ice Planet<\\/span><b>[^<]*<\\/b><small>)([^<]*)/g,function(m,a,b){return a+b+' + Glacial Lens 2 for each of the '+(p._nbN||0)+' pieces touching this System'});"
+ },
+ {
+  "name": "Glacial Lens costs 6",
+  "find": "{id:'glacier',n:'Glacial Lens',d:'Ice Planets get +2 ⭐ for each piece touching them.',c:5}",
+  "replace": "{id:'glacier',n:'Glacial Lens',d:'Ice Planets get +2 ⭐ for each piece touching them.',c:6}"
+ },
+ {
+  "name": "Permafrost costs 4",
+  "find": "{id:'frozen',n:'Permafrost',d:'Ice Planets score +1 ⭐ for each piece next to them.',c:5}",
+  "replace": "{id:'frozen',n:'Permafrost',d:'Ice Planets score +1 ⭐ for each piece next to them.',c:4}"
  }
 ]
