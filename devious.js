@@ -595,7 +595,7 @@
         groups.forEach(function (g) { if (g[1].length) body += '<h4>' + g[0] + '</h4>' + g[1].join(''); });
       } else if (tab == 'auras') {
         var z = tsz('g');
-        body += '<p class="dvb-note">A Solar System gives an aura of its main planet: 4 points when formed, +1 every spin it lands. Every ' + z + ' points is a new tier. Points from several Systems of the same kind add up. A System also gives +2 ⭐ to every piece of its kind on the board.</p>';
+        body += '<p class="dvb-note">A Solar System gives an aura of its main planet: 4 points when formed, +1 every spin it lands. Tier 1 starts when it forms; every ' + z + ' more points is the next tier. Points from several Systems of the same kind add up. A System also gives +2 ⭐ to every piece of its kind on the board.</p>';
         Object.keys(AUR).forEach(function (k) { /* only auras a Solar System can give */ if (!K[k]) return; var n = K[k].n + ' Aura'; if (hit(n + ' ' + AUR[k])) body += row('', n, /tier/i.test(AUR[k]) ? '' : 'per tier', esc(k == 'g' ? AUR[k].replace(/\b[35] Verdants\b/, '5 Verdants (3 with Verdant Grove)') : AUR[k]), CC[k]); });
       } else {
         // grouped by what they improve (first match wins), A to Z inside each group

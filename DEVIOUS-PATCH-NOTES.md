@@ -3,6 +3,11 @@
 Everything below is in the standard game. Developer Mode is the same game (same leaderboard, best score, stats and saved run); its only difference is the slot-machine UI: pull the lever and the planets spin before they land.
 
 ## Bug fixes
+- **Quarry aura** had no text (banners said "undefined"). It now reads: Quarries +2 ⭐ per touching Asteroid, and Asteroids and Big Asteroids 15% more often (per tier). It no longer adds Destroyer range.
+- **Asteroid aura** removed (Asteroids can't form a Solar System, so it could never be reached).
+- **Heavy Munitions** now also gives +1 Destroyer range (moved from the auras).
+- **Aura text** said "needs tier 1 (10/20 aura)"; tier 1 actually starts when the System forms. Now says "needs a <kind> Solar System". Compendium note fixed the same way.
+- **Prestige box** on the menu is wider so P9 and P10 fit inside (buttons wrap on small phones).
 - **Cool Kid** gave +1 aura to every Solar System each spin; now each aura gets +1 in total each spin (only once per aura kind, and only if a System of that kind is on the board). Text: "Each aura gains +1 more each spin."
 - **SPIN unlocked mid-spin:** on long spins (~10s+) the stall check said "Recovered from a stall" and re-enabled SPIN while the spin was still running. Now it only steps in if nothing has changed for 10 seconds.
 - **Lag that grew through a run (worst on phones):** every redraw wrote each planet's full ~200 KB picture into the page, so a full board was a ~10 MB page rebuilt many times per spin. Pictures are now shared, not copied: late-game spins took about half as long and ran about twice as smooth in a slow-phone test.
