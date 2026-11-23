@@ -289,20 +289,23 @@ p.rblurb{color:var(--mu);font-size:13px;margin:0 0 10px}
   <div class="shead"><span class="dot"></span><b>Cosmic Dust</b><span class="sv">2 ⭐ base</span></div>
   <p>Worth 2 ⭐. Not a planet: it never joins a Solar System. 2 Cosmic Dusts that touch become a Cosmic Cloud.</p><code class="rid">j</code>
 </div><div class="scard" style="--c:#8fa2d8">
-  <div class="shead"><span class="dot"></span><b>Cosmic Cloud</b><span class="sv">3 ⭐ base</span></div>
-  <p>Worth 3 ⭐. 2 Cosmic Clouds that touch become a Protostar.</p><code class="rid">cl</code>
+  <div class="shead"><span class="dot"></span><b>Cosmic Cloud</b><span class="sv">5 ⭐ base</span></div>
+  <p>Worth 5 ⭐. 2 Cosmic Clouds that touch become a Protostar.</p><code class="rid">cl</code>
 </div><div class="scard" style="--c:#ffa94a">
-  <div class="shead"><span class="dot"></span><b>Protostar</b><span class="sv">6 ⭐ base</span></div>
-  <p>Worth 6 ⭐. 2 Protostars that touch become a Giant Star.</p><code class="rid">ps</code>
+  <div class="shead"><span class="dot"></span><b>Protostar</b><span class="sv">10 ⭐ base</span></div>
+  <p>Worth 10 ⭐. 2 Protostars that touch become a Giant Star.</p><code class="rid">ps</code>
 </div><div class="scard" style="--c:#ffd36a">
-  <div class="shead"><span class="dot"></span><b>Giant Star</b><span class="sv">11 ⭐ base</span></div>
-  <p>Worth 11 ⭐, +1 for each different kind of planet next to it. 2 Giant Stars that touch become a Super Giant.</p><code class="rid">gs</code>
-</div><div class="scard" style="--c:#fff0a0">
-  <div class="shead"><span class="dot"></span><b>Super Giant</b><span class="sv">31 ⭐ base</span></div>
-  <p>Worth 31 ⭐. The final star. Nothing merges with a Super Giant.</p><code class="rid">sg</code>
+  <div class="shead"><span class="dot"></span><b>Giant Star</b><span class="sv">20 ⭐ base</span></div>
+  <p>Worth 20 ⭐, +1 for each different kind of planet next to it. 2 Giant Stars that touch become a Super Giant.</p><code class="rid">gs</code>
+</div><div class="scard" style="--c:#9fd0ff">
+  <div class="shead"><span class="dot"></span><b>Super Giant</b><span class="sv">40 ⭐ base</span></div>
+  <p>Worth 40 ⭐. Breathes 1 Cosmic Dust into your bag every spin. 2 Super Giants that touch become a Hypergiant.</p><code class="rid">sg</code>
+</div><div class="scard" style="--c:#ff8a5c">
+  <div class="shead"><span class="dot"></span><b>Hypergiant</b><span class="sv">150 ⭐ base</span></div>
+  <p>Worth 150 ⭐. The final star. Breathes 1 Cosmic Dust into your bag every spin.</p><code class="rid">hg</code>
 </div></div>
 
-<h2 id="relics">Relics <small>43 — grouped by the planet they serve</small></h2>
+<h2 id="relics">Relics <small>45 — grouped by the planet they serve</small></h2>
 <p style="color:var(--mu);font-size:13.5px">Each group holds the relics that change one planet’s own worth or its aura. Planet groups run in the same order as the <a href="#auras" style="color:var(--gd)">Auras</a> section; inside a group, cheaper first. The last two groups are the randoms: <b>Cosmic Dust</b> covers the star chain (Dust → Cloud → Protostar → Giant Star → Supernova, none of which has an aura), and <b>General</b> holds relics that help any run plus the ones that work on board shape rather than a planet.</p>
 <nav class="rnav"><a href="#relics-verdant">Verdant <i>2</i></a><a href="#relics-forest">Forest <i>2</i></a><a href="#relics-supernova">Supernova <i>2</i></a><a href="#relics-nebula">Nebula <i>2</i></a><a href="#relics-blackhole">Black Hole <i>2</i></a><a href="#relics-cradle">Cradle <i>2</i></a><a href="#relics-chorus">Chorus <i>2</i></a><a href="#relics-volcanic">Volcanic <i>2</i></a><a href="#relics-ice">Ice Planet <i>2</i></a><a href="#relics-quarry">Quarry <i>2</i></a><a href="#relics-dust">Cosmic Dust <i>6</i></a><a href="#relics-general">General <i>17</i></a></nav>
 <h3 id="relics-verdant" class="rgrp">Verdant <small>2</small></h3>
@@ -460,13 +463,23 @@ p.rblurb{color:var(--mu);font-size:13px;margin:0 0 10px}
 </div>
 <div class="rcard">
   <div class="rhead"><b>Thick Dust</b><span class="gold">5 💰</span></div>
-  <p>Cosmic Dust worth +2 ⭐.</p>
+  <p>Buff Emerging Stars.</p>
   <code class="rid">thick</code>
 </div>
 <div class="rcard">
   <div class="rhead"><b>Triplet Dust</b><span class="gold">5 💰</span></div>
   <p>Each Cosmic Dust you take brings two more with it, for 3 in all. Replaces Twin Dust.</p>
   <code class="rid">triplet</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Quadruple Dust</b><span class="gold">6 💰</span></div>
+  <p>Each Cosmic Dust you take brings three more with it, for 4 in all. Replaces Triplet Dust.</p>
+  <code class="rid">quad</code>
+</div>
+<div class="rcard">
+  <div class="rhead"><b>Star Nursery</b><span class="gold">6 💰</span></div>
+  <p>Black Holes score 2× the ⭐ of every Emerging Star touching them.</p>
+  <code class="rid">snur</code>
 </div>
 <div class="rcard">
   <div class="rhead"><b>Dust Compactor</b><span class="gold">6 💰</span></div>
