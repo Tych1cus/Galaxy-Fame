@@ -739,20 +739,23 @@
       ending: 'The last fame goal lights up across the Reaches. Where there was only grey dust, young stars now burn, and passing ships are already changing course to see them. At the Star Council, nobody is laughing anymore. That night a single message arrives from your father: "I knew you would."' }
     ,{ n: 'Chapter 2 · Pirates in the Reaches',
       story: 'Word travels fast. The Reaches now shine bright enough to be seen three systems away, and not everyone who comes to look is friendly. Your new sector has no patrols and no beacons, and a rogue crew of mining pirates has already slipped in to strip your asteroid fields bare. Rebuild what they break, keep the sector shining, and show these troublemakers this is no longer a place they can take from.',
-      rules: 'Prestige 10 rules. A Rogue Destroyer starts in your bag. He shoots nearby Asteroids and grows from every one he takes, but he never scores fame for you, and nothing he destroys pays you anything. He can\'t be removed. Reach every fame goal to win.',
+      rules: 'Prestige 10 rules. A Rogue Destroyer starts in your bag. He shoots nearby Asteroids and grows from every one he takes. Each spin he lands, his fame is taken from yours: 3, +1 for every Asteroid he has shot. Nothing he destroys pays you anything. He can\'t be removed. Reach every fame goal to win.',
       ending: 'The last pirate ship limps out of the Reaches with an empty hold. Patrol beacons now ring the sector, and the miners who stayed behind work under your flag. The Star Council sends an inspector, who leaves a single line in the records: "Sector secure."' }
   ];
   var CAMP_COST = 200;
   // Chapter 2's pirate: a Destroyer that never scores and pays you nothing (kept out of picks, shops and odds)
-  try { Object.defineProperty(IT, 'rog', { value: { n: 'Rogue Destroyer', e: '🏴‍☠️', r: 2, d: 'A pirate ship. Shoots nearby Asteroids and grows from them, but never scores fame for you. Can\'t be removed.' }, enumerable: false, configurable: true }); } catch (e) {}
+  try { Object.defineProperty(IT, 'rog', { value: { n: 'Rogue Destroyer', e: '🏴‍☠️', r: 2, d: 'A pirate ship. Each spin he lands, his fame is taken from yours: 3, +1 for every Asteroid he has shot. Shoots nearby Asteroids. Can\'t be removed.' }, enumerable: false, configurable: true }); } catch (e) {}
   // he blocks his square but counts as nothing for any other piece (no touching bonus, no kind, nothing to eat)
   if (typeof window.score == 'function') { var sc0 = window.score; window.score = function (cs, b) {
     if (!cs || !cs.some(function (c) { return c && c.k == 'rog'; })) return sc0.apply(this, arguments);
     var c2 = cs.map(function (c) { return c && c.k == 'rog' ? null : c; }), r = sc0.call(this, c2, b);
-    cs.forEach(function (c, i) { if (c && c.k == 'rog') { r.f[i] = 0; if (r.c) r.c[i] = 0; } }); return r; }; }
+    cs.forEach(function (c, i) { if (c && c.k == 'rog') { r.f[i] = b ? 0 : -rogFame(c); if (r.c) r.c[i] = 0; } }); return r; }; }
   // his own look: a red pirate gunship, not the blue item badge
   if (typeof window.orb == 'function') { var ob0 = window.orb; window.orb = function (p) { if (!p || p.k != 'rog') return ob0.apply(this, arguments);
-    return '<div class="art dv-rog"><div class="dv-rog-ship">🚀</div><div class="dv-rog-flag">☠️</div>' + (p.rg ? '<span class="pip" style="color:#ff5a5a">' + p.rg + '</span>' : '') + '</div>'; }; }
+    return '<div class="art dv-rog"><div class="dv-rog-ship">🚀</div><div class="dv-rog-flag">☠️</div>' + '<span class="pip" style="color:#ff5a5a">−' + rogFame(p) + '</span>' + '</div>'; }; }
+  // his fame is taken from yours each spin he lands: 3, +1 for every Asteroid he has taken
+  if (typeof window.txt == 'function') { var tx0 = window.txt; window.txt = function (f, c) { if (f < 0) { var o = '−' + fm1(-f); if (c) o += ' +' + c + '💰'; return o; } return tx0.apply(this, arguments); }; }
+  window.rogFame = function (c) { return 3 + ((c && c.rg) || 0); };
   window.rogEv = function (cs) { var ev = []; cs.forEach(function (c, i) { if (!c || c.k != 'rog') return;
     var t = nb(i, 1).filter(function (j) { var x = cs[j]; return x && !x.dead && (x.k == 'ast' || x.k == 'bas'); });
     if (t.length) { t.forEach(function (j) { cs[j].dead = 1; }); ev.push({ s: i, t: t }); } }); return ev; };
