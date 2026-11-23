@@ -3,6 +3,9 @@
 Everything below is in the standard game. Developer Mode is the same game (same leaderboard, best score, stats and saved run); its only difference is the slot-machine UI: pull the lever and the planets spin before they land.
 
 ## Bug fixes
+- **Volcanic in a System** with Magma Core got +6 instead of +3, and Black Hole damage could land on the wrong Volcanic. Now +3, and each keeps its own damage.
+- **Nebula Halo** now also works for Nebulas inside Solar Systems and Galaxies (+1 per piece 2 away from the System).
+- **Cosmic Dust** text: dropped "Not a planet: it never joins a Solar System."
 - **Quarry aura** had no text (banners said "undefined"). It now counts every Quarry, including those inside Solar Systems and Galaxies (each counts the Asteroids touching its System or Galaxy), and reads: All Quarries (in Systems too) +2 ⭐ per touching Asteroid, and Asteroids and Big Asteroids 15% more often (per tier). It no longer adds Destroyer range.
 - **Asteroid aura** removed (Asteroids can't form a Solar System, so it could never be reached).
 - **Heavy Munitions** now also gives +1 Destroyer range (moved from the auras).

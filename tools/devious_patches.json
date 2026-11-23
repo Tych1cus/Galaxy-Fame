@@ -584,5 +584,20 @@
   "name": "Quarry aura counts Quarries inside Solar Systems and Galaxies too",
   "find": "function quarryAsters(cs){var n=0;cs.forEach(function(c,i){if(!c||c.k!='q')return;nb(i).forEach(function(j){var x=cs[j];if(x&&(x.k=='ast'||x.k=='bas'))n++})});return n}",
   "replace": "function quarryAsters(cs){var n=0;cs.forEach(function(c,i){if(!c)return;var q=0;if(c.k=='q')q=1;else if(c.k=='sys')(c.comp||[]).forEach(function(k){if(k=='q')q++});else if(c.k=='gal')(c.subs||[]).forEach(function(x){(x.comp||[]).forEach(function(k){if(k=='q')q++})});if(!q)return;nb(i).forEach(function(j){var x=cs[j];if(x&&(x.k=='ast'||x.k=='bas'))n+=q})});return n}"
+ },
+ {
+  "name": "Volcanic in a System: Magma Core counted once, and keeps its own Black Hole damage",
+  "find": "if(s.bite&&s.bite[vj]!==undefined)x=4+(has('magma')?3:0)-s.bite[vj];else x=(s.vol&&s.vol[vj]!==undefined)?s.vol[vj]:4;vj++;if(has('magma'))x+=3}",
+  "replace": "x=4+(has('magma')?3:0)-((s.bite&&s.bite[ci])||0);vj++}"
+ },
+ {
+  "name": "Nebula Halo works for Nebulas inside Solar Systems and Galaxies",
+  "find": "if(!baseOnly&&has('halo'))cs.forEach(function(c,i){if(c&&c.k=='p'){var n1=nb(i);f[i]+=nb(i,2).filter(function(j){return n1.indexOf(j)<0&&cs[j]}).length}});",
+  "replace": "if(!baseOnly&&has('halo'))cs.forEach(function(c,i){if(c&&c.k=='p'){var n1=nb(i);f[i]+=nb(i,2).filter(function(j){return n1.indexOf(j)<0&&cs[j]}).length}});if(!baseOnly&&has('halo'))cs.forEach(function(c,i){if(!c||(c.k!='sys'&&c.k!='gal'))return;var np=0;(c.k=='sys'?[c]:(c.subs||[])).forEach(function(x){(x.comp||[]).forEach(function(k){if(k=='p')np++})});if(!np)return;var n1=nb(i);f[i]+=np*nb(i,2).filter(function(j){return n1.indexOf(j)<0&&cs[j]}).length});"
+ },
+ {
+  "name": "Text: Cosmic Dust (drop 'Not a planet' line)",
+  "find": "d:'Worth 2 ⭐. Not a planet: it never joins a Solar System. 2 Cosmic Dusts",
+  "replace": "d:'Worth 2 ⭐. 2 Cosmic Dusts"
  }
 ]
