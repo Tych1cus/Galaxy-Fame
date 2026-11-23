@@ -12,14 +12,12 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Ice Planet in a System keeps the fame it scored on its square
 - ok: Text: Ice Planet
 - ok: Text: Permafrost
-- UPDATED: Text: Glacial Lens
+- ok: Text: Glacial Lens
 - ok: Text: Permafrost Choir
 - ok: Text: choosing the Ice Planet's square (message)
 - ok: Text: choosing the Ice Planet's square (panel)
 - ok: Cradles only grow +0.1 per spin; they no longer keep the extra fame they scored
 - ok: Cradles ignore old wrongly-kept bonuses (cleans runs saved before the fix)
-- FIXED: removed repeated copies of New relic: Constellation
-- FIXED: removed repeated copies of New relics: Orbital Salvage and Constellation
 - ok: Effects: slot-machine reels when the planets are dealt
 - ok: Effects: each planet as it scores
 - ok: Effects: each Solar System as it scores
@@ -27,7 +25,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Effects: fame goal reached
 - ok: Chorus: counting starts with the Choruses inside Solar Systems
 - ok: Chorus: in a Solar System they score 1, 2, 3... like on the board
-- UPDATED: Chorus: System panel shows each Chorus's number
+- ok: Chorus: System panel shows each Chorus's number
 - ok: Fix: Rubble Rights works (Quarries +4 per Asteroid)
 - ok: Fix: Super Giant banner says its real value
 - ok: Text: Thick Dust
@@ -119,50 +117,55 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Volcanic aura base text
 - ok: End run button keeps its space during a spin (no header jump)
 - ok: New relics: Orbital Salvage and Constellation
-- UPDATED: Orbital Salvage: +1 to Comets and Satellites
+- ok: Orbital Salvage: +1 to Comets and Satellites
 - ok: Orbital Salvage: Harvesters consume Satellites and Comets
 - ok: Orbital Salvage: +2 per Satellite or Comet
 - ok: Orbital Salvage: Harvester message
 - ok: Orbital Salvage: only offered once you own a Satellite, Comet or Solar Harvester
-- FIXED: Cool Kid: +1 aura per aura kind each spin (not +1 per Solar System)
-- FIXED: Cool Kid: extra +1 goes to only one System of each aura kind
-- FIXED: Text: Cool Kid
-- FIXED: Quarry aura: banner/Compendium text (Asteroid aura removed)
-- FIXED: Quarry aura: Asteroids and Big Asteroids 15% more often per tier
-- FIXED: Destroyer range: no longer from auras; Heavy Munitions gives +1
-- FIXED: Remove unused Asteroid aura odds code
-- FIXED: Quarry aura: sidebar text
-- FIXED: Aura text: no System of that kind yet (was 'needs tier 1 (10 aura)')
-- FIXED: Text: Heavy Munitions (+1 Destroyer range)
-- FIXED: Verdant aura text: no Verdant System yet (was 'needs tier 1 (20 aura)')
-- FIXED: Prestige box wide enough for P9 and P10 (buttons wrap on small phones)
-- FIXED: Quarry aura counts Quarries inside Solar Systems and Galaxies too
-- FIXED: Volcanic in a System: Magma Core counted once, and keeps its own Black Hole damage
-- FIXED: Nebula Halo works for Nebulas inside Solar Systems and Galaxies
-- FIXED: Text: Cosmic Dust (drop 'Not a planet' line)
-- FIXED: Glacial Lens: Ice Planets get +2 per touching piece (board)
-- FIXED: Glacial Lens: Ice inside Systems and Galaxies gets +2 per piece touching the System
-- FIXED: System panel: Glacial Lens shown on Ice
-- FIXED: Glacial Lens costs 6
-- FIXED: Permafrost costs 4
-- FIXED: Encore: no longer doubles the last Chorus in every System
-- FIXED: Encore: doubles only the very last Chorus counted (on the board or in a System)
-- FIXED: Solar Systems and Galaxies no longer give +2 to planets of their kind on the board
-- FIXED: Text: Solar System info (no +2 to its kind)
-- FIXED: Text: Galaxy info (no +2.6 to its kind)
-- FIXED: Ice aura helper: count Ice Planets in a piece (inside Systems and Galaxies too)
-- FIXED: Ice aura counts Ice inside corner Systems (sidebar total)
-- FIXED: Ice aura counts Ice inside corner Systems (spin)
-- FIXED: Ice aura glow on corner Systems holding Ice
-- FIXED: Text: Ice aura (banner/Compendium)
-- FIXED: Text: Ice aura (sidebar, per Ice and total)
-- FIXED: Helper: count planets inside a System or Galaxy
-- FIXED: Text: Satellite counts planets inside Systems
-- FIXED: Helper: count one planet kind inside a System or Galaxy
-- FIXED: Astronaut counts Verdants inside touching Systems and Galaxies
-- FIXED: Text: Astronaut
-- FIXED: Telescope counts the planet kinds inside touching Systems and Galaxies
-- FIXED: Text: Telescope
+- ok: Cool Kid: +1 aura per aura kind each spin (not +1 per Solar System)
+- ok: Cool Kid: extra +1 goes to only one System of each aura kind
+- ok: Text: Cool Kid
+- ok: Quarry aura: banner/Compendium text (Asteroid aura removed)
+- ok: Quarry aura: Asteroids and Big Asteroids 15% more often per tier
+- ok: Destroyer range: no longer from auras; Heavy Munitions gives +1
+- ok: Remove unused Asteroid aura odds code
+- ok: Quarry aura: sidebar text
+- ok: Aura text: no System of that kind yet (was 'needs tier 1 (10 aura)')
+- ok: Text: Heavy Munitions (+1 Destroyer range)
+- ok: Verdant aura text: no Verdant System yet (was 'needs tier 1 (20 aura)')
+- UPDATED: Prestige box wide enough for P9 and P10 (buttons wrap on small phones)
+- ok: Quarry aura counts Quarries inside Solar Systems and Galaxies too
+- ok: Volcanic in a System: Magma Core counted once, and keeps its own Black Hole damage
+- ok: Nebula Halo works for Nebulas inside Solar Systems and Galaxies
+- ok: Text: Cosmic Dust (drop 'Not a planet' line)
+- ok: Glacial Lens: Ice Planets get +2 per touching piece (board)
+- ok: Glacial Lens: Ice inside Systems and Galaxies gets +2 per piece touching the System
+- ok: System panel: Glacial Lens shown on Ice
+- ok: Glacial Lens costs 6
+- ok: Permafrost costs 4
+- ok: Encore: no longer doubles the last Chorus in every System
+- ok: Encore: doubles only the very last Chorus counted (on the board or in a System)
+- ok: Solar Systems and Galaxies no longer give +2 to planets of their kind on the board
+- ok: Text: Solar System info (no +2 to its kind)
+- ok: Text: Galaxy info (no +2.6 to its kind)
+- ok: Ice aura helper: count Ice Planets in a piece (inside Systems and Galaxies too)
+- ok: Ice aura counts Ice inside corner Systems (sidebar total)
+- ok: Ice aura counts Ice inside corner Systems (spin)
+- ok: Ice aura glow on corner Systems holding Ice
+- ok: Text: Ice aura (banner/Compendium)
+- ok: Text: Ice aura (sidebar, per Ice and total)
+- ok: Helper: count planets inside a System or Galaxy
+- ok: Text: Satellite counts planets inside Systems
+- ok: Helper: count one planet kind inside a System or Galaxy
+- ok: Astronaut counts Verdants inside touching Systems and Galaxies
+- ok: Text: Astronaut
+- UPDATED: Telescope counts the planet kinds inside touching Systems and Galaxies
+- ok: Text: Telescope
+- FIXED: No Black Hole aura (Black Holes can't form a Solar System)
+- FIXED: Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1)
+- FIXED: Campaign: Rogue Destroyer shoots after your Destroyers (Chapter 2)
+- FIXED: Campaign: Rogue Destroyer never scores fame
+- FIXED: Campaign: Rogue Destroyer can't be removed from the bag
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -310,3 +313,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Text: Astronaut
 - ok (Devious): Telescope counts the planet kinds inside touching Systems and Galaxies
 - ok (Devious): Text: Telescope
+- ok (Devious): No Black Hole aura (Black Holes can't form a Solar System)
+- ok (Devious): Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1)
+- ok (Devious): Campaign: Rogue Destroyer shoots after your Destroyers (Chapter 2)
+- ok (Devious): Campaign: Rogue Destroyer never scores fame
+- ok (Devious): Campaign: Rogue Destroyer can't be removed from the bag
