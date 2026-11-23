@@ -532,11 +532,6 @@
   "replace": "d:'Each aura gains +1 more each spin.'"
  },
  {
-  "name": "Quarry aura: banner/Compendium text (Asteroid aura removed)",
-  "find": "a:'Destroyers shoot 1 cell farther per tier, and Asteroids and Big Asteroids appear 15% more often per tier',",
-  "replace": "q:'All Quarries (in Systems too) +2 ⭐ per touching Asteroid, and Asteroids and Big Asteroids 15% more often',"
- },
- {
   "name": "Quarry aura: Asteroids and Big Asteroids 15% more often per tier",
   "find": "return(k=='ast'||k=='bas')?1+.15*tierF(auras(),'a'):1",
   "replace": "return(k=='ast'||k=='bas')?1+.15*tierF(auras(),'q'):1"
@@ -550,11 +545,6 @@
   "name": "Remove unused Asteroid aura odds code",
   "find": "var o=[],q=1+.5*tierF(auras(),'a');",
   "replace": "var o=[];"
- },
- {
-  "name": "Quarry aura: sidebar text",
-  "find": "q:(2*t)+' fame for each Asteroid beside it, and Destroyers shoot '+(1+t)+' spaces'",
-  "replace": "q:'All Quarries (in Systems too) +'+(2*t)+' ⭐ per touching Asteroid, and Asteroids and Big Asteroids '+(15*t)+'% more often'"
  },
  {
   "name": "Aura text: no System of that kind yet (was 'needs tier 1 (10 aura)')",
