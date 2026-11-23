@@ -138,11 +138,6 @@
   "replace": "You pick 1 fewer starting planet."
  },
  {
-  "name": "Text: Black Holes\\' base bite drops ",
-  "find": "Black Holes swallow 1/8 of a neighbour instead of 1/7.",
-  "replace": "Black Holes\\' base bite drops from 1/7 to 1/8 of each neighbour."
- },
- {
   "name": "Text: Destroyers gain +3 ⭐ more for ",
   "find": "Destroyers gain +4 ⭐ per Asteroid instead of +1.",
   "replace": "Destroyers gain +3 ⭐ more for each Asteroid they shoot."
@@ -482,16 +477,6 @@
   "name": "Scout Fleet no longer in the shop (same as Wide Lens; runs that own it keep it)",
   "find": "function shopPool(){return RELICS.filter(function(r){",
   "replace": "function shopPool(){return RELICS.filter(function(r){if(r.id=='fleet')return false;"
- },
- {
-  "name": "Sidebar: Volcanic aura text",
-  "find": "v:(5*t)+'% Black Hole'",
-  "replace": "v:'Black Holes '+(5*t)+'% stronger'"
- },
- {
-  "name": "Volcanic aura base text",
-  "find": "v:'+5% Black Hole per tier'",
-  "replace": "v:'Black Holes 5% stronger per tier'"
  },
  {
   "name": "End run button keeps its space during a spin (no header jump)",
