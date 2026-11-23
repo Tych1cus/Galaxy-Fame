@@ -758,14 +758,16 @@
   window.campBurn = function () { if (G && G.camp == 1) { G.bag.push(mk('j'), mk('j')); G._cb = (G._cb || 0) + 2; } };
   function campHtml() {
     var h = '<div class="hd"><h1>📜 CAMPAIGN</h1><button class="sm" style="margin:0" onclick="showMenu()">← Back</button></div>' +
-      '<p style="color:var(--mu);text-align:center">✨ ' + M.shards + ' Star Shards' + (DEVM ? ' · Developer Mode: every chapter is unlocked for testing' : '') + '<br>Campaign runs don\'t count for the leaderboards, your best score or stats. You still earn Star Shards.</p>';
+      '<p style="color:var(--mu);text-align:center">✨ ' + M.shards + ' Star Shards' + (DEVM ? ' · Developer Mode: every chapter is unlocked for testing' : '') + '</p>';
+    // until Chapter 1 is bought, only this explanation shows; after that it is gone for good
+    if (!CM().own[1]) h += '<div class="box" style="max-width:560px;margin:14px auto;text-align:left;line-height:1.55">Campaign missions do not count for the leaderboards or your best score. Leeroy Jenkins mode is always off. You still earn Star Shards.</div>';
     for (var i = 1; i <= CHAP.length; i++) {
       if (!DEVM && i > 1 && !chWon(i - 1)) break;
       var c = CHAP[i - 1], own = chOwned(i), won = chWon(i);
       h += '<div class="box" style="max-width:560px;margin:14px auto;text-align:left"><h3>' + c.n + (won ? ' <span style="color:var(--gd)">✓ beaten</span>' : '') + '</h3>' +
-        '<div style="border:1px solid var(--ln);border-radius:12px;padding:12px 14px;margin:8px 0;background:#0008;font-style:italic;line-height:1.55">' + c.story + '</div>' +
-        '<div style="margin:10px 0"><b style="color:var(--gd)">Challenge</b><br><span style="font-size:14px">' + c.rules + '</span><br><small style="color:var(--mu)">Leeroy Jenkins is off.</small></div>' +
-        (own ? '<button class="spin" style="max-width:320px;width:100%" onclick="campPlay(' + i + ')">' + (won ? 'PLAY AGAIN' : 'PLAY CHAPTER') + '</button>'
+        (own ? '<div style="border:1px solid var(--ln);border-radius:12px;padding:12px 14px;margin:8px 0;background:#0008;font-style:italic;line-height:1.55">' + c.story + '</div>' +
+          '<div style="margin:10px 0"><b style="color:var(--gd)">Challenge</b><br><span style="font-size:14px">' + c.rules + '</span></div>' +
+          '<button class="spin" style="max-width:320px;width:100%" onclick="campPlay(' + i + ')">START</button>'
              : '<button class="spin" style="max-width:320px;width:100%" ' + (M.shards < CAMP_COST ? 'disabled' : '') + ' onclick="campBuy(' + i + ')">UNLOCK · ' + CAMP_COST + ' ✨</button>') + '</div>';
     }
     if (chWon(CHAP.length) || DEVM) h += '<p style="color:var(--mu);text-align:center">More chapters coming soon.</p>';
