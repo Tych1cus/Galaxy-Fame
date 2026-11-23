@@ -170,7 +170,7 @@
     if (h.indexOf('board.html') < 0) extra = '<p class="gflb-l"><a href="board.html' + (DEV ? '?mode=devious' : '') + '" style="color:var(--gd)">Leaderboard →</a></p>' + extra;
     extra += '<p class="gflb-l gflb-s"><a href="stats.html' + (DEV ? '?mode=devious' : '') + '" style="color:var(--gd)">📊 Your stats →</a></p>';
     extra += DVUI ? '<p class="gflb-l"><a class="gflb-mode std" href="index.html">⬅ Standard Mode</a></p>'
-                 : '<a class="gflb-dv" href="devious.html" aria-label="Devious Mode">✦</a>';
+                 : '<a class="gflb-dv" href="devious.html" aria-label="Developer Mode">✦</a>';
     var i = h.indexOf('<button class="spin"');
     return i > -1 ? h.slice(0, i) + extra + h.slice(i) : h + extra;
   });

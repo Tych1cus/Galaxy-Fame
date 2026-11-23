@@ -39,7 +39,7 @@ if tag in t:
 else:
     i = t.lower().rfind('</body>')
     t = t[:i] + dv + '\n' + t[i:]
-t = t.replace('<title>Galaxy Fame</title>', '<title>Galaxy Fame · Devious Mode</title>', 1)
+t = t.replace('<title>Galaxy Fame</title>', '<title>Galaxy Fame · Developer Mode</title>', 1)
 open(OUT, 'wb').write(t.encode('utf-8'))
 
 old = open(STATUS, encoding='utf-8').read() if os.path.exists(STATUS) else '# Fix status\n'

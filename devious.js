@@ -19,7 +19,7 @@
     var KEY = '17gnq1hzxh6', ok = false; try { ok = localStorage.getItem('gf_dv_ok') == KEY; } catch (e) {}
     if (ok) return;
     var d = document.createElement('div'); d.id = 'dv-lock';
-    d.innerHTML = '<form><div style="font-size:44px">😈</div><h2>Devious Mode</h2><p>Enter the password</p><input type="password" autocomplete="current-password" autofocus><button type="submit">Enter</button><small></small><a href="index.html">⬅ Back to the standard game</a></form>';
+    d.innerHTML = '<form><div style="font-size:44px">🛠️</div><h2>Developer Mode</h2><p>Enter the password</p><input type="password" autocomplete="current-password" autofocus><button type="submit">Enter</button><small></small><a href="index.html">⬅ Back to the standard game</a></form>';
     d.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:radial-gradient(900px 600px at 50% 0%,#2a1450,#07040f 70%);color:#f3e9ff;font:16px -apple-system,Segoe UI,Roboto,sans-serif;padding:16px';
     var st = document.createElement('style'); st.textContent = '#dv-lock form{display:flex;flex-direction:column;align-items:center;gap:10px;max-width:320px;width:100%;text-align:center}#dv-lock h2{margin:0;font-size:26px;color:#ff7ae0}#dv-lock p{margin:0;color:#c9b7e6}#dv-lock input{width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid #6b3fa0;background:#140a26;color:#fff;text-align:center}#dv-lock button{width:100%;font-size:17px;font-weight:800;padding:12px;border-radius:12px;border:0;background:linear-gradient(#ff7ae0,#a43cff);color:#fff;cursor:pointer}#dv-lock small{color:#ff8a8a;min-height:1em}#dv-lock a{color:#c9b7e6;font-size:14px}@keyframes dvno{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}';
     document.head.appendChild(st); document.body.appendChild(d);
@@ -564,7 +564,7 @@
   function leverHtml(cls) { return '<div class="dv-lever ' + cls + '" tabindex="0" role="button" aria-label="Pull the lever to spin"><div class="dv-base"></div><div class="dv-slot"></div><div class="dv-arm"></div><div class="dv-knob"></div></div>'; }
   wrapHtml('gameHtml', function (h) {
     var mb = '<button class="sm dv-mbtn" style="margin:0 6px" onclick="dvMusic()" title="Music: loud, quiet or off">' + mLabel() + '</button>';
-    h = h.replace('<h1>✦ GALAXY FAME</h1>', DEVM ? '<h1>✦ GALAXY FAME <span class="dv-tag">DEVIOUS</span></h1>' + mb + bookBtn : '<h1>✦ GALAXY FAME</h1>' + mb);
+    h = h.replace('<h1>✦ GALAXY FAME</h1>', DEVM ? '<h1>✦ GALAXY FAME <span class="dv-tag">DEVELOPER</span></h1>' + mb + bookBtn : '<h1>✦ GALAXY FAME</h1>' + mb);
     if (!DEVM) return h;
     var i = h.indexOf('<div class="bw"');
     if (i > -1) { var j = h.indexOf('>', i) + 1; h = h.slice(0, j) + leverHtml('dv-wide') + h.slice(j); }
@@ -622,7 +622,7 @@
   };
   var bookBtn = '<button class="sm" style="margin:0 6px 0 0" onclick="dvBook()">📖 Compendium</button>';
 
-  wrapHtml('menuHtml', function (h) { return (DEVM ? h.replace('✦ GALAXY FAME</h1>', '✦ GALAXY FAME</h1><div class="dv-tag dv-big">😈 DEVIOUS MODE</div>') : h).replace('<button class="sm" style="margin:0" onclick="sfxToggle()">', (DEVM ? bookBtn : '') + '<button class="sm dv-mbtn" style="margin:0 8px 0 0" onclick="dvMusic()" title="Music: loud, quiet or off">' + mLabel() + '</button><button class="sm" style="margin:0" onclick="sfxToggle()">'); });
+  wrapHtml('menuHtml', function (h) { return (DEVM ? h.replace('✦ GALAXY FAME</h1>', '✦ GALAXY FAME</h1><div class="dv-tag dv-big">🛠️ DEVELOPER MODE</div>') : h).replace('<button class="sm" style="margin:0" onclick="sfxToggle()">', (DEVM ? bookBtn : '') + '<button class="sm dv-mbtn" style="margin:0 8px 0 0" onclick="dvMusic()" title="Music: loud, quiet or off">' + mLabel() + '</button><button class="sm" style="margin:0" onclick="sfxToggle()">'); });
   if (typeof window.draw == 'function') { var d0 = window.draw; window.draw = function () { var o = d0.apply(this, arguments); try { drawLever(); } catch (e) {} return o; }; }
 
   // ===================================================================== look

@@ -66,7 +66,7 @@ td.win{color:var(--gd)}
 var LB_URL='https://bbawfdqrxqfeqadcfdqj.supabase.co',LB_KEY='sb_publishable_owcLW7JcSGVvUIcfvNYRuQ_G0arZB9Z';
 var LB_BAD=['fuck','shit','bitch','cunt','nigg','fagg','slut','whore','rape','nazi','hitler','dick','cock','pussy','asshole','retard'];
 var ME='',TAB='today',PL=0,PMAX=10,DVM=/[?&]mode=devious/.test(location.search),TBL=DVM?'gf_dv_scores':'gf_scores';
-if(DVM){document.title='Galaxy Fame — Devious Mode leaderboard';document.querySelector('h1').textContent='😈 Devious Mode leaderboard';var bk=document.querySelector('.foot a');bk.href='devious.html';bk.textContent='← Back to Devious Mode'}
+if(DVM){document.title='Galaxy Fame — Developer Mode leaderboard';document.querySelector('h1').textContent='🛠️ Developer Mode leaderboard';var bk=document.querySelector('.foot a');bk.href='devious.html';bk.textContent='← Back to Developer Mode'}
 function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function cleanName(s){return String(s||'').replace(/[^A-Za-z0-9 _.\-]/g,'').replace(/\s+/g,' ').trim().slice(0,16)}

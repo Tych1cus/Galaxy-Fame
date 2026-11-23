@@ -36,7 +36,7 @@ button{background:#141c30;color:var(--tx);border:1px solid var(--ln);border-radi
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function f(x){return Number(Math.round(x||0)).toLocaleString()}
 var DVM=/[?&]mode=devious/.test(location.search),SKEY=DVM?'gf_dv_stats':'gf_stats';
-if(DVM){document.title='Galaxy Fame — Devious Mode stats';document.querySelector('h1').textContent='😈 Your Devious Mode stats';var fl=document.querySelectorAll('.foot a');fl[0].href='devious.html';fl[0].textContent='← Back to Devious Mode';fl[1].href='board.html?mode=devious'}
+if(DVM){document.title='Galaxy Fame — Developer Mode stats';document.querySelector('h1').textContent='🛠️ Your Developer Mode stats';var fl=document.querySelectorAll('.foot a');fl[0].href='devious.html';fl[0].textContent='← Back to Developer Mode';fl[1].href='board.html?mode=devious'}
 function load(){var s=null;try{s=JSON.parse(localStorage.getItem(SKEY)||'null')}catch(e){}return s&&s.runs?s:{runs:[]}}
 function when(t){var d=new Date(t),n=new Date(),same=d.toDateString()==n.toDateString(),y=new Date(n-864e5).toDateString()==d.toDateString();
   var hm=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);return (same?'Today':y?'Yesterday':d.toLocaleDateString())+' '+hm}

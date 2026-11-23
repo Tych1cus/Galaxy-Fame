@@ -1,6 +1,6 @@
-# Devious Mode: changes vs the standard game
+# Developer Mode: changes vs the standard game
 
-Everything below is in the standard game. Devious Mode is the same game (same leaderboard, best score, stats and saved run); its only difference is the slot-machine UI: pull the lever and the planets spin before they land.
+Everything below is in the standard game. Developer Mode is the same game (same leaderboard, best score, stats and saved run); its only difference is the slot-machine UI: pull the lever and the planets spin before they land.
 
 ## Bug fixes
 - **SPIN unlocked mid-spin:** on long spins (~10s+) the stall check said "Recovered from a stall" and re-enabled SPIN while the spin was still running. Now it only steps in if nothing has changed for 10 seconds.
@@ -41,7 +41,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - Bonuses now say what they add ("+1 ⭐ more", "1 fewer") instead of a fixed total, so they read right when they stack: Prestige III and IV · Time Dilation · Heavy Munitions · Prospector's Charter · Heirloom Seeds · Fame Dividend · Rubble Rights · Verdant Grove · Wide Lens
 - Reworded to be shorter or clearer: Verdant Aura · Volcanic Aura · Thick Dust · Dust Compactor · Volcanic · Obsidian Shield · Giant Star · Cosmic Ledger · Event Horizon · Gravity Well · Prestige VI and VIII · Starting Fleet
 
-## New in Devious Mode
+## New in Developer Mode
 - Slot-machine spin: drag the lever down (or swipe down on the board on phones) and the reels spin and land column by column.
 - Music (on by default): 4 game songs that build with each fame goal and peak on the last one, and 5 calm songs for the menu, shop and between goals.
 - Music and Sound buttons cycle loud / quiet / off.
@@ -49,7 +49,7 @@ Everything below is in the standard game. Devious Mode is the same game (same le
 - Speed options 1x, 2x, 3x, 5x.
 - Planets light up as they score; big spins shake the screen with explosions and a BIG COMBO / MEGA FAME banner; fireworks on fame goals.
 - A click sound on every button; a Music button on the main menu; a moving star field behind every screen.
-- 📖 Compendium (Devious Mode only): every planet, piece, aura and relic with what it does, with search. Relic icons shown (Constellation has its own star-pattern icon). Built from the game's own data, so it stays up to date. Lists only auras a Solar System can give.
+- 📖 Compendium (Developer Mode only): every planet, piece, aura and relic with what it does, with search. Relic icons shown (Constellation has its own star-pattern icon). Built from the game's own data, so it stays up to date. Lists only auras a Solar System can give.
 - Verdant texts say 3 instead of 5 while you own Verdant Grove.
 - The sidebar shows how many of each planet you own (loose and inside Solar Systems and Galaxies) instead of the find odds.
 - Leaderboard has a 💀 Leeroy Jenkins tab: each player's highest Leeroy level they have won a run at.
