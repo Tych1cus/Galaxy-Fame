@@ -3,7 +3,7 @@
 Everything below is in the standard game. Developer Mode is the same game (same leaderboard, best score, stats and saved run); its only difference is the slot-machine UI: pull the lever and the planets spin before they land.
 
 ## Bug fixes
-- **Quarry aura** had no text (banners said "undefined"). It now reads: Quarries +2 ⭐ per touching Asteroid, and Asteroids and Big Asteroids 15% more often (per tier). It no longer adds Destroyer range.
+- **Quarry aura** had no text (banners said "undefined"). It now counts every Quarry, including those inside Solar Systems and Galaxies (each counts the Asteroids touching its System or Galaxy), and reads: All Quarries (in Systems too) +2 ⭐ per touching Asteroid, and Asteroids and Big Asteroids 15% more often (per tier). It no longer adds Destroyer range.
 - **Asteroid aura** removed (Asteroids can't form a Solar System, so it could never be reached).
 - **Heavy Munitions** now also gives +1 Destroyer range (moved from the auras).
 - **Aura text** said "needs tier 1 (10/20 aura)"; tier 1 actually starts when the System forms. Now says "needs a <kind> Solar System". Compendium note fixed the same way.
