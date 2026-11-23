@@ -652,5 +652,35 @@
   "name": "Text: Galaxy info (no +2.6 to its kind)",
   "find": " Each system still boosts its own kind by +2.6 ⭐.",
   "replace": ""
+ },
+ {
+  "name": "Ice aura helper: count Ice Planets in a piece (inside Systems and Galaxies too)",
+  "find": "function quarryAsters(cs){var n=0;cs.forEach(function(c,i){if(!c)return;var q=0;if(c.k=='q')q=1;else if(c.k=='sys')(c.comp||[]).forEach(function(k){if(k=='q')q++});else if(c.k=='gal')(c.subs||[]).forEach(function(x){(x.comp||[]).forEach(function(k){if(k=='q')q++})});if(!q)return;nb(i).forEach(function(j){var x=cs[j];if(x&&(x.k=='ast'||x.k=='bas'))n+=q})});return n}",
+  "replace": "function quarryAsters(cs){var n=0;cs.forEach(function(c,i){if(!c)return;var q=0;if(c.k=='q')q=1;else if(c.k=='sys')(c.comp||[]).forEach(function(k){if(k=='q')q++});else if(c.k=='gal')(c.subs||[]).forEach(function(x){(x.comp||[]).forEach(function(k){if(k=='q')q++})});if(!q)return;nb(i).forEach(function(j){var x=cs[j];if(x&&(x.k=='ast'||x.k=='bas'))n+=q})});return n}\nfunction iceIn(c){if(!c)return 0;if(c.k=='i')return 1;var n=0;(c.k=='sys'?[c]:c.k=='gal'?(c.subs||[]):[]).forEach(function(x){(x.comp||[]).forEach(function(k){if(k=='i')n++})});return n}"
+ },
+ {
+  "name": "Ice aura counts Ice inside corner Systems (sidebar total)",
+  "find": "if(G.lastCs&&G.lastCs[q]&&G.lastCs[q].k=='i')nc++",
+  "replace": "if(G.lastCs)nc+=iceIn(G.lastCs[q])"
+ },
+ {
+  "name": "Ice aura counts Ice inside corner Systems (spin)",
+  "find": "if(cs[q]&&cs[q].k=='i')nc++",
+  "replace": "nc+=iceIn(cs[q])"
+ },
+ {
+  "name": "Ice aura glow on corner Systems holding Ice",
+  "find": "if(cs[q]&&cs[q].k=='i')G.fx[q]='buff'",
+  "replace": "if(iceIn(cs[q]))G.fx[q]='buff'"
+ },
+ {
+  "name": "Text: Ice aura (banner/Compendium)",
+  "find": "i:'Corner Ice pockets +2 fame and +1 gold per tier'",
+  "replace": "i:'Corner Ice Planets (in Systems too) +2 fame and +1 gold per tier'"
+ },
+ {
+  "name": "Text: Ice aura (sidebar, per Ice and total)",
+  "find": "i:'Corner Ice pockets +'+((pay2.f/t)||2)+' fame and +'+((pay2.c/t)||1)+' gold each, per tier'",
+  "replace": "i:'Corner Ice Planets (in Systems too) +'+(2*t)+' fame and +'+t+' gold each ('+(pay2.f/(2*t)||0)+' now: +'+pay2.f+' fame, +'+pay2.c+' gold)'"
  }
 ]
