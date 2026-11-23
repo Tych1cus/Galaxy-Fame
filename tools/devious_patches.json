@@ -519,5 +519,20 @@
   "name": "Orbital Salvage: only offered once you own a Satellite, Comet or Solar Harvester",
   "find": "if(id=='cinder')return tierF(auras(),'r')>=1;",
   "replace": "if(id=='cinder')return tierF(auras(),'r')>=1;\nif(id=='salvage')return hasK('sat')||hasK('com')||hasK('sun');"
+ },
+ {
+  "name": "Cool Kid: +1 aura per aura kind each spin (not +1 per Solar System)",
+  "find": "dbg('growth');cs.forEach(function(p){if(!p)return;",
+  "replace": "dbg('growth');var _ck={};cs.forEach(function(p){if(!p)return;"
+ },
+ {
+  "name": "Cool Kid: extra +1 goes to only one System of each aura kind",
+  "find": "if(p.k=='sys'){p.aura=(p.aura||0)+1+uL('cool');sysGrow(p)}if(p.k=='gal'){p.subs.forEach(function(x){x.aura=(x.aura||0)+1+uL('cool');sysGrow(x)});",
+  "replace": "if(p.k=='sys'){p.aura=(p.aura||0)+1+(uL('cool')&&!_ck[p.dom]?(_ck[p.dom]=1):0);sysGrow(p)}if(p.k=='gal'){p.subs.forEach(function(x){x.aura=(x.aura||0)+1+(uL('cool')&&!_ck[x.dom]?(_ck[x.dom]=1):0);sysGrow(x)});"
+ },
+ {
+  "name": "Text: Cool Kid",
+  "find": "d:'Every Solar System gains +1 aura each spin.'",
+  "replace": "d:'Each aura gains +1 more each spin.'"
  }
 ]

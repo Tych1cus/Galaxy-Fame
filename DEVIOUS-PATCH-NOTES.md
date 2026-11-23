@@ -3,6 +3,7 @@
 Everything below is in the standard game. Developer Mode is the same game (same leaderboard, best score, stats and saved run); its only difference is the slot-machine UI: pull the lever and the planets spin before they land.
 
 ## Bug fixes
+- **Cool Kid** gave +1 aura to every Solar System each spin; now each aura gets +1 in total each spin (only once per aura kind, and only if a System of that kind is on the board). Text: "Each aura gains +1 more each spin."
 - **SPIN unlocked mid-spin:** on long spins (~10s+) the stall check said "Recovered from a stall" and re-enabled SPIN while the spin was still running. Now it only steps in if nothing has changed for 10 seconds.
 - **Lag that grew through a run (worst on phones):** every redraw wrote each planet's full ~200 KB picture into the page, so a full board was a ~10 MB page rebuilt many times per spin. Pictures are now shared, not copied: late-game spins took about half as long and ran about twice as smooth in a slow-phone test.
 - **Forests scored 0** unless you had Forests inside Solar Systems (since v157 loose Forests weren't counted). They count again, as the description says.
