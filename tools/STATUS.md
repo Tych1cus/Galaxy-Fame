@@ -103,7 +103,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Leeroy Jenkins: +10% Star Shards per level
 - ok: Text: Leeroy Jenkins card
 - ok: End of run: Leeroy Jenkins shard bonus
-- ok: New relic: Constellation
+- FIXED: New relic: Constellation
 - ok: Constellation pays each spin
 - ok: Leeroy Jenkins button shows 200 when you have fewer than 200 shards
 - ok: Sidebar: Cradle aura text
@@ -113,15 +113,15 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Sidebar: Aura box footer
 - ok: Wide Lens costs 5
 - ok: Scout Fleet no longer in the shop (same as Wide Lens; runs that own it keep it)
-- FIXED: Sidebar: Volcanic aura text
-- FIXED: Volcanic aura base text
-- FIXED: End run button keeps its space during a spin (no header jump)
+- ok: Sidebar: Volcanic aura text
+- ok: Volcanic aura base text
+- ok: End run button keeps its space during a spin (no header jump)
 - FIXED: New relic: Orbital Salvage
-- FIXED: Orbital Salvage: +1 to Comets and Satellites
-- FIXED: Orbital Salvage: Harvesters consume Satellites and Comets
-- FIXED: Orbital Salvage: +2 per Satellite or Comet
-- FIXED: Orbital Salvage: Harvester message
-- FIXED: Orbital Salvage: only offered once you own a Satellite, Comet or Solar Harvester
+- ok: Orbital Salvage: +1 to Comets and Satellites
+- ok: Orbital Salvage: Harvesters consume Satellites and Comets
+- ok: Orbital Salvage: +2 per Satellite or Comet
+- ok: Orbital Salvage: Harvester message
+- ok: Orbital Salvage: only offered once you own a Satellite, Comet or Solar Harvester
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
