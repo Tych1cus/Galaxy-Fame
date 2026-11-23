@@ -720,5 +720,10 @@
   "name": "Text: Telescope",
   "find": "tel:{n:'Telescope',e:'🔭',r:1,d:'+2 ⭐, +1 for each different kind of neighbor.'}",
   "replace": "tel:{n:'Telescope',e:'🔭',r:1,d:'+2 ⭐, +1 for each different kind touching it (in Systems too).'}"
+ },
+ {
+  "name": "No Black Hole aura (Black Holes can't form a Solar System)",
+  "find": "k:'Black Holes feed 3% more',",
+  "replace": ""
  }
 ]
