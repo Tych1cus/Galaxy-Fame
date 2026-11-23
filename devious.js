@@ -795,8 +795,8 @@
     var tag = '<span class="dv-tag" style="background:#ffd36a;box-shadow:0 0 12px #ffd36a">📜 CHAPTER ' + G.camp + '</span>';
     h = h.replace('GALAXY FAME', 'GALAXY FAME ' + tag);
     if (G.over) { var won = G.over == 'win';
-      var box = '<div class="box" style="border:1px solid var(--gd);margin:12px 0"><h3 style="margin:0">📜 ' + CHAP[G.camp - 1].n + '</h3>' + (won ? '<div style="border:1px solid var(--ln);border-radius:12px;padding:12px 14px;margin:8px 0;background:#0008;font-style:italic;line-height:1.55;text-align:left">' + (CHAP[G.camp - 1].ending || '') + '</div><small>Chapter beaten!' + (G.camp < CHAP.length ? ' The next chapter can now be unlocked.' : '') + '</small>' : '<small>Not this time. You can play the chapter again from the Campaign screen.</small>') + '</div>';
-      h = h.replace('<button class="sm" onclick="newGame()">New run</button>', box + '<button class="sm" onclick="showCamp()">📜 Campaign</button><button class="sm" onclick="newGame()">New run</button>'); }
+      var box = '<div class="box" style="border:1px solid var(--gd);margin:12px 0"><h3 style="margin:0">📜 ' + CHAP[G.camp - 1].n + '</h3>' + (won ? '<div style="border:1px solid var(--ln);border-radius:12px;padding:12px 14px;margin:8px 0;background:#0008;font-style:italic;line-height:1.55;text-align:left">' + (CHAP[G.camp - 1].ending || '') + '</div><small>Chapter beaten!' + (G.camp < CHAP.length ? ' The next chapter can now be unlocked.' : '') + '</small>' : '<small>Not this time. Retry the chapter to take another shot.</small>') + '</div>';
+      h = h.replace('<button class="sm" onclick="newGame()">New run</button>', box + (won ? '<button class="sm" onclick="showCamp()">📜 Campaign</button><button class="sm" onclick="newGame()">New run</button>' : '<button class="sm" onclick="campPlay(' + G.camp + ')">🔁 Retry chapter</button><button class="sm" onclick="showCamp()">📜 Campaign</button>')); }
     return h; });
   // a chapter win marks the chapter beaten and never moves your Prestige
   if (typeof window.finish == 'function') { var cf0 = window.finish; window.finish = function (r) {
