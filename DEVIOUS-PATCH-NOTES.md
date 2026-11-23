@@ -5,6 +5,7 @@ Everything below is in the standard game. Developer Mode is the same game (same 
 ## Bug fixes
 - **Campaign mode** (📜 Campaign on the menu): appears once every Observatory upgrade is maxed (Leeroy Jenkins not needed). Each chapter costs 200 Star Shards and opens after the previous one is beaten. Chapter runs use Prestige 10 rules with Leeroy off, earn Star Shards as normal, and stay off the leaderboards, best score and stats; a win marks the chapter beaten and never changes your Prestige. Saved runs remember the chapter. Developer Mode shows the Campaign button always, with every chapter free.
   - Chapter 1 · The Dust Reaches: whenever a Supernova burns out on the board, 2 Cosmic Dusts go into your bag. Winning shows a closing story message.
+  - Chapter 2 · Pirates in the Reaches: a Rogue Destroyer starts in your bag. It shoots touching Asteroids after your own Destroyers and grows from them, but never scores fame, and nothing it destroys pays you (no Salvage Rights gold, no Big Asteroid split, no Heavy Munitions or Prospector bonus). It can't be removed and never appears in picks or shops.
 - **Black Hole Aura** removed from the Compendium and aura list (Black Holes can never form a Solar System, so it could never happen).
 - **Telescope** now counts the planet kinds inside a touching Solar System or Galaxy (a System with 5 different planets gives +5).
 - **Astronaut** now counts Verdants inside a touching Solar System or Galaxy (+2 each).
