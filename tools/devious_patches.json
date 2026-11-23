@@ -700,7 +700,10 @@
  {
   "name": "Text: Satellite counts planets inside Systems",
   "find": "sat:{n:'Satellite',e:'🛰️',r:0,d:'+1 ⭐, +1 for each adjacent planet.'}",
-  "replace": "sat:{n:'Satellite',e:'🛰️',r:0,d:'+1 ⭐, +1 for each touching planet (in Systems too).'}"
+  "replace": "sat:{n:'Satellite',e:'🛰️',r:0,d:'+1 ⭐, +1 for each touching planet.'}",
+  "was": [
+   "sat:{n:'Satellite',e:'🛰️',r:0,d:'+1 ⭐, +1 for each touching planet (in Systems too).'}"
+  ]
  },
  {
   "name": "Helper: count one planet kind inside a System or Galaxy",
