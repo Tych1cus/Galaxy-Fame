@@ -397,7 +397,7 @@ function skip(){G.mode='idle';draw()}
 function toRemove(){G.back='idle';G.mode='remove';draw()}
 function rem(i){var p=G.bag[i];if(p&&p.k=='rog'){G.msg='The pirates won\'t leave that easily.';draw();return}if(p&&p.k=='deb'){G.msg='Space Debris can\'t be removed.';draw();return}if(p&&p===G.icePiece){G.icePiece=null}G.bag.splice(i,1);G.mode='idle';draw()}
 function cancel(){G.mode='idle';draw()}
-function buyR(i){sfx('buy');var r=G.shop[i];if(!r||G.credits<rprice(r))return;G.credits-=rprice(r);G.rel.push(r.id);if(r.id=='debris'){G.debrisField=1;G.msg='Debris Field is in orbit: each relic you buy from now on brings an Asteroid.'}else if(G.debrisField){G.bag.push(mk('ast'));G.msg='Debris Field: an Asteroid drifts into your bag.'}G.shop.splice(i,1);draw()}
+function buyR(i){sfx('buy');var r=G.shop[i];if(!r||G.credits<rprice(r))return;G.credits-=rprice(r);G.rel.push(r.id);if(r.id=='lucky')G.freeRoll=1;if(r.id=='debris'){G.debrisField=1;G.msg='Debris Field is in orbit: each relic you buy from now on brings an Asteroid.'}else if(G.debrisField){G.bag.push(mk('ast'));G.msg='Debris Field: an Asteroid drifts into your bag.'}G.shop.splice(i,1);draw()}
 function openShop(){G.freeRoll=has('lucky')?1:0;mkShop();draw()}
 function reroll(){var fr=has('lucky')&&G.freeRoll;if(!fr&&G.credits<rrCost())return;if(!fr)G.credits-=rrCost();if(fr)G.freeRoll=0;mkShop();draw()}
 function leave(){G.boostLeft=boostPicks();G.boostThis={};G.mode='boost';G.msg='Pick a world to find more often.';draw()}
