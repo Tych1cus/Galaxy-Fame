@@ -710,5 +710,15 @@
   "name": "Text: Astronaut",
   "find": "nau:{n:'Astronaut',e:'👨‍🚀',r:2,d:'+3 ⭐, +2 ⭐ per adjacent Verdant.'}",
   "replace": "nau:{n:'Astronaut',e:'👨‍🚀',r:2,d:'+3 ⭐, +2 ⭐ per touching Verdant (in Systems too).'}"
+ },
+ {
+  "name": "Telescope counts the planet kinds inside touching Systems and Galaxies",
+  "find": "else if(k=='tel'){var kd={};N.forEach(function(j){kd[cs[j].k]=1});v=2+Object.keys(kd).length}",
+  "replace": "else if(k=='tel'){var kd={};N.forEach(function(j){var x=cs[j];if(x.k=='sys'||x.k=='gal')(x.k=='sys'?[x]:(x.subs||[])).forEach(function(y){(y.comp||[]).forEach(function(z){kd[z]=1})});else kd[x.k]=1});v=2+Object.keys(kd).length}"
+ },
+ {
+  "name": "Text: Telescope",
+  "find": "tel:{n:'Telescope',e:'🔭',r:1,d:'+2 ⭐, +1 for each different kind of neighbor.'}",
+  "replace": "tel:{n:'Telescope',e:'🔭',r:1,d:'+2 ⭐, +1 for each different kind touching it (in Systems too).'}"
  }
 ]

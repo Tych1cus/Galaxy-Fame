@@ -3,6 +3,7 @@
 Everything below is in the standard game. Developer Mode is the same game (same leaderboard, best score, stats and saved run); its only difference is the slot-machine UI: pull the lever and the planets spin before they land.
 
 ## Bug fixes
+- **Telescope** now counts the planet kinds inside a touching Solar System or Galaxy (a System with 5 different planets gives +5).
 - **Astronaut** now counts Verdants inside a touching Solar System or Galaxy (+2 each).
 - **Satellite** now counts every planet inside a touching Solar System or Galaxy (+1 each).
 - **Ice aura** now counts every Ice Planet inside a System or Galaxy that sits in a corner. Its sidebar text said the whole total as "each"; it now shows per Ice and the current total.
