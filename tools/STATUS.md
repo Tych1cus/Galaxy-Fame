@@ -97,7 +97,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Canopy Crown: Forest aura 1 tier higher (payout)
 - ok: Canopy Crown: Forest aura 1 tier higher (sidebar)
 - ok: Text: Canopy Crown
-- ok: Sidebar: your planets (count of each kind you own, loose and inside Systems and Galaxies) instead of find odds
+- UPDATED: Sidebar: your planets (count of each kind you own, loose and inside Systems and Galaxies) instead of find odds
 - ok: Canopy Crown only offered once you have a tier 1 Forest aura
 - ok: Leeroy Jenkins: no fame bonus
 - ok: Leeroy Jenkins: +10% Star Shards per level
@@ -160,7 +160,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Astronaut counts Verdants inside touching Systems and Galaxies
 - ok: Text: Astronaut
 - ok: Telescope counts the planet kinds inside touching Systems and Galaxies
-- ok: Text: Telescope
+- UPDATED: Text: Telescope
 - ok: No Black Hole aura (Black Holes can't form a Solar System)
 - ok: Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1)
 - ok: Campaign: Rogue Destroyer shoots after your Destroyers (Chapter 2)
