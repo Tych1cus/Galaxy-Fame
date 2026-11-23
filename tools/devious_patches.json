@@ -428,7 +428,7 @@
  {
   "name": "New relic: Constellation",
   "find": "var RELICS=[",
-  "replace": "function constelSets(){var c={},n=0,add=function(k){if(K[k]&&k!='k')c[k]=(c[k]||0)+1};G.bag.forEach(function(p){if(p.k=='sys')(p.comp||[]).forEach(add);else if(p.k=='gal')(p.subs||[]).forEach(function(s){(s.comp||[]).forEach(add)});else add(p.k)});n=Infinity;['g','r','b','p','v','i','c','h','q'].forEach(function(k){n=Math.min(n,c[k]||0)});return n}\nvar RELICS=[{id:'constel',n:'Constellation',d:'+10 ⭐ every spin for each full set of planets you own (one of every kind).',c:5},"
+  "replace": "function constelSets(){var c={},n=0,add=function(k){if(K[k]&&k!='k')c[k]=(c[k]||0)+1};G.bag.forEach(function(p){if(p.k=='sys')(p.comp||[]).forEach(add);else if(p.k=='gal')(p.subs||[]).forEach(function(s){(s.comp||[]).forEach(add)});else add(p.k)});n=Infinity;['g','r','b','p','v','i','c','h','q'].forEach(function(k){n=Math.min(n,c[k]||0)});return n}\nvar RELICS=["
  },
  {
   "name": "Constellation pays each spin",
@@ -491,9 +491,9 @@
   "replace": "(G&&!G.over?'<button onclick=\"quitRun()\"'+(G.busy?' disabled style=\"visibility:hidden\"':'')+'>End run</button>':'')"
  },
  {
-  "name": "New relic: Orbital Salvage",
+  "name": "New relics: Orbital Salvage and Constellation",
   "find": "var RELICS=[",
-  "replace": "var RELICS=[{id:'salvage',n:'Orbital Salvage',d:'Satellites and Comets +1 ⭐. Solar Harvesters also consume them, +2 ⭐ permanently each.',c:4},"
+  "replace": "var RELICS=[{id:'salvage',n:'Orbital Salvage',d:'Satellites and Comets +1 ⭐. Solar Harvesters also consume them, +2 ⭐ permanently each.',c:4},{id:'constel',n:'Constellation',d:'+10 ⭐ every spin for each full set of planets you own (one of every kind).',c:5},"
  },
  {
   "name": "Orbital Salvage: +1 to Comets and Satellites",

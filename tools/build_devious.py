@@ -21,7 +21,10 @@ lines = []
 for p in json.load(open(PATCHES, encoding='utf-8')):
     name, find, rep, many = p['name'], p['find'], p['replace'], p.get('all', False)
     n = t.count(find)
-    if rep in t and ((find not in rep and n == 0) or (find in rep and n == t.count(rep))):
+    _a = rep.replace(find, '', 1) if find in rep else ''
+    if len(_a.strip()) > 20 and _a in t:
+        lines.append('- ok (Devious): ' + name)
+    elif rep in t and ((find not in rep and n == 0) or (find in rep and n == t.count(rep))):
         lines.append('- ok (Devious): ' + name)
     elif n == 0:
         lines.append('- NEEDS A LOOK (Devious): ' + name + ' (game code changed here, skipped)')

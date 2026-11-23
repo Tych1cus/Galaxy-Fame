@@ -44,12 +44,27 @@ for p in json.load(open(PATCHES, encoding='utf-8')):
 
 # Devious Mode's fixes and effects (everything except the slot machine), for the standard game too.
 DVTAG = '<script src="devious.js"></script>'
-for p in json.load(open(os.path.join(ROOT, 'tools', 'devious_patches.json'), encoding='utf-8')):
+def _added(find, rep):
+    # text a patch adds around its anchor (for patches whose replace keeps the find text)
+    a = rep.replace(find, '', 1) if find in rep else ''
+    return a if len(a.strip()) > 20 else ''
+
+DVP = json.load(open(os.path.join(ROOT, 'tools', 'devious_patches.json'), encoding='utf-8'))
+# Clean up: if a patch's added text got stacked more than once (two patches sharing one anchor), keep only the first copy.
+for p in DVP:
+    a = _added(p['find'], p['replace'])
+    if a and text.count(a) > 1:
+        first = text.find(a) + len(a)
+        text = text[:first] + text[first:].replace(a, '')
+        lines.append('- FIXED: removed repeated copies of ' + p['name'])
+for p in DVP:
     if p.get('devious_only'):
         continue
     name, find, rep, many = p['name'], p['find'], p['replace'], p.get('all', False)
     nf = text.count(find)
-    if rep in text and ((find not in rep and nf == 0) or (find in rep and nf == text.count(rep))):
+    if _added(find, rep) and _added(find, rep) in text:
+        lines.append('- ok: ' + name)
+    elif rep in text and ((find not in rep and nf == 0) or (find in rep and nf == text.count(rep))):
         lines.append('- ok: ' + name)
     elif nf == 1 or (nf > 1 and many):
         text = text.replace(find, rep)

@@ -3,6 +3,7 @@
 Everything below is in the standard game. Developer Mode is the same game (same leaderboard, best score, stats and saved run); its only difference is the slot-machine UI: pull the lever and the planets spin before they land.
 
 ## Bug fixes
+- **Constellation and Orbital Salvage showed up several times in the shop**: two edits shared one spot, so every automatic run after an upload added another copy. Now each is added once, and extra copies are cleaned up automatically.
 - **Volcanic in a System** with Magma Core got +6 instead of +3, and Black Hole damage could land on the wrong Volcanic. Now +3, and each keeps its own damage.
 - **Nebula Halo** now also works for Nebulas inside Solar Systems and Galaxies (+1 per piece 2 away from the System).
 - **Cosmic Dust** text: dropped "Not a planet: it never joins a Solar System."
