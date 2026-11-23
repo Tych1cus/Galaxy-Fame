@@ -45,7 +45,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Verdant Aura text (banner)
 - ok: Wide Lens text
 - ok: Text: You pick 1 fewer starting plan
-- ok: Text: Black Holes\' base bite drops 
+- NEEDS A LOOK: Text: Black Holes\' base bite drops  (game code changed here, skipped)
 - ok: Text: Destroyers gain +3 ⭐ more for 
 - ok: Text: Destroyers gain +2 ⭐ more for 
 - ok: Text: Cradles start +1 ⭐ higher.
@@ -97,7 +97,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Canopy Crown: Forest aura 1 tier higher (payout)
 - ok: Canopy Crown: Forest aura 1 tier higher (sidebar)
 - ok: Text: Canopy Crown
-- UPDATED: Sidebar: your planets (count of each kind you own, loose and inside Systems and Galaxies) instead of find odds
+- ok: Sidebar: your planets (count of each kind you own, loose and inside Systems and Galaxies) instead of find odds
 - ok: Canopy Crown only offered once you have a tier 1 Forest aura
 - ok: Leeroy Jenkins: no fame bonus
 - ok: Leeroy Jenkins: +10% Star Shards per level
@@ -113,8 +113,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Sidebar: Aura box footer
 - ok: Wide Lens costs 5
 - ok: Scout Fleet no longer in the shop (same as Wide Lens; runs that own it keep it)
-- ok: Sidebar: Volcanic aura text
-- ok: Volcanic aura base text
+- NEEDS A LOOK: Sidebar: Volcanic aura text (game code changed here, skipped)
+- NEEDS A LOOK: Volcanic aura base text (game code changed here, skipped)
 - ok: End run button keeps its space during a spin (no header jump)
 - ok: New relics: Orbital Salvage and Constellation
 - ok: Orbital Salvage: +1 to Comets and Satellites
@@ -155,10 +155,10 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: Ice aura (banner/Compendium)
 - ok: Text: Ice aura (sidebar, per Ice and total)
 - ok: Helper: count planets inside a System or Galaxy
-- UPDATED: Text: Satellite counts planets inside Systems
+- ok: Text: Satellite counts planets inside Systems
 - ok: Helper: count one planet kind inside a System or Galaxy
 - ok: Astronaut counts Verdants inside touching Systems and Galaxies
-- UPDATED: Text: Astronaut
+- ok: Text: Astronaut
 - ok: Telescope counts the planet kinds inside touching Systems and Galaxies
 - ok: Text: Telescope
 - ok: No Black Hole aura (Black Holes can't form a Solar System)
@@ -197,7 +197,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Verdant Aura text (banner)
 - ok (Devious): Wide Lens text
 - ok (Devious): Text: You pick 1 fewer starting plan
-- ok (Devious): Text: Black Holes\' base bite drops 
+- NEEDS A LOOK (Devious): Text: Black Holes\' base bite drops  (game code changed here, skipped)
 - ok (Devious): Text: Destroyers gain +3 ⭐ more for 
 - ok (Devious): Text: Destroyers gain +2 ⭐ more for 
 - ok (Devious): Text: Cradles start +1 ⭐ higher.
@@ -265,8 +265,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Sidebar: Aura box footer
 - ok (Devious): Wide Lens costs 5
 - ok (Devious): Scout Fleet no longer in the shop (same as Wide Lens; runs that own it keep it)
-- ok (Devious): Sidebar: Volcanic aura text
-- ok (Devious): Volcanic aura base text
+- NEEDS A LOOK (Devious): Sidebar: Volcanic aura text (game code changed here, skipped)
+- NEEDS A LOOK (Devious): Volcanic aura base text (game code changed here, skipped)
 - ok (Devious): End run button keeps its space during a spin (no header jump)
 - ok (Devious): New relics: Orbital Salvage and Constellation
 - ok (Devious): Orbital Salvage: +1 to Comets and Satellites
