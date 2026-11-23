@@ -125,11 +125,11 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Cool Kid: +1 aura per aura kind each spin (not +1 per Solar System)
 - ok: Cool Kid: extra +1 goes to only one System of each aura kind
 - ok: Text: Cool Kid
-- ok: Quarry aura: banner/Compendium text (Asteroid aura removed)
+- NEEDS A LOOK: Quarry aura: banner/Compendium text (Asteroid aura removed) (game code changed here, skipped)
 - ok: Quarry aura: Asteroids and Big Asteroids 15% more often per tier
 - ok: Destroyer range: no longer from auras; Heavy Munitions gives +1
 - ok: Remove unused Asteroid aura odds code
-- ok: Quarry aura: sidebar text
+- NEEDS A LOOK: Quarry aura: sidebar text (game code changed here, skipped)
 - ok: Aura text: no System of that kind yet (was 'needs tier 1 (10 aura)')
 - ok: Text: Heavy Munitions (+1 Destroyer range)
 - ok: Verdant aura text: no Verdant System yet (was 'needs tier 1 (20 aura)')
@@ -166,7 +166,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Campaign: Rogue Destroyer shoots after your Destroyers (Chapter 2)
 - ok: Campaign: Rogue Destroyer never scores fame
 - ok: Campaign: Rogue Destroyer can't be removed from the bag
-- FIXED: Forming a System: Forests that haven't planted yet and Supernova lifespans are marked
+- ok: Forming a System: Forests that haven't planted yet and Supernova lifespans are marked
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -278,11 +278,11 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Cool Kid: +1 aura per aura kind each spin (not +1 per Solar System)
 - ok (Devious): Cool Kid: extra +1 goes to only one System of each aura kind
 - ok (Devious): Text: Cool Kid
-- ok (Devious): Quarry aura: banner/Compendium text (Asteroid aura removed)
+- NEEDS A LOOK (Devious): Quarry aura: banner/Compendium text (Asteroid aura removed) (game code changed here, skipped)
 - ok (Devious): Quarry aura: Asteroids and Big Asteroids 15% more often per tier
 - ok (Devious): Destroyer range: no longer from auras; Heavy Munitions gives +1
 - ok (Devious): Remove unused Asteroid aura odds code
-- ok (Devious): Quarry aura: sidebar text
+- NEEDS A LOOK (Devious): Quarry aura: sidebar text (game code changed here, skipped)
 - ok (Devious): Aura text: no System of that kind yet (was 'needs tier 1 (10 aura)')
 - ok (Devious): Text: Heavy Munitions (+1 Destroyer range)
 - ok (Devious): Verdant aura text: no Verdant System yet (was 'needs tier 1 (20 aura)')
