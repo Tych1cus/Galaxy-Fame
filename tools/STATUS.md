@@ -27,12 +27,12 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Chorus: in a Solar System they score 1, 2, 3... like on the board
 - ok: Chorus: System panel shows each Chorus's number
 - ok: Fix: Rubble Rights works (Quarries +4 per Asteroid)
-- ok: Fix: Super Giant banner says its real value
-- ok: Text: Thick Dust
+- NEEDS A LOOK: Fix: Super Giant banner says its real value (game code changed here, skipped)
+- NEEDS A LOOK: Text: Thick Dust (game code changed here, skipped)
 - ok: Text: Dust Compactor
 - ok: Text: Volcanic
 - ok: Text: Obsidian Shield
-- ok: Text: Giant Star
+- NEEDS A LOOK: Text: Giant Star (game code changed here, skipped)
 - ok: Text: Cosmic Ledger
 - ok: Text: Event Horizon
 - ok: Text: Gravity Well
@@ -177,12 +177,12 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Chorus: in a Solar System they score 1, 2, 3... like on the board
 - ok (Devious): Chorus: System panel shows each Chorus's number
 - ok (Devious): Fix: Rubble Rights works (Quarries +4 per Asteroid)
-- ok (Devious): Fix: Super Giant banner says its real value
-- ok (Devious): Text: Thick Dust
+- NEEDS A LOOK (Devious): Fix: Super Giant banner says its real value (game code changed here, skipped)
+- NEEDS A LOOK (Devious): Text: Thick Dust (game code changed here, skipped)
 - ok (Devious): Text: Dust Compactor
 - ok (Devious): Text: Volcanic
 - ok (Devious): Text: Obsidian Shield
-- ok (Devious): Text: Giant Star
+- NEEDS A LOOK (Devious): Text: Giant Star (game code changed here, skipped)
 - ok (Devious): Text: Cosmic Ledger
 - ok (Devious): Text: Event Horizon
 - ok (Devious): Text: Gravity Well
