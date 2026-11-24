@@ -191,10 +191,18 @@
   };
   var CNAMES = Object.keys(CALM), cIdx = -1, calmS = null, calmBars = 0, calmMel = null;
   function pickNext(n, cur) { var i; do { i = Math.floor(Math.random() * n); } while (n > 1 && i === cur); return i; }
-  function newCalm() { cIdx = pickNext(CNAMES.length, cIdx); calmS = CNAMES[cIdx]; calmBars = 0; ilBar = 0; calmMel = motif(); }
+  // playlists: each kind of song plays in a shuffled order (random first song), one after another,
+  // and the place in the list is remembered, so leaving the game never sends you back to the same first song
+  var PL = (function () { var o = null; try { o = JSON.parse(localStorage.getItem('gf_dv_playlist') || 'null'); } catch (e) {}
+    function shuf(n) { var a = []; for (var i = 0; i < n; i++) a.push(i); for (var j = n - 1; j > 0; j--) { var k = Math.floor(Math.random() * (j + 1)), t = a[j]; a[j] = a[k]; a[k] = t; } return a; }
+    if (!o || !o.g || o.g.length != GSTY.length || !o.c || o.c.length != CNAMES.length) o = { g: shuf(GSTY.length), gi: -1, c: shuf(CNAMES.length), ci: -1 };
+    o.next = function (kind) { var list = o[kind], key = kind + 'i'; o[key] = (o[key] + 1) % list.length; if (o[key] == 0 && o[kind + 'done']) { var last = list[list.length - 1]; o[kind] = shuf(list.length); if (o[kind][0] == last && list.length > 1) o[kind].push(o[kind].shift()); } o[kind + 'done'] = 1;
+      try { localStorage.setItem('gf_dv_playlist', JSON.stringify({ g: o.g, gi: o.gi, c: o.c, ci: o.ci, gdone: o.gdone, cdone: o.cdone })); } catch (e) {} return o[kind][o[key]]; };
+    return o; })();
+  function newCalm() { cIdx = PL.next('c'); calmS = CNAMES[cIdx]; calmBars = 0; ilBar = 0; calmMel = motif(); }
   function rnd(a) { return a[Math.floor(Math.random() * a.length)]; }
   function newSong() {
-    gIdx = pickNext(GSTY.length, gIdx);
+    gIdx = PL.next('g');
     song = { style: GSTY[gIdx], key: rnd([45, 47, 48, 50, 43]), sec: 0, bar: 0, prog: rnd(PROGS), mel: motif(), arp: rnd(['up', 'down', 'updown', 'skip']), drums: rnd([0, 1, 2]) };
   }
   function motif() {             // 2 bars of 8th notes: scale steps, with rests
@@ -233,7 +241,7 @@
     if (step % 16 == 0) MD = mood();
     if (step % 16 == 0) {
       if (MD.calm) { if (!calmS || !wasCalm || calmBars >= 16) newCalm(); calmBars++; SCALE = CALM[calmS].scale; }
-      else SCALE = GSCALE[song.style] || GSCALE.disco;
+      else { if (wasCalm && song && (song.bar || song.sec)) newSong(); SCALE = GSCALE[song.style] || GSCALE.disco; }
       if (AC && musicOn) musicBus.gain.setTargetAtTime(mGain() * (MD.calm ? 1 : (song.style == 'chip' ? 2.4 : 1) * (2.2 - 1.2 * MD.I)), AC.currentTime, .5);
       wasCalm = MD.calm;
     }
@@ -395,6 +403,7 @@
     musicBus.gain.cancelScheduledValues(AC.currentTime); musicBus.gain.setTargetAtTime(mGain(), AC.currentTime, .4);
     if (!mTimer) { nextT = AC.currentTime + .08; mTimer = setInterval(schedule, 30); }
   }
+  window.dvMusicNow = function () { return { calm: calmS, game: song && song.style, mood: MD.calm ? 'calm' : 'game', bar: song && song.bar, sec: song && song.sec }; };
   function stopMusic() { if (AC) musicBus.gain.setTargetAtTime(0, AC.currentTime, .15); clearInterval(mTimer); mTimer = null; }
   // silence everything when the game isn't on screen (another tab, another app, phone locked)
   document.addEventListener('visibilitychange', function () { try { if (!AC) return; if (document.hidden) AC.suspend(); else AC.resume(); } catch (e) {} });
