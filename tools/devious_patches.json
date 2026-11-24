@@ -537,9 +537,12 @@
   "replace": "return(k=='ast'||k=='bas')?1+.15*tierF(auras(),'q'):1"
  },
  {
-  "name": "Destroyer range: no longer from auras; Heavy Munitions gives +1",
+  "name": "Destroyer range: no longer from auras or Heavy Munitions (ships get range by upgrading)",
   "find": "function desRg(){return Math.min(6,1+tierF(auras(),'a')+tierF(auras(),'q'))}",
-  "replace": "function desRg(){return has('miner')?2:1}"
+  "replace": "function desRg(){return 1}",
+  "was": [
+   "function desRg(){return has('miner')?2:1}"
+  ]
  },
  {
   "name": "Remove unused Asteroid aura odds code",
@@ -550,11 +553,6 @@
   "name": "Aura text: no System of that kind yet (was 'needs tier 1 (10 aura)')",
   "find": "' — needs tier 1 (10 aura).'",
   "replace": "' — needs a '+K[k].n+' Solar System.'"
- },
- {
-  "name": "Text: Heavy Munitions (+1 Destroyer range)",
-  "find": "d:'Destroyers gain +3 ⭐ more for each Asteroid they shoot.'",
-  "replace": "d:'Destroyers gain +3 ⭐ more for each Asteroid they shoot. +1 Destroyer range.'"
  },
  {
   "name": "Verdant aura text: no Verdant System yet (was 'needs tier 1 (20 aura)')",
@@ -745,5 +743,10 @@
   "name": "Forming a System: Forests that haven't planted yet and Supernova lifespans are marked",
   "find": "'<b>'+pn(x[0])+'</b></button>'",
   "replace": "'<b>'+pn(x[0])+'</b>'+(window.formTag?formTag(x[0]):'')+'</button>'"
+ },
+ {
+  "name": "Text: Heavy Munitions (no range)",
+  "find": "d:'Destroyers gain +5 ⭐ more for each Asteroid they shoot. +1 Destroyer range.'",
+  "replace": "d:'Destroyers gain +5 ⭐ more for each Asteroid they shoot.'"
  }
 ]
