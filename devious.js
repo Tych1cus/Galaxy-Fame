@@ -600,6 +600,7 @@
           if (k == 'g') d = d.replace(/\b[35] Verdants\b/, '5 Verdants (3 with Verdant Grove)'); if (!hit(n + ' ' + d)) return;
           var art = ''; try { art = orb({ k: k, life: 3, st: 0, s: 2, perm: 0 }, 1); } catch (e) {}
           if (k == 'deb') groups[2][1].push(row(art, n, 'Prestige VI+', d, '#ff7a6a'));
+          else if (XDk[k] && !K[k] && !DP[k] && !IT[k] && !SG[k]) groups[2][1].push(row(art, n, '', d));
           else if (SG[k]) groups[3][1].push(row(art, n, '', d));
           else if (DP[k]) groups[1][1].push(row(art, n, '', d));
           else if (IT[k]) groups[2][1].push(row(art, n, RN[IT[k].r], d, RC[IT[k].r]));
