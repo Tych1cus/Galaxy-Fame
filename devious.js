@@ -496,6 +496,9 @@
       get: function () { var n = 5; try { n = VGT(); } catch (e) {} return base.replace(/\b5 Verdants\b/, n + ' Verdants'); } }); }); } catch (e) {}
   try { if (typeof RI == 'object' && !RI.constel) RI.constel = ['✦', '#ffd36a']; } catch (e) {}   // Constellation relic colour (picture drawn below)
   try { if (typeof RI == 'object' && !RI.salvage) RI.salvage = ['🛰️', '#7fe0c8']; } catch (e) {}   // Orbital Salvage icon
+  // relics that had no icon of their own (showed the default 🔮)
+  try { [['snur', '⭐', '#ff9a3a'], ['quad', '✴️', '#cdb6ff'], ['triplet', '❇️', '#cdb6ff'], ['thick', '☁️', '#cdb6ff'], ['dividend', '💰', '#ffc857'], ['frozen', '🧊', '#a9f0ff']].forEach(function (x) { if (typeof RI == 'object' && !RI[x[0]]) RI[x[0]] = [x[1], x[2]]; }); } catch (e) {}
+  try { if (typeof RI == 'object') RI.nursery = ['🪐', '#7a5cff']; } catch (e) {}   // Stellar Nursery: 🌠 drew as a square picture tile
   // Constellation: draw a small star pattern instead of an emoji (the shooting-star emoji is a square picture)
   try { if (typeof relicArt == 'function') { var _ra = relicArt; relicArt = function (r, sz) { var o = _ra(r, sz); if (!r || r.id != 'constel') return o;
     var P = [[30, 38], [44, 30], [58, 40], [72, 32], [64, 58], [46, 64], [36, 54]], L = [[0, 1], [1, 2], [2, 3], [2, 4], [4, 5], [5, 6], [6, 0]], g = '';
