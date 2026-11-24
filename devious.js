@@ -575,7 +575,7 @@
   // Built from the game's own data each time it opens, so it always matches the current rules.
   // Compendium-only wording: more precise than the in-game text
   var BOOKX = {
-    deb: 'Scores −1 ⭐, 1 worse every 2 spins. Each Destroyer shot makes it 1 less bad for good (the ship gains +1 ⭐); the Solar Flare makes it 2 less bad. It never goes above 0. Can\'t be removed. You start with 1 from Prestige VI.',
+    deb: 'Scores −1 ⭐, 1 worse every 2 spins. Each Destroyer shot makes it 1 less bad for good (the ship gains +1 ⭐); the Solar Flare makes it 2 less bad. Once at 0 it scores nothing. Can\'t be removed. You start with 1 from Prestige VI.',
     flare: 'Each spin it lands on one random edge square (never a corner) for your first 2 fame goals. A planet or item there is gone for good (Cosmic Dust too); a Cosmic Cloud turns back into 1 Cosmic Dust; Space Debris gets 2 less bad. Safe: Solar Systems, Galaxies, Black Holes, Protostars and bigger stars. An Ice Planet puts it out for the run but is lost; a Solar System or Galaxy holding an Ice Planet puts it out and survives.',
     'relic:thick': 'Emerging Stars worth more: Cosmic Dust +2 ⭐, Cosmic Cloud +4, Protostar +8, Giant Star +16, Super Giant +32.'
   };
