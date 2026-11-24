@@ -146,6 +146,8 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Forming a System: Forests that haven't planted yet and Supernova lifespans are marked
 - ok: Text: Heavy Munitions (no range)
 - ok: Shop: 'You own every relic!' only when nothing is left to buy
+- FIXED: Solar Harvester gains +5 per Supernova
+- FIXED: Text: Solar Harvester +5 per Supernova
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
@@ -278,3 +280,5 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Forming a System: Forests that haven't planted yet and Supernova lifespans are marked
 - ok (Devious): Text: Heavy Munitions (no range)
 - ok (Devious): Shop: 'You own every relic!' only when nothing is left to buy
+- ok (Devious): Solar Harvester gains +5 per Supernova
+- ok (Devious): Text: Solar Harvester +5 per Supernova
