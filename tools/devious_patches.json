@@ -184,11 +184,6 @@
   "replace": "var raw=0;Object.keys(o).forEach(function(k){raw+=(act[k]||[]).reduce(function(a,b){return a+b},0)});"
  },
  {
-  "name": "System panel: total keeps decimals (matches the board)",
-  "find": "var total=Math.round(p.val!==undefined?p.val:sysVal(p));",
-  "replace": "var total=Math.round((p.val!==undefined?p.val:sysVal(p))*10)/10;"
- },
- {
   "name": "System pieces row: every planet shows its own score",
   "find": "subs.forEach(function(s2,si){var cm=s2.comp||[],rows='',vc=0;",
   "replace": "subs.forEach(function(s2,si){var cm=s2.comp||[],rows='',vc=0;window.__px=[];try{sysVal(s2)}catch(e){}var _pv=window.__px||[];window.__px=null;"

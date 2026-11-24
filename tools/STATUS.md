@@ -54,7 +54,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: System panel: record what each planet in a System really scores
 - ok: System panel: every planet listed on its own with what it really scores
 - ok: System panel: planets total uses the real scores
-- ok: System panel: total keeps decimals (matches the board)
+- DROPPED: System panel: total keeps decimals (matches the board) (the author rewrote this spot; his version kept)
 - ok: System pieces row: every planet shows its own score
 - ok: System pieces row: score under every planet (not a dot)
 - ok: Nebula: scores +2 itself for every piece touching it (Prism Lens +2 more)
@@ -187,7 +187,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): System panel: record what each planet in a System really scores
 - ok (Devious): System panel: every planet listed on its own with what it really scores
 - ok (Devious): System panel: planets total uses the real scores
-- ok (Devious): System panel: total keeps decimals (matches the board)
 - ok (Devious): System pieces row: every planet shows its own score
 - ok (Devious): System pieces row: score under every planet (not a dot)
 - ok (Devious): Nebula: scores +2 itself for every piece touching it (Prism Lens +2 more)
