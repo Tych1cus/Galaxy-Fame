@@ -752,6 +752,6 @@
  {
   "name": "Shop: 'You own every relic!' only when nothing is left to buy",
   "find": "'<p style=\"color:var(--mu)\">You own every relic!</p>'",
-  "replace": "'<p style=\"color:var(--mu)\">'+(shopPool().some(function(r){return !has(r.id)&&relUsable(r.id)})?'You bought everything on offer. Reroll for more relics.':'You own every relic!')+'</p>'"
+  "replace": "'<p style=\"color:var(--mu)\">'+(shopPool().some(function(r){return !has(r.id)&&relUsable(r.id)})?'Reroll for more relics.':'You own every relic!')+'</p>'"
  }
 ]
