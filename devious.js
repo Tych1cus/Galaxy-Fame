@@ -573,6 +573,12 @@
   });
   // ===================================================================== compendium (Devious Mode only)
   // Built from the game's own data each time it opens, so it always matches the current rules.
+  // Compendium-only wording: more precise than the in-game text
+  var BOOKX = {
+    deb: 'Scores −1 ⭐, 1 worse every 2 spins. Each Destroyer shot makes it 1 less bad for good (the ship gains +1 ⭐); the Solar Flare makes it 2 less bad. It never goes above 0. Can\'t be removed. You start with 1 from Prestige VI.',
+    flare: 'Each spin it lands on one random edge square (never a corner) for your first 2 fame goals. A planet or item there is gone for good (Cosmic Dust too); a Cosmic Cloud turns back into 1 Cosmic Dust; Space Debris gets 2 less bad. Safe: Solar Systems, Galaxies, Black Holes, Protostars and bigger stars. An Ice Planet puts it out for the run but is lost; a Solar System or Galaxy holding an Ice Planet puts it out and survives.',
+    'relic:thick': 'Emerging Stars worth more: Cosmic Dust +2 ⭐, Cosmic Cloud +4, Protostar +8, Giant Star +16, Super Giant +32.'
+  };
   window.dvBook = function (tab, q) {
     var old = document.getElementById('dv-book'); if (old && tab === undefined) { old.remove(); return; }
     tab = tab || (old && old.dataset.tab) || 'planets'; q = q !== undefined ? q : ((old && old.querySelector('input') || {}).value || '');
@@ -582,16 +588,21 @@
     var body = '';
     try {
       if (tab == 'planets') {
-        var groups = [['Planets', []], ['Emerging worlds', []], ['Other pieces', []], ['Formations', []]];
-        var keys = []; [K, DP, IT, SG].forEach(function (o) { Object.keys(o || {}).forEach(function (k) { if (keys.indexOf(k) < 0) keys.push(k); }); });
+        var groups = [['Planets', []], ['Emerging worlds', []], ['Other pieces', []], ['Formations', []], ['Hazards', []]];
+        var XDk = window.XD || (typeof XD != 'undefined' ? XD : {});
+        var keys = []; [K, DP, IT, SG, XDk].forEach(function (o) { Object.keys(o || {}).forEach(function (k) { if (keys.indexOf(k) < 0) keys.push(k); }); });
         keys.forEach(function (k) {
-          var n = nm(k), d = ds(k); if (k == 'g') d = d.replace(/\b[35] Verdants\b/, '5 Verdants (3 with Verdant Grove)'); if (!hit(n + ' ' + d)) return;
+          var n = XDk[k] && !K[k] && !DP[k] && !IT[k] && !SG[k] ? XDk[k].n : nm(k), d = XDk[k] && !K[k] && !DP[k] && !IT[k] && !SG[k] ? XDk[k].d : ds(k);
+          if (BOOKX[k]) d = BOOKX[k]; if (k == 'des') d += ' Two touching Destroyers of the same level merge: Mk II is worth 6, gains +4 ⭐ per Asteroid and reaches 2 squares; Mk III (the max) is worth 12, gains +6 per Asteroid and reaches 3.';
+          if (k == 'g') d = d.replace(/\b[35] Verdants\b/, '5 Verdants (3 with Verdant Grove)'); if (!hit(n + ' ' + d)) return;
           var art = ''; try { art = orb({ k: k, life: 3, st: 0, s: 2, perm: 0 }, 1); } catch (e) {}
-          if (SG[k]) groups[3][1].push(row(art, n, '', d));
+          if (k == 'deb') groups[4][1].push(row(art, n, 'Prestige VI+', d, '#ff7a6a'));
+          else if (SG[k]) groups[3][1].push(row(art, n, '', d));
           else if (DP[k]) groups[1][1].push(row(art, n, '', d));
           else if (IT[k]) groups[2][1].push(row(art, n, RN[IT[k].r], d, RC[IT[k].r]));
           else groups[0][1].push(row(art, n, '', d, CC[k]));
         });
+        if (hit('Solar Flare ' + BOOKX.flare)) groups[4][1].push(row('<span style="font-size:30px">☀️</span>', 'Solar Flare', 'Prestige IX+', BOOKX.flare, '#ffb347'));
         groups.forEach(function (g) { if (g[1].length) body += '<h4>' + g[0] + '</h4>' + g[1].join(''); });
       } else if (tab == 'auras') {
         var z = tsz('g');
@@ -601,12 +612,12 @@
         // grouped by what they improve (first match wins), A to Z inside each group
         var RG = [['Verdant', /verdant/i], ['Forest', /forest|canopy/i], ['Supernova', /supernova/i], ['Nebula', /nebula/i], ['Black Hole', /black hole/i],
           ['Cradle', /cradle/i], ['Chorus', /chorus/i], ['Volcanic', /volcan|magma/i], ['Ice Planet', /\bice\b|frost|glacier/i], ['Quarry, Asteroids and Destroyers', /quarr|asteroid|destroyer|rubble/i],
-          ['Dust and stars', /dust|protostar|giant star|super giant|cloud/i], ['Moons, Factories and other pieces', /moon|factor|satellite|telescope|astronaut|harvester|radio|north star|comet/i],
+          ['Dust and stars', /dust|protostar|giant star|super giant|hypergiant|cloud|emerging/i], ['Moons, Factories and other pieces', /moon|factor|satellite|telescope|astronaut|harvester|radio|north star|comet/i],
           ['Solar Systems and Galaxies', /solar system|galax/i], ['Gold and the shop', /gold|💰|shop|relic|reroll/i], ['Choices and finds', /choice|pick|find|offer/i], ['Fame', /./]];
         var bin = RG.map(function () { return []; });
         RELICS.slice().sort(function (a, b) { return a.n < b.n ? -1 : 1; }).forEach(function (r) { var s = r.n + ' ' + r.d; if (r.id == 'fleet' || !hit(s)) return;
-          var ov = { obsidian: 'Volcanic', dust: 'Solar Systems and Galaxies', ledger: 'Moons, Factories and other pieces' }[r.id];
-          for (var i = 0; i < RG.length; i++) if (ov ? RG[i][0] == ov : RG[i][1].test(s)) { bin[i].push(row((function () { try { return relicArt(r, 40); } catch (e) { return ''; } })(), r.n, r.c + ' gold', esc(r.d))); break; } });
+          var ov = { obsidian: 'Volcanic', dust: 'Solar Systems and Galaxies', ledger: 'Moons, Factories and other pieces', snur: 'Dust and stars', thick: 'Dust and stars' }[r.id];
+          for (var i = 0; i < RG.length; i++) if (ov ? RG[i][0] == ov : RG[i][1].test(s)) { bin[i].push(row((function () { try { return relicArt(r, 40); } catch (e) { return ''; } })(), r.n, r.c + ' gold', esc(BOOKX['relic:' + r.id] || r.d))); break; } });
         RG.forEach(function (g, i) { if (bin[i].length) body += '<h4>' + g[0] + '</h4>' + bin[i].join(''); });
       }
     } catch (e) { body = '<p class="dvb-note">Could not read the game data (' + esc(e.message) + ').</p>'; }
