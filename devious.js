@@ -236,12 +236,12 @@
       return { calm: 0, I: I, final: (G.t || 0) >= 9 };
     } catch (e) { return { calm: 1, I: 0 }; }
   }
-  var MD = { calm: 1, I: 0 }, wasCalm = false;
+  var MD = { calm: 1, I: 0 }, wasCalm = false, songRun = null;
   function scheduleStep(t) {
     if (step % 16 == 0) MD = mood();
     if (step % 16 == 0) {
       if (MD.calm) { if (!calmS || !wasCalm || calmBars >= 16) newCalm(); calmBars++; SCALE = CALM[calmS].scale; }
-      else { if (wasCalm && song && (song.bar || song.sec)) newSong(); SCALE = GSCALE[song.style] || GSCALE.disco; }
+      else { if (G !== songRun) { if (songRun && song && (song.bar || song.sec)) newSong(); songRun = G; } SCALE = GSCALE[song.style] || GSCALE.disco; }   // a new run moves on to the next song; shop breaks keep the current one
       if (AC && musicOn) musicBus.gain.setTargetAtTime(mGain() * (MD.calm ? 1 : (song.style == 'chip' ? 2.4 : 1) * (2.2 - 1.2 * MD.I)), AC.currentTime, .5);
       wasCalm = MD.calm;
     }
