@@ -49,7 +49,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Forests count loose Forests again (broken in v157)
 - ok: Forest info popup uses the same count
 - ok: Solar System picture matches its planets (picture cache ignored Cradles, Choruses and Quarries)
-- DROPPED: Continue run: no flash of the new-run screen (the author rewrote this spot; his version kept)
 - ok: Continue run: show the run straight away
 - ok: End of run: Main menu button
 - ok: System panel: record what each planet in a System really scores
