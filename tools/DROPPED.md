@@ -17,3 +17,4 @@
 - 2026-11-24: Text: Ice aura (banner/Compendium)
 - 2026-11-24: Text: Ice aura (sidebar, per Ice and total)
 - 2026-11-24: Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1)
+- 2026-11-24: Continue run: no flash of the new-run screen

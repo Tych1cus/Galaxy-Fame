@@ -159,11 +159,6 @@
   "replace": "ct=(p.comp||[]).join('');"
  },
  {
-  "name": "Continue run: no flash of the new-run screen",
-  "find": "if(!r||!r.bag||!r.bag.length)return false;newGame();",
-  "replace": "if(!r||!r.bag||!r.bag.length)return false;var _dw=window.draw;window.draw=function(){};try{newGame()}finally{window.draw=_dw}"
- },
- {
   "name": "Continue run: show the run straight away",
   "find": "G.msg='Welcome back. Your run is where you left it.';return true}",
   "replace": "G.msg='Welcome back. Your run is where you left it.';DH='';draw();return true}"
