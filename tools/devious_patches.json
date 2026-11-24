@@ -668,5 +668,15 @@
   "name": "Shop: 'You own every relic!' only when nothing is left to buy",
   "find": "'<p style=\"color:var(--mu)\">You own every relic!</p>'",
   "replace": "'<p style=\"color:var(--mu)\">'+(shopPool().some(function(r){return !has(r.id)&&relUsable(r.id)})?'Reroll for more relics.':'You own every relic!')+'</p>'"
+ },
+ {
+  "name": "Solar Harvester gains +5 per Supernova",
+  "find": "g+=c.k=='sun'?(x.k=='b'?3:2)",
+  "replace": "g+=c.k=='sun'?(x.k=='b'?5:2)"
+ },
+ {
+  "name": "Text: Solar Harvester +5 per Supernova",
+  "find": "Consumes adjacent Supernovas, gaining +3 ⭐ permanently for each.",
+  "replace": "Consumes adjacent Supernovas, gaining +5 ⭐ permanently for each."
  }
 ]
