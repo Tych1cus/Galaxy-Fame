@@ -19,3 +19,4 @@
 - 2026-11-24: Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1)
 - 2026-11-24: Continue run: no flash of the new-run screen
 - 2026-11-24: System panel: total keeps decimals (matches the board)
+- 2026-11-24: Start screen: right count of starting picks (1 from Prestige III)

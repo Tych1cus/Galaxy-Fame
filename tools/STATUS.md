@@ -54,7 +54,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: System panel: record what each planet in a System really scores
 - ok: System panel: every planet listed on its own with what it really scores
 - ok: System panel: planets total uses the real scores
-- DROPPED: System panel: total keeps decimals (matches the board) (the author rewrote this spot; his version kept)
 - ok: System pieces row: every planet shows its own score
 - ok: System pieces row: score under every planet (not a dot)
 - ok: Nebula: scores +2 itself for every piece touching it (Prism Lens +2 more)
@@ -72,7 +71,7 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: Starting Fleet
 - ok: Leeroy Jenkins bonus also when a run is lost (added before the score goes to the leaderboard)
 - ok: Leeroy Jenkins bonus on a win is only paid once
-- ok: Start screen: right count of starting picks (1 from Prestige III)
+- DROPPED: Start screen: right count of starting picks (1 from Prestige III) (the author rewrote this spot; his version kept)
 - ok: Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)
 - ok: Text: Solar System and Galaxy (real scoring)
 - ok: Forests: Forest Crown +2, Green Thumb +1 (they were checking Green Thumb) - board
@@ -204,7 +203,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok (Devious): Text: Starting Fleet
 - ok (Devious): Leeroy Jenkins bonus also when a run is lost (added before the score goes to the leaderboard)
 - ok (Devious): Leeroy Jenkins bonus on a win is only paid once
-- ok (Devious): Start screen: right count of starting picks (1 from Prestige III)
 - ok (Devious): Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)
 - ok (Devious): Text: Solar System and Galaxy (real scoring)
 - ok (Devious): Forests: Forest Crown +2, Green Thumb +1 (they were checking Green Thumb) - board
