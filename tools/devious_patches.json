@@ -43,21 +43,6 @@
   ]
  },
  {
-  "name": "Fix: Rubble Rights works (Quarries +4 per Asteroid)",
-  "find": "else if(k=='q')v=2+2*N.filter(",
-  "replace": "else if(k=='q')v=2+(has('rubble')?4:2)*N.filter("
- },
- {
-  "name": "Fix: Super Giant banner says its real value",
-  "find": "<small>Worth 30 ⭐</small>",
-  "replace": "<small>Worth 31 ⭐</small>"
- },
- {
-  "name": "Text: Thick Dust",
-  "find": "Every Cosmic Dust is worth 3 ⭐ instead of 1.",
-  "replace": "Cosmic Dust worth +2 ⭐."
- },
- {
   "name": "Text: Dust Compactor",
   "find": "Solar Systems and Galaxies each need 1 less piece.",
   "replace": "Solar Systems need 2 fewer pieces and Galaxies 1 fewer."
@@ -73,11 +58,6 @@
   "replace": "Volcanic worlds lose nothing to Black Holes, though Black Holes still feed on them."
  },
  {
-  "name": "Text: Giant Star",
-  "find": "Worth 11 ⭐. The last star that can merge: 2 Giant Stars that touch become a Super Giant.",
-  "replace": "Worth 11 ⭐, +1 for each different kind of planet next to it. 2 Giant Stars that touch become a Super Giant."
- },
- {
   "name": "Text: Cosmic Ledger",
   "find": "Moons and Factories give +1 💰 more.",
   "replace": "Moons and Factories give +1 💰 more, and Giant Stars +1 ⭐."
@@ -91,16 +71,6 @@
   "name": "Text: Gravity Well",
   "find": "Black Holes eat 15% more.",
   "replace": "Black Holes store 15% more of what they take, without taking more."
- },
- {
-  "name": "Text: Prestige VI",
-  "find": "Your relic shop only shows 2 relics at a time.",
-  "replace": "Your relic shop shows 1 fewer relic."
- },
- {
-  "name": "Text: Prestige VIII",
-  "find": "You only get 2 choices on each pick.",
-  "replace": "You get 1 fewer choice on each pick."
  },
  {
   "name": "Fix: ending a run early gives no free Star Shards",
@@ -136,11 +106,6 @@
   "name": "Text: You pick 1 fewer starting plan",
   "find": "You start with 1 planet instead of 2.",
   "replace": "You pick 1 fewer starting planet."
- },
- {
-  "name": "Text: Destroyers gain +3 ⭐ more for ",
-  "find": "Destroyers gain +4 ⭐ per Asteroid instead of +1.",
-  "replace": "Destroyers gain +3 ⭐ more for each Asteroid they shoot."
  },
  {
   "name": "Text: Destroyers gain +2 ⭐ more for ",
@@ -244,11 +209,6 @@
   "replace": "if(!baseOnly)cs.forEach(function(c,i){if(c&&c.k=='p'){f[i]+=nb(i).filter(function(j){return cs[j]}).length*2;if(has('prism'))f[i]+=2}});"
  },
  {
-  "name": "Nebula in a Solar System: +2 for every piece touching the System (board)",
-  "find": "else if(k=='sys')v=(c.val===undefined?sysVal(c):c.val);else if(k=='gal')v=galVal(c)",
-  "replace": "else if(k=='sys'){c._nbN=N.length;c._nbA=N.filter(function(j){return cs[j].k=='ast'||cs[j].k=='bas'}).length;v=sysVal(c)}else if(k=='gal'){(c.subs||[]).forEach(function(x){x._nbN=N.length;x._nbA=N.filter(function(j){return cs[j].k=='ast'||cs[j].k=='bas'}).length});v=galVal(c)}"
- },
- {
   "name": "Nebula in a Solar System: +2 for every piece touching the System, Prism Lens +2 (System score)",
   "find": "else if(k=='p')x=has('prism')?1:0;",
   "replace": "else if(k=='p')x=(has('prism')?2:0)+(s._nbN||0)*2;"
@@ -292,11 +252,6 @@
   "name": "Gold: help text",
   "find": "spend credits on relics",
   "replace": "spend gold on relics"
- },
- {
-  "name": "Gold: Ice aura text",
-  "find": "+1 money per tier",
-  "replace": "+1 gold per tier"
  },
  {
   "name": "Ice Planet in a Solar System works like on the board (Permafrost counts pieces touching the System)",
@@ -449,16 +404,6 @@
   "replace": "c:'Cradles grow +'+Math.round(.2*t*100)/100+' ⭐ more every spin'"
  },
  {
-  "name": "Sidebar: Supernova aura text",
-  "find": "b:pay2.c+' gold per spin'",
-  "replace": "b:'+'+pay2.c+' gold every spin'"
- },
- {
-  "name": "Sidebar: Nebula aura text",
-  "find": "p:t+' more growth choice'+(t>1?'s':'')",
-  "replace": "p:'+'+t+' \"find more often\" choice'+(t>1?'s':'')"
- },
- {
   "name": "Sidebar: Chorus aura text",
   "find": "h:'Each counts as if '+t+' higher'",
   "replace": "h:'Every Chorus counts '+t+' higher'"
@@ -495,16 +440,6 @@
   "was": [
    "else if(k=='com')v=2+(has('salvage')?1:0);else if(k=='sat')v=1+(has('salvage')?1:0)+N.filter(function(j){return PL[cs[j].k]||cs[j].k=='v'||cs[j].k=='i'}).length;"
   ]
- },
- {
-  "name": "Orbital Salvage: Harvesters consume Satellites and Comets",
-  "find": "(c.k=='des'?(x.k=='ast'||x.k=='bas'):x.k=='b')});",
-  "replace": "(c.k=='des'?(x.k=='ast'||x.k=='bas'):(x.k=='b'||(has('salvage')&&(x.k=='sat'||x.k=='com'))))});"
- },
- {
-  "name": "Orbital Salvage: +2 per Satellite or Comet",
-  "find": "g+=c.k=='sun'?3:(",
-  "replace": "g+=c.k=='sun'?(x.k=='b'?3:2):("
  },
  {
   "name": "Orbital Salvage: Harvester message",
@@ -566,11 +501,6 @@
   "was": [
    "<div class=\"box\" style=\"max-width:480px;margin:14px auto;text-align:left\"><h3>🔥 Prestige</h3><div class=\"seg\" style=\"flex-wrap:wrap\">"
   ]
- },
- {
-  "name": "Quarry aura counts Quarries inside Solar Systems and Galaxies too",
-  "find": "function quarryAsters(cs){var n=0;cs.forEach(function(c,i){if(!c||c.k!='q')return;nb(i).forEach(function(j){var x=cs[j];if(x&&(x.k=='ast'||x.k=='bas'))n++})});return n}",
-  "replace": "function quarryAsters(cs){var n=0;cs.forEach(function(c,i){if(!c)return;var q=0;if(c.k=='q')q=1;else if(c.k=='sys')(c.comp||[]).forEach(function(k){if(k=='q')q++});else if(c.k=='gal')(c.subs||[]).forEach(function(x){(x.comp||[]).forEach(function(k){if(k=='q')q++})});if(!q)return;nb(i).forEach(function(j){var x=cs[j];if(x&&(x.k=='ast'||x.k=='bas'))n+=q})});return n}"
  },
  {
   "name": "Volcanic in a System: Magma Core counted once, and keeps its own Black Hole damage",
@@ -658,16 +588,6 @@
   "replace": "if(iceIn(cs[q]))G.fx[q]='buff'"
  },
  {
-  "name": "Text: Ice aura (banner/Compendium)",
-  "find": "i:'Corner Ice pockets +2 fame and +1 gold per tier'",
-  "replace": "i:'Corner Ice Planets (in Systems too) +2 fame and +1 gold per tier'"
- },
- {
-  "name": "Text: Ice aura (sidebar, per Ice and total)",
-  "find": "i:'Corner Ice pockets +'+((pay2.f/t)||2)+' fame and +'+((pay2.c/t)||1)+' gold each, per tier'",
-  "replace": "i:'Corner Ice Planets (in Systems too) +'+(2*t)+' fame and +'+t+' gold each ('+(pay2.f/(2*t)||0)+' now: +'+pay2.f+' fame, +'+pay2.c+' gold)'"
- },
- {
   "name": "Helper: count planets inside a System or Galaxy",
   "find": "function quarryAsters(cs){var n=0;cs.forEach(function(c,i){if(!c)return;var q=0;if(c.k=='q')q=1;else if(c.k=='sys')(c.comp||[]).forEach(function(k){if(k=='q')q++});else if(c.k=='gal')(c.subs||[]).forEach(function(x){(x.comp||[]).forEach(function(k){if(k=='q')q++})});if(!q)return;nb(i).forEach(function(j){var x=cs[j];if(x&&(x.k=='ast'||x.k=='bas'))n+=q})});return n}\nfunction iceIn(c){if(!c)return 0;if(c.k=='i')return 1;var n=0;(c.k=='sys'?[c]:c.k=='gal'?(c.subs||[]):[]).forEach(function(x){(x.comp||[]).forEach(function(k){if(k=='i')n++})});return n}",
   "replace": "function quarryAsters(cs){var n=0;cs.forEach(function(c,i){if(!c)return;var q=0;if(c.k=='q')q=1;else if(c.k=='sys')(c.comp||[]).forEach(function(k){if(k=='q')q++});else if(c.k=='gal')(c.subs||[]).forEach(function(x){(x.comp||[]).forEach(function(k){if(k=='q')q++})});if(!q)return;nb(i).forEach(function(j){var x=cs[j];if(x&&(x.k=='ast'||x.k=='bas'))n+=q})});return n}\nfunction iceIn(c){if(!c)return 0;if(c.k=='i')return 1;var n=0;(c.k=='sys'?[c]:c.k=='gal'?(c.subs||[]):[]).forEach(function(x){(x.comp||[]).forEach(function(k){if(k=='i')n++})});return n}\nfunction planetsIn(c){if(!c)return 0;var n=0;(c.k=='sys'?[c]:c.k=='gal'?(c.subs||[]):[]).forEach(function(x){(x.comp||[]).forEach(function(k){if(K[k])n++})});return n}"
@@ -718,11 +638,6 @@
   "name": "No Black Hole aura (Black Holes can't form a Solar System)",
   "find": "k:'Black Holes feed 3% more',",
   "replace": ""
- },
- {
-  "name": "Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1)",
-  "find": "cs.forEach(function(p){if(p&&p.k=='b'){p.life--;if(p.life<=0&&G.bag.indexOf(p)>-1)G.bag.splice(G.bag.indexOf(p),1)}});G.n++;",
-  "replace": "cs.forEach(function(p){if(p&&p.k=='b'){p.life--;if(p.life<=0&&G.bag.indexOf(p)>-1){G.bag.splice(G.bag.indexOf(p),1);if(G.camp&&window.campBurn)campBurn(p)}}});if(G._cb){G.banner='☄️ A Supernova burned out<small>+'+G._cb+' Cosmic Dust in your bag</small>';draw();await sleep(1300);G.banner='';G._cb=0}G.n++;"
  },
  {
   "name": "Campaign: Rogue Destroyer shoots after your Destroyers (Chapter 2)",

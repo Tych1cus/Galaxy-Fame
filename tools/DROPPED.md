@@ -1,0 +1,19 @@
+# Edits dropped because the game's author rewrote that spot (his version kept)
+
+- 2026-11-24: Fix: Rubble Rights works (Quarries +4 per Asteroid)
+- 2026-11-24: Fix: Super Giant banner says its real value
+- 2026-11-24: Text: Thick Dust
+- 2026-11-24: Text: Giant Star
+- 2026-11-24: Text: Prestige VI
+- 2026-11-24: Text: Prestige VIII
+- 2026-11-24: Text: Destroyers gain +3 ⭐ more for 
+- 2026-11-24: Nebula in a Solar System: +2 for every piece touching the System (board)
+- 2026-11-24: Gold: Ice aura text
+- 2026-11-24: Sidebar: Supernova aura text
+- 2026-11-24: Sidebar: Nebula aura text
+- 2026-11-24: Orbital Salvage: Harvesters consume Satellites and Comets
+- 2026-11-24: Orbital Salvage: +2 per Satellite or Comet
+- 2026-11-24: Quarry aura counts Quarries inside Solar Systems and Galaxies too
+- 2026-11-24: Text: Ice aura (banner/Compendium)
+- 2026-11-24: Text: Ice aura (sidebar, per Ice and total)
+- 2026-11-24: Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1)
