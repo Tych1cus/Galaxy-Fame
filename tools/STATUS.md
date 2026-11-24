@@ -26,18 +26,12 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Chorus: counting starts with the Choruses inside Solar Systems
 - ok: Chorus: in a Solar System they score 1, 2, 3... like on the board
 - ok: Chorus: System panel shows each Chorus's number
-- DROPPED: Fix: Rubble Rights works (Quarries +4 per Asteroid) (the author rewrote this spot; his version kept)
-- DROPPED: Fix: Super Giant banner says its real value (the author rewrote this spot; his version kept)
-- DROPPED: Text: Thick Dust (the author rewrote this spot; his version kept)
 - ok: Text: Dust Compactor
 - ok: Text: Volcanic
 - ok: Text: Obsidian Shield
-- DROPPED: Text: Giant Star (the author rewrote this spot; his version kept)
 - ok: Text: Cosmic Ledger
 - ok: Text: Event Horizon
 - ok: Text: Gravity Well
-- DROPPED: Text: Prestige VI (the author rewrote this spot; his version kept)
-- DROPPED: Text: Prestige VIII (the author rewrote this spot; his version kept)
 - ok: Fix: ending a run early gives no free Star Shards
 - ok: Text: Star Shards rules on the Observatory
 - ok: Fix: the stall check no longer interrupts long spins (only steps in when nothing has changed for ~10s)
@@ -45,7 +39,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Verdant Aura text (banner)
 - ok: Wide Lens text
 - ok: Text: You pick 1 fewer starting plan
-- DROPPED: Text: Destroyers gain +3 ⭐ more for  (the author rewrote this spot; his version kept)
 - ok: Text: Destroyers gain +2 ⭐ more for 
 - ok: Text: Cradles start +1 ⭐ higher.
 - ok: Text: New Supernovas last 3 more spi
@@ -66,7 +59,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: System pieces row: every planet shows its own score
 - ok: System pieces row: score under every planet (not a dot)
 - ok: Nebula: scores +2 itself for every piece touching it (Prism Lens +2 more)
-- DROPPED: Nebula in a Solar System: +2 for every piece touching the System (board) (the author rewrote this spot; his version kept)
 - ok: Nebula in a Solar System: +2 for every piece touching the System, Prism Lens +2 (System score)
 - ok: Nebula: shows its own score when it scores (not 'Buff!')
 - ok: Text: Nebula
@@ -76,7 +68,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: Nebula Halo
 - ok: Gold: stats label
 - ok: Gold: help text
-- DROPPED: Gold: Ice aura text (the author rewrote this spot; his version kept)
 - ok: Ice Planet in a Solar System works like on the board (Permafrost counts pieces touching the System)
 - ok: Starting Fleet gives a random planet of any kind (not Black Holes)
 - ok: Text: Starting Fleet
@@ -106,8 +97,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Constellation pays each spin
 - ok: Leeroy Jenkins button shows 200 when you have fewer than 200 shards
 - ok: Sidebar: Cradle aura text
-- DROPPED: Sidebar: Supernova aura text (the author rewrote this spot; his version kept)
-- DROPPED: Sidebar: Nebula aura text (the author rewrote this spot; his version kept)
 - ok: Sidebar: Chorus aura text
 - ok: Sidebar: Aura box footer
 - ok: Wide Lens costs 5
@@ -115,20 +104,17 @@ Updated by tools/apply_patches.py after each upload.
 - ok: End run button keeps its space during a spin (no header jump)
 - ok: New relics: Orbital Salvage and Constellation
 - ok: Orbital Salvage: +1 to Comets and Satellites
-- DROPPED: Orbital Salvage: Harvesters consume Satellites and Comets (the author rewrote this spot; his version kept)
-- DROPPED: Orbital Salvage: +2 per Satellite or Comet (the author rewrote this spot; his version kept)
 - ok: Orbital Salvage: Harvester message
 - ok: Orbital Salvage: only offered once you own a Satellite, Comet or Solar Harvester
 - ok: Cool Kid: +1 aura per aura kind each spin (not +1 per Solar System)
 - ok: Cool Kid: extra +1 goes to only one System of each aura kind
 - ok: Text: Cool Kid
 - ok: Quarry aura: Asteroids and Big Asteroids 15% more often per tier
-- UPDATED: Destroyer range: no longer from auras or Heavy Munitions (ships get range by upgrading)
+- ok: Destroyer range: no longer from auras or Heavy Munitions (ships get range by upgrading)
 - ok: Remove unused Asteroid aura odds code
 - ok: Aura text: no System of that kind yet (was 'needs tier 1 (10 aura)')
 - ok: Verdant aura text: no Verdant System yet (was 'needs tier 1 (20 aura)')
 - ok: Prestige box wide enough for P9 and P10 (buttons wrap on small phones)
-- DROPPED: Quarry aura counts Quarries inside Solar Systems and Galaxies too (the author rewrote this spot; his version kept)
 - ok: Volcanic in a System: Magma Core counted once, and keeps its own Black Hole damage
 - ok: Nebula Halo works for Nebulas inside Solar Systems and Galaxies
 - ok: Text: Cosmic Dust (drop 'Not a planet' line)
@@ -146,8 +132,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Ice aura counts Ice inside corner Systems (sidebar total)
 - ok: Ice aura counts Ice inside corner Systems (spin)
 - ok: Ice aura glow on corner Systems holding Ice
-- DROPPED: Text: Ice aura (banner/Compendium) (the author rewrote this spot; his version kept)
-- DROPPED: Text: Ice aura (sidebar, per Ice and total) (the author rewrote this spot; his version kept)
 - ok: Helper: count planets inside a System or Galaxy
 - ok: Text: Satellite counts planets inside Systems
 - ok: Helper: count one planet kind inside a System or Galaxy
@@ -156,13 +140,12 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Telescope counts the planet kinds inside touching Systems and Galaxies
 - ok: Text: Telescope
 - ok: No Black Hole aura (Black Holes can't form a Solar System)
-- DROPPED: Campaign: Supernova burning out on the board can add Cosmic Dust (Chapter 1) (the author rewrote this spot; his version kept)
 - ok: Campaign: Rogue Destroyer shoots after your Destroyers (Chapter 2)
 - ok: Campaign: Rogue Destroyer never scores fame
 - ok: Campaign: Rogue Destroyer can't be removed from the bag
 - ok: Forming a System: Forests that haven't planted yet and Supernova lifespans are marked
-- FIXED: Text: Heavy Munitions (no range)
-- FIXED: Shop: 'You own every relic!' only when nothing is left to buy
+- ok: Text: Heavy Munitions (no range)
+- ok: Shop: 'You own every relic!' only when nothing is left to buy
 - ok: effects line already there
 
 ## Devious Mode (devious.html)
