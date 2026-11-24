@@ -599,7 +599,7 @@
           if (BOOKX[k]) d = BOOKX[k]; if (k == 'des') d += ' Two touching Destroyers of the same level merge: Mk II is worth 6, gains +4 ⭐ per Asteroid and reaches 2 squares; Mk III (the max) is worth 12, gains +6 per Asteroid and reaches 3.';
           if (k == 'g') d = d.replace(/\b[35] Verdants\b/, '5 Verdants (3 with Verdant Grove)'); if (!hit(n + ' ' + d)) return;
           var art = ''; try { art = orb({ k: k, life: 3, st: 0, s: 2, perm: 0 }, 1); } catch (e) {}
-          if (k == 'deb') groups[2][1].push(row(art, n, 'Prestige VI+', d, '#ff7a6a'));
+          if (k == 'deb') groups[4][1].push(row(art, n, 'Prestige VI+', d, '#ff7a6a'));
           else if (XDk[k] && !K[k] && !DP[k] && !IT[k] && !SG[k]) groups[2][1].push(row(art, n, '', d));
           else if (SG[k]) groups[3][1].push(row(art, n, '', d));
           else if (DP[k]) groups[1][1].push(row(art, n, '', d));
