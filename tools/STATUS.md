@@ -18,6 +18,16 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: choosing the Ice Planet's square (panel)
 - ok: Cradles only grow +0.1 per spin; they no longer keep the extra fame they scored
 - ok: Cradles ignore old wrongly-kept bonuses (cleans runs saved before the fix)
+- ok: Leeroy: only on Prestige X
+- FIXED: Leeroy: card says it only works on Prestige X
+- ok: Leeroy: capped at 12 levels
+- FIXED: Prestige X: Leeroy fame curve on the goals
+- ok: Text: Prestige X fame curve
+- ok: Text: Leeroy card
+- ok: First run: Observatory prompt (function)
+- FIXED: First run: mark the first finished run
+- FIXED: First run: Observatory prompt on the menu
+- FIXED: First run: Observatory prompt style
 - ok: Effects: slot-machine reels when the planets are dealt
 - ok: Effects: each planet as it scores
 - ok: Effects: each Solar System as it scores
@@ -71,7 +81,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Text: Starting Fleet
 - ok: Leeroy Jenkins bonus also when a run is lost (added before the score goes to the leaderboard)
 - ok: Leeroy Jenkins bonus on a win is only paid once
-- DROPPED: Start screen: right count of starting picks (1 from Prestige III) (the author rewrote this spot; his version kept)
 - ok: Saved progress: load every saved setting (Leeroy Jenkins levels were lost on reload)
 - ok: Text: Solar System and Galaxy (real scoring)
 - ok: Forests: Forest Crown +2, Green Thumb +1 (they were checking Green Thumb) - board
