@@ -85,7 +85,7 @@
  {
   "name": "Leeroy: card says it only works on Prestige X",
   "find": "Each level costs all your shards (at least 200).</small>",
-  "replace": "Each level costs all your shards (at least 200).</small><small style=\"display:block;color:'+(PLV()>=PRESTIGE.length?'var(--mu)':'#ff8a8a')+'\">Only active on Prestige X.'+(PLV()>=PRESTIGE.length?'':' Select Prestige X on the menu to use it.')+'</small>"
+  "replace": "Each level costs all your shards (at least 200). Prestige X only.</small><small style=\"display:block;color:'+(PLV()>=PRESTIGE.length?'var(--mu)':'#ff8a8a')+'\">'+(PLV()>=PRESTIGE.length?'':'Select Prestige X on the menu to use it.')+'</small>"
  },
  {
   "name": "Leeroy: capped at 12 levels",
@@ -95,7 +95,7 @@
  {
   "name": "Prestige X: Leeroy fame curve on the goals",
   "find": "*(1+.13*((G&&G.lj)||0))))}",
-  "replace": "*(PLV()>=PRESTIGE.length?LJC[t]:1)*(1+.13*((G&&G.lj)||0))))}var LJC=[1,1,1,.95,.90,.93,1,1.10,1.25,1.45];"
+  "replace": "*(PLV()>=PRESTIGE.length?LJC[t]:1)*(1+.13*((G&&G.lj)||0)))) }var LJC=[1,1,1,.95,.90,.93,1,1.10,1.25,1.45];"
  },
  {
   "name": "Text: Prestige X fame curve",
@@ -110,21 +110,16 @@
  {
   "name": "First run: Observatory prompt (function)",
   "find": "function showMeta(){SCR='meta';draw()}",
-  "replace": "function showMeta(){M.seen=M.seen||{};if(M.seen.firstRun&&!M.seen.obsDone){M.seen.obsDone=1;save()}SCR='meta';draw()}function obsPrompt(){if(!(M.seen&&M.seen.firstRun&&!M.seen.obsDone)||Object.keys(M.up||{}).length)return'';return'<div class=\"box obsp\"><b>🎉 Run complete! You earned ✨ '+M.shards+' Star Shards.</b><br>Spend them in the <b>Observatory</b> on permanent upgrades that help in <b>every future run</b>.<br><button class=\"spin\" style=\"max-width:320px;width:100%;margin-top:10px\" onclick=\"showMeta()\">🔭 Open the Observatory</button></div>'}"
+  "replace": "function showMeta(){M.seen=M.seen||{};if(M.seen.firstRun&&!M.seen.obsDone){M.seen.obsDone=1;save()}SCR='meta';draw()}function obsPrompt(){if(!(M.seen&&M.seen.firstRun&&!M.seen.obsDone)||Object.keys(M.up||{}).length)return'';return'<div class=\"box\" style=\"max-width:460px;margin:0 auto 16px;border-color:var(--gd);box-shadow:0 0 22px #ffd36a66;animation:glow 1.4s infinite alternate;text-align:center\"><b>🎉 Run complete! You earned ✨ '+M.shards+' Star Shards.</b><br>Spend them in the <b>Observatory</b> on permanent upgrades that help in <b>every future run</b>.<br><button class=\"spin\" style=\"max-width:320px;width:100%;margin-top:10px\" onclick=\"showMeta()\">🔭 Open the Observatory</button></div>'}"
  },
  {
   "name": "First run: mark the first finished run",
   "find": "if(r=='lose')sfx('lose');G.over=r;G.prestigeUp=false;",
-  "replace": "if(r=='lose')sfx('lose');G.over=r;G.prestigeUp=false;if(r!='quit'){M.seen=M.seen||{};if(!M.seen.firstRun){M.seen.firstRun=1;try{save()}catch(e){}}}"
+  "replace": "if(r=='lose')sfx('lose');G.over=r;if(r!='quit'){M.seen=M.seen||{};if(!M.seen.firstRun){M.seen.firstRun=1;try{save()}catch(e){}}}G.prestigeUp=false;"
  },
  {
   "name": "First run: Observatory prompt on the menu",
   "find": "'<button class=\"spin\" style=\"max-width:320px;width:100%\" onclick=\"newGame()\">NEW RUN</button>",
-  "replace": "obsPrompt()+'<button class=\"spin\" style=\"max-width:320px;width:100%\" onclick=\"newGame()\">NEW RUN</button>"
- },
- {
-  "name": "First run: Observatory prompt style",
-  "find": "@keyframes glow",
-  "replace": ".obsp{max-width:460px;margin:0 auto 16px;border-color:var(--gd);box-shadow:0 0 22px #ffd36a66;animation:glow 1.4s infinite alternate;text-align:center}@keyframes glow"
+  "replace": "obsPrompt()+'<button class=\"spin\" style=\"max-width:320px;width:100%;\" onclick=\"newGame()\">NEW RUN</button>"
  }
 ]
