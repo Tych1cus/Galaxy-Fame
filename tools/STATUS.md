@@ -33,8 +33,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Effects: big spins
 - ok: Effects: fame goal reached
 - ok: Chorus: counting starts with the Choruses inside Solar Systems
-- DROPPED: Chorus: in a Solar System they score 1, 2, 3... like on the board (the author rewrote this spot; his version kept)
-- DROPPED: Chorus: System panel shows each Chorus's number (the author rewrote this spot; his version kept)
 - ok: Text: Dust Compactor
 - ok: Text: Volcanic
 - ok: Text: Obsidian Shield
@@ -103,7 +101,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Constellation pays each spin
 - ok: Leeroy Jenkins button shows 200 when you have fewer than 200 shards
 - ok: Sidebar: Cradle aura text
-- DROPPED: Sidebar: Chorus aura text (the author rewrote this spot; his version kept)
 - ok: Sidebar: Aura box footer
 - ok: Wide Lens costs 5
 - ok: Scout Fleet no longer in the shop (same as Wide Lens; runs that own it keep it)
@@ -130,7 +127,6 @@ Updated by tools/apply_patches.py after each upload.
 - ok: Glacial Lens costs 6
 - ok: Permafrost costs 4
 - ok: Encore: no longer doubles the last Chorus in every System
-- DROPPED: Encore: doubles only the very last Chorus counted (on the board or in a System) (the author rewrote this spot; his version kept)
 - ok: Solar Systems and Galaxies no longer give +2 to planets of their kind on the board
 - ok: Text: Solar System info (no +2 to its kind)
 - ok: Text: Galaxy info (no +2.6 to its kind)
