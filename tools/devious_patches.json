@@ -30,19 +30,6 @@
   "replace": "function chOff(s){var o=0,done=false;G.bag.forEach(function(p){if(done)return;var L=p.k=='sys'?[p]:p.k=='gal'?(p.subs||[]):[];L.forEach(function(x){if(done)return;if(x===s){done=true;return}(x.comp||[]).forEach(function(k){if(k=='h')o++})})});return done?o:0}\nfunction galVal(g){"
  },
  {
-  "name": "Chorus: in a Solar System they score 1, 2, 3... like on the board",
-  "find": "else if(k=='h'){x=H+T('h')+(has('baton')?1:0);last=x}",
-  "replace": "else if(k=='h'){hc++;x=chOff(s)+hc+T('h')+(has('baton')?1:0);last=x}"
- },
- {
-  "name": "Chorus: System panel shows each Chorus's number",
-  "find": "else if(k=='h'){sc=cm.slice(0,ci+1).filter(function(x){return x=='h'}).length}",
-  "replace": "else if(k=='h'){var _H=cm.filter(function(x){return x=='h'}).length,_t=tierF(auras(),'h'),_l=has('encore')&&cm.lastIndexOf('h')==ci&&G._encS===s2;var _n=chOff(s2)+cm.slice(0,ci+1).filter(function(x){return x=='h'}).length;sc=(_n+_t+(has('baton')?1:0))*(_l?2:1);note='Chorus #'+_n+(_t?' + aura '+_t:'')+(has('baton')?' + Baton':'')+(_l?' ×2 Encore':'')}",
-  "was": [
-   "else if(k=='h'){var _H=cm.filter(function(x){return x=='h'}).length,_t=tierF(auras(),'h'),_l=has('encore')&&cm.lastIndexOf('h')==ci;var _n=chOff(s2)+cm.slice(0,ci+1).filter(function(x){return x=='h'}).length;sc=(_n+_t+(has('baton')?1:0))*(_l?2:1);note='Chorus #'+_n+(_t?' + aura '+_t:'')+(has('baton')?' + Baton':'')+(_l?' ×2 Encore':'')}"
-  ]
- },
- {
   "name": "Text: Dust Compactor",
   "find": "Solar Systems and Galaxies each need 1 less piece.",
   "replace": "Solar Systems need 2 fewer pieces and Galaxies 1 fewer."
@@ -389,11 +376,6 @@
   "replace": "c:'Cradles grow +'+Math.round(.2*t*100)/100+' ⭐ more every spin'"
  },
  {
-  "name": "Sidebar: Chorus aura text",
-  "find": "h:'Each counts as if '+t+' higher'",
-  "replace": "h:'Every Chorus counts '+t+' higher'"
- },
- {
   "name": "Sidebar: Aura box footer",
   "find": "Each Solar System gives 4 aura, plus 1 every spin it lands. Systems also boost their own kind on the board.",
   "replace": "Solar Systems give 4 aura when formed, and +1 every spin."
@@ -531,11 +513,6 @@
   "name": "Encore: no longer doubles the last Chorus in every System",
   "find": "if(has('encore'))v+=last;",
   "replace": ""
- },
- {
-  "name": "Encore: doubles only the very last Chorus counted (on the board or in a System)",
-  "find": "if(has('encore')&&lastH>-1)f[lastH]*=2;",
-  "replace": "G._encS=null;if(has('encore')){if(lastH>-1){f[lastH]*=2;G._encS='board'}else{var _eb=-1,_ei=-1,_es=null;cs.forEach(function(c,i){if(!c||(c.k!='sys'&&c.k!='gal'))return;(c.k=='sys'?[c]:(c.subs||[])).forEach(function(x){var n=(x.comp||[]).filter(function(k){return k=='h'}).length;if(!n)return;var num=chOff(x)+n;if(num>_eb){_eb=num;_ei=i;_es=x}})});if(_es){var _hv=_eb+T('h')+(has('baton')?1:0);f[_ei]+=cs[_ei].k=='gal'?_hv*1.3:_hv;G._encS=_es}}}"
  },
  {
   "name": "Solar Systems and Galaxies no longer give +2 to planets of their kind on the board",

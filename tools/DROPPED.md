@@ -20,3 +20,7 @@
 - 2026-11-24: Continue run: no flash of the new-run screen
 - 2026-11-24: System panel: total keeps decimals (matches the board)
 - 2026-11-24: Start screen: right count of starting picks (1 from Prestige III)
+- 2026-11-26: Chorus: in a Solar System they score 1, 2, 3... like on the board
+- 2026-11-26: Chorus: System panel shows each Chorus's number
+- 2026-11-26: Sidebar: Chorus aura text
+- 2026-11-26: Encore: doubles only the very last Chorus counted (on the board or in a System)
