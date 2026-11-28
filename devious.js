@@ -762,6 +762,10 @@
       story: 'On a quiet forest world, a Young Skymaker spends every night building a little ship and dreaming of the stars. Then the asteroids come. Rocks rain down on the forest, and the dream is no longer a dream: it is the only way to save his home.<br><br>Build your ship. Clear the skies. It is time to live up to your calling, Young Skymaker.',
       rules: 'Prestige 10 rules. You start with Debris Field, a Forest, an Orbital Factory and 2 Asteroids. Ships can only be found during fame goal 5. Reach every fame goal to win.',
       ending: 'The last rock breaks apart over the treetops. Below, the forest is still standing. Above, a little ship turns toward the stars. The Young Skymaker has found his sky.' }
+    ,{ id: 'mine', n: 'Chapter 2 · If You Can\'t Beat Them',
+      story: 'The asteroids were only the beginning. Behind them comes an entire Asteroid Belt, far too thick for any ship to fight through. So the Young Skymaker changes course: if you can\'t beat them, join them. Mine the rocks, build a new economy on them, and turn the storm into a fortune.<br><br>This could set you up for greater things.',
+      rules: 'Prestige 10 rules. You start with 2 Quarries. An Asteroid appears every spin. No ships can be found. Fame goals 8 to 10 are 25% harder. Reach every fame goal to win.',
+      ending: 'Where rocks once fell, mining rigs now hum. The Belt that nearly buried the forest now feeds it, and traders come from three systems away to buy what the Young Skymaker digs up. Greater things are coming.' }
   ];
   // archdevious's chapters, saved for later (not shown for now). Their progress is kept under ids 1 and 2.
   var CHAP_LATER = [
@@ -808,10 +812,13 @@
   if (typeof window.PV == 'function') { var pv0 = window.PV; window.PV = function () { if ((typeof G != 'undefined' && G && G.camp) || campNext) return PEFF[9] || pv0(); return pv0(); }; }
   window.campBuy = function (i) { if (chOwned(i) || !chReady(i) || M.shards < CAMP_COST) return; M.shards -= CAMP_COST; CM().own[chId(i)] = 1; save(); draw(); };
   window.campPlay = function (i) { if (!chOwned(i) || !chReady(i)) return; campNext = i; try { newGame(); } finally { campNext = 0; }
-    G.camp = i; G.lj = 0; var _cid = chId(i); if (_cid == 'sky') { G.bag = [mk('r'), mk('fac'), mk('ast'), mk('ast')]; if (G.rel.indexOf('debris') < 0) G.rel.push('debris'); G.debrisField = 1; G.startLeft = 0; G.mode = 'idle'; } if (_cid == 1) { var _lose = 2; while (_lose > 0) { var _pl = G.bag.filter(function (x) { return K[x.k]; }); if (!_pl.length) break; G.bag.splice(G.bag.indexOf(_pl[R(_pl.length)]), 1); _lose--; }   // 2 fewer random planets, then your pick if there are not enough
+    G.camp = i; G.lj = 0; var _cid = chId(i); if (_cid == 'sky') { G.bag = [mk('r'), mk('fac'), mk('ast'), mk('ast')]; if (G.rel.indexOf('debris') < 0) G.rel.push('debris'); G.debrisField = 1; G.startLeft = 0; G.mode = 'idle'; } if (_cid == 'mine') { G.bag = [mk('q'), mk('q')]; G.startLeft = 0; G.mode = 'idle'; } if (_cid == 1) { var _lose = 2; while (_lose > 0) { var _pl = G.bag.filter(function (x) { return K[x.k]; }); if (!_pl.length) break; G.bag.splice(G.bag.indexOf(_pl[R(_pl.length)]), 1); _lose--; }   // 2 fewer random planets, then your pick if there are not enough
       if (_lose > 0) G.startLeft = Math.max(0, G.startLeft - _lose); G.bag.push(mk('j'), mk('j')); if (G.startLeft <= 0) { G.mode = 'idle'; } } if (_cid == 2) G.bag.push(mk('rog')); G.msg = '📜 ' + CHAP[i - 1].n.split(' · ')[0] + (G.mode == 'start' ? ': pick your starting planets, then spin.' : ': spin when ready.'); DH = ''; draw(); };
+  function mineRun() { return typeof G != 'undefined' && G && G.camp && chId(G.camp) == 'mine'; }
+  if (typeof window.spin0 == 'function') { var sp0 = window.spin0; window.spin0 = function () { try { if (mineRun() && !G.busy && G.mode == 'idle') { G.bag.push(mk('ast')); G.msg = '🪨 An Asteroid drifts in from the Belt.'; } } catch (e) {} return sp0.apply(this, arguments); }; }
+  if (typeof window.RT == 'function') { var rt0 = window.RT; window.RT = function (t) { var v = rt0.apply(this, arguments); return mineRun() && t >= 7 ? Math.round(v * 1.25) : v; }; }
   function skyRun() { return typeof G != 'undefined' && G && G.camp && chId(G.camp) == 'sky'; }
-  if (typeof window.ipool == 'function') { var ip0 = window.ipool; window.ipool = function () { var o = ip0.apply(this, arguments); return skyRun() ? o.filter(function (x) { return x[0] != 'des'; }) : o; }; }
+  if (typeof window.ipool == 'function') { var ip0 = window.ipool; window.ipool = function () { var o = ip0.apply(this, arguments); return (skyRun() || mineRun()) ? o.filter(function (x) { return x[0] != 'des'; }) : o; }; }
   if (typeof window.offer == 'function') { var of0 = window.offer; window.offer = function () { var o = of0.apply(this, arguments); try { if (skyRun() && G.t == 4 && G.offer && G.offer.length) G.offer = G.offer.map(function () { return 'des'; }); } catch (e) {} return o; }; }
   window.showCamp = function () { if (CM().fresh) { CM().fresh = 0; save(); } SCR = 'camp'; draw(); };
   window.campBurn = function () { if (G && G.camp && chId(G.camp) == 1) { G.bag.push(mk('j'), mk('j')); G._cb = (G._cb || 0) + 2; } };
