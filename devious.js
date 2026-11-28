@@ -773,7 +773,7 @@
     ,{ id: 1, n: 'Chapter 4 · The Dust Reaches',
       story: 'Your father charted half the known stars, and his star maps still hang in every observatory. Word of the Young Sky Master has now reached the Star Council, and today they handed you a sector of your own: the Dust Reaches, a grey drift of cosmic dust that no planner has ever wanted. The others laugh when they hear where you are going. You don\'t.<br><br>It is time for the Young Sky Master to step into his true calling: developing the stars. Somewhere under all that dust is a sky worth seeing, and you are going to make it shine.',
       rules: 'Prestige 10 rules. You start with Twin Dust, and 2 fewer planets but 2 Cosmic Dusts. Whenever a Supernova burns out on the board, 2 Cosmic Dusts drift into your bag. Reach every fame goal to win.',
-      ending: 'The last fame goal lights up across the Reaches. Where there was only grey dust, young stars now burn, and passing ships are already changing course to see them. At the Star Council, nobody is laughing anymore. That night a single message arrives from your father: "I knew you would, Sky Master."' }
+      ending: 'The last fame goal lights up across the Reaches. Where there was only grey dust, young stars now burn, and passing ships are already changing course to see them. Seems the Young Sky Master isn\'t so young anymore. At the Star Council, nobody is laughing anymore. That night a single message arrives from your father: "I knew you would, Sky Master."' }
   ];
   // archdevious's chapters, saved for later (not shown for now). Their progress is kept under ids 1 and 2.
   var CHAP_LATER = [
