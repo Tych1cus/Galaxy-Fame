@@ -766,6 +766,10 @@
       story: 'The asteroids were only the beginning. Behind them comes an entire Asteroid Belt, far too thick for any ship to fight through. So the Young Skymaker changes course: if you can\'t beat them, join them. Mine the rocks, build a new economy on them, and turn the storm into a fortune.<br><br>This could set you up for greater things.',
       rules: 'Prestige 10 rules. You start with 2 Quarries. An Asteroid appears every spin. No ships can be found. Fame goals 8 to 10 are 25% harder. Reach every fame goal to win.',
       ending: 'Where rocks once fell, mining rigs now hum. The Belt that nearly buried the forest now feeds it, and traders come from three systems away to buy what the Young Skymaker digs up. Greater things are coming.' }
+    ,{ id: 'rescue', n: 'Chapter 3 · Lost in Space',
+      story: 'You survived the asteroids, but not without damage back home. Families lost the fields they worked, and your new enterprise needs workers. Young people are heading for the stars in search of adventure and fame.<br><br>Not everyone is as gifted as the Young Skymaker. New astronauts are getting lost out there, and only your ship can bring them home.',
+      rules: 'Prestige 10 rules. You start with a Destroyer. An Astronaut drifts into your bag on the first spin of every fame goal. Your Destroyers rescue Astronauts in range, taking them out of your bag. Save 10 Astronauts and reach every fame goal to win. No Forests.',
+      ending: 'Ten young astronauts are home safe, and every one of them has a story to tell. The fields are being replanted, the mines are hiring, and half the sector now knows the name Young Skymaker. Something bigger is calling.' }
   ];
   // archdevious's chapters, saved for later (not shown for now). Their progress is kept under ids 1 and 2.
   var CHAP_LATER = [
@@ -812,10 +816,17 @@
   if (typeof window.PV == 'function') { var pv0 = window.PV; window.PV = function () { if ((typeof G != 'undefined' && G && G.camp) || campNext) return PEFF[9] || pv0(); return pv0(); }; }
   window.campBuy = function (i) { if (chOwned(i) || !chReady(i) || M.shards < CAMP_COST) return; M.shards -= CAMP_COST; CM().own[chId(i)] = 1; save(); draw(); };
   window.campPlay = function (i) { if (!chOwned(i) || !chReady(i)) return; campNext = i; try { newGame(); } finally { campNext = 0; }
-    G.camp = i; G.lj = 0; var _cid = chId(i); if (_cid == 'sky') { G.bag = [mk('r'), mk('fac'), mk('ast'), mk('ast')]; if (G.rel.indexOf('debris') < 0) G.rel.push('debris'); G.debrisField = 1; G.startLeft = 0; G.mode = 'idle'; } if (_cid == 'mine') { G.bag = [mk('q'), mk('q')]; G.startLeft = 0; G.mode = 'idle'; } if (_cid == 1) { var _lose = 2; while (_lose > 0) { var _pl = G.bag.filter(function (x) { return K[x.k]; }); if (!_pl.length) break; G.bag.splice(G.bag.indexOf(_pl[R(_pl.length)]), 1); _lose--; }   // 2 fewer random planets, then your pick if there are not enough
+    G.camp = i; G.lj = 0; var _cid = chId(i); if (_cid == 'sky') { G.bag = [mk('r'), mk('fac'), mk('ast'), mk('ast')]; if (G.rel.indexOf('debris') < 0) G.rel.push('debris'); G.debrisField = 1; G.startLeft = 0; G.mode = 'idle'; } if (_cid == 'rescue') { G.bag = G.bag.map(function (p) { if (p.k != 'r') return p; var ks = ['g','b','p','v','i','c','h','q']; return mk(ks[R(ks.length)]); }); G.bag.push(mk('des')); G.saved = 0; if (G.offer) G.offer = G.offer.filter(function (k) { return k != 'r'; }); } if (_cid == 'mine') { G.bag = [mk('q'), mk('q')]; G.startLeft = 0; G.mode = 'idle'; } if (_cid == 1) { var _lose = 2; while (_lose > 0) { var _pl = G.bag.filter(function (x) { return K[x.k]; }); if (!_pl.length) break; G.bag.splice(G.bag.indexOf(_pl[R(_pl.length)]), 1); _lose--; }   // 2 fewer random planets, then your pick if there are not enough
       if (_lose > 0) G.startLeft = Math.max(0, G.startLeft - _lose); G.bag.push(mk('j'), mk('j')); if (G.startLeft <= 0) { G.mode = 'idle'; } } if (_cid == 2) G.bag.push(mk('rog')); G.msg = '📜 ' + CHAP[i - 1].n.split(' · ')[0] + (G.mode == 'start' ? ': pick your starting planets, then spin.' : ': spin when ready.'); DH = ''; draw(); };
+  function rescRun() { return typeof G != 'undefined' && G && G.camp && chId(G.camp) == 'rescue'; }
+  if (typeof window.ppool == 'function') { var pp0 = window.ppool; window.ppool = function () { var o = pp0.apply(this, arguments); return rescRun() ? o.filter(function (x) { return x[0] != 'r'; }) : o; }; }
+  if (typeof window.shopPool == 'function') { var shp0 = window.shopPool; window.shopPool = function () { var o = shp0.apply(this, arguments); return rescRun() ? o.filter(function (r) { return r.id != 'forge' && r.id != 'cinder'; }) : o; }; }
+  window.campStep = async function (cs) { if (!rescRun()) return; var rs = [];
+    cs.forEach(function (c, i) { if (!c || c.k != 'des') return; nb(i, desRg() + (c.up || 0)).forEach(function (j) { var x = cs[j]; if (x && x.k == 'nau' && rs.indexOf(j) < 0) rs.push(j); }); });
+    for (var q = 0; q < rs.length; q++) { var j = rs[q], a = cs[j]; G.fx = {}; G.fx[j] = 'buff'; G.pops = {}; G.saved = (G.saved || 0) + 1; G.pops[j] = '🧑‍🚀 Saved!'; G.banner = '🧑‍🚀 Astronaut rescued!<small>' + G.saved + ' / 10 saved</small>'; draw(); await sleep(1300);
+      var bx = G.bag.indexOf(a); if (bx > -1) G.bag.splice(bx, 1); cs[j] = null; G.cells = cs; G.banner = ''; G.fx = {}; G.pops = {}; draw(); } };
   function mineRun() { return typeof G != 'undefined' && G && G.camp && chId(G.camp) == 'mine'; }
-  if (typeof window.spin0 == 'function') { var sp0 = window.spin0; window.spin0 = function () { try { if (mineRun() && !G.busy && G.mode == 'idle') { G.bag.push(mk('ast')); G.msg = '🪨 An Asteroid drifts in from the Belt.'; } } catch (e) {} return sp0.apply(this, arguments); }; }
+  if (typeof window.spin0 == 'function') { var sp0 = window.spin0; window.spin0 = function () { try { if (mineRun() && !G.busy && G.mode == 'idle') { G.bag.push(mk('ast')); G.msg = '🪨 An Asteroid drifts in from the Belt.'; } if (rescRun() && !G.busy && G.mode == 'idle' && !G.n) { G.bag.push(mk('nau')); G.msg = '🧑‍🚀 A lost Astronaut drifts into range. Bring them home!'; } } catch (e) {} return sp0.apply(this, arguments); }; }
   if (typeof window.RT == 'function') { var rt0 = window.RT; window.RT = function (t) { var v = rt0.apply(this, arguments); return mineRun() && t >= 7 ? Math.round(v * 1.25) : v; }; }
   function skyRun() { return typeof G != 'undefined' && G && G.camp && chId(G.camp) == 'sky'; }
   if (typeof window.ipool == 'function') { var ip0 = window.ipool; window.ipool = function () { var o = ip0.apply(this, arguments); return (skyRun() || mineRun()) ? o.filter(function (x) { return x[0] != 'des'; }) : o; }; }
@@ -846,7 +857,8 @@
   wrapHtml('gameHtml', function (h) {
     if (G && G.over && G.campNew && !G.camp) h = h.replace('<button class="sm" onclick="newGame()">New run</button>', '<div class="box" style="border:1px solid var(--gd);margin:12px 0"><h3 style="margin:0">📜 Campaign unlocked!</h3><small>' + CAMP_MSG + '</small></div><button class="sm" onclick="showCamp()">📜 Campaign</button><button class="sm" onclick="newGame()">New run</button>');
     if (!G || !G.camp) return h;
-    var tag = '<span class="dv-tag" style="background:#ffd36a;box-shadow:0 0 12px #ffd36a">📜 CHAPTER ' + G.camp + '</span>';
+    var tag = '<span class="dv-tag" style="background:#ffd36a;box-shadow:0 0 12px #ffd36a">📜 CHAPTER ' + G.camp + (chId(G.camp) == 'rescue' ? ' · 🧑‍🚀 ' + (G.saved || 0) + '/10' : '') + '</span>';
+    if (G.over && G.rescFail) h = h.replace('💀 FAME FELL SHORT', '🧑‍🚀 ASTRONAUTS LOST').replace(/You had [^<]*needed [^<]*⭐\./, 'You reached every fame goal, but only saved ' + (G.saved || 0) + ' of 10 Astronauts.');
     h = h.replace('GALAXY FAME', 'GALAXY FAME ' + tag);
     if (G.over) { var won = G.over == 'win';
       var box = '<div class="box" style="border:1px solid var(--gd);margin:12px 0"><h3 style="margin:0">📜 ' + CHAP[G.camp - 1].n + '</h3>' + (won ? '<div style="border:1px solid var(--ln);border-radius:12px;padding:12px 14px;margin:8px 0;background:#0008;font-style:italic;line-height:1.55;text-align:left">' + (CHAP[G.camp - 1].ending || '') + '</div><small>Chapter beaten!' + (G.camp < CHAP.length ? ' The next chapter can now be unlocked.' : '') + '</small>' : '<small>Not this time. Retry the chapter to take another shot.</small>') + '</div>';
@@ -854,6 +866,7 @@
     return h; });
   // a chapter win marks the chapter beaten and never moves your Prestige
   if (typeof window.finish == 'function') { var cf0 = window.finish; window.finish = function (r) {
+    if (typeof G != 'undefined' && G && G.camp && chId(G.camp) == 'rescue' && r == 'win' && (G.saved || 0) < 10) { G.rescFail = 1; r = 'lose'; }
     if (!(G && G.camp)) { var o0 = cf0.apply(this, arguments); try { if (r == 'win' && PLV() >= 10 && !CM().open) { CM().open = 1; CM().fresh = 1; G.campNew = 1; save(); } } catch (e) {} return o0; }
     var sp = M.prestige, spl = M.plvl, out = cf0.apply(this, arguments);
     M.prestige = sp; M.plvl = spl; G.prestigeUp = false; if (r == 'win') CM().won[chId(G.camp)] = 1; save(); return out; }; }
