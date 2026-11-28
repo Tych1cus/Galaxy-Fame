@@ -758,11 +758,18 @@
   // opens after the one before it is beaten. Chapter runs use Prestige 10 rules, Leeroy is off, they give
   // Star Shards as normal but stay off the leaderboard, best score and stats. Developer Mode: every chapter free.
   var CHAP = [
-    { n: 'Chapter 1 · The Dust Reaches',
+    { id: 'sky', n: 'Chapter 1 · Young Skymaker',
+      story: 'On a quiet forest world, a Young Skymaker spends every night building a little ship and dreaming of the stars. Then the asteroids come. Rocks rain down on the forest, and the dream is no longer a dream: it is the only way to save his home.<br><br>Build your ship. Clear the skies. It is time to live up to your calling, Young Skymaker.',
+      rules: 'Prestige 10 rules. You start with Debris Field, a Forest, an Orbital Factory and 2 Asteroids. Ships can only be found during fame goal 5. Reach every fame goal to win.',
+      ending: 'The last rock breaks apart over the treetops. Below, the forest is still standing. Above, a little ship turns toward the stars. The Young Skymaker has found his sky.' }
+  ];
+  // archdevious's chapters, saved for later (not shown for now). Their progress is kept under ids 1 and 2.
+  var CHAP_LATER = [
+    { id: 1, n: 'Chapter 1 · The Dust Reaches',
       story: 'Your father charted half the known stars, and his star maps still hang in every observatory. Today the Star Council handed you a sector of your own: the Dust Reaches, a grey drift of cosmic dust that no planner has ever wanted. The others laugh when they hear where you are going. You don\'t. Somewhere under all that dust is a sky worth seeing, and you are going to make it shine.',
       rules: 'Prestige 10 rules. You start with 2 fewer planets but 2 Cosmic Dusts. Whenever a Supernova burns out on the board, 2 Cosmic Dusts drift into your bag. Reach every fame goal to win.',
       ending: 'The last fame goal lights up across the Reaches. Where there was only grey dust, young stars now burn, and passing ships are already changing course to see them. At the Star Council, nobody is laughing anymore. That night a single message arrives from your father: "I knew you would."' }
-    ,{ n: 'Chapter 2 · Pirates in the Reaches',
+    ,{ id: 2, n: 'Chapter 2 · Pirates in the Reaches',
       story: 'Word travels fast. The Reaches now shine bright enough to be seen three systems away, and not everyone who comes to look is friendly. Your new sector has no patrols and no beacons, and a rogue crew of mining pirates has already slipped in to strip your asteroid fields bare. Rebuild what they break, keep the sector shining, and show these troublemakers this is no longer a place they can take from.',
       rules: 'Prestige 10 rules. A Rogue Destroyer starts in your bag. He shoots nearby Asteroids and grows from every one he takes. Each spin he lands, his fame is taken from yours: 3, +1 for every Asteroid he has shot. Nothing he destroys pays you anything. He can\'t be removed. Reach every fame goal to win.',
       ending: 'The last pirate ship limps out of the Reaches with an empty hold. Patrol beacons now ring the sector, and the miners who stayed behind work under your flag. The Star Council sends an inspector, who leaves a single line in the records: "Sector secure."' }
@@ -793,22 +800,26 @@
     try { var st = JSON.parse(localStorage.getItem('gf_stats') || 'null'); if (st && st.runs && st.runs.some(function (r) { return r.p >= 10 && r.end == 'win'; })) beat = true; } catch (e) {}
     if (beat) { CM().open = 1; CM().fresh = 1; save(); } })();
   var CAMP_MSG = 'You beat Prestige 10. A new sector awaits: open 📜 Campaign on the menu.';
-  function chOwned(i) { return DEVM || !!CM().own[i]; }
-  function chWon(i) { return !!CM().won[i]; }
+  function chId(i) { return (CHAP[i - 1] && CHAP[i - 1].id) || i; }
+  function chOwned(i) { return DEVM || !!CM().own[chId(i)]; }
+  function chWon(i) { return !!CM().won[chId(i)]; }
   function chReady(i) { return DEVM || i == 1 || chWon(i - 1); }      // can be bought / played
   var campNext = 0;
   if (typeof window.PV == 'function') { var pv0 = window.PV; window.PV = function () { if ((typeof G != 'undefined' && G && G.camp) || campNext) return PEFF[9] || pv0(); return pv0(); }; }
-  window.campBuy = function (i) { if (chOwned(i) || !chReady(i) || M.shards < CAMP_COST) return; M.shards -= CAMP_COST; CM().own[i] = 1; save(); draw(); };
+  window.campBuy = function (i) { if (chOwned(i) || !chReady(i) || M.shards < CAMP_COST) return; M.shards -= CAMP_COST; CM().own[chId(i)] = 1; save(); draw(); };
   window.campPlay = function (i) { if (!chOwned(i) || !chReady(i)) return; campNext = i; try { newGame(); } finally { campNext = 0; }
-    G.camp = i; G.lj = 0; if (i == 1) { var _lose = 2; while (_lose > 0) { var _pl = G.bag.filter(function (x) { return K[x.k]; }); if (!_pl.length) break; G.bag.splice(G.bag.indexOf(_pl[R(_pl.length)]), 1); _lose--; }   // 2 fewer random planets, then your pick if there are not enough
-      if (_lose > 0) G.startLeft = Math.max(0, G.startLeft - _lose); G.bag.push(mk('j'), mk('j')); if (G.startLeft <= 0) { G.mode = 'idle'; } } if (i == 2) G.bag.push(mk('rog')); G.msg = '📜 ' + CHAP[i - 1].n.split(' · ')[0] + (G.mode == 'start' ? ': pick your starting planets, then spin.' : ': spin when ready.'); DH = ''; draw(); };
+    G.camp = i; G.lj = 0; var _cid = chId(i); if (_cid == 'sky') { G.bag = [mk('r'), mk('fac'), mk('ast'), mk('ast')]; if (G.rel.indexOf('debris') < 0) G.rel.push('debris'); G.debrisField = 1; G.startLeft = 0; G.mode = 'idle'; } if (_cid == 1) { var _lose = 2; while (_lose > 0) { var _pl = G.bag.filter(function (x) { return K[x.k]; }); if (!_pl.length) break; G.bag.splice(G.bag.indexOf(_pl[R(_pl.length)]), 1); _lose--; }   // 2 fewer random planets, then your pick if there are not enough
+      if (_lose > 0) G.startLeft = Math.max(0, G.startLeft - _lose); G.bag.push(mk('j'), mk('j')); if (G.startLeft <= 0) { G.mode = 'idle'; } } if (_cid == 2) G.bag.push(mk('rog')); G.msg = '📜 ' + CHAP[i - 1].n.split(' · ')[0] + (G.mode == 'start' ? ': pick your starting planets, then spin.' : ': spin when ready.'); DH = ''; draw(); };
+  function skyRun() { return typeof G != 'undefined' && G && G.camp && chId(G.camp) == 'sky'; }
+  if (typeof window.ipool == 'function') { var ip0 = window.ipool; window.ipool = function () { var o = ip0.apply(this, arguments); return skyRun() ? o.filter(function (x) { return x[0] != 'des'; }) : o; }; }
+  if (typeof window.offer == 'function') { var of0 = window.offer; window.offer = function () { var o = of0.apply(this, arguments); try { if (skyRun() && G.t == 4 && G.offer && G.offer.length) G.offer = G.offer.map(function () { return 'des'; }); } catch (e) {} return o; }; }
   window.showCamp = function () { if (CM().fresh) { CM().fresh = 0; save(); } SCR = 'camp'; draw(); };
-  window.campBurn = function () { if (G && G.camp == 1) { G.bag.push(mk('j'), mk('j')); G._cb = (G._cb || 0) + 2; } };
+  window.campBurn = function () { if (G && G.camp && chId(G.camp) == 1) { G.bag.push(mk('j'), mk('j')); G._cb = (G._cb || 0) + 2; } };
   function campHtml() {
     var h = '<div class="hd"><h1>📜 CAMPAIGN</h1><button class="sm" style="margin:0" onclick="showMenu()">← Back</button></div>' +
       '<p style="color:var(--mu);text-align:center">✨ ' + M.shards + ' Star Shards' + (DEVM ? ' · Developer Mode: every chapter is unlocked for testing' : '') + '</p>';
     // until Chapter 1 is bought, only this explanation shows; after that it is gone for good
-    if (!CM().own[1]) h += '<div class="box" style="max-width:560px;margin:14px auto;text-align:left;line-height:1.55">Campaign missions do not count for the leaderboards or your best score. Leeroy Jenkins mode is always off. You still earn Star Shards.</div>';
+    if (!CM().own[chId(1)]) h += '<div class="box" style="max-width:560px;margin:14px auto;text-align:left;line-height:1.55">Campaign missions do not count for the leaderboards or your best score. Leeroy Jenkins mode is always off. You still earn Star Shards.</div>';
     for (var i = 1; i <= CHAP.length; i++) {
       if (!DEVM && i > 1 && !chWon(i - 1)) break;
       var c = CHAP[i - 1], own = chOwned(i), won = chWon(i);
@@ -838,7 +849,7 @@
   if (typeof window.finish == 'function') { var cf0 = window.finish; window.finish = function (r) {
     if (!(G && G.camp)) { var o0 = cf0.apply(this, arguments); try { if (r == 'win' && PLV() >= 10 && !CM().open) { CM().open = 1; CM().fresh = 1; G.campNew = 1; save(); } } catch (e) {} return o0; }
     var sp = M.prestige, spl = M.plvl, out = cf0.apply(this, arguments);
-    M.prestige = sp; M.plvl = spl; G.prestigeUp = false; if (r == 'win') CM().won[G.camp] = 1; save(); return out; }; }
+    M.prestige = sp; M.plvl = spl; G.prestigeUp = false; if (r == 'win') CM().won[chId(G.camp)] = 1; save(); return out; }; }
   // keep the chapter with a saved run
   if (typeof window.saveRun == 'function') { var cs0 = window.saveRun; window.saveRun = function () { var o = cs0.apply(this, arguments);
     try { if (G && G.camp && !G.over) { var r = JSON.parse(localStorage.getItem('gf_run') || 'null'); if (r) { r.camp = G.camp; localStorage.setItem('gf_run', JSON.stringify(r)); } } } catch (e) {} return o; }; }
