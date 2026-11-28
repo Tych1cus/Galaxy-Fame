@@ -764,7 +764,7 @@
       ending: 'The last rock breaks apart over the treetops. Below, the forest is still standing. Above, a little ship turns toward the stars. The Young Skymaker has found his sky.' }
     ,{ id: 'mine', n: 'Chapter 2 · If You Can\'t Beat Them',
       story: 'The asteroids were only the beginning. Behind them comes an entire Asteroid Belt, far too thick for any ship to fight through. So the Young Skymaker changes course: if you can\'t beat them, join them. Mine the rocks, build a new economy on them, and turn the storm into a fortune.<br><br>This could set you up for greater things.',
-      rules: 'Prestige 10 rules. You start with 2 Quarries. An Asteroid appears every spin. No ships can be found. Fame goals 8 to 10 are 25% harder. Reach every fame goal to win.',
+      rules: 'Prestige 10 rules. You start with 2 Quarries. An Asteroid appears every spin. No ships can be found. Every fame goal is twice as hard, and goals 8 to 10 are another 25% harder. Reach every fame goal to win.',
       ending: 'Where rocks once fell, mining rigs now hum. The Belt that nearly buried the forest now feeds it, and traders come from three systems away to buy what the Young Skymaker digs up. Greater things are coming.' }
     ,{ id: 'rescue', n: 'Chapter 3 · Lost in Space',
       story: 'You survived the asteroids, but not without damage back home. Families lost the fields they worked, and your new enterprise needs workers. Young people are heading for the stars in search of adventure and fame.<br><br>Not everyone is as gifted as the Young Skymaker. New astronauts are getting lost out there, and only your ship can bring them home.',
@@ -827,7 +827,7 @@
       var bx = G.bag.indexOf(a); if (bx > -1) G.bag.splice(bx, 1); cs[j] = null; G.cells = cs; G.banner = ''; G.fx = {}; G.pops = {}; draw(); } };
   function mineRun() { return typeof G != 'undefined' && G && G.camp && chId(G.camp) == 'mine'; }
   if (typeof window.spin0 == 'function') { var sp0 = window.spin0; window.spin0 = function () { try { if (mineRun() && !G.busy && G.mode == 'idle') { G.bag.push(mk('ast')); G.msg = '🪨 An Asteroid drifts in from the Belt.'; } if (rescRun() && !G.busy && G.mode == 'idle' && !G.n) { G.bag.push(mk('nau')); G.msg = '🧑‍🚀 A lost Astronaut drifts into range. Bring them home!'; } } catch (e) {} return sp0.apply(this, arguments); }; }
-  if (typeof window.RT == 'function') { var rt0 = window.RT; window.RT = function (t) { var v = rt0.apply(this, arguments); return mineRun() && t >= 7 ? Math.round(v * 1.25) : v; }; }
+  if (typeof window.RT == 'function') { var rt0 = window.RT; window.RT = function (t) { var v = rt0.apply(this, arguments); return mineRun() ? Math.round(v * 2 * (t >= 7 ? 1.25 : 1)) : v; }; }
   function skyRun() { return typeof G != 'undefined' && G && G.camp && chId(G.camp) == 'sky'; }
   if (typeof window.ipool == 'function') { var ip0 = window.ipool; window.ipool = function () { var o = ip0.apply(this, arguments); return (skyRun() || mineRun()) ? o.filter(function (x) { return x[0] != 'des'; }) : o; }; }
   if (typeof window.offer == 'function') { var of0 = window.offer; window.offer = function () { var o = of0.apply(this, arguments); try { if (skyRun() && G.t == 4 && G.offer && G.offer.length) G.offer = G.offer.map(function () { return 'des'; }); } catch (e) {} return o; }; }
